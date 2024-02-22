@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TEOytME/JIjNAx4vebJPttFKGpnQgGdH/3Bmha3Gkhk=",
+  "Hash": "k5MZFtmpTePh6DRGyUiWdXjj9YiLJl1ay+eWcDIynAc=",
   "Source": "Intranet",
   "BasePath": "_content/Intranet",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Intranet\\wwwroot",
       "Source": "Intranet",
-      "ContentRoot": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\",
+      "ContentRoot": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\",
       "BasePath": "_content/Intranet",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Intranet.styles.css",
+      "Identity": "C:\\Intranet\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Intranet.styles.css",
       "SourceId": "Intranet",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Intranet\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Intranet",
       "RelativePath": "Intranet.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Intranet.styles.css"
+      "OriginalItemSpec": "C:\\Intranet\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Intranet.styles.css"
     },
     {
-      "Identity": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Intranet.bundle.scp.css",
+      "Identity": "C:\\Intranet\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Intranet.bundle.scp.css",
       "SourceId": "Intranet",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Intranet\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/Intranet",
       "RelativePath": "Intranet.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Intranet.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Intranet\\Intranet\\Intranet\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Intranet.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\app.css",
+      "Identity": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\app.css",
       "SourceId": "Intranet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\",
+      "ContentRoot": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\",
       "BasePath": "_content/Intranet",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "Intranet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\",
+      "ContentRoot": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\",
       "BasePath": "_content/Intranet",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "Intranet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\",
+      "ContentRoot": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\",
       "BasePath": "_content/Intranet",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\favicon.png",
+      "Identity": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\favicon.png",
       "SourceId": "Intranet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\programador2\\source\\repos\\Intranet\\Intranet\\wwwroot\\",
+      "ContentRoot": "C:\\Intranet\\Intranet\\Intranet\\wwwroot\\",
       "BasePath": "_content/Intranet",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

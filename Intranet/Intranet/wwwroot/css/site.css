@@ -188,17 +188,16 @@ a, .btn-link {
 .container-content3-data-container {
     width: 38rem;
     height: 8rem;
-    position:fixed;
     background: orange;
     margin-top: -18rem;
     margin-left: 20rem;
+    display: inline-block;
 }
 
 .container-content3-data-subcontainer {
     width: 10rem;
     height: 100%;
     background: blue;
-    display: inline-block;
 }
 
 .subcontainer-container-content3-data {

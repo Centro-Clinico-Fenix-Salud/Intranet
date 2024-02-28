@@ -1,6 +1,11 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-html, body {
+body{
+    overflow-x: hidden;
+}
+
+html, body{
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -38,6 +43,7 @@ a, .btn-link {
     color: red;
 }
 
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -67,5 +73,136 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+.container-nav-bar {
+    width: 60rem;
+    height: 5rem;
+    background-image: linear-gradient(to right top, #48badb, #3eb8d5, #33b6cf, #29b3c8, #1fb1c1, #19b0c2, #11b0c3, #07afc4, #10afcc, #20afd4, #31afda, #42aee0);
+    border-radius: 1rem;
+    overflow:hidden;
+}
 
+.container-nav-bar-title {
+    width: 15rem;
+    height: 3rem;
+    margin-left: 20rem;
+    margin-top: 1rem;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.2rem;
+}
 
+.container-content1 {
+    width: 20rem;
+    height: 5rem;
+    margin-top: 2rem;
+    overflow: hidden;
+}
+
+.title-container-content1 {
+    width: 16rem;
+    height: 2rem;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.40rem;
+}
+
+.line-container-content1 {
+    display: flex;
+    width: 15.30rem;
+    height: 0.25rem;
+    margin-top: -0.80rem;
+    background-color: #3AB9B3;
+}
+
+.subtitle-container-content1 {
+    font-size: 1.20rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+}
+
+.container-content2 {
+    width: 60rem;
+    height:7rem;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.subcontainer-content2 {
+    width: 19rem;
+    height: 10rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    display:inline-block;
+}
+
+.container-content2-image{
+    width: 3rem;
+    height:3rem;
+    margin-top:1rem;
+    margin-left:1rem;
+    overflow:hidden;
+}
+
+.container-content2-title {
+    width: 10rem;
+    margin-top: -3rem;
+    margin-left: 4.50rem;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.container-content2-description {
+    width: 15rem;
+    margin-top: -0.85rem;
+    margin-left: 4.50rem;
+    font-family: "Montserrat", sans-serif;
+    font-size: 11px;
+}
+
+.container-content3 {
+    width: 60rem;
+    height: 24rem;
+    background-image: linear-gradient(to right top, #48badb, #3eb8d5, #33b6cf, #29b3c8, #1fb1c1, #19b0c2, #11b0c3, #07afc4, #10afcc, #20afd4, #31afda, #42aee0);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.container-content3-image-container {
+    width: 16rem;
+    height: 16rem;
+    margin-top: 4rem;
+    margin-left: 1rem;
+    overflow: hidden;
+    background:red;
+}
+
+.container-content3-image-container-image {
+    width: 15rem;
+    height: 15rem;
+    overflow: hidden;
+    border-radius:48rem;
+}
+
+.container-content3-data-container {
+    width: 38rem;
+    height: 8rem;
+    position:fixed;
+    background: orange;
+    margin-top: -18rem;
+    margin-left: 20rem;
+}
+
+.container-content3-data-subcontainer {
+    width: 10rem;
+    height: 100%;
+    background: blue;
+    display: inline-block;
+}
+
+.subcontainer-container-content3-data {
+    width: 20%;
+    height: 20%;
+    background: green;
+}

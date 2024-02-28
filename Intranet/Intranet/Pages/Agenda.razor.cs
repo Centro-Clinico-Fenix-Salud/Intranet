@@ -16,8 +16,10 @@ namespace Intranet.Pages
         private bool _resizeColumn = true;
         private bool mostrarModalEliminar = false;
         private bool mostrarModalNuevo = false;
+        private bool mostrarModalEditar = false;
         private string RegistroEliminar = string.Empty;
         AgendaCreate CreateAgenda = new AgendaCreate();
+        AgendaEditar EditarAgenda = new AgendaEditar();
         private List<string> ListUnidad = new List<string>();
         private List<string> ListUbicacion = new List<string>();
         public IQueryable<AgendaModel> MaestroDireccionTelefonica { get; set; } = null;
@@ -29,15 +31,18 @@ namespace Intranet.Pages
         bool success;
         private bool UbicacionSeleccionadaValid = true;
         private EditContext editContext;
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        private Guid IdELiminarAgenda;
+
+        [Parameter]
+        public string parametro { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            MaestroDireccionTelefonica = GetDireccionTelefonica().AsQueryable();
+            MaestroDireccionTelefonica = Data().AsQueryable();
             DireccionTelefonica = MaestroDireccionTelefonica;
             await obtenerUnidadAgenda();
             await obtenerUbicacionAgenda();
-
+            
         }
 
         private async Task obtenerUnidadAgenda() 
@@ -74,12 +79,28 @@ namespace Intranet.Pages
 
         public void Editar(MudBlazor.CellContext<AgendaModel> direccionTelefonica)
         {
-            
+            int extensionInt;
+            EditarAgenda.Id = direccionTelefonica.Item.Id;
+            EditarAgenda.Nombre = direccionTelefonica.Item.Nombre;
+            EditarAgenda.Unidad = direccionTelefonica.Item.Unidad;
+            EditarAgenda.Ubicacion = direccionTelefonica.Item.Ubicacion;
+            int.TryParse(direccionTelefonica.Item.Extension, out extensionInt);
+            EditarAgenda.Extension = extensionInt;
 
+            mostrarModalEditar = true;
+
+        }
+
+        private void CerrarModalEditar()
+        {
+            GetDireccionTelefonica();
+            mostrarModalEditar = false;
+            StateHasChanged();
         }
         public void Eliminar (MudBlazor.CellContext<AgendaModel> direccionTelefonica)
         {
             RegistroEliminar = direccionTelefonica.Item.Nombre + " - " + direccionTelefonica.Item.Unidad;
+            IdELiminarAgenda = direccionTelefonica.Item.Id;
             mostrarModalEliminar = true;
         }
 
@@ -112,24 +133,38 @@ namespace Intranet.Pages
 
             mostrarModalNuevo = false;
         }
-        void CerrarModalEliminar()
+        private void CerrarModalEliminar()
         {
+            IdELiminarAgenda = Guid.Empty;
+            StateHasChanged();
             mostrarModalEliminar = false;
+
         }
-        void CerrarModalNuevo()
+        private void CerrarModalNuevo()
         {
+            GetDireccionTelefonica();          
             mostrarModalNuevo = false;
-           
-        }
-        void Cancel() => MudDialog.CancelAll();
+            CreateAgenda = new AgendaCreate();
+            StateHasChanged();
 
-        void EliminarRegistro()
+        }
+       
+        private void EliminarRegistro()
         {
-            // Lógica para eliminar el registro aquí
-            mostrarModalEliminar = false;
+            var listAgenda = GetDireccionTelefonica();
+            AgendaModel registroParaEliminar = listAgenda.Where(a => a.Id == IdELiminarAgenda).FirstOrDefault();
+
+            if (registroParaEliminar != null)
+            {
+                listAgenda.Remove(registroParaEliminar);
+
+                MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
+                CerrarModalEliminar();
+            }
+       
         }
 
-        public List<AgendaModel> GetDireccionTelefonica()
+        public List<AgendaModel> Data()
         {
             var resultado = new List<AgendaModel>();
 
@@ -155,6 +190,13 @@ namespace Intranet.Pages
             resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Nelso Colmenares", Unidad = "tecnologia", Ubicacion = "Torre quirurgica", Extension = "80" });
             resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Orlando Mujica", Unidad = "Trasporte", Ubicacion = "C. Convenciones", Extension = "63" });
 
+            return resultado.OrderBy(a => a.Nombre).ToList();
+        }
+
+        public List<AgendaModel> GetDireccionTelefonica()
+        {
+            var resultado = MaestroDireccionTelefonica;
+          
             return resultado.OrderBy(a => a.Nombre).ToList(); 
         }
 
@@ -194,6 +236,13 @@ namespace Intranet.Pages
 
             UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
         }
+        private void OnUbicacionSeleccionadaEditarChanged(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+                EditarAgenda.Ubicacion = value;
+
+            UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
+        }
         private void ChangeVariant(string message, Variant variant)
         {
             Snackbar.Configuration.SnackbarVariant = variant;
@@ -201,7 +250,7 @@ namespace Intranet.Pages
             Snackbar.Add($"Error {message}", Severity.Error);
         }
 
-        private void OnValidSubmit(EditContext context)
+        private async Task OnValidSubmit(EditContext context)
         {
             var listAgenda = GetDireccionTelefonica();
             AgendaModel agendaModel = new AgendaModel();
@@ -213,8 +262,25 @@ namespace Intranet.Pages
 
             listAgenda.Add(agendaModel);
             MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
-            mostrarModalNuevo = false;
-            StateHasChanged();
+            CerrarModalNuevo();          
+        }
+
+        private async Task EditarAgente(EditContext context)
+        {
+            var listAgenda = GetDireccionTelefonica();
+            AgendaModel agendaAEditar = listAgenda.Where(a => a.Id == EditarAgenda.Id).FirstOrDefault();
+
+            if (agendaAEditar != null) 
+            {
+                agendaAEditar.Nombre = EditarAgenda.Nombre;
+                agendaAEditar.Unidad = EditarAgenda.Unidad;
+                agendaAEditar.Ubicacion = EditarAgenda.Ubicacion;
+                agendaAEditar.Extension = EditarAgenda.Extension.ToString();
+
+                MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
+                CerrarModalEditar();              
+            }
+         
         }
 
     }

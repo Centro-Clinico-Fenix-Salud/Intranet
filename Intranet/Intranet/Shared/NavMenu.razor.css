@@ -8,12 +8,13 @@
 }
 
 .navbar-brand {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+    /*margin-right: 30px;*/
 }
 
 .oi {
     width: 2rem;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     vertical-align: text-top;
     top: -2px;
 }
@@ -65,4 +66,27 @@
         height: calc(100vh - 3.5rem);
         overflow-y: auto;
     }
+    .navbar-brand {
+        font-size: 0.9rem;
+        visibility: visible;
+    }
+    /*.navbar-brand {
+        margin-right: 40px; 
+    }*/
 }
+
+/*@media screen and (width: 768px) {
+        .navbar-brand {
+            font-size: 0.9rem; 
+            visibility:hidden;
+        }*/
+        /*.oi {
+            width: 2rem;
+            font-size: 0.8rem;
+            vertical-align: text-top;
+            top: -2px;
+        }
+        logoFenix {
+
+        }*/
+    /*}*/

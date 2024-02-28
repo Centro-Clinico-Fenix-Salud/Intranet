@@ -51,6 +51,7 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 Intranet/Intranet/obj/Debug/net7.0/project.razor.vscode.bin
 Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+<<<<<<< HEAD
 *.v2
 Intranet/.vs/Intranet/FileContentIndex/7041c469-b87a-4719-9b51-9bc0cfa5766b.vsidx
 Intranet/.vs/Intranet/FileContentIndex/adf0a31b-2762-4833-88cf-fb96f5e5cd08.vsidx
@@ -62,3 +63,9 @@ Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
 Intranet/.vs/ProjectEvaluation/intranet.projects.v7.bin
 Intranet/Intranet/obj/Debug/net7.0/ApiEndpoints.json
 Intranet/Intranet/Pages/Agenda.razor
+=======
+*.vsidx
+*.v2
+/Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+>>>>>>> 2b140c0f82eafd75a2d7c546c44aae95d87e7a01
+Intranet/Intranet/obj/Intranet.csproj.nuget.g.props

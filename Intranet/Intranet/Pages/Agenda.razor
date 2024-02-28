@@ -1,0 +1,130 @@
+﻿@page "/Agenda"
+@using Intranet.Modelos.Agenda;
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.DataAnnotations
+@inject ISnackbar Snackbar
+
+<PageTitle>Agenda</PageTitle>
+
+<h1>Agenda</h1>
+
+<div class="mb-3">
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => Nuevo())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
+</div>
+
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Buscar..." @bind="searchTerm">
+    <div class="input-group-append">
+        <button class="btn btn-outline-primary" @onclick="@(()=>Buscar())">Buscar</button>
+    </div>
+</div>
+
+
+<MudDataGrid T="AgendaModel" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
+    <Columns>
+        <TemplateColumn Title="Acciones" Sortable="false">
+            <CellTemplate>
+                <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar"  Size="@Size.Medium" OnClick="@(() => Editar(context))" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context))" />
+            </CellTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.Nombre" Sortable="true" />
+        <PropertyColumn Property="x => x.Unidad" Sortable="false" />
+        <PropertyColumn Property="x => x.Ubicacion" Sortable="false" />
+        <PropertyColumn Property="x => x.Extension" Sortable="false" />
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="AgendaModel" PageSizeOptions=@(new int[] {5, 10, 20}) />
+    </PagerContent>
+</MudDataGrid>
+
+@if (mostrarModalEliminar)
+{
+    <div class="modal show  d-flex justify-content-center align-items-center" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este registro <span style ="font-weight: bold;"> @RegistroEliminar </span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="EliminarRegistro">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+@if (mostrarModalNuevo)
+{
+ @*    <div class="modal show" tabindex="-1" role="dialog" style="display: block;"> *@
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar</h5>
+                <button type="button" class="close" @onclick="CerrarModalNuevo">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <EditForm Model="@CreateAgenda" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator/>
+            <MudGrid>
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardContent>
+                            <MudTextField Label="Nombre de usuario" @bind-Value="CreateAgenda.Nombre" For="@(() => CreateAgenda.Nombre)"
+                              />
+                            <MudItem>
+                                <MudAutocomplete T="string" Label="Selecciona una Unidad" @bind-Value="CreateAgenda.Unidad" SearchFunc="@Search2"
+                                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary"/>
+                            </MudItem>
+                            <ValidationMessage For="@(() => CreateAgenda.Unidad)" />
+                            <MudSelect T="string" Label="Selecciona una Ubicacion"
+                                       ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar una ubicación" : "")"
+                                       Value="CreateAgenda.Ubicacion" ValueChanged="OnUbicacionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var unidad in ListUbicacion)
+                                {
+                                    <MudSelectItem Value="@unidad" />
+                                }
+                            </MudSelect>
+                            <ValidationMessage For="@(() => CreateAgenda.Ubicacion)" />
+                            <MudNumericField Label="Numero de extension" @bind-Value="CreateAgenda.Extension" For="@(() => CreateAgenda.Extension)"
+                             />
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevo" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+           </MudGrid>
+        </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+      
+    @* </div> *@
+    @* <div class="modal-backdrop show"></div> *@
+}
+
+    
+
+
+<style>
+ 
+</style>
+
+
+

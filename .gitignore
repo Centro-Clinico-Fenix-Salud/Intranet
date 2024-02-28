@@ -51,3 +51,6 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 Intranet/Intranet/obj/Debug/net7.0/project.razor.vscode.bin
 Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+*.vsidx
+*.v2
+/Intranet/Intranet/obj/Intranet.csproj.nuget.g.props

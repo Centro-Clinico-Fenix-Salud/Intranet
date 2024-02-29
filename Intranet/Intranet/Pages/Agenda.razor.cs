@@ -1,5 +1,4 @@
-﻿using static MudBlazor.CategoryTypes;
-using Intranet.Modelos.Agenda;
+﻿using Intranet.Modelos.Agenda;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Linq;
@@ -7,10 +6,11 @@ using static MudBlazor.Colors;
 using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel.DataAnnotations;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System;
 
 namespace Intranet.Pages
 {
-    public partial class Agenda
+    public partial class Agenda : ComponentBase
     {
         private string searchTerm;
         private bool _resizeColumn = true;
@@ -35,6 +35,8 @@ namespace Intranet.Pages
 
         [Parameter]
         public string parametro { get; set; }
+        [Inject]
+        private ISnackbar Snackbar { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -109,30 +111,30 @@ namespace Intranet.Pages
             CreateAgenda = new AgendaCreate();
             mostrarModalNuevo = true;
         }
-        public void NuevoRegistro()
-        {
-            //validacion
-            if (string.IsNullOrEmpty(CreateAgenda.Unidad)) {
-                ChangeVariant("campo Unidad es requerido", Variant.Filled);
-                return;
-            }
-            if (string.IsNullOrEmpty(CreateAgenda.Ubicacion))
-            {
-                ChangeVariant("campo Ubicacion es requerido", Variant.Filled);
-                return;
-            }
-            editContext = new EditContext(CreateAgenda);
+        //public void NuevoRegistro()
+        //{
+        //    //validacion
+        //    if (string.IsNullOrEmpty(CreateAgenda.Unidad)) {
+        //        ChangeVariant("campo Unidad es requerido", Variant.Filled);
+        //        return;
+        //    }
+        //    if (string.IsNullOrEmpty(CreateAgenda.Ubicacion))
+        //    {
+        //        ChangeVariant("campo Ubicacion es requerido", Variant.Filled);
+        //        return;
+        //    }
+        //    editContext = new EditContext(CreateAgenda);
 
-            editContext.Validate();
+        //    editContext.Validate();
 
-            if (editContext.Validate())
-            {
-                return;
-            }
+        //    if (editContext.Validate())
+        //    {
+        //        return;
+        //    }
 
 
-            mostrarModalNuevo = false;
-        }
+        //    mostrarModalNuevo = false;
+        //}
         private void CerrarModalEliminar()
         {
             IdELiminarAgenda = Guid.Empty;
@@ -160,6 +162,7 @@ namespace Intranet.Pages
 
                 MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
                 CerrarModalEliminar();
+                Snackbar.Add("Eliminacion exitosa", Severity.Info);
             }
        
         }
@@ -243,12 +246,6 @@ namespace Intranet.Pages
 
             UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
         }
-        private void ChangeVariant(string message, Variant variant)
-        {
-            Snackbar.Configuration.SnackbarVariant = variant;
-            Snackbar.Configuration.MaxDisplayedSnackbars = 10;
-            Snackbar.Add($"Error {message}", Severity.Error);
-        }
 
         private async Task OnValidSubmit(EditContext context)
         {
@@ -262,7 +259,8 @@ namespace Intranet.Pages
 
             listAgenda.Add(agendaModel);
             MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
-            CerrarModalNuevo();          
+            CerrarModalNuevo();
+            Snackbar.Add("Registro exitoso", Severity.Info);
         }
 
         private async Task EditarAgente(EditContext context)
@@ -278,7 +276,8 @@ namespace Intranet.Pages
                 agendaAEditar.Extension = EditarAgenda.Extension.ToString();
 
                 MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
-                CerrarModalEditar();              
+                CerrarModalEditar();
+                Snackbar.Add("Modificación exitosa", Severity.Info);
             }
          
         }

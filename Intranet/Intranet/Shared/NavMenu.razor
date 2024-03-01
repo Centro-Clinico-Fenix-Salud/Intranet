@@ -1,6 +1,9 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Sistema Intranet Fénix</a>
+        <div>
+            <img class="logoFenix" src="img/logoFenix.png" Width="40" Height="40" />
+            <a class="navbar-brand" href="">Intranet Fénix</a>
+        </div>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,12 +13,12 @@
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/index" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Dashboard
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="noti">
+            <NavLink class="nav-link" href="noticia">
                 <span class="oi oi-plus" aria-hidden="true"></span> NotiFénix
             </NavLink>
         </div>
@@ -23,10 +26,10 @@
             <NavLink class="nav-link" href="sobrefenix">
                 <span class="oi oi-laptop" aria-hidden="true"></span> Sobre Fénix...
           </NavLink>
-            <NavLink class="nav-link" href="cumple">
+            <NavLink class="nav-link" href="cumpleanos">
                 <span class="oi oi-calendar" aria-hidden="true"></span> Cumplénix
             </NavLink>
-            <NavLink class="nav-link" href="agenda">
+            <NavLink class="nav-link" href="Agenda/0">
                 <span class="oi oi-book" aria-hidden="true"></span> Agenda Fénix
             </NavLink>
             <NavLink class="nav-link" href="boletin">

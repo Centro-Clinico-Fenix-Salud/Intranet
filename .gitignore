@@ -78,7 +78,4 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 =======
 /Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
 *.bin
->>>>>>> origin/feature/calendario
-Intranet/Intranet.sln
-Intranet/Intranet/obj/Debug/net7.0/Intranet.csproj.Up2Date
-Intranet/Intranet/Pages/cumpleanos2.cshtml
+/Intranet/Intranet/Intranet.csproj.user

@@ -1,10 +1,34 @@
 ﻿@page "/cumpleanos"
 
-<PageTitle> cumple </PageTitle>
+<div id="calendar"> </div>
 
-<div class="d-flex justify-content-center">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center"><h1>En construcción</h1></div>
-        <div class="col-12 d-flex justify-content-center"> <img src="img/repair.jpg" Width="500" Height="500" /></div>
-    </div>
-</div>
+@code {
+
+    [Inject]
+    protected Microsoft.JSInterop.IJSRuntime Js { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Js.InvokeVoidAsync("showAlert2");
+        }
+        await Js.InvokeVoidAsync("showAlert2");
+    }
+
+}
+
+<style>
+
+
+    #calendar {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+</style>

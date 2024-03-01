@@ -1,4 +1,4 @@
-﻿@page "/cumpleanos"
+﻿@page "/cumpleanos4"
 
 <PageTitle> cumple </PageTitle>
 
@@ -8,3 +8,28 @@
         <div class="col-12 d-flex justify-content-center"> <img src="img/repair.jpg" Width="500" Height="500" /></div>
     </div>
 </div>
+
+<div id="miDiv" style="width: 200px; height: 200px; background-color: @color">
+   Aitor
+</div>
+
+<button @onclick="CambiarColor">Cambiar Color</button>
+
+ <button class="btn btn-primary" @onclick="MostrarAlerta">Mostrar Alerta</button> 
+@code{
+    [Inject]
+    protected Microsoft.JSInterop.IJSRuntime Js { get; set; }
+    private string color = "lightblue";
+
+    private async Task MostrarAlerta()
+    {
+        await Js.InvokeVoidAsync("showAlert");
+    }
+
+    private void CambiarColor()
+    {
+        // Llamar a una función JavaScript para cambiar el color del div
+        Js.InvokeVoidAsync("CambiarColorDiv", "miDiv", "red");
+    }
+  
+}

@@ -118,3 +118,4 @@ Intranet/.vs/Intranet/FileContentIndex/dc330a01-51ca-47b1-96a6-761e117d4190.vsid
 *.v2
 /Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
 *.bin
+/Intranet/Intranet/Intranet.csproj.user

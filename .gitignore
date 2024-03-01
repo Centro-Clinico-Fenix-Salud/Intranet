@@ -69,3 +69,8 @@ Intranet/Intranet/Pages/Agenda.razor
 /Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 >>>>>>> 2b140c0f82eafd75a2d7c546c44aae95d87e7a01
 Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+*.dll
+*.cache
+*.CopyComplete
+/Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+*.targets

@@ -115,3 +115,6 @@ Intranet/.vs/Intranet/FileContentIndex/826a3531-5e31-407c-b124-a088d3642c68.vsid
 Intranet/.vs/Intranet/FileContentIndex/dc330a01-51ca-47b1-96a6-761e117d4190.vsidx
 /Intranet/.vs/Intranet/FileContentIndex/3bf7a970-8e1a-4612-ab88-eb36b96f6793.vsidx
 *.vsidx
+*.v2
+/Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
+*.bin

@@ -1,0 +1,18 @@
+﻿@page "/cumpleanos4"
+
+<PageTitle> cumple </PageTitle>
+
+
+
+@code{
+    [Inject]
+    protected Microsoft.JSInterop.IJSRuntime Js { get; set; }
+   
+    private async Task MostrarAlerta()
+    {
+        await Js.InvokeVoidAsync("showAlert");
+    }
+
+
+  
+}

@@ -1,15 +1,6 @@
-function showAlert() {
-    alert("¡Hola desde JavaScript!");
-}
 
-window.CambiarColorDiv = function (divId, color) {
-    var div = document.getElementById(divId);
-    if (div) {
-        div.style.backgroundColor = color;
-    }
-};
 
-function showAlert2() {
+function DataCalendar() {
 
     var calendarEl = document.getElementById('calendar');
 

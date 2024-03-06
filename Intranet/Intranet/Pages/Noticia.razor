@@ -1,10 +1,60 @@
 ﻿@page "/noticia"
+@inject IWebHostEnvironment Environment
 
 <PageTitle> Noticias </PageTitle>
 
-<div class="d-flex justify-content-center">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center"><h1>En construcción</h1></div>
-        <div class="col-12 d-flex justify-content-center"> <img src="img/repair.jpg" Width="500" Height="500" /></div>
-    </div>
-</div>
+<InputFile type="file" id="fileInput" OnChange="HandleFileUpload" />
+<MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@(() => eliminar())">eliminar </MudButton>
+@* Mostrar Imagen
+<img src="Files/fotoEmpleado.jpg" /> *@
+
+<MudTable Items="@Elements">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Noticias</MudText>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh> Imagen </MudTh>
+        <MudTh>Texto</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd> 
+            <div class="container-fluid"> 
+                <div class="d-flex justify-content-center ">
+                    <img src="@context.Imagen" /> 
+                </div>  
+            </div>
+        </MudTd>
+        <MudTd>
+            <div class="container-fluid">
+            <div class="col text-end fw-bold">
+                    <div>@context.FechaNoticia </div>
+                </div>     
+            <div class="col"> 
+            @if (@context.TextoNoticia.Length > 1000)
+            {
+                @context.TextoNoticia.Substring(0, 1000)
+                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Leer mas.. </MudButton>
+            }
+            else
+            {
+                @context.TextoNoticia
+            }
+            </div>
+            </div>
+          
+            </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[] { 3, 6, 9, int.MaxValue }"
+                       RowsPerPageString="@rowsPerPageString"
+                       InfoFormat="@infoFormat"
+                       AllItemsText="@allItemsText"
+                       HorizontalAlignment="@horizontalAlignment"
+                       HideRowsPerPage="@hideRowsPerPage"
+                       HidePageNumber="@hidePageNumber"
+                       HidePagination="@hidePagination" />
+    </PagerContent>
+
+</MudTable>
+
+

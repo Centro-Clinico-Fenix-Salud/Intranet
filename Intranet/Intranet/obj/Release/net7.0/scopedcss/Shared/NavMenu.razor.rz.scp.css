@@ -1,0 +1,90 @@
+.navbar-toggler[b-349eebs39z] {
+    background-color: rgba(0, 255, 255, 0.1);
+}
+
+.top-row[b-349eebs39z] {
+    height: 3.5rem;
+}
+
+.navbar-brand[b-349eebs39z] {
+    font-size: 0.9rem;
+    /*margin-right: 30px;*/
+}
+
+.oi[b-349eebs39z] {
+    width: 2rem;
+    font-size: 0.9rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-349eebs39z] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-349eebs39z] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-349eebs39z] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-349eebs39z]  a {
+        color: black;
+        ;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+        .nav-item[b-349eebs39z]  a.active {
+            background-color: white;
+            color: black;
+            border-radius:10rem;
+        }
+
+
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-349eebs39z] {
+        display: none;
+    }
+
+    .collapse[b-349eebs39z] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+    
+    .nav-scrollable[b-349eebs39z] {
+        /* Allow sidebar to scroll for tall menus */
+        height: calc(100vh - 3.5rem);
+        overflow-y: auto;
+    }
+    .navbar-brand[b-349eebs39z] {
+        font-size: 0.9rem;
+        visibility: visible;
+    }
+    /*.navbar-brand {
+        margin-right: 40px; 
+    }*/
+}
+
+/*@media screen and (width: 768px) {
+        .navbar-brand {
+            font-size: 0.9rem; 
+            visibility:hidden;
+        }*/
+        /*.oi {
+            width: 2rem;
+            font-size: 0.8rem;
+            vertical-align: text-top;
+            top: -2px;
+        }
+        logoFenix {
+
+        }*/
+    /*}*/

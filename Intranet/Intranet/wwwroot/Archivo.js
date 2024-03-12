@@ -81,4 +81,4 @@ function DataCalendar() {
 
     calendar.render();
     
-}
+};

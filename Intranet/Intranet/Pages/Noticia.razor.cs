@@ -368,6 +368,20 @@ namespace Intranet.Pages
 
         private async Task GuardarEditarNoticia(EditContext context)
         {
+            var listAgenda = Elements.ToList();
+            NoticiaModel noticiaAEditar = listAgenda.Where(a => a.Id == EditarNoticia.Id).FirstOrDefault();
+
+            if (noticiaAEditar != null)
+            {
+                noticiaAEditar.FechaNoticia = EditarNoticia.FechaNoticia;
+                noticiaAEditar.TituloNoticia = EditarNoticia.TituloNoticia;
+                noticiaAEditar.TextoNoticia = EditarNoticia.TextoNoticia;
+                noticiaAEditar.Imagen = EditarNoticia.Imagen;
+
+                Elements = listAgenda.AsQueryable();
+                CerrarModalEditarNoticia();
+                Snackbar.Add("Modificación exitosa", Severity.Info);
+            }
 
             //var file = Archivo;
 

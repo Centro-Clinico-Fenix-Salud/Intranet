@@ -200,7 +200,7 @@ namespace Intranet.Pages
 
         private async Task UploadFilesNuevo(IBrowserFile archivo)
         {
-
+            int tamano = 2 * 1024 * 1024;
             if (archivo != null)
             {
                 if (archivo.Size < 2 * 1024 * 1024)
@@ -229,7 +229,7 @@ namespace Intranet.Pages
                 }
                 else
                 {
-                    Snackbar.Add("Ocurrio un error", Severity.Error);
+                    Snackbar.Add("la imagen excede el tamaño, debe ser igual o menor a : " + tamano, Severity.Error);
                 }
 
             }

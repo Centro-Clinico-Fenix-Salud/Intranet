@@ -144,10 +144,10 @@ namespace Intranet.Pages
         }
         private void CerrarModalNuevo()
         {
-            GetDireccionTelefonica();          
+            
+            DireccionTelefonica = GetDireccionTelefonica().AsQueryable();
             mostrarModalNuevo = false;
             CreateAgenda = new AgendaCreate();
-            StateHasChanged();
 
         }
        
@@ -205,13 +205,17 @@ namespace Intranet.Pages
 
         private async Task Buscar()
         {
-            if (string.IsNullOrEmpty(searchTerm))
-                DireccionTelefonica = GetDireccionTelefonica().AsQueryable();
+            if (string.IsNullOrEmpty(searchTerm)) 
+            {
+                 DireccionTelefonica = GetDireccionTelefonica().AsQueryable();
+                
+            }
+        
             else
             {
                 DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Nombre.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
                 p.Unidad.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.Ubicacion.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).OrderBy(p => p.Nombre); ;
+                p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).OrderBy(p => p.Nombre); 
 
             }          
         }
@@ -249,7 +253,8 @@ namespace Intranet.Pages
 
         private async Task OnValidSubmit(EditContext context)
         {
-            var listAgenda = GetDireccionTelefonica();
+  
+            var listAgenda = MaestroDireccionTelefonica.ToList();
             AgendaModel agendaModel = new AgendaModel();
             agendaModel.Id = Guid.NewGuid();
             agendaModel.Nombre = CreateAgenda.Nombre;
@@ -258,7 +263,7 @@ namespace Intranet.Pages
             agendaModel.Extension = CreateAgenda.Extension.ToString();
 
             listAgenda.Add(agendaModel);
-            MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
+            MaestroDireccionTelefonica = listAgenda.AsQueryable();
             CerrarModalNuevo();
             Snackbar.Add("Registro exitoso", Severity.Info);
         }

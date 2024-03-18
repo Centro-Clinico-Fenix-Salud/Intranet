@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Intranet.Modelos.Noticia
+﻿namespace Intranet.Modelos.Noticia
 {
-    public class NoticiaModel
+    public class CreateNoticia
     {
         public Guid Id { get; set; }
         public List<string> Imagen { get; set; }

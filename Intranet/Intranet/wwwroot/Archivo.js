@@ -130,4 +130,67 @@ function Data() {
                 tbody.appendChild(row);
             });
         });
+};
+
+function DataCalendar2(eventos)
+{
+    var calendarEl = document.getElementById('calendar');
+    var evento = JSON.parse(eventos); 
+    var calendar = new FullCalendar.Calendar(calendarEl,
+    {
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+        },
+        initialDate: '2024-03-01',
+        navLinks: true,
+        businessHours: true,
+        editable: true,
+        locale: 'es',
+        buttonText: {
+            today: 'Hoy',
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Dia'
+        },
+        selectable: true,
+        events: evento,
+        eventClick: function (info)
+        {
+            var descripcion = info.event.extendedProps.description; 
+            // Mostrar la descripción en el modal
+
+            var modal = document.getElementById('eventoModal');
+            var modalFondo = document.getElementById('fondoModal');
+            var descripcionEvento = document.getElementById('descripcionEvento');
+            //descripcionEvento.textContent = descripcion;
+            var texto = 'Aitor Blanco\nOtro texto en la siguiente linea';
+            texto = texto.replace(/\n/g, '<br>');
+            descripcionEvento.innerHTML = texto;
+            //mostrar modal
+
+            modal.style.display = 'block';
+            modal.classList.add('d-flex');
+            modalFondo.classList.remove('invisible');
+            modalFondo.classList.add('visible');
+           
+            var spans = document.getElementsByClassName('close');
+
+            for (var i = 0; i < 2; i++) {
+                spans[i].onclick = function () {
+                    modal.style.display = 'none';
+                    modal.classList.remove('d-flex');
+                    modalFondo.classList.remove('visible');
+                    modalFondo.classList.add('invisible');
+                };
+            }
+            
+        }
+       
+    });
+
+    calendar.render();
 }
+
+

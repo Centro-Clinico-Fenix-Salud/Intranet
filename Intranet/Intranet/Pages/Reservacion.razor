@@ -2,6 +2,9 @@
 
 <h3>reservacion</h3>
 
+<div class="mb-3">
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => NuevoModalReservacion())" Color="Color.Success" Class="ml-auto">+ reservación</MudButton>
+</div>
 <div id="calendar" class="w-100 h-50"> </div>
 
 
@@ -9,13 +12,45 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirmar Eliminación</h5>
+                <h5 class="modal-title" id="tituloEvento"></h5>
                 <button type="button" class="close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p id="descripcionEvento"></p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <strong> Creado por :</strong>
+                        </div>
+                        <div class="col" id="AutorEvento">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                           <strong> Fecha y Hora de Inicio :</strong>
+                        </div>
+                        <div class="col" id="FechaInicioEvento">                          
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong> Fecha y Hora de Fin :</strong>
+                        </div>
+                        <div class="col" id="FechaFinEvento">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>Descripción:</strong>
+                        </div>                       
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p id="descripcionEvento"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="close btn btn-secondary">Cerrar</button>

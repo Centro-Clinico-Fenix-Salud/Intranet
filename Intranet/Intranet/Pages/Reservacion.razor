@@ -1,0 +1,27 @@
+﻿@page "/Reunion-Agenda"
+
+<h3>reservacion</h3>
+
+<div id="calendar" class="w-100 h-50"> </div>
+
+
+<div class="modal justify-content-center align-items-center" id="eventoModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Eliminación</h5>
+                <button type="button" class="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="descripcionEvento"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close btn btn-secondary">Cerrar</button>
+            </div>
+        </div>              
+    </div>
+</div>
+<div class="modal-backdrop show invisible" id="fondoModal"></div>
+

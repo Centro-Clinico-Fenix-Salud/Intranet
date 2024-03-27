@@ -25,7 +25,7 @@ namespace Intranet.Pages
         {
             if (firstRender)
             {
-                await Js.InvokeVoidAsync("DataCalendar");
+               // await Js.InvokeVoidAsync("DataCalendar");
             }
             await Js.InvokeVoidAsync("DataCalendar");
         }

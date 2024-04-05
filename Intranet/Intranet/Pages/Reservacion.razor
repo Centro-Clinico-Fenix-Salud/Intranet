@@ -1,11 +1,25 @@
 ﻿@page "/Reunion-Agenda"
 
-<h3>reservacion</h3>
+<h3>reservación</h3>
 
 <div class="mb-3">
-    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => NuevoModalReservacion())" Color="Color.Success" Class="ml-auto">+ reservación</MudButton>
+    <div class="col-6">
+            <MudSelect T="string" Label="Selecciona una sala de reunión"
+                       Value="SalaReunion" ValueChanged="OnSalaReunionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var salaReunion in ListSalaReunion)
+                {
+                    <MudSelectItem Value="@salaReunion" />
+                }
+            </MudSelect>
+    </div>
 </div>
-<div id="calendar" class="w-100 h-50"> </div>
+
+@if (mostrarCalendario)
+{
+    <div class="mb-3">
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => NuevoModalReservacion())" Color="Color.Success" Class="ml-auto">+ reservación</MudButton>
+    </div>
+    <div id="calendar" class="w-100 h-50"> </div>
 
 
 <div class="modal justify-content-center align-items-center" id="eventoModal" tabindex="-1" role="dialog">
@@ -59,4 +73,50 @@
     </div>
 </div>
 <div class="modal-backdrop show invisible" id="fondoModal"></div>
+}
 
+@if (mostrarModalNuevo)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar</h5>
+                    <button type="button" class="close" @onclick="CerrarModalNuevo">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <EditForm Model="@CreateReservacion" OnValidSubmit="OnValidSubmit">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+                                    <MudTextField Label="Titulo" @bind-Value="CreateReservacion.title" For="@(() => CreateReservacion.title)" />
+                                    <MudDatePicker Label="Fecha" @bind-Date="CreateReservacion.Fecha" />
+                                    <ValidationMessage For="@(() => CreateReservacion.Fecha)" />
+                                    <MudTimePicker Label="Desde" @bind-Time="CreateReservacion.start" AmPm="true" Color="Color.Success" />
+                                    <ValidationMessage For="@(() => CreateReservacion.start)" />
+                                    <MudTimePicker Label="Hasta" @bind-Time="CreateReservacion.end" AmPm="true" Color="Color.Secondary" />
+                                    <ValidationMessage For="@(() => CreateReservacion.end)" />
+                                    @if (!string.IsNullOrEmpty(validationError))
+                                    {
+                                        <MudAlert Severity="Severity.Error" Variant="Variant.Filled">@validationError</MudAlert>
+                                    }
+                                    <MudTextField Label="Descripción" @bind-Value="CreateReservacion.description" Lines="2" For="@(() => CreateReservacion.description)" />
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevo" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+
+
+}

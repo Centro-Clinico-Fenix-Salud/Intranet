@@ -3,6 +3,7 @@ using Intranet.Interfaces;
 using Intranet.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
 builder.Services.AddSingleton<IArchivoImagen, ArchivoImagen>();
+builder.Services.Configure<RazorPagesOptions>(options => options.RootDirectory = "/Pages");
 
 var app = builder.Build();
 

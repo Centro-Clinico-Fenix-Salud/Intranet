@@ -1,0 +1,48 @@
+﻿@page "/direccionesip"
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment
+@inject Microsoft.JSInterop.IJSRuntime Js 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<nav class="navbar navbar-expand-lg justify-content-center"
+     style="border-radius: 10px; background-color: #00bbb4">
+    <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
+        Direcciones IP
+    </h1>
+</nav>
+
+
+<div class="container mt-3">
+    <div class="mb-3">
+        <label for="busqueda" class="form-label">Criterio de Búsqueda:</label>
+        <input type="text" class="form-control" id="busqueda" placeholder="Buscar...">
+    </div>
+
+    <table id="tabla-datos" class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">usuario</th>
+                <th class="text-center">IP</th>
+                <th class="text-center">Extension</th>
+                <th class="text-center">Inventario</th>
+                <th class="text-center">Departamento</th>
+                <th class="text-center">Nombre Equipo</th>
+                <th class="text-center">Observaciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+@code
+{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Js.InvokeVoidAsync("Data");
+        }
+        await Js.InvokeVoidAsync("Data");
+    }
+}

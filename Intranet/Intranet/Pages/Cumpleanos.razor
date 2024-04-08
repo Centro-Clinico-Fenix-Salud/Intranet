@@ -1,0 +1,37 @@
+﻿@page "/cumpleanos"
+
+<div class="container-fluid vh-100">
+    <div id="calendar" class="w-100 h-50"> </div>
+    @if (cumpleaneros.Count > 0)
+    {
+        <div id="dia" class="w-100 h-50">
+            <div class="row h-100 align-content-center justify-content-center">
+                <div class="d-flex justify-content-center "> <h2 class="text-black">Feliz cumpleaños</h2></div>
+                <div class=" h-75 w-100">
+                    <MudCarousel Class="mud-width-full mud-height-full" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+
+                        @foreach (var item in cumpleaneros)
+                        {
+                            <MudCarouselItem Transition="transition" Color="@Color.Tertiary">
+                                <div class="d-flex align-content-center justify-content-center" style="height:100%">
+                                    <MudCard>
+                                        <MudCardMedia Image="@item.Imagen" Height="200" Class="h-75" />
+                                        <MudCardContent Class="h-25">
+                                            <MudText Typo="Typo.h5">@item.Nombre @item.Apellido</MudText>
+                                                <MudText Typo="Typo.body2">@item.Departamento</MudText>
+                                            </MudCardContent>
+                                        </MudCard>
+                                    </div>
+                                </MudCarouselItem>
+                        }
+
+                    </MudCarousel>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+

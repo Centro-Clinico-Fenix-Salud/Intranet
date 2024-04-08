@@ -51,3 +51,31 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 Intranet/Intranet/obj/Debug/net7.0/project.razor.vscode.bin
 Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+<<<<<<< HEAD
+*.v2
+Intranet/.vs/Intranet/FileContentIndex/7041c469-b87a-4719-9b51-9bc0cfa5766b.vsidx
+Intranet/.vs/Intranet/FileContentIndex/adf0a31b-2762-4833-88cf-fb96f5e5cd08.vsidx
+Intranet/.vs/Intranet/FileContentIndex/dd3a26a8-27bd-4b14-8608-6e5870749b64.vsidx
+Intranet/.vs/Intranet/FileContentIndex/e4d889be-b1f2-43b5-8d9b-6210a843c949.vsidx
+Intranet/.vs/Intranet/FileContentIndex/fa76f2da-beb1-4884-8740-57e96f57c1a0.vsidx
+Intranet/.vs/Intranet/v17/DocumentLayout.json
+Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
+Intranet/.vs/ProjectEvaluation/intranet.projects.v7.bin
+Intranet/Intranet/obj/Debug/net7.0/ApiEndpoints.json
+Intranet/Intranet/Pages/Agenda.razor
+=======
+*.vsidx
+*.v2
+<<<<<<< HEAD
+/Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+>>>>>>> 2b140c0f82eafd75a2d7c546c44aae95d87e7a01
+Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+*.dll
+*.cache
+*.CopyComplete
+/Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
+*.targets
+=======
+/Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
+*.bin
+/Intranet/Intranet/Intranet.csproj.user

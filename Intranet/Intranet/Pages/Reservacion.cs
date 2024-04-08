@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.JSInterop;
 using MudBlazor;
+using MudBlazor.Extensions;
 using System.Text.Json;
 using static MudBlazor.Colors;
 
@@ -109,7 +110,8 @@ namespace Intranet.Pages
             }
 
             bool result = await GuardarReservacion(CreateReservacion, SalaReunion);
-            if (result) { 
+            if (result) {
+                await RefrescarCalendario();
                 Snackbar.Add("Registro exitoso", Severity.Info);
                 CerrarModalNuevo();
             } else {
@@ -123,25 +125,30 @@ namespace Intranet.Pages
 
             try
             {
-                
-                
-                
-                
+
+                string fechaStart = createReservacion .Fecha.ToIsoDateString() + " " + createReservacion.start.ToString();
+                string fechaEnd = createReservacion.Fecha.ToIsoDateString() + " " + createReservacion.end.ToString();
+
+
                 switch (salaReunion)
                 {
                     case "Sala de Junta 1":
+                        EventsSalaDeJunta1.Add(new Event { title = createReservacion.title, start = fechaStart, end = fechaEnd, description = createReservacion.description, createdBy = createReservacion.createdBy });
                         eventosJson = JsonSerializer.Serialize(EventsSalaDeJunta1);
                         result = true;
                         break;
                     case "Sala de Junta 2":
+                        EventsSalaDeJunta2.Add(new Event { title = createReservacion.title, start = fechaStart, end = fechaEnd, description = createReservacion.description, createdBy = createReservacion.createdBy });
                         eventosJson = JsonSerializer.Serialize(EventsSalaDeJunta2);
                         result = true;
                         break;
                     case "Sala de Call center":
+                        EventsSalaDeCallCenter.Add(new Event { title = createReservacion.title, start = fechaStart, end = fechaEnd, description = createReservacion.description, createdBy = createReservacion.createdBy });
                         eventosJson = JsonSerializer.Serialize(EventsSalaDeCallCenter);
                         result = true;
                         break;
                     case "Sala Técnica":
+                        EventsSalaTecnica.Add(new Event { title = createReservacion.title, start = fechaStart, end = fechaEnd, description = createReservacion.description, createdBy = createReservacion.createdBy });
                         eventosJson = JsonSerializer.Serialize(EventsSalaTecnica);
                         result = true;
                         break;

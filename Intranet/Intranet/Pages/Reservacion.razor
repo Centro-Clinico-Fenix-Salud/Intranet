@@ -40,16 +40,23 @@
                         <div class="col" id="AutorEvento">
                         </div>
                     </div>
+                        <div class="row">
+                            <div class="col">
+                                <strong> Hora de Inicio :</strong>
+                            </div>
+                            <div class="col" id="FechaEvento">
+                            </div>
+                        </div>
                     <div class="row">
                         <div class="col">
-                           <strong> Fecha y Hora de Inicio :</strong>
+                           <strong> Hora de Inicio :</strong>
                         </div>
                         <div class="col" id="FechaInicioEvento">                          
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <strong> Fecha y Hora de Fin :</strong>
+                            <strong> Hora de culminación :</strong>
                         </div>
                         <div class="col" id="FechaFinEvento">
                         </div>
@@ -103,7 +110,7 @@
                                     {
                                         <MudAlert Severity="Severity.Error" Variant="Variant.Filled">@validationError</MudAlert>
                                     }
-                                    <MudTextField Label="Descripción" @bind-Value="CreateReservacion.description" Lines="2" For="@(() => CreateReservacion.description)" />
+                                    <MudTextField Label="Descripción (Opcional)" @bind-Value="CreateReservacion.description" Lines="2" For="@(() => CreateReservacion.description)" />
                                 </MudCardContent>
                                 <MudCardActions>
                                     <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevo" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>

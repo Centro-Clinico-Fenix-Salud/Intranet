@@ -5,7 +5,7 @@ using MudBlazor;
 
 namespace Intranet.Pages
 {
-    public partial class Cumpleanos : ComponentBase
+    public partial class Cumpleanos
     {
         [Inject]
         protected Microsoft.JSInterop.IJSRuntime Js { get; set; }

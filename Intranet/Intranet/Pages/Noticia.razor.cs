@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace Intranet.Pages
 {
-    public partial class Noticia
+    public partial class Noticia : Microsoft.AspNetCore.Components.ComponentBase
     {
         private HorizontalAlignment horizontalAlignment = HorizontalAlignment.Right;
         private bool hidePageNumber;
@@ -59,6 +59,8 @@ namespace Intranet.Pages
         private List<ListaImagenCargada> listaImagenCargada = new List<ListaImagenCargada>();
         [Inject]
         private IArchivoImagen ArchivoImagen { get; set; }
+        [Inject]
+        private IWebHostEnvironment Environment { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

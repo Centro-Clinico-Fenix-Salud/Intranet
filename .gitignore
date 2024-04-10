@@ -79,3 +79,7 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
 *.bin
 /Intranet/Intranet/Intranet.csproj.user
+/Intranet/Intranet/obj/Release/net7.0/Intranet.csproj.FileListAbsolute.txt
+/Intranet/Intranet/obj/Release/net7.0/Intranet.GeneratedMSBuildEditorConfig.editorconfig
+/Intranet/Intranet/obj/Release/net7.0/Intranet.sourcelink.json
+/Intranet/Intranet/Properties/PublishProfiles/FolderProfile.pubxml.user

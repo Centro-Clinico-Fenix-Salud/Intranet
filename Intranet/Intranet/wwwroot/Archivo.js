@@ -1,5 +1,4 @@
 
-
 function DataCalendar() {
 
     var calendarEl = document.getElementById('calendar');
@@ -11,8 +10,8 @@ function DataCalendar() {
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
         },
         initialDate: '2024-03-01',
-        navLinks: true, // can click day/week names to navigate views
-        businessHours: true, // display business hours
+        navLinks: true,
+        businessHours: true,
         editable: true,
         locale: 'es',
         buttonText: {
@@ -136,6 +135,7 @@ function DataCalendar2(eventos)
 {
     var calendarEl = document.getElementById('calendar');
     var evento = JSON.parse(eventos); 
+    var currentDate = new Date();
     var calendar = new FullCalendar.Calendar(calendarEl,
     {
         headerToolbar: {
@@ -143,7 +143,7 @@ function DataCalendar2(eventos)
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
         },
-        initialDate: '2024-03-01',
+        initialDate: currentDate.toISOString().slice(0, 10),
         navLinks: true,
         businessHours: true,
         editable: true,
@@ -158,16 +158,32 @@ function DataCalendar2(eventos)
         events: evento,
         eventClick: function (info)
         {
-            var descripcion = info.event.extendedProps.description; 
+            var createdBy = info.event.extendedProps.createdBy;
+            //var descripcion = info.event.extendedProps.description; 
+            var descripcion = info.event.extendedProps.description !== null ? info.event.extendedProps.description : '';
+            var title = info.event.title;
+            var Fecha = convertirFecha(info.event.start);
+            var FechaInicio = convertirFechaAHora(info.event.start);
+            var FechaFin = convertirFechaAHora(info.event.end);
+     
             // Mostrar la descripción en el modal
 
             var modal = document.getElementById('eventoModal');
             var modalFondo = document.getElementById('fondoModal');
             var descripcionEvento = document.getElementById('descripcionEvento');
-            //descripcionEvento.textContent = descripcion;
-            var texto = 'Aitor Blanco\nOtro texto en la siguiente linea';
-            texto = texto.replace(/\n/g, '<br>');
-            descripcionEvento.innerHTML = texto;
+            var tituloEvento = document.getElementById('tituloEvento');
+            var FechaEvento = document.getElementById('FechaEvento');
+            var FechaInicioEvento = document.getElementById('FechaInicioEvento');
+            var FechaFinEvento = document.getElementById('FechaFinEvento');
+            var AutorEvento = document.getElementById('AutorEvento');
+
+            descripcionEvento.innerHTML = descripcion.replace(/\n/g, '<br>');
+            tituloEvento.innerHTML = title.replace(/\n/g, '<br>');
+            FechaEvento.innerHTML = Fecha;
+            FechaInicioEvento.innerHTML = FechaInicio;
+            FechaFinEvento.innerHTML = FechaFin;
+            AutorEvento.innerHTML = createdBy.replace(/\n/g, '<br>');
+
             //mostrar modal
 
             modal.style.display = 'block';
@@ -191,6 +207,38 @@ function DataCalendar2(eventos)
     });
 
     calendar.render();
+}
+
+function convertirFecha(fechaFullCalendar) {
+    var fecha = new Date(fechaFullCalendar);
+
+    var dia = ('0' + fecha.getDate()).slice(-2);
+    var mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
+    var ano = fecha.getFullYear();
+    var hora = ('0' + fecha.getHours()).slice(-2);
+    var minutos = ('0' + fecha.getMinutes()).slice(-2);
+    var segundos = ('0' + fecha.getSeconds()).slice(-2);
+   
+    //var fechaFormateada = dia + '/' + mes + '/' + ano + ' ' + hora + ':' + minutos + ':' + segundos;
+    var fechaFormateada = dia + '/' + mes + '/' + ano ;
+
+    return fechaFormateada;
+}
+
+function convertirFechaAHora(fechaFullCalendar) {
+    var fecha = new Date(fechaFullCalendar);
+
+    var dia = ('0' + fecha.getDate()).slice(-2);
+    var mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
+    var ano = fecha.getFullYear();
+    var hora = ('0' + fecha.getHours()).slice(-2);
+    var minutos = ('0' + fecha.getMinutes()).slice(-2);
+    var segundos = ('0' + fecha.getSeconds()).slice(-2);
+
+    // var fechaFormateada = dia + '/' + mes + '/' + ano + ' ' + hora + ':' + minutos + ':' + segundos;
+    var fechaFormateada = hora + ':' + minutos + ':' + segundos;
+
+    return fechaFormateada;
 }
 
 

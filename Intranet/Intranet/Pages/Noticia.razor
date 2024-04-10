@@ -12,13 +12,6 @@
         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => NuevoModalNoticia())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
     </div>
 }
-@* 
-guarda y elimnar archivo 
-<InputFile type="file" id="fileInput" OnChange="HandleFileUpload" />
-<MudButton ButtonType="ButtonType.Submit" Color="Color.Success" OnClick="@(() => eliminar())">eliminar </MudButton>
- *@
-@* Mostrar Imagen
-<img src="Files/fotoEmpleado.jpg" /> *@
 
 <MudTable Items="@Elements">   
     <HeaderContent>
@@ -163,15 +156,7 @@ guarda y elimnar archivo
                                             </div>
 					                </div>
 					                <div class="col-10 d-flex justify-content-start align-items-center my-2">
-                                           @*  @if (!string.IsNullOrEmpty(imagenSeleccionada))
-                                            {
-                                                @NombreimagenSeleccionada <img class="mx-2" src="@imagenSeleccionada" width="100" height="100"/>
-                                            }
-                                            else
-                                            { *@
-                                                <span> Seleccione una imagen</span>
-                                           @*  } *@
-                                            
+                                        <span> Seleccione una imagen</span>                                                                                
 					                </div>
 				                </div>
                                     @foreach (var item in listaImagenCargada)

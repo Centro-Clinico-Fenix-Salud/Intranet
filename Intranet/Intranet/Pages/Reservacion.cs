@@ -12,7 +12,7 @@ using static MudBlazor.Colors;
 
 namespace Intranet.Pages
 {
-    public partial class Reservacion
+    public partial class Reservacion : ComponentBase
     {
         [Inject]
         protected Microsoft.JSInterop.IJSRuntime Js { get; set; }

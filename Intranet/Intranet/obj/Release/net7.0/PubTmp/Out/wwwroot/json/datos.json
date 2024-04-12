@@ -1,0 +1,128 @@
+[
+    {
+        "usuarioCell": "Giovanna Liguori",
+        "ipCell": "128.0.1.16",
+        "extensionCell": "340.",
+        "inventarioCell": "Y375",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-gst001",
+        "observacionesCell": "Clave de soporte en VNC "
+    },
+    {
+        "usuarioCell": "Mari Carmen Dasilva",
+        "ipCell": "128.0.1.2",
+        "extensionCell": "344.",
+        "inventarioCell": "Y374",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-proyectos",
+        "observacionesCell": "Clave de soporte en VNC / fuera del dominio "
+    },
+    {
+        "usuarioCell": "Mari Carmen Dasilva",
+        "ipCell": "192.168.0.100",
+        "extensionCell": "344.",
+        "inventarioCell": "Y1593",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": null,
+        "observacionesCell": "VNC por wifi ip dinamica "
+    },
+    {
+        "usuarioCell": "Jose",
+        "ipCell": "128.0.1.23",
+        "extensionCell": null,
+        "inventarioCell": "Y669",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-st010",
+        "observacionesCell": ". "
+    },
+    {
+        "usuarioCell": "Melina",
+        "ipCell": "128.0.1.89",
+        "extensionCell": null,
+        "inventarioCell": "Y430",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-st009",
+        "observacionesCell": "Monitor falla / Cambiar cable VGA o convertidor HDMI "
+    },
+    {
+        "usuarioCell": "Sara",
+        "ipCell": "128.0.1.66",
+        "extensionCell": "343.",
+        "inventarioCell": "A371",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-st003",
+        "observacionesCell": ". "
+    },
+    {
+        "usuarioCell": "Solange Mazzei",
+        "ipCell": "128.0.1.9",
+        "extensionCell": "305.",
+        "inventarioCell": "Y377",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-st004",
+        "observacionesCell": "Cambio Teclado "
+    },
+    {
+        "usuarioCell": "Equipo Libre uso 1",
+        "ipCell": "128.0.0.151",
+        "extensionCell": null,
+        "inventarioCell": "Y843",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-inge005",
+        "observacionesCell": "Mesa del Medio, equipo sentido a la puerta "
+    },
+    {
+        "usuarioCell": "Equipo Libre uso 2",
+        "ipCell": "128.0.1.53",
+        "extensionCell": null,
+        "inventarioCell": "Y878",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-inge003",
+        "observacionesCell": "Mesa del Medio, equipo sentido Oficina "
+    },
+    {
+        "usuarioCell": "Equipo Libre uso 3",
+        "ipCell": "128.0.1.56",
+        "extensionCell": null,
+        "inventarioCell": "Y841",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-st007",
+        "observacionesCell": "Mesa cerca de la puerta, equipo al lado de puerta / Cambio teclado por usado "
+    },
+    {
+        "usuarioCell": "Equipo Libre uso 4",
+        "ipCell": "128.0.1.76",
+        "extensionCell": null,
+        "inventarioCell": "Y376",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": "ccfs-st008",
+        "observacionesCell": "Mesa cerca de la puerta, equipo al lado de pared "
+    },
+    {
+        "usuarioCell": "Sala Tecnica Reunion",
+        "ipCell": "128.0.1.116",
+        "extensionCell": "305.",
+        "inventarioCell": "Y1598",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": null,
+        "observacionesCell": "Clave de soporte en VNC / Cambio de mouse por usado "
+    },
+    {
+        "usuarioCell": "Oriana",
+        "ipCell": ".",
+        "extensionCell": ".",
+        "inventarioCell": "Y1515",
+        "departamentoCell": "Sala Tecnica",
+        "nombreEquipoCell": null,
+        "observacionesCell": ". "
+    },
+    {
+        "usuarioCell": "Karelys Guevara",
+        "ipCell": "172.16.16.200",
+        "extensionCell": "290.",
+        "inventarioCell": "Y425",
+        "departamentoCell": "CallCenter",
+        "nombreEquipoCell": "ccfs-ccallc",
+        "observacionesCell": ". "
+    }
+]

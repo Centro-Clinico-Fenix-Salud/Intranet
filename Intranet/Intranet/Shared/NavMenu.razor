@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div>
             <img class="logoFenix" src="img/logoFenix.png" Width="40" Height="40" />
-            <a class="navbar-brand" href="">Intranet Fénix</a>
+            <a class="navbar-brand" href="index">Intranet Fénix</a>
         </div>
         <button title="Navigation menu" class="navbar-toggler">
             <span class="navbar-toggler-icon"></span>
@@ -13,14 +13,13 @@
 </div>
 
 
-
-
 <MudNavMenu>
     <MudDivider Class="my-2" />
     <MudNavLink Href="/index">Tableros</MudNavLink>
     <MudNavGroup Title="Noticias Fénix" Expanded="false">
         <MudNavLink Href="/noticia">Noticias</MudNavLink>
-        <MudNavLink Href="/boletin">Boletin Fénix</MudNavLink>
+        @*  <MudNavLink Href="/boletin">Boletin Fénix</MudNavLink> *@
+        <MudNavLink Href="/redes-sociales">Redes Sociales</MudNavLink>
         </MudNavGroup>
     <MudNavLink Href="/agenda">Agenda</MudNavLink>
         <MudNavGroup Title="Calendario" Expanded="false">

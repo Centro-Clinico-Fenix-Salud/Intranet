@@ -59,8 +59,8 @@ namespace Intranet.Pages
         private List<ListaImagenCargada> listaImagenCargada = new List<ListaImagenCargada>();
         [Inject]
         private IArchivoImagen ArchivoImagen { get; set; }
-        [Inject]
-        private IWebHostEnvironment Environment { get; set; }
+        //[Inject]
+        //private IWebHostEnvironment Environment { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

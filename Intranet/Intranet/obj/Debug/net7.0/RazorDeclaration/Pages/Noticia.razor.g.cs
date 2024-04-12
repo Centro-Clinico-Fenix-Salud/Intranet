@@ -76,14 +76,14 @@ using Intranet.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
 using MudBlazor;
 
 #line default
@@ -98,7 +98,7 @@ using MudBlazor;
         {
         }
         #pragma warning restore 1998
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IWebHostEnvironment Environment { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment { get; set; }
     }
 }
 #pragma warning restore 1591

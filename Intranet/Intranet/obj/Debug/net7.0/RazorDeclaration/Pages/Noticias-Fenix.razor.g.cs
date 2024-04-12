@@ -89,8 +89,8 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/index")]
-    public partial class Index : global::Microsoft.AspNetCore.Components.ComponentBase
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/noticias-fenix")]
+    public partial class Noticias_Fenix : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

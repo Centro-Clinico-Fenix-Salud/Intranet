@@ -13,75 +13,91 @@ namespace Intranet.Pages
     using global::System.Threading.Tasks;
     using global::Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Loggin.razor.g.cs
 #line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> jesus:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Index - Copia.razor.g.cs
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Intranet;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Intranet.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Loggin.razor.g.cs
 #line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Loggin.razor"
+=======
+#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> jesus:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Index - Copia.razor.g.cs
 using MudBlazor;
 
 #line default
 #line hidden
 #nullable disable
+<<<<<<< HEAD:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Loggin.razor.g.cs
 #nullable restore
 #line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Loggin.razor"
 using Microsoft.AspNetCore.Components.Authorization;
@@ -92,6 +108,10 @@ using Microsoft.AspNetCore.Components.Authorization;
     [global::Microsoft.AspNetCore.Components.LayoutAttribute(typeof(MainLogin))]
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Loggin : global::Microsoft.AspNetCore.Components.ComponentBase
+=======
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/index")]
+    public partial class Index___Copia : global::Microsoft.AspNetCore.Components.ComponentBase
+>>>>>>> jesus:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Index - Copia.razor.g.cs
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

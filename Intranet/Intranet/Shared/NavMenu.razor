@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <div>
             <img class="logoFenix" src="img/logoFenix.png" Width="40" Height="40" />
-            <a class="navbar-brand" href="">Intranet Fénix</a>
+            <a class="navbar-brand" href="index">Intranet Fénix</a>
         </div>
         <button title="Navigation menu" class="navbar-toggler">
             <span class="navbar-toggler-icon"></span>
@@ -19,41 +19,26 @@
     </div>
 </div>
 
-<div >
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="tablero" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Dashboard
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="noticia" Match="NavLinkMatch.Prefix">
-                <span class="oi oi-plus" aria-hidden="true"></span> NotiFénix
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="sobrefenix">
-                <span class="oi oi-laptop" aria-hidden="true"></span> Sobre Fénix...
-          </NavLink>
-            <NavLink class="nav-link" href="cumpleanos">
-                <span class="oi oi-calendar" aria-hidden="true"></span> Cumplénix
-            </NavLink>
-            <NavLink class="nav-link" href="Agenda" Match="NavLinkMatch.Prefix">
-                <span class="oi oi-book" aria-hidden="true"></span> Agenda Fénix
-            </NavLink>
-            <NavLink class="nav-link" href="Reunion-Agenda">
-                <span class="oi oi-book" aria-hidden="true"></span> Agenda Reuniones
-            </NavLink>
-            <NavLink class="nav-link" href="boletin">
-                <span class="oi oi-grid-four-up" aria-hidden="true"></span> Boletin Fénix
-            </NavLink>
-            <NavLink class="nav-link" @onclick="CerrarSesion" style="cursor: pointer;">
-                <span class="oi oi-grid-four-up" aria-hidden="true"></span> Salir
-            </NavLink>
-        </div>
-    </nav>
-</div>
 
+<MudNavMenu>
+    <MudDivider Class="my-2" />
+    <MudNavLink Href="/tablero">Tableros</MudNavLink>
+    <MudNavGroup Title="Noticias Fénix" Expanded="false">
+        <MudNavLink Href="/noticia">Noticias</MudNavLink>
+        @*  <MudNavLink Href="/boletin">Boletin Fénix</MudNavLink> *@
+        </MudNavGroup>
+    <MudNavLink Href="/agenda">Agenda</MudNavLink>
+        <MudNavGroup Title="Calendario" Expanded="false">
+        <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
+        <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
+        </MudNavGroup>
+    <MudNavGroup Title="Seguridad" Expanded="false">
+        <MudNavGroup Title="redes" Expanded="false">
+            <MudNavLink Href="/direccionesip">Direcciones IP</MudNavLink>
+        </MudNavGroup>
+    </MudNavGroup>
+    <MudNavLink Href="/sobrefenix">Sobre Fénix...</MudNavLink>
+</MudNavMenu>
 @code {
     
     private async Task CerrarSesion()

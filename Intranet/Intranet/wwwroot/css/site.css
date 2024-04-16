@@ -27,6 +27,12 @@ a, .btn-link {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+
+.nav-link {
+    margin-bottom: 8px; /* Agrega margen inferior para separar los elementos */
+    padding: 4px 8px; /* Agrega relleno para separar el contenido de los elementos */
+}
+
 .content {
     padding-top: 1.1rem;
 }

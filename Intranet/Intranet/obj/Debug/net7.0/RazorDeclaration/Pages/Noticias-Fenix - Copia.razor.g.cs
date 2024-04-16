@@ -13,68 +13,87 @@ namespace Intranet.Pages
     using global::System.Threading.Tasks;
     using global::Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticia.razor.g.cs
 #line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> jesus:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticias-Fenix - Copia.razor.g.cs
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Components.Web;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 7 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.JSInterop;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Intranet;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 10 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Intranet.Shared;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Components.Web;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.JSInterop;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Intranet;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Intranet.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using MudBlazor;
 
 #line default
 #line hidden
 #nullable disable
+<<<<<<< HEAD:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticia.razor.g.cs
 #nullable restore
 #line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
 using Microsoft.AspNetCore.Authorization;
@@ -99,6 +118,10 @@ using Microsoft.AspNetCore.Components.Authorization;
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/noticia")]
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/noticia/{parametro}")]
     public partial class Noticia : global::Microsoft.AspNetCore.Components.ComponentBase
+=======
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/noticias-fenix")]
+    public partial class Noticias_Fenix___Copia : global::Microsoft.AspNetCore.Components.ComponentBase
+>>>>>>> jesus:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticias-Fenix - Copia.razor.g.cs
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

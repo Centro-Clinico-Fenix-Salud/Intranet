@@ -1,4 +1,7 @@
 ﻿@page "/cumpleanos"
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@attribute [Authorize]
 
 <div class="container-fluid vh-100">
     <div id="calendar" class="w-100 h-50"> </div>

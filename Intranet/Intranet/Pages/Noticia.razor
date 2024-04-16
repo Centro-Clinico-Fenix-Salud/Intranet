@@ -2,7 +2,11 @@
 @page "/noticia/{parametro}"
 @using Microsoft.AspNetCore.Components.Routing
 @using MudBlazor
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment
+@attribute [Authorize]
+
 
 <PageTitle> Noticias </PageTitle>
 <h2>Noticias</h2>

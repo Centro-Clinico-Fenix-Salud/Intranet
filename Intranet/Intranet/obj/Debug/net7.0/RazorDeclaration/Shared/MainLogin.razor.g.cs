@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Intranet.Pages
+namespace Intranet.Shared
 {
     #line hidden
     using global::System;
@@ -89,27 +89,13 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
-    public partial class Counter : global::Microsoft.AspNetCore.Components.ComponentBase
+    public partial class MainLogin : LayoutComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 11 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Counter.razor"
-       
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

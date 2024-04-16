@@ -20,20 +20,6 @@ using System.Net.Http;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -85,6 +71,27 @@ using Microsoft.AspNetCore.Components.Routing;
 #nullable restore
 #line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
 using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+           [Authorize]
 
 #line default
 #line hidden

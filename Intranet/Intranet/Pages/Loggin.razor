@@ -1,9 +1,41 @@
-﻿@page "/loggin"
+﻿@page "/"
+@layout MainLogin
+@using MudBlazor
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider autenticacionProvider
+
 <link href="/css/loggin.css" rel="stylesheet" />
 
 <PageTitle> Sistema Intranet Fenix Salud </PageTitle>
 
-<section class="vh-100 gradient-form mt-n5">
+<div class="row mt-5">
+
+    <div class="col-lg-4 offset-lg-4 border bg-white">
+
+        <div class="mb-3 text-center">
+            <h3>LOGIN</h3>
+        </div>
+
+        <div class="mb-3">
+            <label>Correo</label>
+            <input class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Contraseña</label>
+            <input class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <button @onclick="IniciarSesion" class="btn btn-primary">Login</button>
+        </div>
+
+    </div>
+
+</div>
+
+@* <section class="vh-100 gradient-form mt-n5">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-10">
@@ -16,7 +48,6 @@
                                     <img src="img/01.ico" class="w-25" alt="logo">
                                     <h6 class="mt-1 mb-5 pb-1">Nosotros somos Fénix</h6>
                                 </div>
-
                                 <form>
                                     <p> Porfavor ingrese a su cuenta </p>
 
@@ -29,8 +60,10 @@
                                         <input type="password" id="form2Example22" class="form-control"
                                         placeholder="Contraseña Asignada" />
                                     </div>
+                                    <div class="mb-4 d-flex align-content-center align-items-center justify-content-center center">
+                                        <button class="btn btn-primary gradient-custom-2" @onclick="@(()=>IniciarSesion())">Iniciar</button>
+                                    </div>
                                 </form>
-
                             </div>
                         </div>
                         <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
@@ -48,4 +81,4 @@
             </div>
         </div>
     </div>
-</section>
+</section> *@

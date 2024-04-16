@@ -83,3 +83,7 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/Intranet/obj/Release/net7.0/Intranet.GeneratedMSBuildEditorConfig.editorconfig
 /Intranet/Intranet/obj/Release/net7.0/Intranet.sourcelink.json
 /Intranet/Intranet/Properties/PublishProfiles/FolderProfile.pubxml.user
+/Intranet/Intranet/obj/Debug/net7.0/Razor/Pages/Calendario.razor.g.cs
+/Intranet/Intranet/obj/Debug/net7.0/Razor/Pages/Noticias-Fenix.razor.g.cs
+/Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Calendario.razor.g.cs
+/Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticias-Fenix.razor.g.cs

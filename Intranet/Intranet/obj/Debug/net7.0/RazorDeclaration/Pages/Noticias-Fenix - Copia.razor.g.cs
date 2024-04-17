@@ -20,6 +20,9 @@ using System.Net.Http;
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticia.razor.g.cs
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+=======
 #line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
@@ -35,6 +38,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> jesus:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticias-Fenix - Copia.razor.g.cs
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
@@ -89,14 +93,42 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
+<<<<<<< HEAD:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticia.razor.g.cs
+#nullable restore
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+           [Authorize]
+
+#line default
+#line hidden
+#nullable disable
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/noticia")]
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/noticia/{parametro}")]
+    public partial class Noticia : global::Microsoft.AspNetCore.Components.ComponentBase
+=======
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/noticias-fenix")]
     public partial class Noticias_Fenix___Copia : global::Microsoft.AspNetCore.Components.ComponentBase
+>>>>>>> jesus:Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticias-Fenix - Copia.razor.g.cs
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment { get; set; }
     }
 }
 #pragma warning restore 1591

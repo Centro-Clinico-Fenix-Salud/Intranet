@@ -20,20 +20,6 @@ using System.Net.Http;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -106,6 +92,27 @@ using Microsoft.EntityFrameworkCore;
 #nullable restore
 #line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
 using System.ComponentModel.DataAnnotations;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+           [Authorize]
 
 #line default
 #line hidden

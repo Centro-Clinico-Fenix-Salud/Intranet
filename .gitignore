@@ -99,3 +99,4 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Shared/NavMenu.razor.g.cs
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Shared/SurveyPrompt.razor.g.cs
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/_Imports.razor.g.cs
+*.pdb

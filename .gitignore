@@ -138,3 +138,12 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/Intranet/obj/Debug/net7.0/Intranet.RazorTargetAssemblyInfo.cs
 /Intranet/Intranet/obj/Debug/net7.0/Intranet.Views.pdb
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Intranet.pdb
+/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Calendario.razor.g.cs
+/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Noticias-Fenix.razor.g.cs
+/Intranet/Intranet/obj/Release/net7.0/Razor/Shared/MainLogin.razor.g.cs
+/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Calendario.razor.g.cs
+/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Noticias-Fenix.razor.g.cs
+/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Shared/MainLogin.razor.g.cs
+/Intranet/Intranet/Properties/PublishProfiles/FolderProfile2.pubxml
+/Intranet/Intranet/Properties/PublishProfiles/FolderProfile2.pubxml.user
+*.json

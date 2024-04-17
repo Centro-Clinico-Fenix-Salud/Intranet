@@ -1,6 +1,7 @@
 ﻿@page "/tablero"
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
 @* Diseño personalizado de Dashboard *@
@@ -95,3 +96,9 @@ color: black;
         </div>
     </div>
 </div>
+
+@code {
+
+
+}
+

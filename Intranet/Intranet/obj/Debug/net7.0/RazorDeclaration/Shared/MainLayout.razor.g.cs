@@ -96,6 +96,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+using Intranet.Modelos.LoginModel;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -104,14 +111,33 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 47 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
        
+    private string Nombre = string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+       // Nombre = "Bienvenido";
 
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Nombre = "Bienvenido";
+        }
+                     
+    }
+    
+    
+    
     private async Task CerrarSesion()
     {
-        var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-        await autenticacionExt.ActualizarEstadoAutenticacion(null);
-        navManager.NavigateTo("/", true);
+       // await _sessionStorage.GuardarLogin(false);
+        //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+        //await autenticacionExt.ActualizarEstadoAutenticacion(null);
+       // navManager.NavigateTo("/", true);
     }
 
 #line default

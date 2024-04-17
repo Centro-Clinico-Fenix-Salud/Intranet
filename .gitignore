@@ -147,3 +147,11 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/Intranet/Properties/PublishProfiles/FolderProfile2.pubxml
 /Intranet/Intranet/Properties/PublishProfiles/FolderProfile2.pubxml.user
 *.json
+*.exe
+*.pdb
+/Intranet/Intranet/obj/Release/net7.0/PubTmp/Out/wwwroot/css
+*.cs
+*.props
+*.pubxml
+*.user
+*.txt

@@ -147,3 +147,7 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/Intranet/Properties/PublishProfiles/FolderProfile2.pubxml
 /Intranet/Intranet/Properties/PublishProfiles/FolderProfile2.pubxml.user
 *.json
+/Intranet/Intranet/obj/Debug/net7.0/Razor/Pages/Loggin.razor.g.cs
+*.cs
+*.pubxml
+*.user

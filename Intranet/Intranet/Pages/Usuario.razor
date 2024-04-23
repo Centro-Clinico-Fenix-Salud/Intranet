@@ -1,0 +1,11 @@
+﻿@page "/Usuario"
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = "Administrador")]
+
+<h3>Usuario</h3>
+
+@code {
+
+}

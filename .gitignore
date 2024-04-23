@@ -79,17 +79,10 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
 *.bin
 /Intranet/Intranet/Intranet.csproj.user
-<<<<<<< HEAD
 /Intranet/Intranet/obj/Release/net7.0/Intranet.csproj.FileListAbsolute.txt
 /Intranet/Intranet/obj/Release/net7.0/Intranet.GeneratedMSBuildEditorConfig.editorconfig
 /Intranet/Intranet/obj/Release/net7.0/Intranet.sourcelink.json
 /Intranet/Intranet/Properties/PublishProfiles/FolderProfile.pubxml.user
-<<<<<<< HEAD
-=======
-=======
-/Intranet/Intranet/obj/Debug/net7.0/Razor/Pages/Calendario.razor.g.cs
-/Intranet/Intranet/obj/Debug/net7.0/Razor/Pages/Noticias-Fenix.razor.g.cs
->>>>>>> origin/feature/noticia
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Agenda.razor.g.cs
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Boletin.razor.g.cs
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Calendario.razor.g.cs
@@ -102,7 +95,6 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Loggin.razor.g.cs
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticia.razor.g.cs
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Noticias-Fenix.razor.g.cs
-<<<<<<< HEAD
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Reservacion.razor.g.cs
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Sobrefenix.razor.g.cs
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Shared/MainLayout.razor.g.cs
@@ -146,72 +138,20 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 /Intranet/Intranet/obj/Debug/net7.0/Intranet.RazorTargetAssemblyInfo.cs
 /Intranet/Intranet/obj/Debug/net7.0/Intranet.Views.pdb
 /Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Intranet.pdb
-/Intranet/Intranet/bin/Release/net7.0/appsettings.json
-/Intranet/Intranet/bin/Release/net7.0/Intranet.deps.json
-/Intranet/Intranet/bin/Release/net7.0/Intranet.exe
-/Intranet/Intranet/bin/Release/net7.0/Intranet.pdb
-/Intranet/Intranet/bin/Release/net7.0/Intranet.staticwebassets.runtime.json
-/Intranet/Intranet/bin/Release/net7.0/Intranet.Views.pdb
-/Intranet/Intranet/obj/Release/net7.0/PubTmp/Out/appsettings.json
-/Intranet/Intranet/obj/Release/net7.0/PubTmp/Out/Intranet.deps.json
-/Intranet/Intranet/obj/Release/net7.0/PubTmp/Out/Intranet.exe
-/Intranet/Intranet/obj/Release/net7.0/PubTmp/Out/Intranet.pdb
-/Intranet/Intranet/obj/Release/net7.0/PubTmp/Out/Intranet.Views.pdb
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Agenda.razor.g.cs
 /Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Calendario.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Counter.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Cumpleanos.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Dashboard-Seguridad-Redes.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Dashboard-Seguridad.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Index.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Loggin.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Noticia.razor.g.cs
 /Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Noticias-Fenix.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Reservacion.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/Sobrefenix.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Intranet.pdb
-/Intranet/Intranet/obj/Release/net7.0/PubTmp/Out/wwwroot/css/site.css
-/Intranet/Intranet/obj/Release/net7.0/Razor/App.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Shared/MainLayout.razor.g.cs
 /Intranet/Intranet/obj/Release/net7.0/Razor/Shared/MainLogin.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/Razor/Shared/NavMenu.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Agenda.razor.g.cs
 /Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Calendario.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Cumpleanos.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Index.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Loggin.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Noticia.razor.g.cs
 /Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Noticias-Fenix.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Reservacion.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Pages/Sobrefenix.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/App.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Shared/MainLayout.razor.g.cs
 /Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Shared/MainLogin.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/RazorDeclaration/Shared/NavMenu.razor.g.cs
-/Intranet/Intranet/obj/Release/net7.0/apphost.exe
-/Intranet/Intranet/obj/Release/net7.0/Intranet.AssemblyInfo.cs
-/Intranet/Intranet/obj/Release/net7.0/Intranet.deps.json
-/Intranet/Intranet/obj/Release/net7.0/Intranet.pdb
-/Intranet/Intranet/obj/Release/net7.0/Intranet.RazorTargetAssemblyInfo.cs
-/Intranet/Intranet/obj/Release/net7.0/Intranet.Views.pdb
-/Intranet/Intranet/obj/Release/net7.0/PublishOutputs.ecbc7a074c.txt
-/Intranet/Intranet/obj/Release/net7.0/staticwebassets/msbuild.Intranet.Microsoft.AspNetCore.StaticWebAssets.props
-/Intranet/Intranet/obj/Release/net7.0/staticwebassets.build.json
-/Intranet/Intranet/obj/Release/net7.0/staticwebassets.development.json
-/Intranet/Intranet/obj/Release/net7.0/staticwebassets.pack.json
-/Intranet/Intranet/obj/Release/net7.0/staticwebassets.publish.json
 /Intranet/Intranet/Properties/PublishProfiles/FolderProfile2.pubxml
 /Intranet/Intranet/Properties/PublishProfiles/FolderProfile2.pubxml.user
->>>>>>> origin/feature/publish
-=======
-/Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Pages/Sobrefenix.razor.g.cs
-/Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/App.razor.g.cs
-/Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Shared/MainLayout.razor.g.cs
-/Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Shared/NavMenu.razor.g.cs
-/Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/Shared/SurveyPrompt.razor.g.cs
-/Intranet/Intranet/obj/Debug/net7.0/RazorDeclaration/_Imports.razor.g.cs
-<<<<<<< HEAD
->>>>>>> origin/feature/noticia
-=======
+*.json
+*.exe
 *.pdb
->>>>>>> feature/noticia
+/Intranet/Intranet/obj/Release/net7.0/PubTmp/Out/wwwroot/css
+*.cs
+*.props
+*.pubxml
+*.user
+*.txt

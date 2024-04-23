@@ -7,6 +7,7 @@
 @inject NavigationManager navManager
 @inject ISessionStorageService _sessionStorage
 
+
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <div>
@@ -18,7 +19,6 @@
         </button>
     </div>
 </div>
-
 
 <MudNavMenu>
     <MudDivider Class="my-2" />
@@ -43,8 +43,9 @@
     <MudNavLink Href="/sobrefenix">Sobre Fénix...</MudNavLink>
     <MudNavLink @onclick="CerrarSesion" style="cursor: pointer;">Salir</MudNavLink>
 </MudNavMenu>
+
 @code {
-    
+       
     private async Task CerrarSesion()
     {
         await _sessionStorage.GuardarLogin(false);

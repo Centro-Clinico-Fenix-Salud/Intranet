@@ -97,21 +97,6 @@ using MudBlazor;
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 39 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Direccionesip.razor"
- 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await Js.InvokeVoidAsync("Data");
-        }
-        await Js.InvokeVoidAsync("Data");
-    }
-
-#line default
-#line hidden
-#nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.JSInterop.IJSRuntime Js { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment { get; set; }
     }

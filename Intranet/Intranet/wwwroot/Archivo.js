@@ -242,3 +242,65 @@ function convertirFechaAHora(fechaFullCalendar) {
 }
 
 
+window.ActivarCanvas = async () => {
+
+        const canvas = document.querySelector("canvas");
+        canvas.height = canvas.offsetHeight;
+        canvas.width = canvas.offsetWidth;
+
+    signaturePad = new SignaturePad(canvas, {});
+
+    //const image = await loadImage(savePath);
+    //console.log(image);
+}
+
+function loadImage(url) {
+    return new Promise(resolve => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = "blob";
+        xhr.onload = function (e) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const res = event.target.result;
+                resolve(res);
+            }
+            const file = this.response;
+            reader.readAsDataURL(file);
+        }
+        xhr.send();
+    });
+}
+
+window.generatePDF = async (savePath) => {
+
+    //const image = await loadImage(savePath);
+    //const pdf = new jsPDF();
+    //pdf.addImage(image, 'PNG', 0, 0, 565, 792);
+    //pdf.save("example.pdf");
+
+    //var pdf = new jsPDF();
+    //pdf.text(30, 30, 'hello world');
+    //pdf.save("example.pdf");
+
+    // Generar PDF con jsPDF
+    var doc = new jsPDF();
+    doc.text('¡Hola, mundo!', 10, 20);
+
+    var base64PDF = doc.output('dataurlnew');
+
+    // Crear elemento img para mostrar el PDF
+    var imgElement = document.createElement('img');
+    imgElement.src = base64PDF;
+    imgElement.width = '792';
+    imgElement.height = '565';
+
+    // Obtener el div con ID "PrevisualizacionPDF"
+    var previsualizacionDiv = document.getElementById('PrevisualizacionPDF');
+
+    // Agregar el elemento img al div
+    previsualizacionDiv.appendChild(imgElement);
+
+}
+
+

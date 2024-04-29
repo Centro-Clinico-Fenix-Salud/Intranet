@@ -7,6 +7,7 @@ using System.DirectoryServices;
 using System.ComponentModel.DataAnnotations;
 using MudBlazor;
 using Microsoft.AspNetCore.Components;
+using Intranet.Modelos.LoginModel;
 
 namespace Intranet.Controller
 {
@@ -16,19 +17,19 @@ namespace Intranet.Controller
         private ISnackbar Snackbar { get; set; }
 
         [HttpPost("/account/login")]
-        public async Task<IActionResult> Login(UserCredentials credentials)
+        public async Task<IActionResult> Login(LoginDTO credentials)
         {
             //Indicamos el dominio en el que vamos a buscar al usuario
              string path = "LDAP://fenixsalud.local";
 
             try
             {
-                using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, credentials.Username, credentials.Password))
+                using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, credentials.Usuario, credentials.Clave))
                 {
                     using (DirectorySearcher searcher = new DirectorySearcher(entry))
                     {
                         //Buscamos por la propiedad SamAccountName
-                        searcher.Filter = "(samaccountname=" + credentials.Username + ")";
+                        searcher.Filter = "(samaccountname=" + credentials.Usuario + ")";
                         //Buscamos el usuario con la cuenta indicada
                         var result = searcher.FindOne();
                         if (result != null)
@@ -49,7 +50,7 @@ namespace Intranet.Controller
                             //Podríamos obtenerlos de una base de datos.
                             var claims = new[]
                             {
-                                new Claim(ClaimTypes.Name, credentials.Username),
+                                new Claim(ClaimTypes.Name, credentials.Usuario),
                                 new Claim(ClaimTypes.Role, role)
                             };
 
@@ -68,7 +69,7 @@ namespace Intranet.Controller
                         else {
 
                            // Snackbar.Add("logueo fallido", Severity.Error);
-                            return LocalRedirect("/Invalid credentials");
+                            return LocalRedirect("/Error al ingresar");
                         }
                            
                     }
@@ -77,8 +78,8 @@ namespace Intranet.Controller
             }
             catch (Exception ex)
             {
-               // Snackbar.Add("logueo fallido", Severity.Error);
-                return LocalRedirect("/Invalid credentials");
+                //return LocalRedirect("/login/Usuario o Clave inválida");
+                return LocalRedirect("/invalido/Credenciales Incorrectas");
             }
         }
 

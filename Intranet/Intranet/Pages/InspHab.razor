@@ -9,7 +9,7 @@
 <h3>InspHab</h3>
 
 
-<div class="container mt-4">
+<div id="formulario-principal" class="container mt-4" style=" display: @valor; ">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <h3>Formulario</h3>
@@ -108,18 +108,33 @@
                     </div>
                 </div>
 
-                <span class="d-block pb-2">Firma digital aqui</span>
+                @* <span class="d-block pb-2">Firma digital aqui</span>
                 <div class="signature mb-2" style="width: 100%; height: 200px;">
                     <canvas id="signature-canvas"
                             style="border: 1px dashed red; width: 100%; height: 200px;"></canvas>
-                </div>
+                </div> *@
 
-                <button type="submit" class="btn btn-primary mb-4" @onclick="(()=> export())">Generar PDF</button>
+               @*  <button class="btn btn-primary mb-4" @onclick="(()=> export())">Generar PDF</button> *@
             </form>
         </div>
     </div>
 </div>
 
+@if (FirmaDigital)
+{
+    <div id="firma-digital" @>
+        <span class="d-block pb-2">Firma digital aqui</span>
+        <div class="signature mb-2" style="width: 100%; height: 200px;">
+            <canvas id="signature-canvas"
+                    style="border: 1px dashed red; width: 100%; height: 200px;"></canvas>
+        </div>
+    </div>
+}
+
+
+
+<button class="btn btn-primary mb-4" @onclick="(()=> export())">Generar planilla</button>
+ 
 <div id="PrevisualizacionPDF"></div>
 @* <button class="btn btn-primary mb-4" @onclick="(()=> export())">generar PDF</button> *@
 

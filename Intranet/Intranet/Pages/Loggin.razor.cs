@@ -13,10 +13,6 @@ using System.DirectoryServices;
 using Intranet.Modelos.Agenda;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Text.RegularExpressions;
-using Intranet.Interfaces.Admin;
-using System.Configuration;
-using System.Data;
-using System.Runtime.CompilerServices;
 
 
 namespace Intranet.Pages
@@ -29,11 +25,6 @@ namespace Intranet.Pages
         public string ErrorMessage { get; set; }
         [Inject]
         private ISnackbar Snackbar { get; set; }
-
-        [Inject]
-        private IServicioAdmin ServicioAdmin { get; set; }
-        [Inject]
-        private IConfiguration Configuration { get; set; }
 
         LoginDTO LoginDTO { get; set; }
 
@@ -50,6 +41,10 @@ namespace Intranet.Pages
         {
             LoginDTO = new LoginDTO();
 
+            //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+            //if (await _sessionStorage.ObtenerLogin())
+            //    await autenticacionExt.ActualizarEstadoAutenticacion(null);
+
         }
         private async Task IniciarSesion()
         {
@@ -58,50 +53,59 @@ namespace Intranet.Pages
 
             try
             {
-                if (!(Configuration["usuarioAdmin"] == LoginDTO.Usuario && Configuration["Password"] == LoginDTO.Clave))
-                    using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, LoginDTO.Usuario, LoginDTO.Clave))
+                
+                using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, LoginDTO.Usuario, LoginDTO.Clave))
+                {
+                    using (DirectorySearcher searcher = new DirectorySearcher(entry))
                     {
-                        using (DirectorySearcher searcher = new DirectorySearcher(entry))
+                        //Buscamos por la propiedad SamAccountName
+                        //searcher.Filter = "(samaccountname=" + credentials.Username + ")";
+                        searcher.Filter = "(samaccountname=" + LoginDTO.Usuario + ")";
+                        //Buscamos el usuario con la cuenta indicada
+                        var result = searcher.FindOne();
+                        if (result != null)
                         {
-                            //Buscamos por la propiedad SamAccountName
-                            //searcher.Filter = "(samaccountname=" + credentials.Username + ")";
-                            searcher.Filter = "(samaccountname=" + LoginDTO.Usuario + ")";
-                            //Buscamos el usuario con la cuenta indicada
-                            var result = searcher.FindOne();
-                            if (result != null)
-                            {
-                                string role = "";
-                                string role2 = "";
-                                string nombreUsuario = "";
+                            string role = "";
+                            string role2 = "";
+                            string nombreUsuario = "";
 
 
-                                //setear rol a usuario
-                                role = ServicioAdmin.BuscarRolDeUsuario(LoginDTO.Usuario);
+                            //setear rol a usuario
 
-                                //Comporbamos las propiedades del usuario
-                                ResultPropertyCollection fields = result.Properties;
-                                foreach (String ldapField in fields.PropertyNames)
-                                {
-                                    foreach (Object myCollection in fields[ldapField])
-                                    {
-                                        if (ldapField == "name")
-                                            nombreUsuario = myCollection.ToString().ToLower();
-                                    }
-                                }
-
-                                await EnviarDataSessionStorageYAutenticacion(nombreUsuario, LoginDTO.Usuario, role);
-
-                            }
+                            if (LoginDTO.Usuario.Equals("programador2"))
+                                role = "Administrador";
                             else
+                                role = "Empleado";
+
+                            //Comporbamos las propiedades del usuario
+                            ResultPropertyCollection fields = result.Properties;
+                            foreach (String ldapField in fields.PropertyNames)
                             {
-                                errorMessage = "Error al ingresar";
+                                foreach (Object myCollection in fields[ldapField])
+                                {
+                                    if (ldapField == "name")
+                                        nombreUsuario = myCollection.ToString().ToLower();
+                                }
                             }
+
+
+                            SesionDTO sesionUsuario = new SesionDTO();
+                            sesionUsuario.Nombre = nombreUsuario;
+                            sesionUsuario.Usuario = LoginDTO.Usuario;
+                            sesionUsuario.Rol = role;
+
+                            await _sessionStorage.GuardarLogin(true);
+                            var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+                            await autenticacionExt.ActualizarEstadoAutenticacion(sesionUsuario);
+                            NavigationManager.NavigateTo("/tablero");
 
                         }
+                        else
+                        {
+                            errorMessage = "Error al ingresar";                          
+                        }
+
                     }
-                else
-                {
-                    await EnviarDataSessionStorageYAutenticacion("Super Usuario", LoginDTO.Usuario, ServicioAdmin.BuscarRolDeUsuario(LoginDTO.Usuario));
                 }
 
             }
@@ -110,22 +114,6 @@ namespace Intranet.Pages
                 errorMessage = "Usuario o Clave inválida";
             }                   
         }
-
-        public async Task  EnviarDataSessionStorageYAutenticacion(string nombreUsuario, string usuario, string role) 
-        {
-
-            SesionDTO sesionUsuario = new SesionDTO();
-            sesionUsuario.Nombre = nombreUsuario;
-            sesionUsuario.Usuario = usuario;
-            sesionUsuario.Rol = role;
-
-            await _sessionStorage.GuardarLogin(true);
-            var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-            await autenticacionExt.ActualizarEstadoAutenticacion(sesionUsuario);
-            NavigationManager.NavigateTo("/tablero");
-
-        }
-        
         private IEnumerable<string> PasswordStrength(string pw)
         {
             if (string.IsNullOrWhiteSpace(pw))

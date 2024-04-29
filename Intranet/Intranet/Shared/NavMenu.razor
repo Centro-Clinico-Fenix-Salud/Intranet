@@ -24,7 +24,8 @@
     <MudDivider Class="my-2" />
     <MudNavLink Href="/tablero">Tableros</MudNavLink>
     <MudNavGroup Title="Noticias Fénix" Expanded="false">
-        <MudNavLink Href="/noticia">Noticias</MudNavLink>      
+        <MudNavLink Href="/noticia">Noticias</MudNavLink>
+        @*  <MudNavLink Href="/boletin">Boletin Fénix</MudNavLink> *@
         </MudNavGroup>
     <MudNavLink Href="/agenda">Agenda</MudNavLink>
         <MudNavGroup Title="Calendario" Expanded="false">
@@ -40,15 +41,6 @@
         </MudNavGroup>
     </MudNavGroup>
     <MudNavLink Href="/sobrefenix">Sobre Fénix...</MudNavLink>
-       <AuthorizeView Roles="Administrador">
-            <Authorized>
-               <MudNavGroup Title="Administracion" Expanded="false">
-                <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
-                <MudNavLink>Roles</MudNavLink>
-                <MudNavLink>Permisos</MudNavLink>
-            </MudNavGroup>
-            </Authorized>
-        </AuthorizeView>
     <MudNavLink @onclick="CerrarSesion" style="cursor: pointer;">Salir</MudNavLink>
 </MudNavMenu>
 

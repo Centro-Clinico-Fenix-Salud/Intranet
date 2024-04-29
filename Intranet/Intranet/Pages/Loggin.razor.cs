@@ -53,7 +53,6 @@ namespace Intranet.Pages
 
             try
             {
-                
                 using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, LoginDTO.Usuario, LoginDTO.Clave))
                 {
                     using (DirectorySearcher searcher = new DirectorySearcher(entry))
@@ -66,33 +65,44 @@ namespace Intranet.Pages
                         if (result != null)
                         {
                             string role = "";
-                            string role2 = "";
                             string nombreUsuario = "";
-
-
-                            //setear rol a usuario
-
-                            if (LoginDTO.Usuario.Equals("programador2"))
-                                role = "Administrador";
-                            else
-                                role = "Empleado";
-
                             //Comporbamos las propiedades del usuario
+
                             ResultPropertyCollection fields = result.Properties;
                             foreach (String ldapField in fields.PropertyNames)
                             {
                                 foreach (Object myCollection in fields[ldapField])
                                 {
+                                    //if (ldapField == "employeetype")
+                                    //    role = myCollection.ToString().ToLower();
                                     if (ldapField == "name")
                                         nombreUsuario = myCollection.ToString().ToLower();
                                 }
                             }
 
+                            //Añadimos los claims Usuario y Rol para tenerlos disponibles en la Cookie
+                            //Podríamos obtenerlos de una base de datos.
+                            //var claims = new[]
+                            //{
+                            //    new Claim(ClaimTypes.Name, credentials.Username),
+                            //    new Claim(ClaimTypes.Role, role)
+                            //};
+
+                            //Creamos el principal
+                            //var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            //var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+                            //Generamos la cookie. SignInAsync es un método de extensión del contexto.
+                            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+                            //Redirigimos a la Home
+                            // Snackbar.Add("logueo exitoso", Severity.Info);
+                            // return LocalRedirect("/tablero");
 
                             SesionDTO sesionUsuario = new SesionDTO();
                             sesionUsuario.Nombre = nombreUsuario;
                             sesionUsuario.Usuario = LoginDTO.Usuario;
-                            sesionUsuario.Rol = role;
+                            sesionUsuario.Rol = "superAdmin";
 
                             await _sessionStorage.GuardarLogin(true);
                             var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
@@ -102,7 +112,9 @@ namespace Intranet.Pages
                         }
                         else
                         {
-                            errorMessage = "Error al ingresar";                          
+                            errorMessage = "Error al ingresar";
+                            //Snackbar.Add("Credenciales incorrectas", Severity.Error);
+                            // return LocalRedirect("/Invalid credentials");
                         }
 
                     }
@@ -111,6 +123,8 @@ namespace Intranet.Pages
             }
             catch (Exception ex)
             {
+                //Snackbar.Add("Error al ingresar", Severity.Error);
+                //return LocalRedirect("/Invalid credentials");
                 errorMessage = "Usuario o Clave inválida";
             }                   
         }

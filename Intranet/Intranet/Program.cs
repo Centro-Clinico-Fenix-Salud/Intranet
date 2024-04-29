@@ -23,6 +23,7 @@ builder.RegisterAppServices();
 //builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
 //builder.Services.AddSingleton<IArchivoImagen, ArchivoImagen>();
+builder.Services.AddControllers();
 builder.Services.Configure<RazorPagesOptions>(options => options.RootDirectory = "/Pages");
 builder.Services.AddBlazoredSessionStorage();
 builder.Services.AddScoped<AuthenticationStateProvider, AutenticacionExtension>();

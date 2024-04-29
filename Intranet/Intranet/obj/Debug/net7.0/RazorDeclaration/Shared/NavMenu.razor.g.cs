@@ -118,7 +118,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 55 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\NavMenu.razor"
+#line 58 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\NavMenu.razor"
        
        
     private async Task CerrarSesion()

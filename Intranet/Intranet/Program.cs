@@ -10,22 +10,31 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MudBlazor.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.RegisterDbContext();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.RegisterAppServices();
+//builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
-builder.Services.AddSingleton<IArchivoImagen, ArchivoImagen>();
+//builder.Services.AddSingleton<IArchivoImagen, ArchivoImagen>();
+builder.Services.AddControllers();
 builder.Services.Configure<RazorPagesOptions>(options => options.RootDirectory = "/Pages");
 builder.Services.AddBlazoredSessionStorage();
-builder.Services.AddScoped<AuthenticationStateProvider, AutenticacionExtension>();
-builder.Services.AddAuthenticationCore();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+//builder.Services.AddScoped<AuthenticationStateProvider, AutenticacionExtension>();
+//builder.Services.AddAuthenticationCore();
 
 var app = builder.Build();
+app.ExecuteMigrations();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -45,6 +54,9 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+// insercion de super admin si no hay usuarios registrados
+new CreacionSuperAdmin(builder.Configuration["usuarioAdmin"]);
 
 app.MapBlazorHub();
 app.MapControllers();

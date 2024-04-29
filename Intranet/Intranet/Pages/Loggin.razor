@@ -1,14 +1,16 @@
 ﻿@page "/"
-@page "/{errorMessage}"
+@page "/invalido/{ErrorMessage}"
 @layout MainLogin
 @using MudBlazor
 @inject NavigationManager NavigationManager
 @using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider autenticacionProvider
 
+
  <link href="/css/loggin.css" rel="stylesheet" />  
 
 <PageTitle> Sistema Intranet Fenix Salud </PageTitle>
+
 <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -17,11 +19,12 @@
 
                     <div class="mb-md-5 mt-md-4 pb-5">
                     
-                        <h1> Intranet </h1>
-                        @if (!string.IsNullOrEmpty(errorMessage))
+                        <h1> Fenix Intranet </h1>
+                        @if (!string.IsNullOrEmpty(ErrorMessage))
                         {
-                            <MudText Class="mt-2 text-danger">@errorMessage</MudText>
+                            <MudText Class="mt-2 text-danger">@ErrorMessage</MudText>
                         }
+@*
                         <EditForm Model="@LoginDTO" OnValidSubmit="OnValidSubmit">
                             <DataAnnotationsValidator />
                             <MudGrid>
@@ -33,16 +36,45 @@
                                         </MudCardContent>
                                         <MudCardActions>
                                              <div class="col-12 d-flex justify-content-center align-items-center">
-                                            <button data-mdb-button-init data-mdb-ripple-init @onclick="IniciarSesion" class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                                            <button data-mdb-button-init data-mdb-ripple-init @onclick="IniciarSesion" class="btn btn-outline-light btn-lg px-5" type="submit">Ingresar</button>
                                             </div>
                                         </MudCardActions>
                                     </MudCard>
                                 </MudItem>
                             </MudGrid>
-                        </EditForm>
-                                    
-                    </div>
+                        </EditForm>  *@
 
+@*                         <form method="post" action="/account/login">
+                            <div class="form-group">
+                                <label>Username:</label>
+                                <input type="text" name="Usuario" class="form-control col-sm-6 col-md-4" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password:</label>
+                                <input type="password" name="Clave" class="form-control col-sm-6 col-md-4" />
+                            </div>
+                            <button class="btn btn-primary">Log in</button>
+                        </form> *@
+
+                        <form method="post" action="/account/login">
+                            <MudGrid>
+                                <MudItem xs="12" sm="12">
+                                    <MudCard>
+                                        <MudCardContent>                                      
+                                            <MudTextField Variant="Variant.Filled" Label="Usuario" Value="LoginDTO.Usuario" name="Usuario" />                                      
+                                            <MudTextField Variant="Variant.Filled" Label="Clave" InputType="InputType.Password" Value="LoginDTO.Clave" name="Clave" />                                                                                    
+                                        </MudCardContent>
+                                        <MudCardActions>
+                                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                                <button class="btn btn-outline-light btn-lg px-5">Ingresar</button>
+                                            </div>
+                                        </MudCardActions>
+                                    </MudCard>
+                                </MudItem>
+                            </MudGrid>
+                        </form>
+
+                    </div>
                 </div>
             </div>
         </div>

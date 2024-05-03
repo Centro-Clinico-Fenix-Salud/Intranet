@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using MudBlazor;
 using Microsoft.AspNetCore.Components;
 using Intranet.Modelos.LoginModel;
+using Intranet.Interfaces.Admin;
 
 namespace Intranet.Controller
 {
@@ -15,6 +16,12 @@ namespace Intranet.Controller
     {
         [Inject]
         private ISnackbar Snackbar { get; set; }
+        private IServicioAdmin ServicioAdmin { get; set; }
+
+        public LoginController(IServicioAdmin ServicioAdmin) {
+            this.ServicioAdmin = ServicioAdmin;
+        }
+
 
         [HttpPost("/account/login")]
         public async Task<IActionResult> Login(LoginDTO credentials)
@@ -35,22 +42,32 @@ namespace Intranet.Controller
                         if (result != null)
                         {
                             string role = "";
+                            Guid id = Guid.Empty ;
+                            string nombreUsuario = "";
+
+
                             //Comporbamos las propiedades del usuario
                             ResultPropertyCollection fields = result.Properties;
                             foreach (String ldapField in fields.PropertyNames)
                             {
                                 foreach (Object myCollection in fields[ldapField])
                                 {
-                                    if (ldapField == "employeetype")
-                                        role = myCollection.ToString().ToLower();
+                                    if (ldapField == "name")
+                                      nombreUsuario = myCollection.ToString().ToLower();
+
+                                    if (ldapField == "objectguid")
+                                        id = new Guid((byte[])myCollection);
                                 }
                             }
+                            //setear rol a usuario
+                            role = ServicioAdmin.BuscarRolDeUsuario(id);
 
                             //Añadimos los claims Usuario y Rol para tenerlos disponibles en la Cookie
                             //Podríamos obtenerlos de una base de datos.
                             var claims = new[]
                             {
-                                new Claim(ClaimTypes.Name, credentials.Usuario),
+                                new Claim(ClaimTypes.Name, nombreUsuario),
+                                new Claim(ClaimTypes.Surname, credentials.Usuario),
                                 new Claim(ClaimTypes.Role, role)
                             };
 

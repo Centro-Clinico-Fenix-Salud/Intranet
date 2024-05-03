@@ -6,6 +6,22 @@
 
 <h3>Usuario</h3>
 
+@* <button @onclick="ToggleFormulario">Sincronizar usuario</button> *@
+
+<div class="mb-3">
+    <MudButton ButtonType="ButtonType.Submit" disabled="@procesando" Variant="Variant.Filled" OnClick="@(() => ToggleFormulario())" Color="Color.Success" Class="ml-auto">Procesar Solicitud</MudButton>
+</div>
+
+@* <div class="mb-3">
+    <MudButton ButtonType="ButtonType.Submit" disabled="@procesando" Variant="Variant.Filled" OnClick="@(() => ProcesarSolicitud())" Color="Color.Success" Class="ml-auto">Procesar Solicitud</MudButton>
+</div> *@
+
+@if (procesando)
+{
+    <p>Procesando solicitud...</p>
+   
+}
+
 @code {
 
 }

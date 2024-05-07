@@ -1,40 +1,23 @@
-﻿@page "/Usuario"
+﻿@page "/Roles"
 @using Intranet.Modelos.Admin;
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles = "SuperAdmin")]
 
-<PageTitle>Usuarios</PageTitle>
+<PageTitle>Roles</PageTitle>
 
 <nav class="navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Usuarios
+        Roles
     </h1>
 </nav>
 <div class="row">
     <div class="Botones">
-        <MudButton ButtonType="ButtonType.Submit" disabled="@procesando" Variant="Variant.Filled" OnClick="@(() => ActualizarUsuarios())" Color="Color.Primary" Class="ml-auto float-start">Sincronizar Usuarios</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => CrearRol())" Color="Color.Primary" Class="ml-auto float-start">Agregar</MudButton>
     </div>
 </div>
-
-@if (procesando)
-{
-    <div class="d-flex align-items-center justify-content-center">
-        <div class="row">
-            <div>
-                <img src="img/IconCargando.jpg" width="200" height="200" />
-            </div>
-            <div>
-                <h5>Procesando solicitud</h5>
-            </div>
-        </div>
-
-    </div>
-}
-else
-{
 
 <div class="row">
     <div class="Buscador input-group mt-2">
@@ -45,23 +28,23 @@ else
     </div>
 </div>
 
-<div class="row">
+@* <div class="row">
     <div class=" mt-2">
         <MudDataGrid T="U1_Usuario" Items="@Usuarios" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
             <Columns>
-                 <AuthorizeView Roles="SuperAdmin,EditarUsuario" Context="context">
+                <AuthorizeView Roles="SuperAdmin,EditarUsuario" Context="context">
                     <Authorized>
-                    <TemplateColumn Title="Acciones" Sortable="false">
-                        <CellTemplate Context="context2">
-                            <AuthorizeView Roles="SuperAdmin,EditarUsuario" Context="context3">
-                                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />                  
-                            </AuthorizeView>                           
-                        </CellTemplate>
+                        <TemplateColumn Title="Acciones" Sortable="false">
+                            <CellTemplate Context="context2">
+                                <AuthorizeView Roles="SuperAdmin,EditarUsuario" Context="context3">
+                                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
+                                </AuthorizeView>
+                            </CellTemplate>
                         </TemplateColumn>
                     </Authorized>
-                </AuthorizeView> 
+                </AuthorizeView>
                 <PropertyColumn Property="x => x.FirstName" Title="Nombre" Sortable="true" />
-                <PropertyColumn Property="x => x.Username" Title="Usuario"  Sortable="false" />
+                <PropertyColumn Property="x => x.Username" Title="Usuario" Sortable="false" />
                 <PropertyColumn Property="x => x.Rol.Nombre" Title="Rol" Sortable="false" />
             </Columns>
             <PagerContent>
@@ -69,10 +52,9 @@ else
             </PagerContent>
         </MudDataGrid>
     </div>
-</div>
-}
+</div> *@
 
-@if (mostrarModalEditar)
+@* @if (mostrarModalEditar)
 {
     <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
         <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
@@ -101,7 +83,7 @@ else
                                         }
                                     </MudSelect>
                                     <ValidationMessage For="@(() => EditarUsuario.Rol.Nombre)" />
-                             
+
                                 </MudCardContent>
                                 <MudCardActions>
                                     <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalEditar" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
@@ -116,7 +98,7 @@ else
     </div>
     <div class="modal-backdrop show"></div>
 
-}
+} *@
 @code {
 
 }

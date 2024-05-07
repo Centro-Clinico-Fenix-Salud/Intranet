@@ -59,62 +59,6 @@ namespace Intranet.Pages
 
             var response = await HttpClient.PostAsJsonAsync("/account/login", LoginDTO);
 
-            ////Indicamos el dominio en el que vamos a buscar al usuario
-            //string path = "LDAP://fenixsalud.local";
-
-            //try
-            //{
-            //    if (!(Configuration["usuarioAdmin"] == LoginDTO.Usuario && Configuration["Password"] == LoginDTO.Clave))
-            //        using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, LoginDTO.Usuario, LoginDTO.Clave))
-            //        {
-            //            using (DirectorySearcher searcher = new DirectorySearcher(entry))
-            //            {
-            //                //Buscamos por la propiedad SamAccountName
-            //                //searcher.Filter = "(samaccountname=" + credentials.Username + ")";
-            //                searcher.Filter = "(samaccountname=" + LoginDTO.Usuario + ")";
-            //                //Buscamos el usuario con la cuenta indicada
-            //                var result = searcher.FindOne();
-            //                if (result != null)
-            //                {
-            //                    string role = "";
-            //                    string role2 = "";
-            //                    string nombreUsuario = "";
-
-
-            //                    //setear rol a usuario
-            //                    role = ServicioAdmin.BuscarRolDeUsuario(LoginDTO.Usuario);
-
-            //                    //Comporbamos las propiedades del usuario
-            //                    ResultPropertyCollection fields = result.Properties;
-            //                    foreach (String ldapField in fields.PropertyNames)
-            //                    {
-            //                        foreach (Object myCollection in fields[ldapField])
-            //                        {
-            //                            if (ldapField == "name")
-            //                                nombreUsuario = myCollection.ToString().ToLower();
-            //                        }
-            //                    }
-
-            //                    await EnviarDataSessionStorageYAutenticacion(nombreUsuario, LoginDTO.Usuario, role);
-
-            //                }
-            //                else
-            //                {
-            //                    errorMessage = "Error al ingresar";
-            //                }
-
-            //            }
-            //        }
-            //    else
-            //    {
-            //        await EnviarDataSessionStorageYAutenticacion("Super Usuario", LoginDTO.Usuario, ServicioAdmin.BuscarRolDeUsuario(LoginDTO.Usuario));
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    errorMessage = "Usuario o Clave inválida";
-            //}
         }
 
         public async Task  EnviarDataSessionStorageYAutenticacion(string nombreUsuario, string usuario, string role) 

@@ -739,7 +739,7 @@ window.InsertarFirmaDigitalEnPDF = async () =>
     const signatureImage = signaturePad.toDataURL();
 
     ClonDoc.setPage(1);
-    ClonDoc.addImage(signatureImage, 'PNG', 130, 680, 300, 60, 'page1');
+    ClonDoc.addImage(signatureImage, 'PNG', 130, 690, 300, 60, 'page1');
 
     var pdfDataprueba = ClonDoc.output('blob');
     var pdfUrl = URL.createObjectURL(pdfDataprueba);

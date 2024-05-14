@@ -1,4 +1,4 @@
-﻿@page "/Insp-Hab"
+﻿@page "/Insp-Hab2"
 @using Microsoft.AspNetCore.Components.Routing
 @using MudBlazor
 @using Microsoft.AspNetCore.Authorization;
@@ -6,7 +6,7 @@
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment
 @attribute [Authorize]
 
-<h3>InspHab</h3>
+<h3>Planilla Inspección de Habitaciones</h3>
 
 
 <div id="formulario-principal" class="container mt-4" style=" display: @valor; ">
@@ -83,7 +83,6 @@
                     </div>
                 </div>
 
-
                 <div class="row mb-3">
                     <div class="col-md-3">
                         <div>
@@ -108,13 +107,6 @@
                     </div>
                 </div>
 
-                @* <span class="d-block pb-2">Firma digital aqui</span>
-                <div class="signature mb-2" style="width: 100%; height: 200px;">
-                    <canvas id="signature-canvas"
-                            style="border: 1px dashed red; width: 100%; height: 200px;"></canvas>
-                </div> *@
-
-               @*  <button class="btn btn-primary mb-4" @onclick="(()=> export())">Generar PDF</button> *@
             </form>
         </div>
     </div>

@@ -34,7 +34,7 @@ namespace Intranet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("p1_Permiso");
+                    b.ToTable("p1_Permiso", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.R1_Rol", b =>
@@ -50,7 +50,7 @@ namespace Intranet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("r1_Rol");
+                    b.ToTable("r1_Rol", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.Rol_Permiso", b =>
@@ -71,7 +71,7 @@ namespace Intranet.Migrations
 
                     b.HasIndex("RolId");
 
-                    b.ToTable("rol_Permiso");
+                    b.ToTable("rol_Permiso", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.U1_Usuario", b =>
@@ -113,7 +113,7 @@ namespace Intranet.Migrations
 
                     b.HasIndex("RolId");
 
-                    b.ToTable("u1_Usuario");
+                    b.ToTable("u1_Usuario", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.Rol_Permiso", b =>

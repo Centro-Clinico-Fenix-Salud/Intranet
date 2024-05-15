@@ -22,6 +22,21 @@ namespace Intranet.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Intranet.Modelos.Admin.P1_Permiso", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("p1_Permiso", (string)null);
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Admin.R1_Rol", b =>
                 {
                     b.Property<Guid>("Id")
@@ -35,7 +50,28 @@ namespace Intranet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("r1_Rol");
+                    b.ToTable("r1_Rol", (string)null);
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Admin.Rol_Permiso", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PermisoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RolId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PermisoId");
+
+                    b.HasIndex("RolId");
+
+                    b.ToTable("rol_Permiso", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.U1_Usuario", b =>
@@ -77,7 +113,26 @@ namespace Intranet.Migrations
 
                     b.HasIndex("RolId");
 
-                    b.ToTable("u1_Usuario");
+                    b.ToTable("u1_Usuario", (string)null);
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Admin.Rol_Permiso", b =>
+                {
+                    b.HasOne("Intranet.Modelos.Admin.P1_Permiso", "Permiso")
+                        .WithMany("Rol_Permisos")
+                        .HasForeignKey("PermisoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Intranet.Modelos.Admin.R1_Rol", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permiso");
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.U1_Usuario", b =>
@@ -87,6 +142,11 @@ namespace Intranet.Migrations
                         .HasForeignKey("RolId");
 
                     b.Navigation("Rol");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Admin.P1_Permiso", b =>
+                {
+                    b.Navigation("Rol_Permisos");
                 });
 #pragma warning restore 612, 618
         }

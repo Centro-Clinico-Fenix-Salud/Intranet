@@ -14,12 +14,13 @@
             <img class="logoFenix" src="img/logoFenix.png" Width="40" Height="40" />
             <a class="navbar-brand" href="/tablero">Intranet Fénix</a>
         </div>
-        <button title="Navigation menu" class="navbar-toggler">
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </div>
 
+<div class="@NavMenuCssClass nav-scrollable">
 <MudNavMenu>
     <MudDivider Class="my-2" />
     <MudNavLink Href="/tablero">Tableros</MudNavLink>
@@ -44,16 +45,25 @@
             <Authorized>
                <MudNavGroup Title="Administracion" Expanded="false">
                 <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
-                <MudNavLink>Roles</MudNavLink>
-                <MudNavLink>Permisos</MudNavLink>
+                <MudNavLink Href="/Roles">Roles</MudNavLink>
+                <MudNavLink Href="/Permisos">Permisos</MudNavLink>
+                <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
             </MudNavGroup>
             </Authorized>
         </AuthorizeView>
     <MudNavLink Href="/account/logout" style="cursor: pointer;">Salir</MudNavLink>
 </MudNavMenu>
+</div>
 
 @code {
-       
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
     private async Task CerrarSesion()
     {
         await _sessionStorage.GuardarLogin(false);

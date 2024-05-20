@@ -30,7 +30,7 @@
 
  <div class="row">
     <div class="container-fluid d-flex align-items-center justify-content-center ">
-    <div class="col-10 mt-2">
+    <div class="col-12 mt-2">
         <MudDataGrid T="R1_Rol" Items="@DataRoles" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
             <Columns>
                 <AuthorizeView Roles="SuperAdmin,EditarRoles" Context="context">

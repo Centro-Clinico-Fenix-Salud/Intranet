@@ -20,20 +20,6 @@ using System.Net.Http;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -89,7 +75,28 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/")]
+#nullable restore
+#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Index.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Index.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Index.razor"
+           [Authorize]
+
+#line default
+#line hidden
+#nullable disable
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/tablero")]
     public partial class Index : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -97,6 +104,7 @@ using MudBlazor;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

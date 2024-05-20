@@ -1,8 +1,16 @@
 ﻿@page "/Reunion-Agenda"
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@attribute [Authorize]
 
-<h3>reservación</h3>
+<nav class="navbar navbar-expand-lg justify-content-center"
+     style="border-radius: 10px; background-color: #00bbb4">
+    <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
+        Reservación de salas
+    </h1>
+</nav>
 
-<div class="mb-3">
+<div class="mb-3 mt-3">
     <div class="col-6">
             <MudSelect T="string" Label="Selecciona una sala de reunión"
                        Value="SalaReunion" ValueChanged="OnSalaReunionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">

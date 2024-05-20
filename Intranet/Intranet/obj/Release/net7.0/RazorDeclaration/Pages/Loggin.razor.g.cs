@@ -13,83 +13,85 @@ namespace Intranet.Pages
     using global::System.Threading.Tasks;
     using global::Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 1 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 2 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 4 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 5 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 6 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 7 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 8 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 9 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using Intranet;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 10 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
 using Intranet.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+#line 4 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\Pages\Loggin.razor"
 using MudBlazor;
 
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/loggin")]
+#nullable restore
+#line 6 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\Pages\Loggin.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+    [global::Microsoft.AspNetCore.Components.LayoutAttribute(typeof(MainLogin))]
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/")]
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/invalido/{ErrorMessage}")]
     public partial class Loggin : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -97,6 +99,8 @@ using MudBlazor;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider autenticacionProvider { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
     }
 }
 #pragma warning restore 1591

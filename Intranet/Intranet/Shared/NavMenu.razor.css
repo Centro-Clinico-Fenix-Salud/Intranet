@@ -1,19 +1,19 @@
 .navbar-toggler {
-    background-color: rgba(0, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .top-row {
     height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
 }
 
 .navbar-brand {
-    font-size: 0.9rem;
-    /*margin-right: 30px;*/
+    font-size: 1.1rem;
 }
 
 .oi {
     width: 2rem;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     vertical-align: text-top;
     top: -2px;
 }
@@ -32,8 +32,7 @@
     }
 
     .nav-item ::deep a {
-        color: black;
-        ;
+        color: #d7d7d7;
         border-radius: 4px;
         height: 3rem;
         display: flex;
@@ -41,13 +40,15 @@
         line-height: 3rem;
     }
 
-        .nav-item ::deep a.active {
-            background-color: white;
-            color: black;
-            border-radius:10rem;
-        }
+.nav-item ::deep a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
 
-
+.nav-item ::deep a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
 
 @media (min-width: 641px) {
     .navbar-toggler {
@@ -64,27 +65,4 @@
         height: calc(100vh - 3.5rem);
         overflow-y: auto;
     }
-    .navbar-brand {
-        font-size: 0.9rem;
-        visibility: visible;
-    }
-    /*.navbar-brand {
-        margin-right: 40px; 
-    }*/
 }
-
-/*@media screen and (width: 768px) {
-        .navbar-brand {
-            font-size: 0.9rem; 
-            visibility:hidden;
-        }*/
-        /*.oi {
-            width: 2rem;
-            font-size: 0.8rem;
-            vertical-align: text-top;
-            top: -2px;
-        }
-        logoFenix {
-
-        }*/
-    /*}*/

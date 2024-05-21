@@ -91,7 +91,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
     [global::Microsoft.AspNetCore.Components.LayoutAttribute(typeof(MainLogin))]
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/")]
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/{errorMessage}")]
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/invalido/{ErrorMessage}")]
     public partial class Loggin : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

@@ -1,0 +1,635 @@
+﻿@page "/Insp-Hab"
+
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment
+@attribute [Authorize]
+
+<nav class="navbar navbar-expand-lg justify-content-center mb-5"
+     style="border-radius: 10px; background-color: #00bbb4">
+    <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
+        Planilla Inspección Habitación
+    </h1>
+</nav>
+
+
+<MudPaper  Width="100%">
+    <MudContainer>
+        <MudPaper Width="100%" Square="true">
+ @if (mostrarformualarioDatosPaciente )
+            {
+                <EditForm Model
+                ="@datosPaciente" OnValidSubmit
+                ="EnvioDatosPacientes">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <div class="container w-100" >
+                            <div class="d-flex align-items-center justify-content-center"><h4>I Datos del Paciente</h4></div>
+                        </div>
+                        
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+                                    <MudTextField Label="Nombre y Apellido" @bind-Value="datosPaciente.NombreApellido" For="@(() => datosPaciente.NombreApellido)" />
+                                    <MudTextField Label="Dirección" @bind-Value="datosPaciente.Direccion" For="@(() => datosPaciente.Direccion)" />
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <MudTextField Label="Cedula" @bind-Value="datosPaciente.Cedula" InputType="InputType.Number" For="@(() => datosPaciente.Cedula)" />
+                                        </div>
+                                        <div class="col-6">
+                                            <MudTextField Label="Correo Electronico" @bind-Value="datosPaciente.Correo" InputType="InputType.Email" For="@(() => datosPaciente.Correo)" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4"> <MudTextField Label="Edad" @bind-Value="datosPaciente.Edad" InputType="InputType.Number" For="@(() => datosPaciente.Edad)" /></div>
+                                        <div class="col-4"> 
+                                        <MudSelect T="string" Label="Genero"
+                                                   ErrorText="@(!GeneroSeleccionadaValid ? "Debe seleccionar un Genero" : "")"
+                                                   Value="datosPaciente.Genero" ValueChanged="OnGeneroSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                            @foreach (var unidad in ListGenero)
+                                            {
+                                                <MudSelectItem Value="@unidad" />
+                                            }
+                                            
+                                        </MudSelect>
+                                        <ValidationMessage For="@(() => datosPaciente.Genero)" />
+                                        </div>
+                                        <div class="col-4"> <MudTextField Label="Telefono" @bind-Value="datosPaciente.Telefono" InputType="InputType.Number" For="@(() => datosPaciente.Telefono)" /></div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-6">
+                                            <MudTextField Label="Nro. Habitación" @bind-Value="datosPaciente.NumeroHabitacion" InputType="InputType.Number" For="@(() => datosPaciente.NumeroHabitacion)" />
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <MudTextField Label="Piso" @bind-Value="datosPaciente.Piso" InputType="InputType.Number" For="@(() => datosPaciente.Piso)" />
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <MudDatePicker Label="Fecha Ingreso" @bind-Date="datosPaciente.FechaIngreso" DisableToolbar="true" />
+                                            <ValidationMessage For="@(() => datosPaciente.FechaIngreso)" />
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <MudDatePicker Label="Fecha Egreso" @bind-Date="datosPaciente.FechaEgreso" DisableToolbar="true" />
+                                            <ValidationMessage For="@(() => datosPaciente.FechaEgreso)" />
+                                            </div>
+                                    </div>
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" Disabled="true" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton> 
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm>
+            }@if (mostrarformualarioHabitacion)
+            {
+                <EditForm Model="@habitacion" OnValidSubmit="EnvioHabiacion">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <div class="container w-100">
+                            <div class="d-flex align-items-center justify-content-center"><h4>II Habitacion</h4></div>
+                        </div>
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+                                    <div class="container">
+                                        <div style="overflow-y: auto; height: 500px;">
+                                            <MudSimpleTable>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cant</th>
+                                                        <th>Dotación de la habitación</th>
+                                                        <th>Condición Ingreso</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Espejo</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Espejo">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Televisor</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Televisor">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Control aire acondicionado</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.ControlAireAcondicionado">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Control TV por cable</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.ControlTvCable">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Control remoto TV (pilas)</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.ControlRemotoTv">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Ducha</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Ducha">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Ducha teléfono</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.DuchaTelefono">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Sanitario completo (poceta, perilla, fuerza del agua)</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Sanitario">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Lavamanos</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Lavamanos">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Lámparas con bombillo (habitación, baño, cabecera)</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Lamparas">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Paredes / pintura</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.ParedesPintura">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                     <tr>
+
+                                                        <td>1</td>
+                                                        <td>Juego de sábanas (esquinero, sábana, y funda)</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.JuegosSabanas">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Escabel</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Escabel">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                     <tr>
+
+                                                        <td>1</td>
+                                                        <td>Cama hospitalaria (movilidad)</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.CamaHospitalaria">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Mesa</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Mesa">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                     <tr>
+
+                                                        <td>1</td>
+                                                        <td>Diván</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Divan">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Paral para medicamentos</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.ParalMedicamentos">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Papeleras</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Papelera">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Cobija de paciente</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Cobija">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>1</td>
+                                                        <td>Almohada</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@habitacion.Almohada">
+                                                                    <MudRadio Value="@("Optimo")" Color="Color.Primary">Óptimo</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Bueno")">Bueno</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </MudSimpleTable>
+                                            <MudTextField Label="Observaciones:" @bind-Value="habitacion.Observaciones" For="@(() => habitacion.Observaciones)" />
+                                            <br /> <br />
+                                        </div>
+                                    </div>                                   
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" OnClick="AtrasHabitacion" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm>
+            } @if (mostrarformualarioKitIngreso)
+            {
+                <EditForm Model="@kitIngreso" OnValidSubmit="EnvioKitIngreso">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <div class="container w-100">
+                            <div class="d-flex align-items-center justify-content-center"><h4> III.	KIT de ingreso entregado al paciente</h4></div>
+                        </div>
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+                                   <div class="container">
+                                        <div style="overflow-y: auto; height: 500px;">
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Jarra" Label="1 Jarra"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Ponchera" Label="1 Ponchera"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Rinonera" Label="1 Riñonera"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Pito" Label="1 Pito"></MudCheckBox></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.PapelSanitario" Label="Papel Sanitario"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Vaso" Label="1 Vaso"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Bandeja" Label="1 Bandeja"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Pato" Label="1 Pato"></MudCheckBox></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12"><MudCheckBox @bind-Value="@kitIngreso.Jabonera" Label="1 Jabonera"></MudCheckBox></div>
+                                                <div class="col-md-6 col-sm-12"><MudCheckBox @bind-Value="@kitIngreso.KitEspecial" Label="1 Kit especial de suite (crema, cepillo dental y jabón de baño)"></MudCheckBox></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 d-flex align-items-center justify-content-center m-2"> <h5>KIT de ingreso entregado al acompañante (retornable)</h5></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Esquinero" Label="Esquinero"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Cobija" Label="Cobija"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Almohada" Label="Almohada"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Toalla" Label="Toalla"></MudCheckBox></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 d-flex align-items-center justify-content-center m-2"> <h5>Condición del Área de limpieza e higiene</h5></div>
+                                            </div>
+                                            <MudSimpleTable>
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Condición</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Cama</td>
+                                                    <td>
+                                                        <MudForm>
+                                                            <MudRadioGroup @bind-Value="@kitIngreso.Cama">
+                                                                <MudRadio Value="@("Excelente")" Color="Color.Primary">Excelente</MudRadio>
+                                                                <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                <MudRadio Value="@("Deficiente")">Deficiente</MudRadio>
+                                                            </MudRadioGroup>
+                                                        </MudForm>
+                                                    </td>
+                                                </tr>
+                                                   <tr>
+                                                        <td>Piso</td>
+                                                    <td>
+                                                        <MudForm>
+                                                            <MudRadioGroup @bind-Value="@kitIngreso.Piso">
+                                                                <MudRadio Value="@("Excelente")" Color="Color.Primary">Excelente</MudRadio>
+                                                                <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                <MudRadio Value="@("Deficiente")">Deficiente</MudRadio>
+                                                            </MudRadioGroup>
+                                                        </MudForm>
+                                                    </td>
+                                                </tr>
+                                                   <tr>
+                                                        <td>Paredes</td>
+                                                    <td>
+                                                        <MudForm>
+                                                            <MudRadioGroup @bind-Value="@kitIngreso.Paredes">
+                                                                <MudRadio Value="@("Excelente")" Color="Color.Primary">Excelente</MudRadio>
+                                                                <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                <MudRadio Value="@("Deficiente")">Deficiente</MudRadio>
+                                                            </MudRadioGroup>
+                                                        </MudForm>
+                                                    </td>
+                                                </tr>
+                                                    <tr>
+                                                        <td>Baños</td>
+                                                        <td>
+                                                            <MudForm>
+                                                                <MudRadioGroup @bind-Value="@kitIngreso.Banos">
+                                                                    <MudRadio Value="@("Excelente")" Color="Color.Primary">Excelente</MudRadio>
+                                                                    <MudRadio Value="@("Regular")" Color="Color.Secondary">Regular</MudRadio>
+                                                                    <MudRadio Value="@("Deficiente")">Deficiente</MudRadio>
+                                                                </MudRadioGroup>
+                                                            </MudForm>
+                                                        </td>
+                                                    </tr>
+	                                            </tbody>
+                                            </MudSimpleTable>
+                                            <MudTextField Label="Observaciones:" @bind-Value="kitIngreso.Observaciones" For="@(() => kitIngreso.Observaciones)" />
+                                            <MudTextField Label="Datos camarera:" @bind-Value="kitIngreso.DatosCamarera1" For="@(() => kitIngreso.DatosCamarera1)" />
+                                            @* <MudTextField Label="Datos camarera:" @bind-Value="kitIngreso.DatosCamarera2" For="@(() => habitacion.Observaciones)" />
+                                            <MudTextField Label="Datos camarera:" @bind-Value="kitIngreso.DatosCamarera3" For="@(() => habitacion.Observaciones)" /> *@
+                                                <div class="row">
+                                                <div class="col-2  d-flex align-items-center justify-content-center">Turno</div>
+                                                     <div class="col-10">
+                                                    <MudForm>
+                                                        <MudRadioGroup @bind-Value="@kitIngreso.Turno">
+                                                            <MudRadio Value="@("Diurno")" Color="Color.Primary">Diurno</MudRadio>
+                                                            <MudRadio Value="@("Vespertino")" Color="Color.Secondary">Vespertino</MudRadio>
+                                                            <MudRadio Value="@("Nocturno")">Nocturno</MudRadio>
+                                                        </MudRadioGroup>
+                                                    </MudForm>
+                                                     </div>
+                                                </div>
+                                            <div class="row">
+                                                <div class="col-12 d-flex align-items-center justify-content-center m-2"> <h5>IV.	Desinfección aplicada a la habitación</h5></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Jabon" Label="Jabón"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Cloro" Label="Cloro"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.Desengrasante" Label="Desengrasante"></MudCheckBox></div>
+                                                <div class="col-md-3 col-sm-6"><MudCheckBox @bind-Value="@kitIngreso.AntimohoCal" Label="Antimoho / Cal"></MudCheckBox></div>
+                                            </div>
+                                            <MudTextField Label="Otro:" @bind-Value="kitIngreso.Otro" For="@(() => kitIngreso.Otro)" />
+                                            <br /> <br />
+                                        </div>
+                                   </div>
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" OnClick="AtrasKitIngreso" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm>
+            }@if (MostrarsResponsablePaciente)
+            {
+
+              
+                <EditForm Model="@datosResponsablePaciente" OnValidSubmit="EnvioFirmaResponsable">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <div class="container w-100">
+                            <div class="d-flex align-items-center justify-content-center"><h4>IV Firma del Responsable</h4></div>
+                        </div>
+
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <MudCheckBox T="bool" Checked="CheckedVaribale" CheckedChanged="@(e => OnCheckedChanged((bool)e))" Label="Usar datos del paciente" />
+                                        </div>                                 
+                                    </div>
+                                    <MudTextField Label="Nombre y Apellido" @bind-Value="datosResponsablePaciente.NombreApellido" For="@(() => datosResponsablePaciente.NombreApellido)" />
+                                    <MudTextField Label="Dirección" @bind-Value="datosResponsablePaciente.Direccion" For="@(() => datosResponsablePaciente.Direccion)" />
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <MudTextField Label="Cedula" @bind-Value="datosResponsablePaciente.Cedula" InputType="InputType.Number" For="@(() => datosResponsablePaciente.Cedula)" />
+                                        </div>
+                                        <div class="col-4">
+                                            <MudDatePicker Label="Fecha Ingreso" @bind-Date="datosResponsablePaciente.FechaIngreso" DisableToolbar="true" />
+                                            <ValidationMessage For="@(() => datosResponsablePaciente.FechaIngreso)" />
+                                        </div>
+                                        <div class="col-4">
+                                            <MudTextField Label="Nro. Habitación" @bind-Value="datosResponsablePaciente.NumeroHabitacion" InputType="InputType.Number" For="@(() => datosResponsablePaciente.NumeroHabitacion)" />
+                                        </div>
+                                    </div>
+                                   
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" OnClick="AtrasFirmaResponsable" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Generar planilla</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm> 
+            }@if (MostrarsPDF)
+            {
+                <div class="container w-100">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <MudButton ButtonType="ButtonType.Button" OnClick="AtrasPrevisualizacionPDF" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                        <MudButton ButtonType="ButtonType.Button" OnClick="BotonPrevisualizacionPDF" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Firmar</MudButton>
+                    </div>
+                </div>
+                <div class="container w-100">
+                    <div class="d-flex align-items-center justify-content-center"><h4>Previsualizar la planilla</h4></div>
+                </div>
+                <div class="container w-100">
+                    <div class="col-12">
+                        <div id="PrevisualizacionPDF"></div>
+                    </div>
+                </div>
+            }
+            @if (MostrarFirmaDigital)
+            {
+   
+                @if (!QuitarCanvasFirma)
+                {
+                 <div class="container w-100">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <MudButton ButtonType="ButtonType.Button" OnClick="AtrasFirma" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                        <MudButton ButtonType="ButtonType.Button" OnClick="BotonFirmaDigital" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Aceptar</MudButton>
+                    </div>
+                </div>
+                    <div class="container w-100">
+                        <div class="d-flex align-items-center justify-content-center"><h4>Firma del paciente o responsable</h4></div>
+                    </div>
+                    <div class="signature mb-2" style="width: 100%; height: 250px;">
+                        <canvas id="signature-canvas"
+                                style="border: 1px dashed red; width: 100%; height: 250px;"></canvas>
+                    </div>
+                }
+                <div class="container w-100">
+                    <div class="col-12">
+                        <div id="PrevisualizacionPDF2"></div>
+                    </div>
+                </div>              
+            }
+
+        </MudPaper>
+    </MudContainer>
+</MudPaper>
+
+
+
+@code {
+  
+
+
+    
+
+   
+}

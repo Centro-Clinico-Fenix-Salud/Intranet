@@ -1,0 +1,79 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Intranet
+build_property.RootNamespace = Intranet
+build_property.ProjectDir = C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Agenda.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWdlbmRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Boletin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9sZXRpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Cumpleanos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VtcGxlYW5vcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Loggin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Noticia.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWNpYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Sobrefenix.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU29icmVmZW5peC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-lbu036tguj
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-349eebs39z
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

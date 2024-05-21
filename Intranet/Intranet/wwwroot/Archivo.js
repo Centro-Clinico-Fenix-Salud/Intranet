@@ -256,7 +256,6 @@ function formatoFecha(fechaFullCalendar) {
 let signaturePad = null;
 let pdfDataGlobal = null;
 let ClonDoc = null;
-let base64StringResult = null;
 
 window.ActivarCanvas = async () => {
 
@@ -715,22 +714,23 @@ window.generatePDFMejorado = async (PaginaParte1, PaginaParte2, datosPacienteJSO
     ClonDoc = doc;
 
     // Guardar el documento en una variable
-    pdfDataGlobal = doc.output('blob');
-    base64String = doc.output('datauristring').split(',')[1];
-    console.log('Base64:', base64String);
+     pdfDataGlobal = doc.output('blob');
 
     // Crear un objeto URL para el blob del PDF
     var pdfUrl = URL.createObjectURL(pdfDataGlobal);
-    var pdfUrl2 = 'data:application/pdf;base64,' + base64String;
 
+    // Obtener el elemento del DOM con el id "PrevisualizacionPDF"
+    var previsualizacionPDF = document.getElementById('PrevisualizacionPDF');
 
-    console.log('termino funcion');
-    console.log('cantidad : ' + base64String.length);
+    // Limpiar el contenido existente del div
+    previsualizacionPDF.innerHTML = ''; // Vaciar el contenido HTML
 
-    base64StringResult = base64String;
-
-    // return base64String.substring(0, 32000);;
-    return String(base64String.length)
+    // Mostrar el PDF en un elemento iframe
+    var iframe = document.createElement('iframe');
+    iframe.src = pdfUrl;
+    iframe.style.width = '100%';
+    iframe.style.height = '700px'; // Establecer la altura deseada
+    previsualizacionPDF.appendChild(iframe);
 
 }
 
@@ -741,15 +741,22 @@ window.InsertarFirmaDigitalEnPDF = async () =>
     ClonDoc.setPage(1);
     ClonDoc.addImage(signatureImage, 'PNG', 130, 690, 300, 60, 'page1');
 
-    base64String = ClonDoc.output('datauristring').split(',')[1];
-    base64StringResult = base64String;
+    var pdfDataprueba = ClonDoc.output('blob');
+    var pdfUrl = URL.createObjectURL(pdfDataprueba);
 
-    return String(base64String.length)
+    // Obtener el elemento del DOM con el id "PrevisualizacionPDF"
+    var previsualizacionPDF = document.getElementById('PrevisualizacionPDF2');
 
+    // Limpiar el contenido existente del div
+    previsualizacionPDF.innerHTML = ''; // Vaciar el contenido HTML
+
+    // Mostrar el PDF en un elemento iframe
+    var iframe = document.createElement('iframe');
+    iframe.src = pdfUrl;
+    iframe.style.width = '100%';
+    iframe.style.height = '700px'; // Establecer la altura deseada
+    previsualizacionPDF.appendChild(iframe);
 
 }
-window.getBase64PdfChunk = function (startIndex, endIndex) {
 
-    return base64StringResult.substring(startIndex, endIndex);
-};
 

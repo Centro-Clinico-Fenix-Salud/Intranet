@@ -9,27 +9,9 @@ main[b-lbu036tguj] {
 }
 
 .sidebar[b-lbu036tguj] {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-color: #00bbb4;
 }
 
-.top-row[b-lbu036tguj] {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-}
-
-    .top-row[b-lbu036tguj]  a, .top-row .btn-link[b-lbu036tguj] {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-    }
-
-    .top-row a:first-child[b-lbu036tguj] {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
 
 @media (max-width: 640.98px) {
     .top-row:not(.auth)[b-lbu036tguj] {

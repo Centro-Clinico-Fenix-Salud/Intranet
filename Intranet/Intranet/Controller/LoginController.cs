@@ -7,8 +7,6 @@ using System.DirectoryServices;
 using System.ComponentModel.DataAnnotations;
 using MudBlazor;
 using Microsoft.AspNetCore.Components;
-using Intranet.Modelos.LoginModel;
-using Intranet.Interfaces.Admin;
 
 namespace Intranet.Controller
 {
@@ -16,58 +14,42 @@ namespace Intranet.Controller
     {
         [Inject]
         private ISnackbar Snackbar { get; set; }
-        private IServicioAdmin ServicioAdmin { get; set; }
-
-        public LoginController(IServicioAdmin ServicioAdmin) {
-            this.ServicioAdmin = ServicioAdmin;
-        }
-
 
         [HttpPost("/account/login")]
-        public async Task<IActionResult> Login(LoginDTO credentials)
+        public async Task<IActionResult> Login(UserCredentials credentials)
         {
             //Indicamos el dominio en el que vamos a buscar al usuario
              string path = "LDAP://fenixsalud.local";
 
             try
             {
-                using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, credentials.Usuario, credentials.Clave))
+                using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, credentials.Username, credentials.Password))
                 {
                     using (DirectorySearcher searcher = new DirectorySearcher(entry))
                     {
                         //Buscamos por la propiedad SamAccountName
-                        searcher.Filter = "(samaccountname=" + credentials.Usuario + ")";
+                        searcher.Filter = "(samaccountname=" + credentials.Username + ")";
                         //Buscamos el usuario con la cuenta indicada
                         var result = searcher.FindOne();
                         if (result != null)
                         {
                             string role = "";
-                            Guid id = Guid.Empty ;
-                            string nombreUsuario = "";
-
-
                             //Comporbamos las propiedades del usuario
                             ResultPropertyCollection fields = result.Properties;
                             foreach (String ldapField in fields.PropertyNames)
                             {
                                 foreach (Object myCollection in fields[ldapField])
                                 {
-                                    if (ldapField == "name")
-                                      nombreUsuario = myCollection.ToString().ToLower();
-
-                                    if (ldapField == "objectguid")
-                                        id = new Guid((byte[])myCollection);
+                                    if (ldapField == "employeetype")
+                                        role = myCollection.ToString().ToLower();
                                 }
                             }
-                            //setear rol a usuario
-                            role = ServicioAdmin.BuscarRolDeUsuario(id);
 
                             //Añadimos los claims Usuario y Rol para tenerlos disponibles en la Cookie
                             //Podríamos obtenerlos de una base de datos.
                             var claims = new[]
                             {
-                                new Claim(ClaimTypes.Name, nombreUsuario),
-                                new Claim(ClaimTypes.Surname, credentials.Usuario),
+                                new Claim(ClaimTypes.Name, credentials.Username),
                                 new Claim(ClaimTypes.Role, role)
                             };
 
@@ -86,7 +68,7 @@ namespace Intranet.Controller
                         else {
 
                            // Snackbar.Add("logueo fallido", Severity.Error);
-                            return LocalRedirect("/Error al ingresar");
+                            return LocalRedirect("/Invalid credentials");
                         }
                            
                     }
@@ -95,8 +77,8 @@ namespace Intranet.Controller
             }
             catch (Exception ex)
             {
-                //return LocalRedirect("/login/Usuario o Clave inválida");
-                return LocalRedirect("/invalido/Credenciales Incorrectas");
+               // Snackbar.Add("logueo fallido", Severity.Error);
+                return LocalRedirect("/Invalid credentials");
             }
         }
 

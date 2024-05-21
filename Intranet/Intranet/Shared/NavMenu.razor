@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div>
             <img class="logoFenix" src="img/logoFenix.png" Width="40" Height="40" />
-            <a class="navbar-brand" href="/tablero">Intranet Fénix</a>
+            <a class="navbar-brand" href="index">Intranet Fénix</a>
         </div>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
@@ -20,50 +20,48 @@
     </div>
 </div>
 
+
+
 <div class="@NavMenuCssClass nav-scrollable">
 <MudNavMenu>
     <MudDivider Class="my-2" />
     <MudNavLink Href="/tablero">Tableros</MudNavLink>
     <MudNavGroup Title="Noticias Fénix" Expanded="false">
-        <MudNavLink Href="/noticia">Noticias</MudNavLink>      
-        </MudNavGroup>
+        <MudNavLink Href="/noticia">Noticias</MudNavLink>
+        @*  <MudNavLink Href="/boletin">Boletin Fénix</MudNavLink> *@
+    </MudNavGroup>
     <MudNavLink Href="/agenda">Agenda</MudNavLink>
-        <MudNavGroup Title="Calendario" Expanded="false">
+    <MudNavGroup Title="Calendario" Expanded="false">
         <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
         <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
-        </MudNavGroup>
+    </MudNavGroup>
+    <MudNavGroup Title="Recursos Humanos" Expanded="false">
+        <MudNavLink Href="/sdocumentos">Solicitud De Documentos</MudNavLink>
+    </MudNavGroup>
     <MudNavGroup Title="Seguridad" Expanded="false">
         <MudNavGroup Title="redes" Expanded="false">
             <MudNavLink Href="/direccionesip">Direcciones IP</MudNavLink>
         </MudNavGroup>
     </MudNavGroup>
-    <MudNavGroup Title="Planillas" Expanded="false">
-        <MudNavLink Href="/Insp-Hab">Inspección de Habitaciones</MudNavLink>
-    </MudNavGroup>
-    <MudNavLink Href="/sobrefenix">Sobre Fénix</MudNavLink>
-       <AuthorizeView Roles="SuperAdmin">
-            <Authorized>
-               <MudNavGroup Title="Administracion" Expanded="false">
-                <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
-                <MudNavLink Href="/Roles">Roles</MudNavLink>
-                <MudNavLink Href="/Permisos">Permisos</MudNavLink>
-                <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
-            </MudNavGroup>
-            </Authorized>
-        </AuthorizeView>
-    <MudNavLink Href="/account/logout" style="cursor: pointer;">Salir</MudNavLink>
+    <MudNavLink Href="/sobrefenix">Sobre Fénix...</MudNavLink>
+    <MudNavLink @onclick="CerrarSesion" style="cursor: pointer;">Salir</MudNavLink>
 </MudNavMenu>
 </div>
 
 @code {
+
+
+
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
+
     private async Task CerrarSesion()
     {
         await _sessionStorage.GuardarLogin(false);

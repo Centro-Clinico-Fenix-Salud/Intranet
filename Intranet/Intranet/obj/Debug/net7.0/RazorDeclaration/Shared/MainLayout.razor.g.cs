@@ -96,7 +96,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
-<<<<<<< Updated upstream
 #nullable restore
 #line 23 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
 using Intranet.Modelos.LoginModel;
@@ -104,8 +103,6 @@ using Intranet.Modelos.LoginModel;
 #line default
 #line hidden
 #nullable disable
-=======
->>>>>>> Stashed changes
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -114,7 +111,6 @@ using Intranet.Modelos.LoginModel;
         }
         #pragma warning restore 1998
 #nullable restore
-<<<<<<< Updated upstream
 #line 61 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
        
     private string Nombre = string.Empty;
@@ -142,16 +138,6 @@ using Intranet.Modelos.LoginModel;
         //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
         //await autenticacionExt.ActualizarEstadoAutenticacion(null);
         // navManager.NavigateTo("/", true);
-=======
-#line 37 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
-       
-
-    private async Task CerrarSesion()
-    {
-        var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-        await autenticacionExt.ActualizarEstadoAutenticacion(null);
-        navManager.NavigateTo("/", true);
->>>>>>> Stashed changes
     }
 
 #line default

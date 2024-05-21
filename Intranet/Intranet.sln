@@ -11,17 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-<<<<<<< Updated upstream
 		{F7C398D9-8D20-4D49-948B-3D0FD9A270C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7C398D9-8D20-4D49-948B-3D0FD9A270C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7C398D9-8D20-4D49-948B-3D0FD9A270C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7C398D9-8D20-4D49-948B-3D0FD9A270C8}.Release|Any CPU.Build.0 = Release|Any CPU
-=======
-		{104D9E72-8A08-4CCF-BAD4-9F7E04AA7520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{104D9E72-8A08-4CCF-BAD4-9F7E04AA7520}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{104D9E72-8A08-4CCF-BAD4-9F7E04AA7520}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{104D9E72-8A08-4CCF-BAD4-9F7E04AA7520}.Release|Any CPU.Build.0 = Debug|Any CPU
->>>>>>> Stashed changes
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

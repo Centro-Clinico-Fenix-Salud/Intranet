@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
-using NombreProyecto.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,19 +16,9 @@ builder.Services.AddBlazorBootstrap();
 builder.Services.AddMudServices();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddBlazoredSessionStorage();
-<<<<<<< Updated upstream
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 builder.RegisterAppServices();
 builder.RegisterDbContext();
-=======
-builder.Services.AddScoped<AuthenticationStateProvider, AutenticacionExtension>();
-builder.Services.AddAuthenticationCore();
-// Agrega servicios al contenedor.
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
-
->>>>>>> Stashed changes
 
 var app = builder.Build();
 
@@ -49,6 +38,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapBlazorHub();
+app.MapControllers();
 app.MapFallbackToPage("/_Host");
 app.Run();
-

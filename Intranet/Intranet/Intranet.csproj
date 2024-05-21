@@ -23,22 +23,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-<<<<<<< Updated upstream
     <PackageReference Include="MudBlazor" Version="6.19.1" />
     <PackageReference Include="System.DirectoryServices" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Modelos\Login\" />
-=======
-    <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.16.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
->>>>>>> Stashed changes
   </ItemGroup>
 
 </Project>

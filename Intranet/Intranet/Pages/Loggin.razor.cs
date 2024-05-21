@@ -2,9 +2,9 @@
 using Intranet.Extension;
 using Intranet.Modelos.LoginModel;
 using Intranet.Modelos.Noticia;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.IdentityModel.Tokens;
-<<<<<<< Updated upstream
 using MudBlazor;
 using System.Reflection.PortableExecutable;
 using System.Security.Claims;
@@ -18,8 +18,6 @@ using System.Data;
 using System.Runtime.CompilerServices;
 using System.Net.Http;
 
-=======
->>>>>>> Stashed changes
 
 namespace Intranet.Pages
 {
@@ -27,7 +25,6 @@ namespace Intranet.Pages
     {
         [Inject]
         private ISessionStorageService _sessionStorage { get; set; }
-<<<<<<< Updated upstream
         [Parameter]
         public string ErrorMessage { get; set; }
         [Inject]
@@ -91,19 +88,7 @@ namespace Intranet.Pages
         private async Task OnValidSubmit(EditContext context)
         {
             await IniciarSesion();
-=======
-        private async Task IniciarSesion()
-        {
-            SesionDTO sesionUsuario = new SesionDTO();
-            sesionUsuario.Nombre = "Super Admin";
-            sesionUsuario.Usuario = "Admin";
-            sesionUsuario.Rol = "superAdmin";
->>>>>>> Stashed changes
 
-            await _sessionStorage.GuardarLogin(true);
-            var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-            await autenticacionExt.ActualizarEstadoAutenticacion(sesionUsuario);
-            NavigationManager.NavigateTo("/tablero");
         }
     }
 }

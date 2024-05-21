@@ -12,14 +12,7 @@ main[b-lbu036tguj] {
 }
 
 .sidebar[b-lbu036tguj] {
-<<<<<<< Updated upstream
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-=======
- background: rgba( 0, 187, 180, 1 ); 
- box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); 
- backdrop-filter: blur( 0px ); 
- border: 1px solid rgba( 255, 255, 255, 0.18 );
->>>>>>> Stashed changes
 }
 
 .top-row[b-lbu036tguj] {
@@ -113,12 +106,7 @@ main[b-lbu036tguj] {
     }
 
     .nav-item[b-349eebs39z]  a {
-<<<<<<< Updated upstream
         color: #d7d7d7;
-=======
-        color: black;
-        
->>>>>>> Stashed changes
         border-radius: 4px;
         height: 3rem;
         display: flex;

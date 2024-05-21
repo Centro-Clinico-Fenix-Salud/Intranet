@@ -2,6 +2,7 @@
 
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
+@using BlazorBootstrap;
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment
 @attribute [Authorize]
 
@@ -74,8 +75,8 @@
                                     </div>
                                 </MudCardContent>
                                 <MudCardActions>
-                                    <MudButton ButtonType="ButtonType.Button" Disabled="true" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton> 
-                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
+                                    <MudButton ButtonType="MudBlazor.ButtonType.Button" Disabled="true" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                                    <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
                                 </MudCardActions>
                             </MudCard>
                         </MudItem>
@@ -387,8 +388,8 @@
                                     </div>                                   
                                 </MudCardContent>
                                 <MudCardActions>
-                                    <MudButton ButtonType="ButtonType.Button" OnClick="AtrasHabitacion" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
-                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
+                                    <MudButton ButtonType="MudBlazor.ButtonType.Button" OnClick="AtrasHabitacion" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                                    <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
                                 </MudCardActions>
                             </MudCard>
                         </MudItem>
@@ -525,8 +526,8 @@
                                    </div>
                                 </MudCardContent>
                                 <MudCardActions>
-                                    <MudButton ButtonType="ButtonType.Button" OnClick="AtrasKitIngreso" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
-                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
+                                    <MudButton ButtonType="MudBlazor.ButtonType.Button" OnClick="AtrasKitIngreso" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                                    <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Siguiente</MudButton>
                                 </MudCardActions>
                             </MudCard>
                         </MudItem>
@@ -569,8 +570,8 @@
                                    
                                 </MudCardContent>
                                 <MudCardActions>
-                                    <MudButton ButtonType="ButtonType.Button" OnClick="AtrasFirmaResponsable" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
-                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Generar planilla</MudButton>
+                                    <MudButton ButtonType="MudBlazor.ButtonType.Button" OnClick="AtrasFirmaResponsable" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                                    <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Generar planilla</MudButton>
                                 </MudCardActions>
                             </MudCard>
                         </MudItem>
@@ -580,8 +581,8 @@
             {
                 <div class="container w-100">
                     <div class="d-flex align-items-center justify-content-center">
-                        <MudButton ButtonType="ButtonType.Button" OnClick="AtrasPrevisualizacionPDF" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
-                        <MudButton ButtonType="ButtonType.Button" OnClick="BotonPrevisualizacionPDF" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Firmar</MudButton>
+                        <MudButton ButtonType="MudBlazor.ButtonType.Button" OnClick="AtrasPrevisualizacionPDF" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                        <MudButton ButtonType="MudBlazor.ButtonType.Button" OnClick="BotonPrevisualizacionPDF" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Firmar</MudButton>
                     </div>
                 </div>
                 <div class="container w-100">
@@ -589,7 +590,19 @@
                 </div>
                 <div class="container w-100">
                     <div class="col-12">
-                        <div id="PrevisualizacionPDF"></div>
+                        @* <div id="PrevisualizacionPDF"></div>  *@
+                        @*    <PdfViewer Class="mb-3" id="PrevisualizacionPDF"
+                                   Url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf"
+                                   OnDocumentLoaded="OnDocumentLoaded"
+                                   OnPageChanged="OnPageChanged" />  *@
+                        @if (!string.IsNullOrEmpty(base64Pdf))
+                        {
+                            <PdfViewer Class="mb-3"
+                                       Url="@string.Format("data:application/pdf;base64,{0}", base64Pdf)"
+                                       OnDocumentLoaded="OnDocumentLoaded"
+                                       OnPageChanged="OnPageChanged" />
+                        }
+
                     </div>
                 </div>
             }
@@ -600,8 +613,8 @@
                 {
                  <div class="container w-100">
                     <div class="d-flex align-items-center justify-content-center">
-                        <MudButton ButtonType="ButtonType.Button" OnClick="AtrasFirma" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
-                        <MudButton ButtonType="ButtonType.Button" OnClick="BotonFirmaDigital" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Aceptar</MudButton>
+                        <MudButton ButtonType="MudBlazor.ButtonType.Button" OnClick="AtrasFirma" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Atras</MudButton>
+                            <MudButton ButtonType="MudBlazor.ButtonType.Button" OnClick="BotonFirmaDigital" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Aceptar</MudButton>
                     </div>
                 </div>
                     <div class="container w-100">
@@ -611,12 +624,15 @@
                         <canvas id="signature-canvas"
                                 style="border: 1px dashed red; width: 100%; height: 250px;"></canvas>
                     </div>
-                }
-                <div class="container w-100">
-                    <div class="col-12">
-                        <div id="PrevisualizacionPDF2"></div>
-                    </div>
-                </div>              
+                }else{
+                @if (!string.IsNullOrEmpty(base64PdfFin))
+                        {
+                            <PdfViewer Class="mb-3"
+                                   Url="@string.Format("data:application/pdf;base64,{0}", base64PdfFin)"
+                                       OnDocumentLoaded="OnDocumentLoaded"
+                                       OnPageChanged="OnPageChanged" />
+                        }
+                }             
             }
 
         </MudPaper>
@@ -626,10 +642,12 @@
 
 
 @code {
-  
+    private string vacio = string.Empty;
+    private string eventLog { get; set; } = $"Last event: ..., CurrentPage: 0, TotalPages: 0";
 
+    private void OnDocumentLoaded(PdfViewerEventArgs args)
+        => eventLog = $"Last event: OnDocumentLoaded, CurrentPage: {args.CurrentPage}, TotalPages: {args.TotalPages}";
 
-    
-
-   
+    private void OnPageChanged(PdfViewerEventArgs args)
+        => eventLog = $"Last event: OnPageChanged, CurrentPage: {args.CurrentPage}, TotalPages: {args.TotalPages}";
 }

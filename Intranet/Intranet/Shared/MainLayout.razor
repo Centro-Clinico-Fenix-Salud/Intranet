@@ -20,10 +20,8 @@
 @inherits LayoutComponentBase
 @using Intranet.Extension
 @using Microsoft.AspNetCore.Components.Authorization;
-@using Intranet.Modelos.LoginModel;
 @inject AuthenticationStateProvider autenticacionProvider
 @inject NavigationManager navManager
-
 
 <PageTitle>Intranet</PageTitle>
 
@@ -32,6 +30,7 @@
         <NavMenu />
     </div>
 
+<<<<<<< Updated upstream
     <main>      
         <MudAppBar style="background-color: #00bbb4" Fixed="false">
             <AuthorizeView>
@@ -41,6 +40,13 @@
                 </Authorized>
             </AuthorizeView>
         </MudAppBar>
+=======
+    <main>
+
+       @*  <div class="top-row px-4">          
+            <a @onclick="CerrarSesion" href="javascript:void(0)">Salir</a>
+        </div> *@
+>>>>>>> Stashed changes
 
         <article class="content px-4">
             @Body
@@ -59,6 +65,7 @@
 <MudSnackbarProvider />
 
 @code {
+<<<<<<< Updated upstream
     private string Nombre = string.Empty;
     protected override async Task OnInitializedAsync()
     {
@@ -84,6 +91,14 @@
         //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
         //await autenticacionExt.ActualizarEstadoAutenticacion(null);
         // navManager.NavigateTo("/", true);
+=======
+
+    private async Task CerrarSesion()
+    {
+        var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+        await autenticacionExt.ActualizarEstadoAutenticacion(null);
+        navManager.NavigateTo("/", true);
+>>>>>>> Stashed changes
     }
 }
 

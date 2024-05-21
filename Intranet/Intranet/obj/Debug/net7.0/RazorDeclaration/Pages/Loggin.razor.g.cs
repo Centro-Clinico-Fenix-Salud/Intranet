@@ -76,14 +76,14 @@ using Intranet.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Loggin.razor"
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Loggin.razor"
 using MudBlazor;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Loggin.razor"
+#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Loggin.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
@@ -91,7 +91,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
     [global::Microsoft.AspNetCore.Components.LayoutAttribute(typeof(MainLogin))]
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/")]
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/invalido/{ErrorMessage}")]
     public partial class Loggin : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

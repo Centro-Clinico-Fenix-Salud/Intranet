@@ -13,77 +13,121 @@ namespace Intranet.Shared
     using global::System.Threading.Tasks;
     using global::Microsoft.AspNetCore.Components;
 #nullable restore
+<<<<<<< Updated upstream
 #line 1 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 2 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 3 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 4 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 5 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 6 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 7 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 8 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 9 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Intranet;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 10 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using Intranet.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 11 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\_Imports.razor"
+=======
+#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> Stashed changes
 using MudBlazor;
 
 #line default
@@ -97,7 +141,11 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< Updated upstream
 #line 12 "C:\Users\programador2\source\repos\Intranet V2\Intranet\Intranet\Shared\SurveyPrompt.razor"
+=======
+#line 12 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\SurveyPrompt.razor"
+>>>>>>> Stashed changes
        
     // Demonstrates how a parent component can supply parameters
     [Parameter]

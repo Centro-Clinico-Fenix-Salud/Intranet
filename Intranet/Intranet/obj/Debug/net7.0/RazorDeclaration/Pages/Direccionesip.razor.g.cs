@@ -97,8 +97,6 @@ using MudBlazor;
         {
         }
         #pragma warning restore 1998
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.JSInterop.IJSRuntime Js { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment { get; set; }
     }
 }
 #pragma warning restore 1591

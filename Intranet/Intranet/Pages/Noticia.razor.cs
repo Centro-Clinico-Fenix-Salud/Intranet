@@ -59,7 +59,6 @@ namespace Intranet.Pages
         private List<ListaImagenCargada> listaImagenCargada = new List<ListaImagenCargada>();
         [Inject]
         private IArchivoImagen ArchivoImagen { get; set; }
- 
         //[Inject]
         //private IWebHostEnvironment Environment { get; set; }
 
@@ -67,7 +66,7 @@ namespace Intranet.Pages
         {
             Elements = Data().AsQueryable();
             CreateNoticia = new CreateNoticia();
-            
+           
         }
 
 
@@ -75,7 +74,7 @@ namespace Intranet.Pages
         {
             if (firstRender)
             {
-                
+               
             }
            
         }

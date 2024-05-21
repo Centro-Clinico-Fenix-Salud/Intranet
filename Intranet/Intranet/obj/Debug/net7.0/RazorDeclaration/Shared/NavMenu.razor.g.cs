@@ -97,16 +97,30 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< Updated upstream
 #line 52 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+=======
+#line 49 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\NavMenu.razor"
+       
+
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+>>>>>>> Stashed changes
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
     private async Task CerrarSesion()
     {
     //     await _sessionStorage.GuardarLogin(false);

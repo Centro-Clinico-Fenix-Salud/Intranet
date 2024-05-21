@@ -1,14 +1,233 @@
 ﻿@page "/direccionesip"
-@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment
-@inject Microsoft.JSInterop.IJSRuntime Js 
-using System;
-using System.Data.SqlClient;
-
-<nav class="navbar navbar-expand-lg justify-content-center"
-     style="border-radius: 10px; background-color: #00bbb4">
-    <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Direcciones IP
-    </h1>
-</nav>
 
 
+    <title>Direcciones IP</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <div class="container mt-5">
+        <h1 class="text-center">CRUD Local con JSON</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <button id="btn-add" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">Agregar Registro</button>
+                <input type="text" id="search" class="form-control mb-3" placeholder="Buscar...">
+                <select id="itemsPerPage" class="form-control mb-3">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Dirección IP</th>
+                            <th>Extensión</th>
+                            <th>Nombre del Equipo</th>
+                            <th>Comentario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Los registros se insertarán aquí -->
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#" id="prevPage">Anterior</a></li>
+                        <li class="page-item"><a class="page-link" href="#" id="nextPage">Siguiente</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form">
+                        <input type="hidden" id="id" name="id">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="ip">Dirección IP</label>
+                            <input type="text" class="form-control" id="ip" name="ip">
+                        </div>
+                        <div class="form-group">
+                            <label for="extension">Extensión</label>
+                            <input type="text" class="form-control" id="extension" name="extension">
+                        </div>
+                        <div class="form-group">
+                            <label for="team">Nombre del Equipo</label>
+                            <input type="text" class="form-control" id="team" name="team">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Comentario</label>
+                            <input type="text" class="form-control" id="comment" name="comment">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById('form');
+            const tableBody = document.getElementById('table-body');
+            const searchInput = document.getElementById('search');
+            const itemsPerPageSelect = document.getElementById('itemsPerPage');
+            const prevPageBtn = document.getElementById('prevPage');
+            const nextPageBtn = document.getElementById('nextPage');
+            const modal = $('#exampleModal');
+
+            let currentPage = 1;
+            let itemsPerPage = parseInt(itemsPerPageSelect.value);
+
+            function loadFromLocalStorage() {
+                const data = localStorage.getItem('crudData');
+                return data ? JSON.parse(data) : [];
+            }
+
+            function saveToLocalStorage(data) {
+                localStorage.setItem('crudData', JSON.stringify(data));
+            }
+
+            function renderTable(data = loadFromLocalStorage(), page = 1, itemsPerPage = 5) {
+                tableBody.innerHTML = '';
+                const start = (page - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                const paginatedData = data.slice(start, end);
+
+                paginatedData.forEach((item, index) => {
+                    const row = `<tr>
+                        <td>${item.name}</td>
+                        <td>${item.ip}</td>
+                        <td>${item.extension}</td>
+                        <td>${item.team}</td>
+                        <td>${item.comment}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm btn-edit" data-id="${index + start}">Editar</button>
+                            <button class="btn btn-danger btn-sm btn-delete" data-id="${index + start}">Eliminar</button>
+                        </td>
+                    </tr>`;
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                });
+
+                updatePagination(data.length, page, itemsPerPage);
+            }
+
+            function updatePagination(totalItems, page, itemsPerPage) {
+                prevPageBtn.parentElement.classList.toggle('disabled', page === 1);
+                nextPageBtn.parentElement.classList.toggle('disabled', page * itemsPerPage >= totalItems);
+            }
+
+            function handleFormSubmit(event) {
+                event.preventDefault();
+                const id = document.getElementById('id').value;
+                const name = document.getElementById('name').value || '';
+                const ip = document.getElementById('ip').value || '';
+                const extension = document.getElementById('extension').value || '';
+                const team = document.getElementById('team').value || '';
+                const comment = document.getElementById('comment').value || '';
+                const data = loadFromLocalStorage();
+
+                if (id !== '') {
+                    data[id] = { name, ip, extension, team, comment };
+                } else {
+                    data.push({ name, ip, extension, team, comment });
+                }
+
+                saveToLocalStorage(data);
+                renderTable(loadFromLocalStorage(), currentPage, itemsPerPage);
+                form.reset();
+                document.getElementById('id').value = '';
+                modal.modal('hide');
+            }
+
+            function handleEditButtonClick(event) {
+                const id = event.target.getAttribute('data-id');
+                const data = loadFromLocalStorage();
+                const record = data[id];
+                document.getElementById('id').value = id;
+                document.getElementById('name').value = record.name;
+                document.getElementById('ip').value = record.ip;
+                document.getElementById('extension').value = record.extension;
+                document.getElementById('team').value = record.team;
+                document.getElementById('comment').value = record.comment;
+                modal.modal('show');
+            }
+
+            function handleDeleteButtonClick(event) {
+                const id = event.target.getAttribute('data-id');
+                if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+                    const data = loadFromLocalStorage();
+                    data.splice(id, 1);
+                    saveToLocalStorage(data);
+                    renderTable(loadFromLocalStorage(), currentPage, itemsPerPage);
+                }
+            }
+
+            function handleSearch(event) {
+                const searchText = event.target.value.toLowerCase();
+                const data = loadFromLocalStorage();
+                const filteredData = data.filter(item => {
+                    return Object.values(item).some(value =>
+                        value.toLowerCase().includes(searchText)
+                    );
+                });
+                renderTable(filteredData, currentPage, itemsPerPage);
+            }
+
+            function handleItemsPerPageChange(event) {
+                itemsPerPage = parseInt(event.target.value);
+                currentPage = 1;
+                renderTable(loadFromLocalStorage(), currentPage, itemsPerPage);
+            }
+
+            function handlePrevPage(event) {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(loadFromLocalStorage(), currentPage, itemsPerPage);
+                }
+            }
+
+            function handleNextPage(event) {
+                const data = loadFromLocalStorage();
+                if (currentPage * itemsPerPage < data.length) {
+                    currentPage++;
+                    renderTable(loadFromLocalStorage(), currentPage, itemsPerPage);
+                }
+            }
+
+            form.addEventListener('submit', handleFormSubmit);
+            tableBody.addEventListener('click', function (event) {
+                if (event.target.classList.contains('btn-edit')) {
+                    handleEditButtonClick(event);
+                } else if (event.target.classList.contains('btn-delete')) {
+                    handleDeleteButtonClick(event);
+                }
+            });
+
+            searchInput.addEventListener('input', handleSearch);
+            itemsPerPageSelect.addEventListener('change', handleItemsPerPageChange);
+            prevPageBtn.addEventListener('click', handlePrevPage);
+            nextPageBtn.addEventListener('click', handleNextPage);
+
+            renderTable(loadFromLocalStorage(), currentPage, itemsPerPage);
+        });
+
+    </script>

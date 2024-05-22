@@ -44,20 +44,17 @@ namespace Intranet.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CategiriaId")
+                    b.Property<Guid>("CategoriaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SubCategoriaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("categoriaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SubCategoriaId");
+                    b.HasIndex("CategoriaId");
 
-                    b.HasIndex("categoriaId");
+                    b.HasIndex("SubCategoriaId");
 
                     b.ToTable("categoria_SubCategorias");
                 });
@@ -174,21 +171,21 @@ namespace Intranet.Migrations
 
             modelBuilder.Entity("Intranet.Modelos.Admin.Categoria_SubCategoria", b =>
                 {
-                    b.HasOne("Intranet.Modelos.Admin.S1_SubCategoria", "subCategoria")
+                    b.HasOne("Intranet.Modelos.Admin.C1_Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Intranet.Modelos.Admin.S1_SubCategoria", "SubCategoria")
                         .WithMany()
                         .HasForeignKey("SubCategoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Intranet.Modelos.Admin.C1_Categoria", "categoria")
-                        .WithMany()
-                        .HasForeignKey("categoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Categoria");
 
-                    b.Navigation("categoria");
-
-                    b.Navigation("subCategoria");
+                    b.Navigation("SubCategoria");
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.Rol_Permiso", b =>

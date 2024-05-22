@@ -13,11 +13,11 @@
 <div class="@NavMenuCssClass nav-scrollable" style="background-color: #00bbb4">
     <MudNavMenu>
         <MudDivider Class="my-2" />
-        <MudNavLink Href="/tablero">Tableros</MudNavLink>
+        <MudNavLink Href="/tablero">Inicio</MudNavLink>
         <MudNavGroup Title="Noticias Fénix" Expanded="false">
             <MudNavLink Href="/noticia">Noticias</MudNavLink>
         </MudNavGroup>
-        <MudNavLink Href="/agenda">Agenda</MudNavLink>
+        <MudNavLink Href="/agenda">Agenda Telefónica</MudNavLink>
         <MudNavGroup Title="Calendario" Expanded="false">
             <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
             <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
@@ -34,10 +34,12 @@
          <AuthorizeView Roles="SuperAdmin">
             <Authorized>
                 <MudNavGroup Title="Administracion" Expanded="false">
-                    <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
-                    <MudNavLink Href="/Roles">Roles</MudNavLink>
-                    <MudNavLink Href="/Permisos">Permisos</MudNavLink>
-                    <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
+                    <MudNavGroup Title="Perfiles" Expanded="false">
+                        <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
+                        <MudNavLink Href="/Roles">Roles</MudNavLink>
+                        <MudNavLink Href="/Permisos">Permisos</MudNavLink>
+                        <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
+                    </MudNavGroup>                   
                     <MudNavGroup Title="Modulos" Expanded="false">
                         <MudNavLink Href="/Categoria">Categorias</MudNavLink>
                         <MudNavLink Href="/Sub-Categoria">Sub-Categorias</MudNavLink>
@@ -45,7 +47,7 @@
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView> 
-        <MudNavLink Href="/account/logout" style="cursor: pointer;">Salir</MudNavLink>
+        <MudNavLink Href="/account/logout" style="cursor: pointer;">Cerrar Sesión</MudNavLink>
     </MudNavMenu>
 </div>
 

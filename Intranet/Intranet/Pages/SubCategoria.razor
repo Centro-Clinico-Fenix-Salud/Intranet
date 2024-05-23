@@ -115,6 +115,16 @@
                         <MudItem xs="12" sm="12">
                             <MudCard>
                                 <MudCardContent>
+                                    <MudSelect T="string" Label="Categoria"
+                                               ErrorText="@(!CategoriaSeleccionadaValid ? "Debe seleccionar una categoria" : "")"
+                                               Value="EditarRegistro.NombreCategoria" ValueChanged="OnCategoriaSeleccionadaEditarChanged" Required="true" AnchorOrigin="Origin.BottomCenter">
+                                        @foreach (var unidad in ListaCategoria)
+                                        {
+                                            <MudSelectItem Value="@unidad.Nombre" />
+                                        }
+
+                                    </MudSelect>
+                                    <ValidationMessage For="@(() => EditarRegistro.NombreCategoria)" />
                                     <MudTextField Label="Nombre" @bind-Value="EditarRegistro.Nombre" For="@(() => EditarRegistro.Nombre)" />
                                 </MudCardContent>
                                 <MudCardActions>
@@ -144,7 +154,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar la categoria <span style="font-weight: bold;"> @RegistroEliminar.Nombre </span>?
+                    ¿Estás seguro de que deseas eliminar la Sub-Categoria <span style="font-weight: bold;"> @RegistroEliminar.Nombre </span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>

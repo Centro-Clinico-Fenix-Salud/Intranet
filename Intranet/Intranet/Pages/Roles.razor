@@ -3,9 +3,9 @@
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "SuperAdmin")] 
+@attribute [Authorize(Roles = "SuperAdmin, Perfiles")]
 
- <PageTitle>Roles</PageTitle>
+<PageTitle>Roles</PageTitle>
 
 <nav class="navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
@@ -15,7 +15,7 @@
 </nav>
 <div class="row">
     <div class="Botones">
-        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => CrearRol())" Color="Color.Success" Class="ml-auto float-start">Agregar</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => AgregarMostrarModal())" Color="Color.Success" Class="ml-auto float-start">Agregar</MudButton>
     </div>
 </div>
 
@@ -57,7 +57,7 @@
     </div>
 </div> 
 
-@* @if (mostrarModalNuevo)
+@if (mostrarModalNuevo)
 {
     <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
         <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
@@ -68,13 +68,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <EditForm Model="@CreateAgenda" OnValidSubmit="OnValidSubmit">
+                <EditForm Model="@NuevoRegistro" OnValidSubmit="Guardar">
                     <DataAnnotationsValidator />
                     <MudGrid>
                         <MudItem xs="12" sm="12">
                             <MudCard>
                                 <MudCardContent>
-                                    <MudTextField Label="Nombre de usuario" @bind-Value="CreateAgenda.Nombre" For="@(() => CreateAgenda.Nombre)" />
+                                    <MudTextField Label="Nombre" @bind-Value="NuevoRegistro.Nombre" For="@(() => NuevoRegistro.Nombre)" />
                                 </MudCardContent>
                                 <MudCardActions>
                                     <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevo" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
@@ -88,38 +88,26 @@
         </div>
     </div>
     <div class="modal-backdrop show"></div>
-} *@
+}
 
-@* @if (mostrarModalEditar)
+@if (mostrarModalEditar)
 {
     <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
         <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Agregar</h5>
+                    <h5 class="modal-title">Editar</h5>
                     <button type="button" class="close" @onclick="CerrarModalEditar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <EditForm Model="@EditarUsuario" OnValidSubmit="OnValidSubmit">
+                <EditForm Model="@EditarRegistro" OnValidSubmit="Actualizar">
                     <DataAnnotationsValidator />
                     <MudGrid>
                         <MudItem xs="12" sm="12">
                             <MudCard>
                                 <MudCardContent>
-                                    <MudTextField Label="Nombre" Disabled="true" @bind-Value="EditarUsuario.FirstName" For="@(() => EditarUsuario.FirstName)" />
-                                    <MudTextField Label="Usuario" Disabled="true" @bind-Value="EditarUsuario.Username" For="@(() => EditarUsuario.Username)" />
-                                    <MudTextField Label="Correo" Disabled="true" @bind-Value="EditarUsuario.Email" For="@(() => EditarUsuario.Email)" />
-                                    <MudSelect T="string" Label="Rol"
-                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar un rol" : "")"
-                                               Value="EditarUsuario.Rol.Nombre" ValueChanged="OnUbicacionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
-                                        @foreach (var Rol in ListRoles)
-                                        {
-                                            <MudSelectItem Value="@Rol" />
-                                        }
-                                    </MudSelect>
-                                    <ValidationMessage For="@(() => EditarUsuario.Rol.Nombre)" />
-
+                                    <MudTextField Label="Nombre" @bind-Value="EditarRegistro.Nombre" For="@(() => EditarRegistro.Nombre)" />
                                 </MudCardContent>
                                 <MudCardActions>
                                     <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalEditar" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
@@ -134,7 +122,32 @@
     </div>
     <div class="modal-backdrop show"></div>
 
-} *@
+}
+
+@if (mostrarModalEliminar)
+{
+    <div class="modal show  d-flex justify-content-center align-items-center" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar la categoria <span style="font-weight: bold;"> @RegistroEliminar.Nombre </span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="EliminarRegistro">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
 @code {
 
 }

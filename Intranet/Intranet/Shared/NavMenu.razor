@@ -31,19 +31,27 @@
             <MudNavLink Href="/Insp-Hab">Inspección de Habitaciones</MudNavLink>
         </MudNavGroup>
         <MudNavLink Href="/sobrefenix">Sobre Fénix</MudNavLink>
-         <AuthorizeView Roles="SuperAdmin">
+        <AuthorizeView Roles="SuperAdmin, Administracion" Context="context">
             <Authorized>
                 <MudNavGroup Title="Administracion" Expanded="false">
-                    <MudNavGroup Title="Perfiles" Expanded="false">
-                        <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
-                        <MudNavLink Href="/Roles">Roles</MudNavLink>
-                        <MudNavLink Href="/Permisos">Permisos</MudNavLink>
-                        <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
-                    </MudNavGroup>                   
+                    <AuthorizeView Roles="SuperAdmin, Perfiles" Context="context2">
+                        <Authorized>
+                            <MudNavGroup Title="Perfiles" Expanded="false">
+                                <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
+                                <MudNavLink Href="/Roles">Roles</MudNavLink>
+                                <MudNavLink Href="/Permisos">Permisos</MudNavLink>
+                                <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
+                            </MudNavGroup>    
+                        </Authorized>
+                     </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, Modulos" Context="context2">
+                        <Authorized>
                     <MudNavGroup Title="Modulos" Expanded="false">
                         <MudNavLink Href="/Categoria">Categorias</MudNavLink>
                         <MudNavLink Href="/Sub-Categoria">Sub-Categorias</MudNavLink>
                     </MudNavGroup>
+                        </Authorized>
+                    </AuthorizeView>
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView> 

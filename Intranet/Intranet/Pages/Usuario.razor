@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "SuperAdmin")]
+@attribute [Authorize(Roles = "SuperAdmin, Perfiles")]
 
 <PageTitle>Usuarios</PageTitle>
 
@@ -47,7 +47,7 @@ else
 
 <div class="row">
     <div class=" mt-2">
-        <MudDataGrid T="U1_Usuario" Items="@Usuarios" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
+            <MudDataGrid T="CrudUsuario" Items="@Usuarios" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
             <Columns>
                  <AuthorizeView Roles="SuperAdmin,EditarUsuario" Context="context">
                     <Authorized>
@@ -62,10 +62,10 @@ else
                 </AuthorizeView> 
                 <PropertyColumn Property="x => x.FirstName" Title="Nombre" Sortable="true" />
                 <PropertyColumn Property="x => x.Username" Title="Usuario"  Sortable="false" />
-                <PropertyColumn Property="x => x.Rol.Nombre" Title="Rol" Sortable="false" />
+                    <PropertyColumn Property="x => x.NombreRolId" Title="Rol" Sortable="false" />
             </Columns>
             <PagerContent>
-                <MudDataGridPager T="U1_Usuario" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />
+                    <MudDataGridPager T="CrudUsuario" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />
             </PagerContent>
         </MudDataGrid>
     </div>
@@ -94,13 +94,13 @@ else
                                     <MudTextField Label="Correo" Disabled="true" @bind-Value="EditarUsuario.Email" For="@(() => EditarUsuario.Email)" />
                                     <MudSelect T="string" Label="Rol"
                                                ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar un rol" : "")"
-                                               Value="EditarUsuario.Rol.Nombre" ValueChanged="OnUbicacionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                               Value="EditarUsuario.NombreRolId" ValueChanged="OnUbicacionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
                                         @foreach (var Rol in ListRoles)
                                         {
                                             <MudSelectItem Value="@Rol" />
                                         }
                                     </MudSelect>
-                                    <ValidationMessage For="@(() => EditarUsuario.Rol.Nombre)" />
+                                    <ValidationMessage For="@(() => EditarUsuario.NombreRolId)" />
                              
                                 </MudCardContent>
                                 <MudCardActions>
@@ -114,7 +114,7 @@ else
             </div>
         </div>
     </div>
-    <div class="modal-backdrop show"></div>
+    <div class="modal-backdrop show"></div> 
 
 }
 @code {

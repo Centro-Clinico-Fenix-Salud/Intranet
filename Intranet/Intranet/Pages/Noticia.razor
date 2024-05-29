@@ -1,5 +1,6 @@
 ﻿@page "/noticia"
 @page "/noticia/{parametro}"
+<<<<<<< Updated upstream
 @using Microsoft.AspNetCore.Components.Routing
 @using MudBlazor
 @using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,14 @@
 
 
 
+=======
+@inject IWebHostEnvironment Environment
+@using Microsoft.AspNetCore.Components.Routing
+@using MudBlazor
+
+<PageTitle> Noticias </PageTitle>
+<h2>Noticias</h2>
+>>>>>>> Stashed changes
 @if (parametro == "1")
 {
     <div class="mb-3">

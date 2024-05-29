@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using Blazored.SessionStorage;
+@using Intranet.Extension
+@using Intranet.Modelos.LoginModel
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider autenticacionProvider
+@inject NavigationManager navManager
+@inject ISessionStorageService _sessionStorage
+
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <div>
+            <img class="logoFenix" src="img/logoFenix.png" Width="40" Height="40" />
+            <a class="navbar-brand" href="index">Intranet Fénix</a>
+        </div>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+
+
+<div class="@NavMenuCssClass nav-scrollable">
+<MudNavMenu>
+    <MudDivider Class="my-2" />
+    <MudNavLink Href="/tablero">Tableros</MudNavLink>
+    <MudNavGroup Title="Noticias Fénix" Expanded="false">
+        <MudNavLink Href="/noticia">Noticias</MudNavLink>
+        @*  <MudNavLink Href="/boletin">Boletin Fénix</MudNavLink> *@
+    </MudNavGroup>
+    <MudNavLink Href="/agenda">Agenda</MudNavLink>
+    <MudNavGroup Title="Calendario" Expanded="false">
+        <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
+        <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Recursos Humanos" Expanded="false">
+        <MudNavLink Href="/sdocumentos">Solicitud De Documentos</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Seguridad" Expanded="false">
+        <MudNavGroup Title="redes" Expanded="false">
+            <MudNavLink Href="/direccionesip">Direcciones IP</MudNavLink>
+        </MudNavGroup>
+    </MudNavGroup>
+    <MudNavLink Href="/sobrefenix">Sobre Fénix...</MudNavLink>
+    <MudNavLink @onclick="CerrarSesion" style="cursor: pointer;">Salir</MudNavLink>
+</MudNavMenu>
+</div>
+
+@code {
+
+
+
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+
+    private async Task CerrarSesion()
+    {
+        await _sessionStorage.GuardarLogin(false);
+        var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+        await autenticacionExt.ActualizarEstadoAutenticacion(null);
+        navManager.NavigateTo("/", true);
+    }
+}
+

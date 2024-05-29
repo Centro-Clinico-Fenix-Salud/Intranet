@@ -78,6 +78,7 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 =======
 /Intranet/.vs/ProjectEvaluation/intranet.metadata.v7.bin
 *.bin
+<<<<<<< Updated upstream
 /Intranet/Intranet/Intranet.csproj.user
 /Intranet/Intranet/obj/Release/net7.0/Intranet.csproj.FileListAbsolute.txt
 /Intranet/Intranet/obj/Release/net7.0/Intranet.GeneratedMSBuildEditorConfig.editorconfig
@@ -151,3 +152,12 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 *.cs
 *.pubxml
 *.user
+=======
+/Intranet/Intranet/obj/Debug/net8.0/staticwebassets.build.json
+/Intranet/Intranet/obj/Debug/net8.0/staticwebassets.development.json
+/Intranet/Intranet/obj/Debug/net8.0/staticwebassets.pack.json
+/Intranet/Intranet/obj/Intranet.csproj.nuget.dgspec.json
+/Intranet/Intranet/obj/project.assets.json
+/Intranet/Intranet/obj/project.nuget.cache
+Intranet/Intranet/Intranet.sln
+>>>>>>> Stashed changes

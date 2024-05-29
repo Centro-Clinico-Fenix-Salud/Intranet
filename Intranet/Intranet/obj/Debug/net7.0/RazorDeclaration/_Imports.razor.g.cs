@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Intranet.Pages
+namespace Intranet
 {
     #line hidden
     using global::System;
@@ -15,6 +15,20 @@ namespace Intranet.Pages
 #nullable restore
 #line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using System.Net.Http;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
@@ -75,32 +89,10 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
-using Microsoft.AspNetCore.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
-           [Authorize]
-
-#line default
-#line hidden
-#nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/sobrefenix")]
-    public partial class Sobrefenix : global::Microsoft.AspNetCore.Components.ComponentBase
+    public partial class _Imports : System.Object
     {
         #pragma warning disable 1998
-        protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
+        protected void Execute()
         {
         }
         #pragma warning restore 1998

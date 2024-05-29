@@ -20,6 +20,20 @@ using System.Net.Http;
 #line hidden
 #nullable disable
 #nullable restore
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -76,34 +90,34 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
-using Microsoft.AspNetCore.Authorization;
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\FetchData.razor"
+using Intranet.Data;
 
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
-           [Authorize]
-
-#line default
-#line hidden
-#nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/sobrefenix")]
-    public partial class Sobrefenix : global::Microsoft.AspNetCore.Components.ComponentBase
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/fetchdata")]
+    public partial class FetchData : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 40 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\FetchData.razor"
+       
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
+    }
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private WeatherForecastService ForecastService { get; set; }
     }
 }
 #pragma warning restore 1591

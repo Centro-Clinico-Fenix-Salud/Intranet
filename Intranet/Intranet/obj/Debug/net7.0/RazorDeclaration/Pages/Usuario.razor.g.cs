@@ -76,34 +76,42 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Usuario.razor"
+using Intranet.Modelos.Admin;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Usuario.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Usuario.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
-           [Authorize]
+#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Usuario.razor"
+           [Authorize(Roles = "SuperAdmin")]
 
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/sobrefenix")]
-    public partial class Sobrefenix : global::Microsoft.AspNetCore.Components.ComponentBase
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Usuario")]
+    public partial class Usuario : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -90,7 +90,14 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Index.razor"
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Index.razor"
+using BlazorBootstrap;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Index.razor"
            [Authorize]
 
 #line default

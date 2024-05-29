@@ -13,77 +13,77 @@ namespace Intranet.Pages
     using global::System.Threading.Tasks;
     using global::Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 1 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 7 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Intranet;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 10 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Intranet.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 11 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using MudBlazor;
 
 #line default
@@ -98,75 +98,22 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 62 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\Pages\Direccionesip.razor"
-       
-    private List<Registro> registros = new List<Registro>();
-    private List<Registro> paginatedRegistros => registros.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
-    private int currentPage = 1;
-    private int itemsPerPage = 5;
-    private string searchTerm = string.Empty;
-    private Registro currentRegistro = new Registro();
-    private bool isEditMode = false;
-
-    protected override async Task OnInitializedAsync()
+#line 39 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Direccionesip.razor"
+ 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        registros = await RegistroService.GetRegistrosAsync();
-    }
-
-    private void ShowAddModal()
-    {
-        currentRegistro = new Registro();
-        isEditMode = false;
-        modal.Show();
-    }
-
-    private void ShowEditModal(Registro registro)
-    {
-        currentRegistro = registro;
-        isEditMode = true;
-        modal.Show();
-    }
-
-    private async Task SaveRegistro()
-    {
-        if (isEditMode)
+        if (firstRender)
         {
-            await RegistroService.UpdateRegistroAsync(currentRegistro);
+            await Js.InvokeVoidAsync("Data");
         }
-        else
-        {
-            await RegistroService.AddRegistroAsync(currentRegistro);
-        }
-        registros = await RegistroService.GetRegistrosAsync();
-        modal.Hide();
-    }
-
-    private async Task DeleteRegistro(int id)
-    {
-        await RegistroService.DeleteRegistroAsync(id);
-        registros = await RegistroService.GetRegistrosAsync();
-    }
-
-    private void PrevPage()
-    {
-        if (currentPage > 1)
-        {
-            currentPage--;
-        }
-    }
-
-    private void NextPage()
-    {
-        if (currentPage * itemsPerPage < registros.Count)
-        {
-            currentPage++;
-        }
+        await Js.InvokeVoidAsync("Data");
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private RegistroService RegistroService { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.JSInterop.IJSRuntime Js { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment { get; set; }
     }
 }
 #pragma warning restore 1591

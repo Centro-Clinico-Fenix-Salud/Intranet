@@ -13,91 +13,91 @@ namespace Intranet.Shared
     using global::System.Threading.Tasks;
     using global::Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using Intranet;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using Intranet.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\_Imports.razor"
 using MudBlazor;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
 using Intranet.Extension;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
 using Intranet.Modelos.LoginModel;
 
 #line default
@@ -111,7 +111,7 @@ using Intranet.Modelos.LoginModel;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 47 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 47 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
        
     private string Nombre = string.Empty;
     protected override async Task OnInitializedAsync()

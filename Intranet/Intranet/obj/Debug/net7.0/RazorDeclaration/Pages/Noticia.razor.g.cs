@@ -13,84 +13,98 @@ namespace Intranet.Pages
     using global::System.Threading.Tasks;
     using global::Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Intranet;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Intranet.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Noticia.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Noticia.razor"
 using MudBlazor;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Noticia.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Noticia.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+#line 35 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+using Microsoft.AspNetCore.Components.Routing;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 36 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Noticia.razor"
+using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 13 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Noticia.razor"
            [Authorize]
 
 #line default
@@ -105,7 +119,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
         #pragma warning restore 1998
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IWebHostEnvironment Environment { get; set; }
     }
 }
 #pragma warning restore 1591

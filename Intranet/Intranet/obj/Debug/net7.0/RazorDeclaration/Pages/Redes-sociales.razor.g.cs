@@ -13,77 +13,121 @@ namespace Intranet.Pages
     using global::System.Threading.Tasks;
     using global::Microsoft.AspNetCore.Components;
 #nullable restore
+<<<<<<< HEAD
 #line 1 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 1 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 2 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 3 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 4 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 5 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 6 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 7 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 8 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 9 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 9 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Intranet;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 10 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 10 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using Intranet.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 11 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\_Imports.razor"
+=======
+#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+>>>>>>> parent of b25bca9 (update final 15/04/2024)
 using MudBlazor;
 
 #line default

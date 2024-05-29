@@ -11,10 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MudBlazor.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configura los servicios en el contenedor.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
@@ -27,6 +26,7 @@ builder.Services.AddAuthenticationCore();
 
 var app = builder.Build();
 
+<<<<<<< Updated upstream
 app.ExecuteMigrations();
 
 // Configure the HTTP request pipeline.
@@ -37,15 +37,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+=======
+>>>>>>> Stashed changes
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapBlazorHub();

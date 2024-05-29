@@ -1,0 +1,111 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Intranet_-_Backup
+build_property.RootNamespace = Intranet_-_Backup
+build_property.ProjectDir = C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Intranet
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Agenda.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWdlbmRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Boletin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9sZXRpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Calendario.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FsZW5kYXJpby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Cumpleanos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VtcGxlYW5vcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Dashboard-Seguridad-Redes.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLVNlZ3VyaWRhZC1SZWRlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Dashboard-Seguridad.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLVNlZ3VyaWRhZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Direccionesip.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlyZWNjaW9uZXNpcC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Loggin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Noticia.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWNpYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Noticias-Fenix.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWNpYXMtRmVuaXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Reservacion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZXJ2YWNpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Sdocumentos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2RvY3VtZW50b3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Sobrefenix.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU29icmVmZW5peC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Shared/MainLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5Mb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Shared/RegistroModal.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFJlZ2lzdHJvTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-zuij3xsa0b
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-mxba8p2zxu
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/programador/Desktop/proyectos/Intranet/Intranet/Intranet/Intranet/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

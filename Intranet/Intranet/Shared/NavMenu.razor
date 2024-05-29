@@ -13,11 +13,11 @@
 <div class="@NavMenuCssClass nav-scrollable" style="background-color: #00bbb4">
     <MudNavMenu>
         <MudDivider Class="my-2" />
-        <MudNavLink Href="/tablero">Inicio</MudNavLink>
+        <MudNavLink Href="/tablero">Tableros</MudNavLink>
         <MudNavGroup Title="Noticias Fénix" Expanded="false">
             <MudNavLink Href="/noticia">Noticias</MudNavLink>
         </MudNavGroup>
-        <MudNavLink Href="/agenda">Agenda Telefónica</MudNavLink>
+        <MudNavLink Href="/agenda">Agenda</MudNavLink>
         <MudNavGroup Title="Calendario" Expanded="false">
             <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
             <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
@@ -31,31 +31,17 @@
             <MudNavLink Href="/Insp-Hab">Inspección de Habitaciones</MudNavLink>
         </MudNavGroup>
         <MudNavLink Href="/sobrefenix">Sobre Fénix</MudNavLink>
-        <AuthorizeView Roles="SuperAdmin, Administracion" Context="context">
+         <AuthorizeView Roles="SuperAdmin">
             <Authorized>
                 <MudNavGroup Title="Administracion" Expanded="false">
-                    <AuthorizeView Roles="SuperAdmin, Perfiles" Context="context2">
-                        <Authorized>
-                            <MudNavGroup Title="Perfiles" Expanded="false">
-                                <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
-                                <MudNavLink Href="/Roles">Roles</MudNavLink>
-                                <MudNavLink Href="/Permisos">Permisos</MudNavLink>
-                                <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
-                            </MudNavGroup>    
-                        </Authorized>
-                     </AuthorizeView>
-                    <AuthorizeView Roles="SuperAdmin, Modulos" Context="context2">
-                        <Authorized>
-                    <MudNavGroup Title="Modulos" Expanded="false">
-                        <MudNavLink Href="/Categoria">Categorias</MudNavLink>
-                        <MudNavLink Href="/Sub-Categoria">Sub-Categorias</MudNavLink>
-                    </MudNavGroup>
-                        </Authorized>
-                    </AuthorizeView>
+                    <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
+                    <MudNavLink Href="/Roles">Roles</MudNavLink>
+                    <MudNavLink Href="/Permisos">Permisos</MudNavLink>
+                    <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView> 
-        <MudNavLink Href="/account/logout" style="cursor: pointer;">Cerrar Sesión</MudNavLink>
+        <MudNavLink Href="/account/logout" style="cursor: pointer;">Salir</MudNavLink>
     </MudNavMenu>
 </div>
 

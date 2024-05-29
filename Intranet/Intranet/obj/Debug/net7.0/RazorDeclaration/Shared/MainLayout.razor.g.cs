@@ -83,21 +83,33 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 21 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+=======
+#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+>>>>>>> parent of 3e2b7a2 (Merge remote-tracking branch 'origin/feature/cambios' into jesus)
 using Intranet.Extension;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 22 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+=======
+#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+>>>>>>> parent of 3e2b7a2 (Merge remote-tracking branch 'origin/feature/cambios' into jesus)
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 23 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+=======
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+>>>>>>> parent of 3e2b7a2 (Merge remote-tracking branch 'origin/feature/cambios' into jesus)
 using Intranet.Modelos.LoginModel;
 
 #line default
@@ -111,12 +123,16 @@ using Intranet.Modelos.LoginModel;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 61 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+=======
+#line 47 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+>>>>>>> parent of 3e2b7a2 (Merge remote-tracking branch 'origin/feature/cambios' into jesus)
        
     private string Nombre = string.Empty;
     protected override async Task OnInitializedAsync()
     {
-        // Nombre = "Bienvenido";
+       // Nombre = "Bienvenido";
 
     }
 
@@ -127,17 +143,17 @@ using Intranet.Modelos.LoginModel;
         {
             Nombre = "Bienvenido";
         }
-
+                     
     }
-
-
-
+    
+    
+    
     private async Task CerrarSesion()
     {
-        // await _sessionStorage.GuardarLogin(false);
+       // await _sessionStorage.GuardarLogin(false);
         //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
         //await autenticacionExt.ActualizarEstadoAutenticacion(null);
-        // navManager.NavigateTo("/", true);
+       // navManager.NavigateTo("/", true);
     }
 
 #line default

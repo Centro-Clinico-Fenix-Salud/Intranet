@@ -90,6 +90,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 4 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Pages\Index.razor"
 using BlazorBootstrap;
 
@@ -98,6 +99,9 @@ using BlazorBootstrap;
 #nullable disable
 #nullable restore
 #line 6 "C:\Users\programador\Desktop\intranet\Intranet\Intranet\Intranet\Pages\Index.razor"
+=======
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Index.razor"
+>>>>>>> parent of 3e2b7a2 (Merge remote-tracking branch 'origin/feature/cambios' into jesus)
            [Authorize]
 
 #line default

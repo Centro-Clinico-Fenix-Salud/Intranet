@@ -117,17 +117,15 @@ namespace Intranet.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("PermisoId")
+                    b.Property<Guid>("P1_PermisoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("RolId")
+                    b.Property<Guid>("R1_RolId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PermisoId");
-
-                    b.HasIndex("RolId");
+                    b.HasIndex("P1_PermisoId");
 
                     b.ToTable("rol_Permiso");
                 });
@@ -230,21 +228,11 @@ namespace Intranet.Migrations
 
             modelBuilder.Entity("Intranet.Modelos.Admin.Rol_Permiso", b =>
                 {
-                    b.HasOne("Intranet.Modelos.Admin.P1_Permiso", "Permiso")
+                    b.HasOne("Intranet.Modelos.Admin.P1_Permiso", null)
                         .WithMany("Rol_Permisos")
-                        .HasForeignKey("PermisoId")
+                        .HasForeignKey("P1_PermisoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Intranet.Modelos.Admin.R1_Rol", "Rol")
-                        .WithMany()
-                        .HasForeignKey("RolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Permiso");
-
-                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.U1_Usuario", b =>

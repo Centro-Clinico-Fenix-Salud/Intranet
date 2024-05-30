@@ -14,22 +14,34 @@
     <MudNavMenu>
         <MudDivider Class="my-2" />
         <MudNavLink Href="/tablero">Inicio</MudNavLink>
-        <MudNavGroup Title="Noticias Fénix" Expanded="false">
-            <MudNavLink Href="/noticia">Noticias</MudNavLink>
-        </MudNavGroup>
+        <MudNavLink Href="/noticia">Noticias</MudNavLink>     
         <MudNavLink Href="/agenda">Agenda Telefónica</MudNavLink>
         <MudNavGroup Title="Calendario" Expanded="false">
             <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
             <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
         </MudNavGroup>
-        <MudNavGroup Title="Seguridad" Expanded="false">
-            <MudNavGroup Title="redes" Expanded="false">
-                <MudNavLink Href="/direccionesip">Direcciones IP</MudNavLink>
-            </MudNavGroup>
-        </MudNavGroup>
-        <MudNavGroup Title="Planillas" Expanded="false">
-            <MudNavLink Href="/Insp-Hab">Inspección de Habitaciones</MudNavLink>
-        </MudNavGroup>
+        <AuthorizeView Roles="SuperAdmin, SoporteTecnico" Context="context">
+            <Authorized>
+                <MudNavGroup Title="Soporte Técnico" Expanded="false">
+                    <AuthorizeView Roles="SuperAdmin, DireccionesIp" Context="context2">
+                        <Authorized>
+                            <MudNavLink Href="/direccionesip">Direcciones IP</MudNavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                </MudNavGroup>
+            </Authorized>
+        </AuthorizeView>
+        <AuthorizeView Roles="SuperAdmin, Planillas" Context="context">
+            <Authorized>
+                <MudNavGroup Title="Planillas" Expanded="false">
+                    <AuthorizeView Roles="SuperAdmin, InspeccionDeHabitaciones" Context="context2">
+                        <Authorized>
+                            <MudNavLink Href="/Insp-Hab">Inspección de Habitaciones</MudNavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                </MudNavGroup>
+            </Authorized>
+        </AuthorizeView>
         <MudNavLink Href="/sobrefenix">Sobre Fénix</MudNavLink>
         <AuthorizeView Roles="SuperAdmin, Administracion" Context="context">
             <Authorized>

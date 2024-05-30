@@ -14,12 +14,32 @@
     <MudNavMenu>
         <MudDivider Class="my-2" />
         <MudNavLink Href="/tablero">Inicio</MudNavLink>
-        <MudNavLink Href="/noticia">Noticias</MudNavLink>     
-        <MudNavLink Href="/agenda">Agenda Telefónica</MudNavLink>
-        <MudNavGroup Title="Calendario" Expanded="false">
-            <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
-            <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
-        </MudNavGroup>
+        <AuthorizeView Roles="SuperAdmin, Noticias" Context="context">
+            <Authorized>
+                <MudNavLink Href="/noticia">Noticias</MudNavLink>
+            </Authorized>
+        </AuthorizeView>
+        <AuthorizeView Roles="SuperAdmin, AgendaTelefonica" Context="context">
+            <Authorized>
+                <MudNavLink Href="/agenda">Agenda Telefónica</MudNavLink>
+            </Authorized>
+        </AuthorizeView>
+        <AuthorizeView Roles="SuperAdmin, Calendario" Context="context">
+            <Authorized>
+                <MudNavGroup Title="Calendario" Expanded="false">
+                    <AuthorizeView Roles="SuperAdmin, cumpleanos" Context="context2">
+                        <Authorized>
+                            <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, AgendaReuniones" Context="context3">
+                        <Authorized>
+                            <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                </MudNavGroup>
+            </Authorized>
+        </AuthorizeView>
         <AuthorizeView Roles="SuperAdmin, SoporteTecnico" Context="context">
             <Authorized>
                 <MudNavGroup Title="Soporte Técnico" Expanded="false">
@@ -82,51 +102,8 @@
     }
     private async Task CerrarSesion()
     {
-    //     await _sessionStorage.GuardarLogin(false);
-    //     var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-    //     await autenticacionExt.ActualizarEstadoAutenticacion(null);
-    //     navManager.NavigateTo("/", true);
-     }
+
+    }
 }
 
 
-
-@* <div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Intranet</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
-
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-} *@

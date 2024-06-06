@@ -96,6 +96,7 @@ namespace Intranet.Controller
 
                             var claimsList = new List<Claim>
                             {
+                                new Claim(ClaimTypes.NameIdentifier, id.ToString()),
                                 new Claim(ClaimTypes.Name, nombreUsuario),
                                 new Claim(ClaimTypes.Surname, credentials.Usuario),
                                 new Claim(ClaimTypes.Role, role)

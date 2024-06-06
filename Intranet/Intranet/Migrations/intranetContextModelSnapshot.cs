@@ -188,6 +188,79 @@ namespace Intranet.Migrations
                     b.ToTable("u1_Usuario");
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.Agenda.AgendaTelefonica", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Concurrencia")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Extension")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UbicacionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UnidadId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Usuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioModificador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("numeroTelefonico")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("agendaTelefonicas");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Tablas.Ubicacion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ubicaciones");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Tablas.Unidad", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("unidades");
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Admin.Categoria_SubCategoria", b =>
                 {
                     b.HasOne("Intranet.Modelos.Admin.C1_Categoria", "Categoria")

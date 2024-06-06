@@ -1,3 +1,5 @@
+@import '_content/Blazor.Bootstrap/Blazor.Bootstrap.bundle.scp.css';
+
 /* _content/Intranet/Shared/MainLayout.razor.rz.scp.css */
 .page[b-lbu036tguj] {
     position: relative;
@@ -10,9 +12,27 @@ main[b-lbu036tguj] {
 }
 
 .sidebar[b-lbu036tguj] {
-    background-color: #00bbb4;
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
 }
 
+.top-row[b-lbu036tguj] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-lbu036tguj]  a, .top-row .btn-link[b-lbu036tguj] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-lbu036tguj] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
 @media (max-width: 640.98px) {
     .top-row:not(.auth)[b-lbu036tguj] {
@@ -53,21 +73,21 @@ main[b-lbu036tguj] {
 }
 /* _content/Intranet/Shared/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-349eebs39z] {
-    background-color: rgba(0, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .top-row[b-349eebs39z] {
     height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
 }
 
 .navbar-brand[b-349eebs39z] {
-    font-size: 0.9rem;
-    /*margin-right: 30px;*/
+    font-size: 1.1rem;
 }
 
 .oi[b-349eebs39z] {
     width: 2rem;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     vertical-align: text-top;
     top: -2px;
 }
@@ -86,8 +106,7 @@ main[b-lbu036tguj] {
     }
 
     .nav-item[b-349eebs39z]  a {
-        color: black;
-        ;
+        color: #d7d7d7;
         border-radius: 4px;
         height: 3rem;
         display: flex;
@@ -95,13 +114,15 @@ main[b-lbu036tguj] {
         line-height: 3rem;
     }
 
-        .nav-item[b-349eebs39z]  a.active {
-            background-color: white;
-            color: black;
-            border-radius:10rem;
-        }
+.nav-item[b-349eebs39z]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
 
-
+.nav-item[b-349eebs39z]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
 
 @media (min-width: 641px) {
     .navbar-toggler[b-349eebs39z] {
@@ -118,27 +139,4 @@ main[b-lbu036tguj] {
         height: calc(100vh - 3.5rem);
         overflow-y: auto;
     }
-    .navbar-brand[b-349eebs39z] {
-        font-size: 0.9rem;
-        visibility: visible;
-    }
-    /*.navbar-brand {
-        margin-right: 40px; 
-    }*/
 }
-
-/*@media screen and (width: 768px) {
-        .navbar-brand {
-            font-size: 0.9rem; 
-            visibility:hidden;
-        }*/
-        /*.oi {
-            width: 2rem;
-            font-size: 0.8rem;
-            vertical-align: text-top;
-            top: -2px;
-        }
-        logoFenix {
-
-        }*/
-    /*}*/

@@ -111,12 +111,12 @@ using Intranet.Modelos.LoginModel;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 47 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 42 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
        
     private string Nombre = string.Empty;
     protected override async Task OnInitializedAsync()
     {
-       // Nombre = "Bienvenido";
+        // Nombre = "Bienvenido";
 
     }
 
@@ -127,17 +127,17 @@ using Intranet.Modelos.LoginModel;
         {
             Nombre = "Bienvenido";
         }
-                     
+
     }
-    
-    
-    
+
+
+
     private async Task CerrarSesion()
     {
-       // await _sessionStorage.GuardarLogin(false);
+        // await _sessionStorage.GuardarLogin(false);
         //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
         //await autenticacionExt.ActualizarEstadoAutenticacion(null);
-       // navManager.NavigateTo("/", true);
+        // navManager.NavigateTo("/", true);
     }
 
 #line default

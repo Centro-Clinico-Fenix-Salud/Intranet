@@ -13,20 +13,16 @@
         <NavMenu />
     </div>
 
-    <main>
-       @*  <div class="top-row px-4 bg-light">        
-            <a @onclick="CerrarSesion" href="javascript:void(0)">Salir</a>
-        </div>  *@
+    <main>      
         <MudAppBar style="background-color: #00bbb4" Fixed="false">
-                <AuthorizeView>
-                    <Authorized>
+            <AuthorizeView>
+                <Authorized>
                     <spn>Bienvenido, @context.User.Identity!.Name</spn>
-                    @* <MudSpacer />
-                    <spn @onclick="CerrarSesion" style="cursor: pointer;">Salir</spn> *@
-                    </Authorized>
-              </AuthorizeView>
+                    
+                </Authorized>
+            </AuthorizeView>
         </MudAppBar>
- 
+
         <article class="content px-4">
             @Body
         </article>
@@ -40,15 +36,14 @@
                    DisableBackdropClick="true"
                    NoHeader="true"
                    Position="DialogPosition.Center"
-                   CloseOnEscapeKey="true"
-                   />
+                   CloseOnEscapeKey="true" />
 <MudSnackbarProvider />
 
 @code {
     private string Nombre = string.Empty;
     protected override async Task OnInitializedAsync()
     {
-       // Nombre = "Bienvenido";
+        // Nombre = "Bienvenido";
 
     }
 
@@ -59,16 +54,17 @@
         {
             Nombre = "Bienvenido";
         }
-                     
+
     }
-    
-    
-    
+
+
+
     private async Task CerrarSesion()
     {
-       // await _sessionStorage.GuardarLogin(false);
+        // await _sessionStorage.GuardarLogin(false);
         //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
         //await autenticacionExt.ActualizarEstadoAutenticacion(null);
-       // navManager.NavigateTo("/", true);
+        // navManager.NavigateTo("/", true);
     }
 }
+

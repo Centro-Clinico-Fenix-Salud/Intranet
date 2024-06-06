@@ -111,8 +111,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
-           [Authorize]
+#line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+           [Authorize(Roles = "SuperAdmin, AgendaTelefonica,EliminarAgendaTelefonica,EditarAgendaTelefonica,ConsultarAgendaTelefonica")]
 
 #line default
 #line hidden
@@ -126,6 +126,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

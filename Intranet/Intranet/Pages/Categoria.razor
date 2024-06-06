@@ -1,23 +1,27 @@
-﻿@page "/Roles"
+﻿@page "/Categoria"
 @using Intranet.Modelos.Admin;
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "SuperAdmin, Perfiles")]
+@attribute [Authorize(Roles = "SuperAdmin, Administracion")]
 
-<PageTitle>Roles</PageTitle>
+<PageTitle>Categoria</PageTitle>
 
 <nav class="navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Roles
+        Categoria
     </h1>
 </nav>
-<div class="row">
-    <div class="Botones">
-        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => AgregarMostrarModal())" Color="Color.Success" Class="ml-auto float-start">Agregar</MudButton>
-    </div>
-</div>
+ <AuthorizeView Roles="SuperAdmin,AgregarCategoria" Context="context">
+   <Authorized>
+        <div class="row">
+            <div class="Botones">
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => AgregarMostrarModal())" Color="Color.Primary" Class="ml-auto float-start">Agregar</MudButton>
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
 
 <div class="row">
     <div class="Buscador input-group mt-2">
@@ -26,21 +30,20 @@
             <button class="btn btn-outline-primary" @onclick="@(()=>Buscar())">Buscar</button>
         </div>
     </div>
-</div> 
+</div>
 
- <div class="row">
-    <div class="container-fluid d-flex align-items-center justify-content-center ">
-    <div class="col-12 mt-2">
-        <MudDataGrid T="R1_Rol" Items="@DataRoles" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
+<div class="row">
+    <div class=" mt-2">
+        <MudDataGrid T="C1_Categoria" Items="@CategoriaData" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
             <Columns>
-                <AuthorizeView Roles="SuperAdmin,EditarRoles" Context="context">
+                <AuthorizeView Roles="SuperAdmin,EliminarCategoria,EditarCategoria,ConsultarCategoria" Context="context">
                     <Authorized>
                         <TemplateColumn Title="Acciones" Sortable="false">
                             <CellTemplate Context="context2">
-                                <AuthorizeView Roles="SuperAdmin,EditarRoles" Context="context3">
+                                <AuthorizeView Roles="SuperAdmin,EditarCategoria" Context="context3">
                                     <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
                                 </AuthorizeView>
-                                <AuthorizeView Roles="SuperAdmin,EliminarRoles" Context="context3">
+                                <AuthorizeView Roles="SuperAdmin,EliminarCategoria" Context="context3">
                                     <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context2))" />
                                 </AuthorizeView>
                             </CellTemplate>
@@ -50,12 +53,11 @@
                 <PropertyColumn Property="x => x.Nombre" Title="Nombre" Sortable="true" />
             </Columns>
             <PagerContent>
-                <MudDataGridPager T="R1_Rol" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />
+                <MudDataGridPager T="C1_Categoria" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />
             </PagerContent>
-        </MudDataGrid>
-        </div>
+        </MudDataGrid> 
     </div>
-</div> 
+</div>
 
 @if (mostrarModalNuevo)
 {
@@ -89,7 +91,6 @@
     </div>
     <div class="modal-backdrop show"></div>
 }
-
 @if (mostrarModalEditar)
 {
     <div class="modal show" tabindex="-1" role="dialog" style="display: block;">

@@ -9,6 +9,7 @@ using MudBlazor;
 using Microsoft.AspNetCore.Components;
 using Intranet.Modelos.LoginModel;
 using Intranet.Interfaces.Admin;
+using Intranet.Pages;
 
 namespace Intranet.Controller
 {
@@ -17,9 +18,11 @@ namespace Intranet.Controller
         [Inject]
         private ISnackbar Snackbar { get; set; }
         private IServicioAdmin ServicioAdmin { get; set; }
+        private IConfiguration configuration;
 
-        public LoginController(IServicioAdmin ServicioAdmin) {
+        public LoginController(IServicioAdmin ServicioAdmin, IConfiguration Configuration) {
             this.ServicioAdmin = ServicioAdmin;
+            this.configuration = Configuration;
         }
 
 
@@ -28,9 +31,34 @@ namespace Intranet.Controller
         {
             //Indicamos el dominio en el que vamos a buscar al usuario
              string path = "LDAP://fenixsalud.local";
+            var UsuarioSuperAdmin = configuration["usuarioAdmin"];
+            var PasswordSuperAdmin = configuration["password"];
 
             try
             {
+                if (UsuarioSuperAdmin == credentials.Usuario && PasswordSuperAdmin == credentials.Clave) 
+                {
+                    var claimsList = new List<Claim>
+                            {
+                                new Claim(ClaimTypes.Name, "Super Admin"),
+                                new Claim(ClaimTypes.Surname, "SuperAdmin"),
+                                new Claim(ClaimTypes.Role, "SuperAdmin")
+                    };
+
+
+                    var claims = claimsList.ToArray();
+
+                    //Creamos el principal
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+                    //Generamos la cookie. SignInAsync es un método de extensión del contexto.
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+                    return LocalRedirect("/tablero");
+                }
+                    
+
                 using (System.DirectoryServices.DirectoryEntry entry = new System.DirectoryServices.DirectoryEntry(path, credentials.Usuario, credentials.Clave))
                 {
                     using (DirectorySearcher searcher = new DirectorySearcher(entry))
@@ -42,6 +70,7 @@ namespace Intranet.Controller
                         if (result != null)
                         {
                             string role = "";
+                            List<string> permisos = new List<string>();
                             Guid id = Guid.Empty ;
                             string nombreUsuario = "";
 
@@ -61,15 +90,24 @@ namespace Intranet.Controller
                             }
                             //setear rol a usuario
                             role = ServicioAdmin.BuscarRolDeUsuario(id);
-
+                            permisos = await ServicioAdmin.ObtenerPermisosDeUsuario(id);
                             //Añadimos los claims Usuario y Rol para tenerlos disponibles en la Cookie
                             //Podríamos obtenerlos de una base de datos.
-                            var claims = new[]
+
+                            var claimsList = new List<Claim>
                             {
+                                new Claim(ClaimTypes.NameIdentifier, id.ToString()),
                                 new Claim(ClaimTypes.Name, nombreUsuario),
                                 new Claim(ClaimTypes.Surname, credentials.Usuario),
                                 new Claim(ClaimTypes.Role, role)
                             };
+
+                            foreach (var permiso in permisos)
+                            {
+                                claimsList.Add(new Claim(ClaimTypes.Role, permiso));
+                            }
+
+                            var claims = claimsList.ToArray();
 
                             //Creamos el principal
                             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

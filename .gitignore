@@ -155,3 +155,4 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 *.pubxml
 *.user
 *.txt
+/Intranet/Intranet/obj/Release/net7.0/Razor/Pages/_Host.cshtml.g.cs

@@ -10,7 +10,6 @@ namespace Intranet.Modelos.Agenda
         public string? Unidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Ubicacion { get; set; }
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? numeroTelefonico { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Extension { get; set; }

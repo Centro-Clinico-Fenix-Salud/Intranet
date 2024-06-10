@@ -112,7 +112,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
 #nullable restore
 #line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
-           [Authorize(Roles = "SuperAdmin, AgendaTelefonica,EliminarAgendaTelefonica,EditarAgendaTelefonica,ConsultarAgendaTelefonica")]
+           [Authorize(Roles = "SuperAdmin,AgendaTelefonica")]
 
 #line default
 #line hidden

@@ -10,8 +10,9 @@ namespace Intranet.Modelos.Agenda
         public string? Unidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Ubicacion { get; set; }
-        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [MaxLength(11, ErrorMessage = "El numero teléfonico no puede ser superior a 11 digitos")]
         public string? numeroTelefonico { get; set; }
+
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Extension { get; set; }
         public Guid Concurrencia { get; set; }
@@ -26,6 +27,7 @@ namespace Intranet.Modelos.Agenda
                 {
                     yield return new ValidationResult($"La extension debe tener 3 digitos", new[] { nameof(Extension) });
                 }
+           
         }
     }
 }

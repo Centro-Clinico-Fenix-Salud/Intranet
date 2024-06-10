@@ -63,6 +63,15 @@ namespace Intranet.Pages
                   
         }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                // await Js.InvokeVoidAsync("DataCalendar");
+            }
+           
+        }
+
         private async Task RefrescarDataGrid()
         {
             var resultado = (await Data()).AsQueryable();
@@ -133,7 +142,7 @@ namespace Intranet.Pages
         public void Nuevo()
         {
             CreateAgenda = new AgendaCreate();
-            CreateAgenda.numeroTelefonico = configuration["NroTelfonicoFenix"];
+            //CreateAgenda.numeroTelefonico = configuration["NroTelfonicoFenix"];
             mostrarModalNuevo = true;
         }
 
@@ -169,6 +178,13 @@ namespace Intranet.Pages
             else
                 Snackbar.Add("Ocurrio un error", Severity.Error);
 
+        }
+        void CheckForEnter(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
+        {
+            if (e.Key == "Enter")
+            {
+                Buscar();
+            }
         }
 
         private async Task Buscar()

@@ -187,6 +187,28 @@ namespace Intranet.Pages
             }
         }
 
+        private async void Buscar2(ChangeEventArgs e)
+        {
+            //string valor = e.Value.ToString();
+            // Aquí va tu código para buscar con el valor ingresado
+            //await Buscar();
+            searchTerm = e.Value.ToString();
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                DireccionTelefonica = MaestroDireccionTelefonica;
+
+            }
+            else
+            {
+                DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Usuario.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                p.Unidad.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.Ubicacion.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
+                ).OrderBy(p => p.Usuario);
+
+            }
+        }
+
+
         private async Task Buscar()
         {
             if (string.IsNullOrEmpty(searchTerm))

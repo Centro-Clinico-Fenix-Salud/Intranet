@@ -11,12 +11,12 @@
 
 <PageTitle>Agenda</PageTitle>
 
-<nav class="navbar navbar-expand-lg justify-content-center mb-5"
+<div class="col-12 navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
         Agenda telefónica de extensiones
     </h1>
-</nav>
+</div>
 
 
 
@@ -29,10 +29,10 @@
 </AuthorizeView>
  
 <div class="input-group mb-4 ">
-    <input type="text" class="form-control" placeholder="Buscar..." @bind="searchTerm" @onkeydown="CheckForEnter">
-    <div class="input-group-append">
+    <input type="text" class="form-control" placeholder="Buscar..." @bind="searchTerm" @oninput="Buscar2">
+    @* <div class="input-group-append">
         <button class="btn btn-outline-primary" @onclick="@(()=>Buscar())">Buscar</button>
-    </div>
+    </div> *@
 </div>
 
 <MudDataGrid T="AgendaTelefonicaDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">

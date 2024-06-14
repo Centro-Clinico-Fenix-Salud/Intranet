@@ -30,7 +30,7 @@ namespace Intranet.Controller
         public async Task<IActionResult> Login(LoginDTO credentials)
         {
             //Indicamos el dominio en el que vamos a buscar al usuario
-             string path = "LDAP://fenixsalud.local";
+             string path = "LDAP://fenixsalud.local/OU=FenixSalud,DC=FENIXSALUD,DC=LOCAL";
             var UsuarioSuperAdmin = configuration["usuarioAdmin"];
             var PasswordSuperAdmin = configuration["password"];
 
@@ -74,6 +74,9 @@ namespace Intranet.Controller
                             Guid id = Guid.Empty ;
                             string nombreUsuario = "";
 
+                            List<string> key = new List<string>();
+                            List<string> valor = new List<string>();
+                            int i = 0;
 
                             //Comporbamos las propiedades del usuario
                             ResultPropertyCollection fields = result.Properties;
@@ -81,13 +84,18 @@ namespace Intranet.Controller
                             {
                                 foreach (Object myCollection in fields[ldapField])
                                 {
+                                    i++;
+                                    key.Add(i.ToString() + " - " + ldapField.ToString());
+                                    valor.Add(i.ToString() + " - " + myCollection.ToString());
                                     if (ldapField == "name")
-                                      nombreUsuario = myCollection.ToString().ToLower();
+                                      nombreUsuario = myCollection.ToString();
 
                                     if (ldapField == "objectguid")
                                         id = new Guid((byte[])myCollection);
                                 }
                             }
+
+
                             //setear rol a usuario
                             role = ServicioAdmin.BuscarRolDeUsuario(id);
                             permisos = await ServicioAdmin.ObtenerPermisosDeUsuario(id);

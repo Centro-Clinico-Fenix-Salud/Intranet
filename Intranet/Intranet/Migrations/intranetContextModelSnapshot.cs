@@ -229,6 +229,90 @@ namespace Intranet.Migrations
                     b.ToTable("agendaTelefonicas");
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.Agenda.U2_UsuarioAgendaTelefonica", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Concurrencia")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("UsuarioModificador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
+
+                    b.ToTable("usuarioAgendaTelefonica");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Noticia.ArchivosNoticias", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NombreArchivo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreFisico")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("NoticiaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("archivosNoticias");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Noticia.Noticia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Concurrencia")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaNoticia")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("IdCreador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdModificador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TextoNoticia")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TituloNoticia")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("noticias");
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Tablas.Ubicacion", b =>
                 {
                     b.Property<Guid>("Id")

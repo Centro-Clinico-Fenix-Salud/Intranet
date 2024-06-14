@@ -294,7 +294,7 @@ namespace Intranet.Pages
 
         private async Task GuardarAgenda(EditContext context)
         {
-
+            CreateAgenda.Usuario = CreateAgenda.Usuario.Split('-')[0].Trim();
             switch (await ServicioAgendaTelefonica.ConsultarAntesGuardarAgendaTelefonica(CreateAgenda))
             {
                 case 1:
@@ -318,6 +318,7 @@ namespace Intranet.Pages
 
         private async Task EditarAgente(EditContext context)
         {
+            EditarAgenda.Usuario = EditarAgenda.Usuario.Split('-')[0].Trim();
             switch (await ServicioAgendaTelefonica.ConsultarAntesActualizarAgendaTelefonica(EditarAgenda))
             {
                 case 1:

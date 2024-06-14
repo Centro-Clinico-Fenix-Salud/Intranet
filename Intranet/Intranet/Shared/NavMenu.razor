@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" style="background-color: #00bbb4">
+<div class="@NavMenuCssClass nav-scrollable" style="background-color: #80CBC4">
     <MudNavMenu>
         <MudDivider Class="my-2" />
         <MudNavLink Href="/tablero">Inicio</MudNavLink>
@@ -82,6 +82,11 @@
                         <MudNavLink Href="/Categoria">Categorias</MudNavLink>
                         <MudNavLink Href="/Sub-Categoria">Sub-Categorias</MudNavLink>
                     </MudNavGroup>
+                        </Authorized>
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, UsuarioAgendaTelefonica" Context="context2">
+                        <Authorized>
+                            <MudNavLink Href="/UsuarioAgendaTelefonica">Usuario Agenda Telefonica</MudNavLink>
                         </Authorized>
                     </AuthorizeView>
                 </MudNavGroup>

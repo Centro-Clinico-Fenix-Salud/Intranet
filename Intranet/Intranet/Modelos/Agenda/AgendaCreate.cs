@@ -5,6 +5,7 @@ namespace Intranet.Modelos.Agenda
     public class AgendaCreate : IValidatableObject
     {
         public Guid Id { get; set; }
+        [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Usuario { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Unidad { get; set; }

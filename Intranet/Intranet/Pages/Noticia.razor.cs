@@ -32,7 +32,7 @@ namespace Intranet.Pages
         private bool mostrarModalNoticia = false;
         private bool mostrarModalNuevaNoticia = false;
         private bool mostrarModalEditarNoticia = false;
-        private IEnumerable<NoticiaModel> Elements = new List<NoticiaModel>();
+        private IEnumerable<NoticiaDataTable> Elements = new List<NoticiaDataTable>();
         private List<string> ImagenModalNoticia;
         private string TituloModalNoticia;
         private string TextoModalNoticia;
@@ -58,16 +58,20 @@ namespace Intranet.Pages
         private List<string> ImagenAELiminar = new List<string>();
         private List<ListaImagenCargada> listaImagenCargada = new List<ListaImagenCargada>();
         [Inject]
-        private IArchivoImagen ArchivoImagen { get; set; }
+        private IServicioNoticias servicioNoticias { get; set; }
  
-        //[Inject]
-        //private IWebHostEnvironment Environment { get; set; }
+        [Inject]
+        private IWebHostEnvironment Environment { get; set; }
+        [Inject]
+        private IConfiguration configuration { get; set; }
+        private string ruta = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
             Elements = Data().AsQueryable();
             CreateNoticia = new CreateNoticia();
-            
+            var ruta = Environment.ContentRootPath + configuration["RutaArchivos"];
+
         }
 
 
@@ -125,24 +129,24 @@ namespace Intranet.Pages
             }
         }
 
-        public List<NoticiaModel> Data()
+        public List<NoticiaDataTable> Data()
         {
-            var resultado = new List<NoticiaModel>();
+            var resultado = new List<NoticiaDataTable>();
 
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Lorem Ipsum 1", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-1) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/repair.jpg", "Files/fotoEmpleado.jpg" }, TituloNoticia = "Nunc finibus, massa ac finibus hendrerit", TextoNoticia = texto + " <br><br> " + texto, FechaNoticia = DateTime.Now.AddDays(-2) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Etiam sit amet laoree", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-3) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = " Nullam vitae libero", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-4) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Nam malesuada", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-5) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Vivamus rhoncus", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-6) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Nulla euismod quis nibh", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-7) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Mauris luctus ullamcorper porttitor.", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-8) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Orci varius natoque ", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-9) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = " Nulla a ante bibendum", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-10) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Phasellus ullamcorper tellus vitae elit hendrerit", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-11) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Morbi sagittis", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-12) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Phasellus ipsum neque", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-13) });
-            resultado.Add(new NoticiaModel { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Aliquam diam dui", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-14) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Lorem Ipsum 1", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-1) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/repair.jpg", "Files/fotoEmpleado.jpg" }, TituloNoticia = "Nunc finibus, massa ac finibus hendrerit", TextoNoticia = texto + " <br><br> " + texto, FechaNoticia = DateTime.Now.AddDays(-2) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Etiam sit amet laoree", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-3) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = " Nullam vitae libero", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-4) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Nam malesuada", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-5) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Vivamus rhoncus", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-6) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Nulla euismod quis nibh", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-7) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Mauris luctus ullamcorper porttitor.", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-8) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Orci varius natoque ", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-9) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = " Nulla a ante bibendum", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-10) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Phasellus ullamcorper tellus vitae elit hendrerit", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-11) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Morbi sagittis", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-12) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Phasellus ipsum neque", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-13) });
+            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Aliquam diam dui", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-14) });
 
 
 
@@ -162,7 +166,7 @@ namespace Intranet.Pages
 
         }
 
-        private void AbrirModalNoticia(NoticiaModel Noticia)
+        private void AbrirModalNoticia(NoticiaDataTable Noticia)
         {
             ImagenModalNoticia = Noticia.Imagen;
             TituloModalNoticia = Noticia.TituloNoticia;
@@ -258,8 +262,8 @@ namespace Intranet.Pages
 
             try
             {
-                string ruta = Environment.WebRootPath;
-                await ArchivoImagen.SubirImagenes(listaImagenCargada, ruta);
+                await servicioNoticias.GuardarNoticia(CreateNoticia);
+                await servicioNoticias.SubirImagenes(listaImagenCargada, ruta);
 
                 foreach (var item in listaImagenCargada) 
                 {
@@ -279,7 +283,7 @@ namespace Intranet.Pages
                 try
                 {
 
-                    NoticiaModel noticiaModel = new NoticiaModel();
+                    NoticiaDataTable noticiaModel = new NoticiaDataTable();
                     noticiaModel.Id = Guid.NewGuid();
                     noticiaModel.FechaNoticia = DateTime.Now;
                     noticiaModel.Imagen = ListNombreArchivo;
@@ -307,7 +311,7 @@ namespace Intranet.Pages
         
         }
 
-        public void Editar(NoticiaModel NoticiaEditar)
+        public void Editar(NoticiaDataTable NoticiaEditar)
         {
             EditarNoticia = new EditarNoticia();
             EditarNoticia.Id = NoticiaEditar.Id;
@@ -324,7 +328,7 @@ namespace Intranet.Pages
             mostrarModalEditarNoticia = true;
 
         }
-        public void Eliminar(NoticiaModel NoticiaELiminar)
+        public void Eliminar(NoticiaDataTable NoticiaELiminar)
         {
             ImagenAELiminar = NoticiaELiminar.Imagen;
             RegistroEliminar = NoticiaELiminar.TituloNoticia ;
@@ -357,7 +361,7 @@ namespace Intranet.Pages
         private void EliminarNoticia()
         {
             var listNoticia = Elements.ToList();
-            NoticiaModel registroParaEliminar = listNoticia.Where(a => a.Id == IdELiminarNoticia).FirstOrDefault();
+            NoticiaDataTable registroParaEliminar = listNoticia.Where(a => a.Id == IdELiminarNoticia).FirstOrDefault();
 
             if (registroParaEliminar != null)
             {
@@ -391,41 +395,24 @@ namespace Intranet.Pages
                 }
                 if (!listaImagenModificada.SequenceEqual(EditarNoticia.Imagen)) 
                 {
-                    //respaldo de los archivos antes de eliminar 
-                    //foreach (var item in listaImagenCargada) 
-                    //{
-                    //    item.imagenSeleccionadaCargada = ObtenerBase64DesdeRuta(item.imagenSeleccionadaCargada);
-                    //}
 
-                    //eliminar archivos
                     List<string> listaImagenAEliminar = new List<string>();
                     List<ListaImagenCargada> listaImagenAgregar = listaImagenCargada;
 
                     listaImagenAEliminar = EditarNoticia.Imagen.Except(listaImagenModificada).ToList();
-
-                    //foreach (var item in listaImagenCargada)
-                    //{
-                    //    listaImagenAEliminar.Remove(item.imagenSeleccionadaCargada);
-                    //}
                     
                     if(listaImagenAEliminar.Count > 0)
                     eliminarImagen(listaImagenAEliminar);
 
-                    //cargar los archivos
-                    //foreach (var item in DataOriginal) 
-                    //{
-                    //    listaImagenAgregar.RemoveAll(x => x.imagenSeleccionadaCargada == item);
-                    //}
-
                     listaImagenAgregar = listaImagenCargada.Where(x => !EditarNoticia.Imagen.Contains( x.NombreimagenSeleccionadaCargada)).ToList();
 
-                    string ruta = Environment.WebRootPath;
+                    //string ruta = Environment.WebRootPath;
                     if(listaImagenAgregar.Count > 0)
-                    await ArchivoImagen.SubirImagenes(listaImagenAgregar, ruta);
+                    await servicioNoticias.SubirImagenes(listaImagenAgregar, ruta);
                 }
                 
                 var listAgenda = Elements.ToList();
-                NoticiaModel noticiaAEditar = listAgenda.Where(a => a.Id == EditarNoticia.Id).FirstOrDefault();
+                NoticiaDataTable noticiaAEditar = listAgenda.Where(a => a.Id == EditarNoticia.Id).FirstOrDefault();
 
                 foreach (var item in listaImagenCargada)
                 {

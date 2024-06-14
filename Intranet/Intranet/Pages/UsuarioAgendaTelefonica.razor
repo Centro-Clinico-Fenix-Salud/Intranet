@@ -1,20 +1,22 @@
-﻿@page "/Categoria"
-@using Intranet.Modelos.Admin;
+﻿@page "/UsuarioAgendaTelefonica"
+@using Intranet.Modelos.Agenda;
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "SuperAdmin, Administracion")]
+@attribute [Authorize(Roles = "SuperAdmin,Administracion")]
 
 <PageTitle>Categoria</PageTitle>
 
 <nav class="navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Categoria
+        Usuario de Agenda Telefónica
     </h1>
 </nav>
- <AuthorizeView Roles="SuperAdmin,AgregarCategoria" Context="context">
-   <Authorized>
+<AuthorizeView Roles="SuperAdmin,AgregarCategoria" Context="context">
+    <Authorized>
         <div class="row">
             <div class="Botones">
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => AgregarMostrarModal())" Color="Color.Primary" Class="ml-auto float-start">Agregar</MudButton>
@@ -34,7 +36,7 @@
 
 <div class="row">
     <div class=" mt-2">
-        <MudDataGrid T="C1_Categoria" Items="@CategoriaData" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
+        <MudDataGrid T="U2_UsuarioAgendaTelefonica" Items="@UsuarioData" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
                      RowsPerPage="5" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
             <Columns>
                 <AuthorizeView Roles="SuperAdmin,EliminarCategoria,EditarCategoria,ConsultarCategoria" Context="context">
@@ -54,9 +56,9 @@
                 <PropertyColumn Property="x => x.Nombre" Title="Nombre" Sortable="true" />
             </Columns>
             <PagerContent>
-                <MudDataGridPager T="C1_Categoria" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />
+                <MudDataGridPager T="U2_UsuarioAgendaTelefonica" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />
             </PagerContent>
-        </MudDataGrid> 
+        </MudDataGrid>
     </div>
 </div>
 

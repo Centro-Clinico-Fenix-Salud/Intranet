@@ -76,49 +76,48 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
 using Intranet.Modelos.Agenda;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
 using Microsoft.EntityFrameworkCore;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
 using System.ComponentModel.DataAnnotations;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
            [Authorize(Roles = "SuperAdmin,AgendaTelefonica")]
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/Agenda")]
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Agenda/{parametro}")]
     public partial class Agenda : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

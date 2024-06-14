@@ -1,5 +1,4 @@
 ﻿@page "/Agenda"
-@page "/Agenda/{parametro}"
 @using Intranet.Modelos.Agenda;
 @using Microsoft.EntityFrameworkCore
 @using System.ComponentModel.DataAnnotations
@@ -14,7 +13,7 @@
 <div class="col-12 navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Agenda telefónica de extensiones
+        Agenda telefónica
     </h1>
 </div>
 
@@ -29,13 +28,11 @@
 </AuthorizeView>
  
 <div class="input-group mb-4 ">
-    <input type="text" class="form-control" placeholder="Buscar..." @bind="searchTerm" @oninput="Buscar2">
-    @* <div class="input-group-append">
-        <button class="btn btn-outline-primary" @onclick="@(()=>Buscar())">Buscar</button>
-    </div> *@
+    <input type="text" class="form-control" placeholder="Búsqueda por usuario, unidad, ubicación, nro. teléfonico directo ó extensión" @bind="searchTerm" @oninput="Buscar2">
 </div>
 
-<MudDataGrid T="AgendaTelefonicaDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
+<MudDataGrid T="AgendaTelefonicaDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
+             RowsPerPage="5" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
     <Columns>
         <AuthorizeView Roles="SuperAdmin,AgregarAgendaTelefonica,EliminarAgendaTelefonica,EditarAgendaTelefonica,ConsultarAgendaTelefonica" Context="context">
             <Authorized>

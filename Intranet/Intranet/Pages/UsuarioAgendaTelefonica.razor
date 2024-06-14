@@ -5,9 +5,9 @@
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "SuperAdmin,Administracion")]
+@attribute [Authorize(Roles = "SuperAdmin,UsuarioAgendaTelefonica")]
 
-<PageTitle>Categoria</PageTitle>
+<PageTitle>Usuario de Agenda Telefónica</PageTitle>
 
 <nav class="navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
@@ -15,7 +15,7 @@
         Usuario de Agenda Telefónica
     </h1>
 </nav>
-<AuthorizeView Roles="SuperAdmin,AgregarCategoria" Context="context">
+<AuthorizeView Roles="SuperAdmin,AgregarUsuarioAgendaTelefonica" Context="context">
     <Authorized>
         <div class="row">
             <div class="Botones">
@@ -39,14 +39,14 @@
         <MudDataGrid T="U2_UsuarioAgendaTelefonica" Items="@UsuarioData" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
                      RowsPerPage="5" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
             <Columns>
-                <AuthorizeView Roles="SuperAdmin,EliminarCategoria,EditarCategoria,ConsultarCategoria" Context="context">
+                <AuthorizeView Roles="SuperAdmin,EliminarUsuarioAgendaTelefonica,EditarUsuarioAgendaTelefonica,ConsultarUsuarioAgendaTelefonica" Context="context">
                     <Authorized>
                         <TemplateColumn Title="Acciones" Sortable="false">
                             <CellTemplate Context="context2">
-                                <AuthorizeView Roles="SuperAdmin,EditarCategoria" Context="context3">
+                                <AuthorizeView Roles="SuperAdmin,EditarUsuarioAgendaTelefonica" Context="context3">
                                     <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
                                 </AuthorizeView>
-                                <AuthorizeView Roles="SuperAdmin,EliminarCategoria" Context="context3">
+                                <AuthorizeView Roles="SuperAdmin,EliminarUsuarioAgendaTelefonica" Context="context3">
                                     <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context2))" />
                                 </AuthorizeView>
                             </CellTemplate>

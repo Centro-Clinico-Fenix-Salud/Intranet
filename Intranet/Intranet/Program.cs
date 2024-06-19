@@ -5,6 +5,7 @@ using Intranet.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.FileProviders;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,8 +35,15 @@ if (!app.Environment.IsDevelopment())
 
 new CreacionSuperAdmin(builder.Configuration["usuarioAdmin"]);
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(      
+        Path.Combine(Directory.GetCurrentDirectory(), builder.Configuration["RutaArchivosNoticia"])),
+    RequestPath = "/Noticia/Files"
+});
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

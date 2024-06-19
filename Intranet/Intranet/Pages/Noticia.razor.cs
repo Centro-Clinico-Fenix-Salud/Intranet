@@ -16,6 +16,8 @@ using Microsoft.Identity.Client;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Intranet.Interfaces;
 using System.Collections.Generic;
+using Intranet.Services;
+using System.Security.Claims;
 
 namespace Intranet.Pages
 {
@@ -33,7 +35,7 @@ namespace Intranet.Pages
         private bool mostrarModalNuevaNoticia = false;
         private bool mostrarModalEditarNoticia = false;
         private IEnumerable<NoticiaDataTable> Elements = new List<NoticiaDataTable>();
-        private List<string> ImagenModalNoticia;
+        private List<DataImagen> ImagenModalNoticia;
         private string TituloModalNoticia;
         private string TextoModalNoticia;
         private DateTime? FechaModalNoticia;
@@ -55,7 +57,7 @@ namespace Intranet.Pages
         public string? parametro { get; set; }
         private string RegistroEliminar = string.Empty;
         private Guid IdELiminarNoticia;
-        private List<string> ImagenAELiminar = new List<string>();
+        private List<DataImagen> ImagenAELiminar = new List<DataImagen>();
         private List<ListaImagenCargada> listaImagenCargada = new List<ListaImagenCargada>();
         [Inject]
         private IServicioNoticias servicioNoticias { get; set; }
@@ -64,14 +66,15 @@ namespace Intranet.Pages
         private IWebHostEnvironment Environment { get; set; }
         [Inject]
         private IConfiguration configuration { get; set; }
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
         private string ruta = string.Empty;
 
         protected override async Task OnInitializedAsync()
-        {
-            Elements = Data().AsQueryable();
+        {          
+            await RefrescarDataGrid();
             CreateNoticia = new CreateNoticia();
-            var ruta = Environment.ContentRootPath + configuration["RutaArchivos"];
-
+            
         }
 
 
@@ -91,9 +94,6 @@ namespace Intranet.Pages
             // Verificar si se seleccionó un archivo
             if (file != null)
             {
-                // Especificar la ruta de destino en el disco local C:
-                //var savePath = @"C:\arhivos de intranet\Noticia\" + file.Name;
-                // var savePath = @"C:\Intranet\repo\Intranet\Intranet\Files\" + file.Name;
                 var savePath = System.IO.Path.Combine(Environment.WebRootPath,"Files", file.Name);
                
                 // Guardar el archivo en disco
@@ -110,48 +110,44 @@ namespace Intranet.Pages
             }
         }
 
-        private void eliminarImagen(List<string> ListNombreArchivo)
+        private void eliminarImagen(List<DataImagen> ListNombreArchivo)
         {
-            //string fileName = "fotoEmpleado.jpg";
-            //string filePath = Path.Combine(Environment.WebRootPath, "Files", NombreArchivo);
-            foreach(var NombreArchivo in ListNombreArchivo) { 
-                string filePath = Path.Combine(Environment.WebRootPath, NombreArchivo);
+            var rutaArchivo = configuration["RutaArchivosNoticia"];
 
-                if (File.Exists(filePath))
+            foreach (var NombreArchivo in ListNombreArchivo)
+            {
+                string identificadorArchivo = NombreArchivo.NombreFisico.Substring(NombreArchivo.NombreFisico.IndexOf("Files\\") + "Files\\".Length);
+                string filePath3 = Path.Combine(rutaArchivo, identificadorArchivo);
+
+                try
                 {
-                    File.Delete(filePath);
+                    File.Delete(filePath3);
+
                 }
-                else
+                catch (FileNotFoundException)
                 {
-                    // Manejar el caso en el que el archivo no existe
-                    Snackbar.Add("No se encotro el archivo "+ NombreArchivo, Severity.Error);
+                    Snackbar.Add("No se encontró el archivo " + identificadorArchivo, Severity.Error);
+                }
+                catch (Exception ex)
+                {
+
+                    Snackbar.Add("Error al eliminar el archivo: " + ex.Message, Severity.Error);
                 }
             }
+            
         }
 
-        public List<NoticiaDataTable> Data()
+        public async Task<List<NoticiaDataTable>> Data()
         {
-            var resultado = new List<NoticiaDataTable>();
 
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Lorem Ipsum 1", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-1) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/repair.jpg", "Files/fotoEmpleado.jpg" }, TituloNoticia = "Nunc finibus, massa ac finibus hendrerit", TextoNoticia = texto + " <br><br> " + texto, FechaNoticia = DateTime.Now.AddDays(-2) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Etiam sit amet laoree", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-3) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = " Nullam vitae libero", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-4) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Nam malesuada", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-5) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Vivamus rhoncus", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-6) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Nulla euismod quis nibh", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-7) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Mauris luctus ullamcorper porttitor.", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-8) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Orci varius natoque ", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-9) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = " Nulla a ante bibendum", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-10) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Phasellus ullamcorper tellus vitae elit hendrerit", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-11) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Morbi sagittis", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-12) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Phasellus ipsum neque", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-13) });
-            resultado.Add(new NoticiaDataTable { Id = Guid.NewGuid(), Imagen = new List<string> { "Files/fotoEmpleado.jpg", "Files/repair.jpg" }, TituloNoticia = "Aliquam diam dui", TextoNoticia = texto, FechaNoticia = DateTime.Now.AddDays(-14) });
-
-
-
+            var resultado = await servicioNoticias.ObtenerListaNoticias();
 
             return resultado.OrderByDescending(a => a.FechaNoticia).ToList();
+        }
+        private async Task RefrescarDataGrid()
+        {
+            Elements = (await Data()).AsQueryable();
+          
         }
 
         private void CerrarModalNoticia()
@@ -159,7 +155,7 @@ namespace Intranet.Pages
            
             StateHasChanged();
             mostrarModalNoticia = false;
-            ImagenModalNoticia = new List<string>();
+            ImagenModalNoticia = new List<DataImagen>();
             TituloModalNoticia = string.Empty;
             TextoModalNoticia = string.Empty;
             FechaModalNoticia = null;
@@ -179,22 +175,22 @@ namespace Intranet.Pages
 
         }
 
-        private void NuevoModalNoticia()
+        private async Task NuevoModalNoticia()
         {
-           CreateNoticia = new CreateNoticia();
+            CreateNoticia = new CreateNoticia();
+            CreateNoticia.IdCreador = Guid.Parse(await IdUsuario());
             StateHasChanged();
             mostrarModalNuevaNoticia = true;
 
         }
-        private void CerrarModalNuevaNoticia()
+        private async Task CerrarModalNuevaNoticia()
         {
+            await RefrescarDataGrid();
             imagenSeleccionada = string.Empty;
             NombreimagenSeleccionada = string.Empty;
             listaImagenCargada = new List<ListaImagenCargada>();
-            StateHasChanged();
             mostrarModalNuevaNoticia = false;
  
-
         }
         private void CerrarModalEditarNoticia()
         {
@@ -222,9 +218,9 @@ namespace Intranet.Pages
                         await stream.CopyToAsync(ms);
 
                         listaImagenCargada.Add(new ListaImagenCargada { imagenSeleccionadaCargada = $"data:{archivo.ContentType};base64,{Convert.ToBase64String(ms.ToArray())}", 
-                            NombreimagenSeleccionadaCargada = archivo.Name,
-                            NombreFisicoimagenSeleccionadaCargada = "Files\\" + Guid.NewGuid().ToString() + Path.GetExtension(archivo.Name)
-                    });
+                            NombreimagenSeleccionadaCargada = archivo.Name,                         
+                            NombreFisicoimagenSeleccionadaCargada = Guid.NewGuid().ToString() + Path.GetExtension(archivo.Name)
+                        });
 
                     }
                     catch (Exception ex)
@@ -262,48 +258,23 @@ namespace Intranet.Pages
 
             try
             {
-                await servicioNoticias.GuardarNoticia(CreateNoticia);
-                await servicioNoticias.SubirImagenes(listaImagenCargada, ruta);
+                var NoticiaId = await servicioNoticias.GuardarNoticia(CreateNoticia);
+                ruta = string.Empty;
+                await servicioNoticias.SubirImagenes(listaImagenCargada, NoticiaId);
 
                 foreach (var item in listaImagenCargada) 
                 {
                     ListNombreArchivo.Add(item.NombreFisicoimagenSeleccionadaCargada);
                 }
-
+                await RefrescarDataGrid();
+                await CerrarModalNuevaNoticia();             
+                Snackbar.Add("Se registro noticia con exito", Severity.Info);
             }
             catch (Exception e) 
             {
                 Snackbar.Add("Ocurrio un error al guardar imagen " + e.Message, Severity.Error);
             }
-
-            
-            if (listaImagenCargada.Count > 0)
-            {
-
-                try
-                {
-
-                    NoticiaDataTable noticiaModel = new NoticiaDataTable();
-                    noticiaModel.Id = Guid.NewGuid();
-                    noticiaModel.FechaNoticia = DateTime.Now;
-                    noticiaModel.Imagen = ListNombreArchivo;
-                    noticiaModel.TituloNoticia = CreateNoticia.TituloNoticia;
-                    noticiaModel.TextoNoticia = CreateNoticia.TextoNoticia;
-
-                    var listaData = Elements.ToList();
-                    listaData.Add(noticiaModel);
-                    Elements = listaData.AsQueryable().OrderByDescending(a => a.FechaNoticia).ToList(); ;
-
-                    Snackbar.Add("Se registro noticia con exito", Severity.Info);
-                }
-                catch (Exception ex)
-                {
-                    Snackbar.Add("Ocurrio un error", Severity.Error);
-                }
-
-                CerrarModalNuevaNoticia();
-            }
-
+          
         }
 
         public void guardarImagen(IBrowserFile file) 
@@ -322,7 +293,9 @@ namespace Intranet.Pages
 
             foreach (var item in NoticiaEditar.Imagen) 
             {
-                listaImagenCargada.Add(new ListaImagenCargada { imagenSeleccionadaCargada = item, NombreimagenSeleccionadaCargada = item.Replace("Files/", "") });
+                listaImagenCargada.Add(new ListaImagenCargada { NombreFisicoimagenSeleccionadaCargada = item.NombreFisico, 
+                    NombreimagenSeleccionadaCargada = item.NombreImagen
+                 });
             }
             
             mostrarModalEditarNoticia = true;
@@ -353,22 +326,19 @@ namespace Intranet.Pages
         {
             IdELiminarNoticia = Guid.Empty;
             RegistroEliminar = string.Empty;
-            ImagenAELiminar = new List<string>();
+            ImagenAELiminar = new List<DataImagen>();
             StateHasChanged();
             mostrarModalEliminar = false;
 
         }
-        private void EliminarNoticia()
+        private async Task EliminarNoticia()
         {
-            var listNoticia = Elements.ToList();
-            NoticiaDataTable registroParaEliminar = listNoticia.Where(a => a.Id == IdELiminarNoticia).FirstOrDefault();
-
-            if (registroParaEliminar != null)
-            {
+            
                 try{
-                    listNoticia.Remove(registroParaEliminar);
-                    eliminarImagen(ImagenAELiminar);                  
-                    Elements = listNoticia.AsQueryable();
+                if(await servicioNoticias.EliminarNoticia(IdELiminarNoticia))
+                    eliminarImagen(ImagenAELiminar);
+                //Elements = listNoticia.AsQueryable();
+                    await RefrescarDataGrid();
                     CerrarModalEliminar();
                     Snackbar.Add("Eliminacion exitosa", Severity.Info);
                 }
@@ -378,68 +348,64 @@ namespace Intranet.Pages
                 }
                 
 
-            }
-
         }
 
         private async Task GuardarEditarNoticia(EditContext context)
         {
             if (listaImagenCargada.Count > 0)
             {
-                List<string> listaImagenModificada = new List<string>();
-                List<string> DataOriginal = EditarNoticia.Imagen;
+                List<DataImagen> listaImagenModificada = new List<DataImagen>();
+                List<DataImagen> DataOriginal = EditarNoticia.Imagen;
                 List<string> ListNombreArchivo = new List<string>();
-                foreach (var item in listaImagenCargada) 
-                {
-                    listaImagenModificada.Add(item.NombreimagenSeleccionadaCargada);
-                }
-                if (!listaImagenModificada.SequenceEqual(EditarNoticia.Imagen)) 
-                {
-
-                    List<string> listaImagenAEliminar = new List<string>();
-                    List<ListaImagenCargada> listaImagenAgregar = listaImagenCargada;
-
-                    listaImagenAEliminar = EditarNoticia.Imagen.Except(listaImagenModificada).ToList();
-                    
-                    if(listaImagenAEliminar.Count > 0)
-                    eliminarImagen(listaImagenAEliminar);
-
-                    listaImagenAgregar = listaImagenCargada.Where(x => !EditarNoticia.Imagen.Contains( x.NombreimagenSeleccionadaCargada)).ToList();
-
-                    //string ruta = Environment.WebRootPath;
-                    if(listaImagenAgregar.Count > 0)
-                    await servicioNoticias.SubirImagenes(listaImagenAgregar, ruta);
-                }
-                
-                var listAgenda = Elements.ToList();
-                NoticiaDataTable noticiaAEditar = listAgenda.Where(a => a.Id == EditarNoticia.Id).FirstOrDefault();
+                List<string> ListNombreArchivoOriginal = new List<string>();
 
                 foreach (var item in listaImagenCargada)
                 {
-                    if(string.IsNullOrEmpty(item.NombreFisicoimagenSeleccionadaCargada))
-                    ListNombreArchivo.Add(item.NombreimagenSeleccionadaCargada);
-                    else
-                        ListNombreArchivo.Add(item.NombreFisicoimagenSeleccionadaCargada);
+                    listaImagenModificada.Add(new DataImagen { NombreImagen = item.NombreimagenSeleccionadaCargada, 
+                        NombreFisico = item.NombreFisicoimagenSeleccionadaCargada });
                 }
-
-                if (noticiaAEditar != null)
+                if (!listaImagenModificada.SequenceEqual(EditarNoticia.Imagen))
                 {
-                    noticiaAEditar.FechaNoticia = EditarNoticia.FechaNoticia;
-                    noticiaAEditar.TituloNoticia = EditarNoticia.TituloNoticia;
-                    noticiaAEditar.TextoNoticia = EditarNoticia.TextoNoticia;
-                    //noticiaAEditar.Imagen = EditarNoticia.Imagen;
-                    noticiaAEditar.Imagen = ListNombreArchivo;
-                    Elements = listAgenda.AsQueryable();
-                    CerrarModalEditarNoticia();
-                    Snackbar.Add("Modificación exitosa", Severity.Info);
+
+                    List<DataImagen> listaImagenAEliminar = new List<DataImagen>();
+                    List<ListaImagenCargada> listaImagenAgregar = new List<ListaImagenCargada>();
+
+                    foreach (var item in DataOriginal) 
+                    {
+                        if (!listaImagenModificada.Any(x => x.NombreImagen == item.NombreImagen))
+                            listaImagenAEliminar.Add(item);
+                    }
+
+                    if (listaImagenAEliminar.Count > 0) 
+                    {
+                        eliminarImagen(listaImagenAEliminar);
+                        await servicioNoticias.EliminarArchivoNoticia(listaImagenAEliminar);
+                    }
+                       
+                    foreach (var item in listaImagenCargada)
+                        {
+                            if(item.imagenSeleccionadaCargada != null)
+                            listaImagenAgregar.Add(item);
+                        }
+
+                        if (listaImagenAgregar.Count > 0)
+                        await servicioNoticias.SubirImagenes(listaImagenAgregar, EditarNoticia.Id);
                 }
+             
+                await RefrescarDataGrid();
+                CerrarModalEditarNoticia();
+                Snackbar.Add("Modificación exitosa", Severity.Info);
 
             }
-            else {
+            else
+            {
                 Snackbar.Add("La noticia debe tener al menos una imagen", Severity.Error);
             }
+        }
 
-
+        private async Task<string> IdUsuario()
+        {
+            return ((await AuthenticationStateProvider.GetAuthenticationStateAsync()).User).FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 
     }

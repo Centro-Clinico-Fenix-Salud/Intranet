@@ -282,7 +282,7 @@ namespace Intranet.Pages
         
         }
 
-        public void Editar(NoticiaDataTable NoticiaEditar)
+        public async Task Editar(NoticiaDataTable NoticiaEditar)
         {
             EditarNoticia = new EditarNoticia();
             EditarNoticia.Id = NoticiaEditar.Id;
@@ -290,6 +290,10 @@ namespace Intranet.Pages
             EditarNoticia.TituloNoticia = NoticiaEditar.TituloNoticia;
             EditarNoticia.TextoNoticia = NoticiaEditar.TextoNoticia;
             EditarNoticia.FechaNoticia = NoticiaEditar.FechaNoticia;
+            EditarNoticia.IdCreador = Guid.Parse(await IdUsuario());
+            EditarNoticia.NombreModificacion = NoticiaEditar.NombreModificador;
+            EditarNoticia.FechaModificacion = NoticiaEditar.FechaModificacion;
+
 
             foreach (var item in NoticiaEditar.Imagen) 
             {
@@ -391,7 +395,8 @@ namespace Intranet.Pages
                         if (listaImagenAgregar.Count > 0)
                         await servicioNoticias.SubirImagenes(listaImagenAgregar, EditarNoticia.Id);
                 }
-             
+
+                await servicioNoticias.ActualizarNoticia(EditarNoticia);
                 await RefrescarDataGrid();
                 CerrarModalEditarNoticia();
                 Snackbar.Add("Modificación exitosa", Severity.Info);

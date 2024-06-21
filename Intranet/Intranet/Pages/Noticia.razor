@@ -133,10 +133,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="col" style="height: 590px;">
-                    <MudCarousel Class="mud-width-full mud-height-full" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+                    <MudCarousel Class="mud-width-full mud-height-full" ShowArrows="@arrows" ShowBullets="@bullets" 
+                    EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
                             @foreach (var item in ImagenModalNoticia)
-                        { 
-                            <MudCarouselItem Transition="transition" Color="@Color.Tertiary">
+                        {
+                                <MudCarouselItem Transition="transition" style="background-color: #00bbb4">
                                 <div class="d-flex align-content-center justify-content-center" style="height:100%">
                                         <MudImage Src="@item.NombreFisico" Class="rounded-lg" />
                                 </div>
@@ -256,12 +257,21 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="col fw-bold">
-                        <h5 class="modal-title">Editar noticia</h5>
+                    <div class="container-fluid w-100">
+                        <div class="row">
+                            <div class="col-10">
+                                <h5 class="modal-title">Editar noticia</h5>
+                            </div>
+                            <div class="col-2 text-end">
+                                <button type="button" class="close" @onclick="CerrarModalEditarNoticia">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div> <b>Fecha modificacion:</b> @EditarNoticia.FechaModificacion <b>por</b> @EditarNoticia.NombreModificacion</div>
+                        </div>
                     </div>
-                    <button type="button" class="close" @onclick="CerrarModalEditarNoticia">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <EditForm Model="@EditarNoticia" OnValidSubmit="GuardarEditarNoticia">
                     <DataAnnotationsValidator />

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components;
 using Intranet.Modelos.LoginModel;
 using Intranet.Interfaces.Admin;
 using Intranet.Pages;
+using Serilog;
 
 namespace Intranet.Controller
 {
@@ -142,6 +143,7 @@ namespace Intranet.Controller
             catch (Exception ex)
             {
                 //return LocalRedirect("/login/Usuario o Clave inválida");
+                Log.Error(ex.Message);
                 return LocalRedirect("/invalido/Credenciales Incorrectas");
             }
         }

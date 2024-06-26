@@ -14,6 +14,7 @@ using Intranet.Interfaces.Admin;
 using Intranet.Interfaces;
 using System.Security.Claims;
 using System.Drawing;
+using Serilog;
 
 namespace Intranet.Pages
 {
@@ -60,6 +61,7 @@ namespace Intranet.Pages
             await obtenerUbicacionAgenda();
             await obtenerUsuarioAgenda();
             ListNroTelefono.Add(configuration["NroTelfonicoFenix"]);
+            Log.Error("prueba");
                   
         }
 
@@ -236,8 +238,8 @@ namespace Intranet.Pages
                     return new List<string>();
                 }
                 result = ListUnidad.Where(x => x.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0);
-            } catch(Exception e) {
-            
+            } catch(Exception ex) {
+                Log.Error(ex.Message);
             }
             
             return result;
@@ -254,9 +256,9 @@ namespace Intranet.Pages
                 }
                 result = ListNombreUsuario.Where(x => x.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                Log.Error(ex.Message);
             }
 
 

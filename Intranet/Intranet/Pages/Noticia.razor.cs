@@ -18,6 +18,7 @@ using Intranet.Interfaces;
 using System.Collections.Generic;
 using Intranet.Services;
 using System.Security.Claims;
+using Serilog;
 
 namespace Intranet.Pages
 {
@@ -104,6 +105,7 @@ namespace Intranet.Pages
                     }
                 }catch (Exception ex) 
                 {
+                    Log.Error(ex.Message);
                     Snackbar.Add("Ocurrio un error", Severity.Error);
                 }
                 
@@ -130,7 +132,7 @@ namespace Intranet.Pages
                 }
                 catch (Exception ex)
                 {
-
+                    Log.Error(ex.Message);
                     Snackbar.Add("Error al eliminar el archivo: " + ex.Message, Severity.Error);
                 }
             }
@@ -225,7 +227,8 @@ namespace Intranet.Pages
                     }
                     catch (Exception ex)
                     {
-                        
+
+                        Log.Error(ex.Message);
                         listaImagenCargada = new List<ListaImagenCargada>();
                         Snackbar.Add("Ocurrio un error", Severity.Error);
 
@@ -270,9 +273,10 @@ namespace Intranet.Pages
                 await CerrarModalNuevaNoticia();             
                 Snackbar.Add("Se registro noticia con exito", Severity.Info);
             }
-            catch (Exception e) 
+            catch (Exception ex) 
             {
-                Snackbar.Add("Ocurrio un error al guardar imagen " + e.Message, Severity.Error);
+                Log.Error(ex.Message);
+                Snackbar.Add("Ocurrio un error al guardar imagen " + ex.Message, Severity.Error);
             }
           
         }
@@ -346,8 +350,9 @@ namespace Intranet.Pages
                     CerrarModalEliminar();
                     Snackbar.Add("Eliminacion exitosa", Severity.Info);
                 }
-                catch(Exception) 
+                catch(Exception ex) 
                 {
+                    Log.Error(ex.Message);
                     Snackbar.Add("Error a Eliminar noticia", Severity.Error);
                 }
                 

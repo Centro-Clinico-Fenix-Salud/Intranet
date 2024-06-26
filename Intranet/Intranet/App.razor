@@ -14,7 +14,10 @@
                             {
                                 navManager.NavigateTo("/");
                             }
-                            catch (Exception e) { }
+                            catch (Exception ex)
+                            {
+                                Log.Error(ex.Message);
+                            }
 
                         else
                         {

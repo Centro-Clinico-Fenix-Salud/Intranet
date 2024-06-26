@@ -30,7 +30,7 @@ namespace Intranet.Controller
         public async Task<IActionResult> Login(LoginDTO credentials)
         {
             //Indicamos el dominio en el que vamos a buscar al usuario
-             string path = "LDAP://fenixsalud.local/OU=FenixSalud,DC=FENIXSALUD,DC=LOCAL";
+            string path = configuration["ConexionLDAP"];
             var UsuarioSuperAdmin = configuration["usuarioAdmin"];
             var PasswordSuperAdmin = configuration["password"];
 

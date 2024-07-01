@@ -49,10 +49,10 @@
             </Authorized>
         </AuthorizeView>
         <PropertyColumn Property="x => x.Usuario" Sortable="true" />
-        <PropertyColumn Property="x => x.Unidad" Sortable="false" />
-        <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" />
         <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico Directo" Sortable="false" />
         <PropertyColumn Property="x => x.Extension" Title="Extensión" Sortable="false" />
+        <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" />
+        <PropertyColumn Property="x => x.Unidad" Sortable="false" />
     </Columns>
     <PagerContent>
         <MudDataGridPager T="AgendaTelefonicaDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />

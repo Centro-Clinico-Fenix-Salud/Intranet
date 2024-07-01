@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components;
 using Intranet.Modelos.LoginModel;
 using Intranet.Interfaces.Admin;
 using Intranet.Pages;
+using Serilog;
 
 namespace Intranet.Controller
 {
@@ -30,7 +31,7 @@ namespace Intranet.Controller
         public async Task<IActionResult> Login(LoginDTO credentials)
         {
             //Indicamos el dominio en el que vamos a buscar al usuario
-             string path = "LDAP://fenixsalud.local/OU=FenixSalud,DC=FENIXSALUD,DC=LOCAL";
+            string path = configuration["ConexionLDAP"];
             var UsuarioSuperAdmin = configuration["usuarioAdmin"];
             var PasswordSuperAdmin = configuration["password"];
 
@@ -142,6 +143,7 @@ namespace Intranet.Controller
             catch (Exception ex)
             {
                 //return LocalRedirect("/login/Usuario o Clave inválida");
+                Log.Error(ex.Message);
                 return LocalRedirect("/invalido/Credenciales Incorrectas");
             }
         }

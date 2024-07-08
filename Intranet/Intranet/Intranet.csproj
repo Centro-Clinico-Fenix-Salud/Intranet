@@ -33,6 +33,7 @@
   <ItemGroup>
     <Folder Include="Archivos Noticias\Files\" />
     <Folder Include="Modelos\Login\" />
+    <Folder Include="Modelos\Planillas\RevisionMantenimientoTecnico\" />
   </ItemGroup>
 
 </Project>

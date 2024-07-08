@@ -14,14 +14,13 @@
     </div>
 
     <main>      
-        <MudAppBar style="background-color: #00bbb4; height : 55px" Fixed="false">
+        <div class="top-row" style="background-color: #00bbb4; height : 57px" Fixed="false">
             <AuthorizeView>
                 <Authorized>
-                    <spn>Bienvenido, @context.User.Identity!.Name</spn>
-                    
+                    <span class="text-white">Bienvenido, @context.User.Identity!.Name</span>
                 </Authorized>
             </AuthorizeView>
-        </MudAppBar>
+        </div>
 
         <article class="content px-4">
             @Body

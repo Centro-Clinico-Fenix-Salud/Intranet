@@ -61,7 +61,6 @@ namespace Intranet.Pages
             await obtenerUbicacionAgenda();
             await obtenerUsuarioAgenda();
             ListNroTelefono.Add(configuration["NroTelfonicoFenix"]);
-            Log.Error("prueba");
                   
         }
 

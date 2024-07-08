@@ -313,6 +313,61 @@ namespace Intranet.Migrations
                     b.ToTable("noticias");
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.ConfiguracionPantalla", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConfigPantalla")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("InformeAreaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InformeTituloId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("configuracionPantalla");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.InformeArea", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InformeTituloId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("informeArea");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.InformeTitulo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("informeTitulo");
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Tablas.Ubicacion", b =>
                 {
                     b.Property<Guid>("Id")

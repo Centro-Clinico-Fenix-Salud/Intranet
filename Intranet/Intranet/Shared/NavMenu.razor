@@ -58,6 +58,11 @@
                             <MudNavLink Href="/Insp-Hab">Inspección de Habitaciones</MudNavLink>
                         </Authorized>
                     </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, RevisionMantenimientoTecnico" Context="context2">
+                        <Authorized>
+                            <MudNavLink Href="/Revision-Mantenimiento-Tecnico">Revisión de Mantenimiento Técnico</MudNavLink>
+                        </Authorized>
+                    </AuthorizeView>
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView>

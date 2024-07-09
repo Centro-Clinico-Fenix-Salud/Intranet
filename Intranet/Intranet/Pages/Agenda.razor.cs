@@ -238,7 +238,7 @@ namespace Intranet.Pages
                 }
                 result = ListUnidad.Where(x => x.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0);
             } catch(Exception ex) {
-                Log.Error(ex.Message);
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
             }
             
             return result;
@@ -257,7 +257,7 @@ namespace Intranet.Pages
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
             }
 
 

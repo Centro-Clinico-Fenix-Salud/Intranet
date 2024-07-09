@@ -105,7 +105,7 @@ namespace Intranet.Pages
                     }
                 }catch (Exception ex) 
                 {
-                    Log.Error(ex.Message);
+                    Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
                     Snackbar.Add("Ocurrio un error", Severity.Error);
                 }
                 
@@ -132,7 +132,7 @@ namespace Intranet.Pages
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex.Message);
+                    Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
                     Snackbar.Add("Error al eliminar el archivo: " + ex.Message, Severity.Error);
                 }
             }
@@ -228,7 +228,7 @@ namespace Intranet.Pages
                     catch (Exception ex)
                     {
 
-                        Log.Error(ex.Message);
+                        Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
                         listaImagenCargada = new List<ListaImagenCargada>();
                         Snackbar.Add("Ocurrio un error", Severity.Error);
 
@@ -275,7 +275,7 @@ namespace Intranet.Pages
             }
             catch (Exception ex) 
             {
-                Log.Error(ex.Message);
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
                 Snackbar.Add("Ocurrio un error al guardar imagen " + ex.Message, Severity.Error);
             }
           
@@ -352,8 +352,8 @@ namespace Intranet.Pages
                 }
                 catch(Exception ex) 
                 {
-                    Log.Error(ex.Message);
-                    Snackbar.Add("Error a Eliminar noticia", Severity.Error);
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
+                Snackbar.Add("Error a Eliminar noticia", Severity.Error);
                 }
                 
 

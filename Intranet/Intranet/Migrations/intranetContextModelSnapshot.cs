@@ -226,6 +226,10 @@ namespace Intranet.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UbicacionId");
+
+                    b.HasIndex("UnidadId");
+
                     b.ToTable("agendaTelefonicas");
                 });
 
@@ -299,7 +303,7 @@ namespace Intranet.Migrations
                     b.Property<Guid>("IdCreador")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdModificador")
+                    b.Property<Guid?>("IdModificador")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TextoNoticia")
@@ -456,6 +460,21 @@ namespace Intranet.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.Agenda.AgendaTelefonica", b =>
+                {
+                    b.HasOne("Intranet.Modelos.Tablas.Ubicacion", null)
+                        .WithMany("agendaTelefonicas")
+                        .HasForeignKey("UbicacionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Intranet.Modelos.Tablas.Unidad", null)
+                        .WithMany("agendaTelefonicas")
+                        .HasForeignKey("UnidadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Admin.P1_Permiso", b =>
                 {
                     b.Navigation("Rol_Permisos");
@@ -464,6 +483,16 @@ namespace Intranet.Migrations
             modelBuilder.Entity("Intranet.Modelos.Admin.R1_Rol", b =>
                 {
                     b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Tablas.Ubicacion", b =>
+                {
+                    b.Navigation("agendaTelefonicas");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Tablas.Unidad", b =>
+                {
+                    b.Navigation("agendaTelefonicas");
                 });
 #pragma warning restore 612, 618
         }

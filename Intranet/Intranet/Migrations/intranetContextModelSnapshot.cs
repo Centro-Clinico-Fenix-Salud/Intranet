@@ -17,47 +17,10 @@ namespace Intranet.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.19")
+                .HasAnnotation("ProductVersion", "7.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Intranet.Modelos.Admin.C1_Categoria", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("c1_Categorias");
-                });
-
-            modelBuilder.Entity("Intranet.Modelos.Admin.Categoria_SubCategoria", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoriaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SubCategoriaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoriaId");
-
-                    b.HasIndex("SubCategoriaId");
-
-                    b.ToTable("categoria_SubCategorias");
-                });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.P1_Permiso", b =>
                 {
@@ -71,28 +34,7 @@ namespace Intranet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("p1_Permiso");
-                });
-
-            modelBuilder.Entity("Intranet.Modelos.Admin.Permisos_SubCategoria", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PermisoId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SubCategoriaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PermisoId");
-
-                    b.HasIndex("SubCategoriaId");
-
-                    b.ToTable("permisos_SubCategorias");
+                    b.ToTable("p1_Permiso", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.R1_Rol", b =>
@@ -108,7 +50,7 @@ namespace Intranet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("r1_Rol");
+                    b.ToTable("r1_Rol", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.Rol_Permiso", b =>
@@ -127,23 +69,7 @@ namespace Intranet.Migrations
 
                     b.HasIndex("P1_PermisoId");
 
-                    b.ToTable("rol_Permiso");
-                });
-
-            modelBuilder.Entity("Intranet.Modelos.Admin.S1_SubCategoria", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("s1_SubCategorias");
+                    b.ToTable("rol_Permiso", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.U1_Usuario", b =>
@@ -170,7 +96,7 @@ namespace Intranet.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid>("R1_RolId")
+                    b.Property<Guid?>("RolId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -439,7 +365,10 @@ namespace Intranet.Migrations
 
                     b.Navigation("Permiso");
 
-                    b.Navigation("SubCategoria");
+                    b.HasIndex("RolId");
+
+
+                    b.ToTable("u1_Usuario", (string)null);
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.Rol_Permiso", b =>
@@ -453,11 +382,11 @@ namespace Intranet.Migrations
 
             modelBuilder.Entity("Intranet.Modelos.Admin.U1_Usuario", b =>
                 {
-                    b.HasOne("Intranet.Modelos.Admin.R1_Rol", null)
-                        .WithMany("Usuarios")
-                        .HasForeignKey("R1_RolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Intranet.Modelos.Admin.R1_Rol", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId");
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Agenda.AgendaTelefonica", b =>
@@ -480,6 +409,7 @@ namespace Intranet.Migrations
                     b.Navigation("Rol_Permisos");
                 });
 
+
             modelBuilder.Entity("Intranet.Modelos.Admin.R1_Rol", b =>
                 {
                     b.Navigation("Usuarios");
@@ -494,6 +424,7 @@ namespace Intranet.Migrations
                 {
                     b.Navigation("agendaTelefonicas");
                 });
+
 #pragma warning restore 612, 618
         }
     }

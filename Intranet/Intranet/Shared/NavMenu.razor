@@ -66,8 +66,9 @@
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView>
+
         <MudNavLink Href="/sobrefenix">Sobre Fénix</MudNavLink>
-        <AuthorizeView Roles="SuperAdmin, Administracion" Context="context">
+         <AuthorizeView Roles="SuperAdmin">
             <Authorized>
                 <MudNavGroup Title="Administracion" Expanded="false">
                     <AuthorizeView Roles="SuperAdmin, Perfiles" Context="context2">
@@ -96,7 +97,7 @@
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView> 
-        <MudNavLink Href="/account/logout" style="cursor: pointer;">Cerrar Sesión</MudNavLink>
+        <MudNavLink Href="/account/logout" style="cursor: pointer;">Salir</MudNavLink>
     </MudNavMenu>
 </div>
 

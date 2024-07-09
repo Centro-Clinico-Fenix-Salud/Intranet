@@ -20,6 +20,20 @@ using System.Net.Http;
 #line hidden
 #nullable disable
 #nullable restore
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -75,38 +89,8 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-
-#line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Serilog;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
-
-using Microsoft.AspNetCore.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
-           [Authorize]
-
-#line default
-#line hidden
-#nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Reunion-Agenda")]
-    public partial class Reservacion : global::Microsoft.AspNetCore.Components.ComponentBase
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/dashboard-seguridad")]
+    public partial class Dashboard_Seguridad : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

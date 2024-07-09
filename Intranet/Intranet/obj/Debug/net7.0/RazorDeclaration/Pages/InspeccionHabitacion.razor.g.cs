@@ -76,43 +76,57 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-
-#line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Serilog;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
-
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspeccionHabitacion.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspeccionHabitacion.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
+#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspeccionHabitacion.razor"
+using BlazorBootstrap;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspeccionHabitacion.razor"
            [Authorize]
 
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Reunion-Agenda")]
-    public partial class Reservacion : global::Microsoft.AspNetCore.Components.ComponentBase
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Insp-Hab")]
+    public partial class InspeccionHabitacion : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 644 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspeccionHabitacion.razor"
+       
+    private string vacio = string.Empty;
+    private string eventLog { get; set; } = $"Last event: ..., CurrentPage: 0, TotalPages: 0";
+
+    private void OnDocumentLoaded(PdfViewerEventArgs args)
+        => eventLog = $"Last event: OnDocumentLoaded, CurrentPage: {args.CurrentPage}, TotalPages: {args.TotalPages}";
+
+    private void OnPageChanged(PdfViewerEventArgs args)
+        => eventLog = $"Last event: OnPageChanged, CurrentPage: {args.CurrentPage}, TotalPages: {args.TotalPages}";
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -27,13 +27,6 @@ using Microsoft.AspNetCore.Components.Forms;
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Components.Routing;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
@@ -69,50 +62,49 @@ using Intranet.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\_Imports.razor"
+#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspHab.razor"
+using Microsoft.AspNetCore.Components.Routing;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspHab.razor"
 using MudBlazor;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-
-#line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Serilog;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
-
+#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspHab.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
+#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspHab.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
+#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\InspHab.razor"
            [Authorize]
 
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Reunion-Agenda")]
-    public partial class Reservacion : global::Microsoft.AspNetCore.Components.ComponentBase
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Insp-Hab2")]
+    public partial class InspHab : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Microsoft.AspNetCore.Hosting.IWebHostEnvironment Environment { get; set; }
     }
 }
 #pragma warning restore 1591

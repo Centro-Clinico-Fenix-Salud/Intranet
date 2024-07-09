@@ -76,7 +76,16 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
+
+#line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+using Serilog;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
+
 using Microsoft.AspNetCore.Authorization;
 
 #line default

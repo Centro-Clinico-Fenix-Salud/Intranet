@@ -1,4 +1,4 @@
-﻿@page "/Agenda"
+﻿@page "/Revision-Mantenimiento-Tecnico"
 @using Intranet.Modelos.Agenda;
 @using Microsoft.EntityFrameworkCore
 @using System.ComponentModel.DataAnnotations
@@ -7,17 +7,26 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles = "SuperAdmin,AgendaTelefonica")]
 
-
-<PageTitle>Agenda</PageTitle>
+<PageTitle>Revisión de Mantenimiento Técnico</PageTitle>
 
 <div class="col-12 navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Agenda telefónica
+        Revisión de Mantenimiento Técnico
     </h1>
 </div>
 
-
+<div class="mb-3 mt-3">
+    <div class="col-6">
+        <MudSelect T="string" Label="Selecciona un área"
+                   Value="AreaInforme" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+            @foreach (var areaInforme in ListAreaInforme)
+            {
+                <MudSelectItem Value="@areaInforme" />
+            }
+        </MudSelect>
+    </div>
+</div>
 
 <AuthorizeView Roles="SuperAdmin,AgregarAgendaTelefonica" Context="context">
    <Authorized>
@@ -26,12 +35,13 @@
     </div>
     </Authorized>
 </AuthorizeView>
- 
+
+@*
 <div class="input-group mb-4 ">
     <input type="text" class="form-control" placeholder="Búsqueda por usuario, unidad, ubicación, nro. teléfonico directo ó extensión" @bind="searchTerm" @oninput="Buscar2">
 </div>
 
-<MudDataGrid T="AgendaTelefonicaDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
+ <MudDataGrid T="AgendaTelefonicaDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
              RowsPerPage="6" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
     <Columns>
         <AuthorizeView Roles="SuperAdmin,AgregarAgendaTelefonica,EliminarAgendaTelefonica,EditarAgendaTelefonica,ConsultarAgendaTelefonica" Context="context">
@@ -57,7 +67,7 @@
     <PagerContent>
         <MudDataGridPager T="AgendaTelefonicaDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {6, 12, 20}) />
     </PagerContent>
-</MudDataGrid>
+</MudDataGrid> *@
 
 @if (mostrarModalEliminar)
 {
@@ -86,7 +96,7 @@
 @if (mostrarModalNuevo)
 {
     <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered justify-content-center" role="document">
         <div class="modal-content" >
             <div class="modal-header">
                 <h5 class="modal-title">Agregar</h5>
@@ -94,56 +104,100 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-                <EditForm Model="@CreateAgenda" OnValidSubmit="GuardarAgenda">
-            <DataAnnotationsValidator/>
-            <MudGrid>
-                <MudItem xs="12" sm="12">
-                    <MudCard>
-                        <MudCardContent>
-                           
-                             <MudItem>
-                                 <MudAutocomplete T="string" Label="Selecciona un usuario" @bind-Value="CreateAgenda.Usuario" SearchFunc="@SearchUsuario"
-                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
-                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
-                                 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
-                             </MudItem>
-                             <ValidationMessage For="@(() => CreateAgenda.Usuario)" />
-                            <MudItem>
-                                <MudAutocomplete T="string" Label="Selecciona una Unidad" @bind-Value="CreateAgenda.Unidad" SearchFunc="@Search2"
-                                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
-                                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
-                                                         AdornmentIcon="@Icons.Material.Filled.Search" Required AdornmentColor="Color.Primary" />
-                            </MudItem>
-                                    <MudSelect T="string" Label="Selecciona una Ubicacion"
-                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar una ubicación" : "")"
-                                               Value="CreateAgenda.Ubicacion" ValueChanged="OnUbicacionSeleccionadaChanged" Required AnchorOrigin="Origin.BottomCenter">
-                                        @foreach (var unidad in ListUbicacion)
+                <div class="modal-body">
+                <MudPaper Width="100%">
+                    <MudContainer>
+                        <MudPaper Width="100%" Square="true">
+                                @if (configPantalla != null && configPantalla.Cuerpo.Count > 1)
+                                {
+                                    <div class="mb-3 mt-3">
+                                        <div class="row">
+                                        <div class="col-6">
+                                            <MudSelect T="string" Label="Selecciona una zona"
+                                                       Value="zonaRevision" ValueChanged="OnZonaRevisionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                                @foreach (var zona in configPantalla.Cuerpo)
+                                                {
+                                                    @foreach (var zonaDescripcion in zona.zonaRevision)
+                                                    {
+                                                        <MudSelectItem Value="@zonaDescripcion.Nombre" />
+                                                    }
+                                                }
+                                            </MudSelect>
+                                        </div>
+                                        @if (listaTipoZona.Count() > 0)
                                         {
-                                            <MudSelectItem Value="@unidad" />
+                                            <div class="col-6">
+                                                <MudSelect T="string" Label="Selecciona un tipo"
+                                                           Value="TipozonaSelecionada" ValueChanged="OnTipoZonaSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+
+                                                    @foreach (var tipoZona in listaTipoZona)
+                                                    {
+                                                        <MudSelectItem Value="@tipoZona.Nombre" />
+                                                    }
+                                                    
+                                                </MudSelect>
+                                            </div>
                                         }
-                                    </MudSelect>
-                                    <ValidationMessage For="@(() => CreateAgenda.Ubicacion)" />
-@*                                     <MudSelect T="string" Label="Selecciona un numero teléfonico"
-                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar un numero teléfonico" : "")"
-                                               Value="CreateAgenda.numeroTelefonico" ValueChanged="OnNroTelefonicoSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
-                                        @foreach (var unidad in ListNroTelefono)
-                                        {
-                                            <MudSelectItem Value="@unidad" />
-                                        }
-                                    </MudSelect>
-                                    <ValidationMessage For="@(() => CreateAgenda.numeroTelefonico)" /> *@
-                                    <MudNumericField Label="Nro de teléfonico directo (Opcional)" @bind-Value="CreateAgenda.numeroTelefonico"  MaxLength="11" For="@(() => CreateAgenda.numeroTelefonico)" />
-                                        @* <MudTextField @bind-Value="CreateAgenda.numeroTelefonico" ></MudTextField> *@
-                                       <MudNumericField Label="Numero de extension" @bind-Value="CreateAgenda.Extension" MaxLength="3" For="@(() => CreateAgenda.Extension)" />
-                        </MudCardContent>
-                        <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevo" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
-                        </MudCardActions>
-                    </MudCard>
-                </MudItem>
-           </MudGrid>
-        </EditForm>
+                                        </div>
+                                    </div>
+                                }
+                                @if (MostrarFormulario)
+                                {
+                                    <EditForm Model="@CreateRegistro" OnValidSubmit="GuardarAgenda">
+                                        <DataAnnotationsValidator />
+                                        <MudGrid>
+                                            @* <div class="container w-100">
+                                                <div class="d-flex align-items-center justify-content-center"><h4>I Datos del Paciente</h4></div>
+                                            </div> *@
+                                            <MudItem xs="12" sm="12">
+                                                <MudCard>
+                                                    <MudCardContent>
+                                                         <div class="container">
+                                                            <div style="overflow-y: auto; height: 500px;"> 
+                                                            @foreach(var zona1 in CreateRegistro)
+                                                            {
+                                                                <div class="container">
+                                                                        <div class="row border">
+                                                                            <div class="col-3 justify-content-center align-items-center align-content-center text-center">
+                                                                            @zona1.Nombre
+                                                                        </div>
+                                                                        <div class="col-9 bg-gradient">
+                                                                            @foreach (var material in zona1.Propiedad)
+                                                                            {
+                                                                                <div class="row">
+                                                                                    <div class="col-3 justify-content-center align-items-center align-content-center text-center">
+                                                                                            <span>@material.Nombre </span>
+                                                                                    </div>
+                                                                                    <div class="col-9">
+                                                                                        <MudForm>
+                                                                                                <MudRadioGroup @bind-Value="@material.Valor" Disabled="@material.Deshabilitado">
+                                                                                                <MudRadio Value="@("Si")" Color="Color.Primary">Si</MudRadio>
+                                                                                                <MudRadio Value="@("No")" Color="Color.Secondary">No</MudRadio>
+                                                                                            </MudRadioGroup>
+                                                                                        </MudForm>
+                                                                                    </div>
+                                                                                </div>                                                                      
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>                                                                                                                      
+                                                            }
+                                                            </div>
+                                                        </div>
+                                                    </MudCardContent>
+                                                    <MudCardActions>
+                                                        <MudButton ButtonType="MudBlazor.ButtonType.Button" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Cancelar</MudButton>
+                                                        <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Guardar</MudButton>
+                                                    </MudCardActions>
+                                                </MudCard>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </EditForm>
+                                }
+                        </MudPaper>
+                    </MudContainer>
+                </MudPaper>
+                </div>
             </div>
         </div>
     </div>
@@ -202,15 +256,6 @@
                                     </MudSelect>
                                     <ValidationMessage For="@(() => EditarAgenda.Ubicacion)" />
                                     <ValidationMessage For="@(() => EditarAgenda.numeroTelefonico)" />
-@*                                     <MudSelect T="string" Label="Selecciona un numero teléfonico"
-                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar un numero teléfonico" : "")"
-                                               Value="EditarAgenda.numeroTelefonico" ValueChanged="OnNroTelefonicoSeleccionadaEditarChanged" AnchorOrigin="Origin.BottomCenter">
-                                        @foreach (var unidad in ListNroTelefono)
-                                        {
-                                            <MudSelectItem Value="@unidad" />
-                                        }
-                                    </MudSelect>
-                                    <ValidationMessage For="@(() => EditarAgenda.numeroTelefonico)" /> *@
                                     <MudNumericField Label="Nro de teléfonico directo (Opcional)" @bind-Value="EditarAgenda.numeroTelefonico" MaxLength="11" For="@(() => EditarAgenda.numeroTelefonico)" />
                                     <MudNumericField Label="Numero de extension" @bind-Value="EditarAgenda.Extension" MaxLength="3" For="@(() => EditarAgenda.Extension)" />
                                 </MudCardContent>

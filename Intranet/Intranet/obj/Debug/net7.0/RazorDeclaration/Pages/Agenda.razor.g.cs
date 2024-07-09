@@ -76,49 +76,66 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
+#line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+using Serilog;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
 using Intranet.Modelos.Agenda;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
+#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
 using Microsoft.EntityFrameworkCore;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
 using System.ComponentModel.DataAnnotations;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
+#line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Pages\Agenda.razor"
-           [Authorize]
+
+#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
+           [Authorize(Roles = "SuperAdmin,AgendaTelefonica")]
+
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/Agenda")]
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Agenda/{parametro}")]
     public partial class Agenda : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -126,6 +143,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

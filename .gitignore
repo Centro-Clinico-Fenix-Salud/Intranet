@@ -151,3 +151,4 @@ Intranet/Intranet/obj/Intranet.csproj.nuget.g.props
 *.cs
 *.pubxml
 *.user
+/Intranet/Intranet/obj/Debug/net7.0/Razor/App.razor.g.cs

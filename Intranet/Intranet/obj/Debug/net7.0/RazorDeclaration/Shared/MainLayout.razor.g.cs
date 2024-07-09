@@ -83,21 +83,34 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 21 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+
+#line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+using Serilog;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+
 using Intranet.Extension;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 22 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+
+#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 23 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+
+#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+
 using Intranet.Modelos.LoginModel;
 
 #line default
@@ -111,7 +124,9 @@ using Intranet.Modelos.LoginModel;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 61 "C:\Users\programador\Desktop\proyectos\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+
+#line 41 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+
        
     private string Nombre = string.Empty;
     protected override async Task OnInitializedAsync()

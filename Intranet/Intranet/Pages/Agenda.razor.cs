@@ -7,11 +7,21 @@ using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel.DataAnnotations;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System;
+using Intranet.Modelos.Admin;
+using Intranet.Services.Admin;
+using Intranet.Services;
+using Intranet.Interfaces.Admin;
+using Intranet.Interfaces;
+using System.Security.Claims;
+using System.Drawing;
+using Serilog;
 
 namespace Intranet.Pages
 {
     public partial class Agenda : ComponentBase
     {
+        [Inject]
+        private IServicioAgendaTelefonica ServicioAgendaTelefonica { get; set; }
         private string searchTerm;
         private bool _resizeColumn = true;
         private bool mostrarModalEliminar = false;
@@ -22,8 +32,10 @@ namespace Intranet.Pages
         AgendaEditar EditarAgenda = new AgendaEditar();
         private List<string> ListUnidad = new List<string>();
         private List<string> ListUbicacion = new List<string>();
-        public IQueryable<AgendaModel> MaestroDireccionTelefonica { get; set; } = null;
-        public IQueryable<AgendaModel> DireccionTelefonica { get; set; } = null;
+        private List<string> ListNombreUsuario = new List<string>();
+        private List<string> ListNroTelefono = new List<string>();
+        public IQueryable<AgendaTelefonicaDataGrid> MaestroDireccionTelefonica { get; set; } = null;
+        public IQueryable<AgendaTelefonicaDataGrid> DireccionTelefonica { get; set; } = null;
         //quitar 
         private bool resetValueOnEmptyText;
         private bool coerceText;
@@ -37,32 +49,48 @@ namespace Intranet.Pages
         public string parametro { get; set; }
         [Inject]
         private ISnackbar Snackbar { get; set; }
+        [Inject]
+        private IConfiguration configuration { get; set; }
+
+        private ClaimsPrincipal? user {  get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            MaestroDireccionTelefonica = Data().AsQueryable();
-            DireccionTelefonica = MaestroDireccionTelefonica;
+            await RefrescarDataGrid();
             await obtenerUnidadAgenda();
             await obtenerUbicacionAgenda();
-            
+            await obtenerUsuarioAgenda();
+            ListNroTelefono.Add(configuration["NroTelfonicoFenix"]);
+                  
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                // await Js.InvokeVoidAsync("DataCalendar");
+            }
+           
+        }
+
+        private async Task RefrescarDataGrid()
+        {
+            var resultado = (await Data()).AsQueryable();
+
+            MaestroDireccionTelefonica = DireccionTelefonica = resultado;
+        }
+
+        public async Task<List<AgendaTelefonicaDataGrid>> Data()
+        {
+                      
+            var resultado = await ServicioAgendaTelefonica.ObtenerListaAgendaTelefonica();
+
+            return resultado.OrderBy(a => a.Usuario).ToList();
         }
 
         private async Task obtenerUnidadAgenda() 
         {
-            ListUnidad.Add("Admision");
-            ListUnidad.Add("Adminstracion");
-            ListUnidad.Add("Comunicaciones");
-            ListUnidad.Add("Facturacion");
-            ListUnidad.Add("Seguridad");
-            ListUnidad.Add("Tecnologia");
-            ListUnidad.Add("Almacen Central");
-            ListUnidad.Add("Ambulatorio piso 4");
-            ListUnidad.Add("Ambulatorio piso 5");
-            ListUnidad.Add("Compras");
-            ListUnidad.Add("Contabilidad");
-            ListUnidad.Add("Farmacia");
-            ListUnidad.Add("Hoteleria");
-
+            ListUnidad =  await ServicioAgendaTelefonica.ObtenerListaUnidadDeAgenda();
 
             ListUnidad.OrderBy(x => x).ToList();    
 
@@ -70,38 +98,44 @@ namespace Intranet.Pages
 
         private async Task obtenerUbicacionAgenda()
         {
-            ListUbicacion.Add("Torre quirurgica");
-            ListUbicacion.Add("Anexo");
-            ListUbicacion.Add("Torre norte");
-            ListUbicacion.Add("Parque Cristal");
-            ListUbicacion.Add("C. Convenciones");
+            ListUbicacion = await ServicioAgendaTelefonica.ObtenerListaUbicacionDeAgenda();
 
             ListUbicacion.OrderBy(x => x).ToList();
         }
 
-        public void Editar(MudBlazor.CellContext<AgendaModel> direccionTelefonica)
+        private async Task obtenerUsuarioAgenda()
         {
-            int extensionInt;
+            ListNombreUsuario = await ServicioAgendaTelefonica.ObtenerListaUsuarioDeAgenda();
+
+            ListNombreUsuario.OrderBy(x => x).ToList();
+        }
+
+        public async void Editar(MudBlazor.CellContext<AgendaTelefonicaDataGrid> direccionTelefonica)
+        {
+           
             EditarAgenda.Id = direccionTelefonica.Item.Id;
-            EditarAgenda.Nombre = direccionTelefonica.Item.Nombre;
+            EditarAgenda.Usuario = direccionTelefonica.Item.Usuario;
             EditarAgenda.Unidad = direccionTelefonica.Item.Unidad;
             EditarAgenda.Ubicacion = direccionTelefonica.Item.Ubicacion;
-            int.TryParse(direccionTelefonica.Item.Extension, out extensionInt);
-            EditarAgenda.Extension = extensionInt;
+            EditarAgenda.Extension = direccionTelefonica.Item.Extension;
+            EditarAgenda.numeroTelefonico = direccionTelefonica.Item.numeroTelefonico;
+            EditarAgenda.UsuarioModificador = direccionTelefonica.Item.UsuarioModificador;
+            EditarAgenda.FechaModificacion = direccionTelefonica.Item.FechaModificacion != null ? direccionTelefonica.Item.FechaModificacion :
+                direccionTelefonica.Item.FechaCreacion;
 
             mostrarModalEditar = true;
 
         }
 
         private void CerrarModalEditar()
-        {
-            GetDireccionTelefonica();
+        {          
             mostrarModalEditar = false;
+            EditarAgenda = new AgendaEditar();
             StateHasChanged();
         }
-        public void Eliminar (MudBlazor.CellContext<AgendaModel> direccionTelefonica)
+        public void Eliminar (MudBlazor.CellContext<AgendaTelefonicaDataGrid> direccionTelefonica)
         {
-            RegistroEliminar = direccionTelefonica.Item.Nombre + " - " + direccionTelefonica.Item.Unidad;
+            RegistroEliminar = direccionTelefonica.Item.Usuario + " - " + direccionTelefonica.Item.Unidad;
             IdELiminarAgenda = direccionTelefonica.Item.Id;
             mostrarModalEliminar = true;
         }
@@ -109,32 +143,10 @@ namespace Intranet.Pages
         public void Nuevo()
         {
             CreateAgenda = new AgendaCreate();
+            //CreateAgenda.numeroTelefonico = configuration["NroTelfonicoFenix"];
             mostrarModalNuevo = true;
         }
-        //public void NuevoRegistro()
-        //{
-        //    //validacion
-        //    if (string.IsNullOrEmpty(CreateAgenda.Unidad)) {
-        //        ChangeVariant("campo Unidad es requerido", Variant.Filled);
-        //        return;
-        //    }
-        //    if (string.IsNullOrEmpty(CreateAgenda.Ubicacion))
-        //    {
-        //        ChangeVariant("campo Ubicacion es requerido", Variant.Filled);
-        //        return;
-        //    }
-        //    editContext = new EditContext(CreateAgenda);
 
-        //    editContext.Validate();
-
-        //    if (editContext.Validate())
-        //    {
-        //        return;
-        //    }
-
-
-        //    mostrarModalNuevo = false;
-        //}
         private void CerrarModalEliminar()
         {
             IdELiminarAgenda = Guid.Empty;
@@ -144,80 +156,76 @@ namespace Intranet.Pages
         }
         private void CerrarModalNuevo()
         {
-            
-            DireccionTelefonica = GetDireccionTelefonica().AsQueryable();
+                      
             mostrarModalNuevo = false;
             CreateAgenda = new AgendaCreate();
 
         }
        
-        private void EliminarRegistro()
+        private async Task EliminarRegistro()
         {
-            var listAgenda = GetDireccionTelefonica();
-            AgendaModel registroParaEliminar = listAgenda.Where(a => a.Id == IdELiminarAgenda).FirstOrDefault();
-
-            if (registroParaEliminar != null)
+            if (!await ServicioAgendaTelefonica.ConsultarAgendaTelefonica(IdELiminarAgenda))
             {
-                listAgenda.Remove(registroParaEliminar);
-
-                MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
-                CerrarModalEliminar();
-                Snackbar.Add("Eliminacion exitosa", Severity.Info);
+                Snackbar.Add("El registro no existe", Severity.Error);
+                return;
             }
-       
-        }
 
-        public List<AgendaModel> Data()
+            if (await ServicioAgendaTelefonica.EliminarAgendaTelefonica(IdELiminarAgenda))
+            {
+                await RefrescarDataGrid();
+                Snackbar.Add("Registro Eliminada", Severity.Info);
+                CerrarModalEliminar();
+            }
+            else
+                Snackbar.Add("Ocurrio un error", Severity.Error);
+
+        }
+        void CheckForEnter(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
         {
-            var resultado = new List<AgendaModel>();
-
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Luis Trujillo", Unidad = "Lavanderia", Ubicacion = "Anexo", Extension = "32" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Juan De Sousa", Unidad = "tecnologia", Ubicacion = "Torre quirurgica", Extension = "85" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Ivan Quintana", Unidad = "Compras", Ubicacion = "C. Convenciones", Extension = "965" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Giovanni Liguori", Unidad = "Farmacia", Ubicacion = "Anexo", Extension = "130" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Karyn Barreto", Unidad = "Contabilidad", Ubicacion = "Torre quirurgica", Extension = "89" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Omar Acosta", Unidad = "Consultoria", Ubicacion = "C. Convenciones", Extension = "74" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Maria Barreto", Unidad = "Trasporte", Ubicacion = "Anexo", Extension = "20" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Pedro Cario", Unidad = "Ambulatorio", Ubicacion = "Torre quirurgica", Extension = "69" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Carmen Serrano", Unidad = "Seguridad", Ubicacion = "C. Convenciones", Extension = "98" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Jose jorges", Unidad = "Alamacen central", Ubicacion = "Anexo", Extension = "5" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Saray Rada", Unidad = "Talento Humano", Ubicacion = "Torre quirurgica", Extension = "36" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Andry Lanza", Unidad = "Administracion", Ubicacion = "C. Convenciones", Extension = "38" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Yorbelys Romero", Unidad = "Talento Humano", Ubicacion = "Anexo", Extension = "Ext 1" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Carmen Medina", Unidad = "Cocina", Ubicacion = "Torre quirurgica", Extension = "16" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Betty Melendez", Unidad = "tecnologia", Ubicacion = "C. Convenciones", Extension = "17" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Jesus Soto", Unidad = "Hoteleria", Ubicacion = "Anexo", Extension = "55" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Carlos Gonzalez", Unidad = "Seguridad", Ubicacion = "Torre quirurgica", Extension = "59" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Jaira Villegas", Unidad = "Talento Humano", Ubicacion = "C. Convenciones", Extension = "45" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Jesus Aparicio", Unidad = "Seguridad", Ubicacion = "Anexo", Extension = "82" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Nelso Colmenares", Unidad = "tecnologia", Ubicacion = "Torre quirurgica", Extension = "80" });
-            resultado.Add(new AgendaModel { Id = Guid.NewGuid(), Nombre = "Orlando Mujica", Unidad = "Trasporte", Ubicacion = "C. Convenciones", Extension = "63" });
-
-            return resultado.OrderBy(a => a.Nombre).ToList();
+            if (e.Key == "Enter")
+            {
+                Buscar();
+            }
         }
 
-        public List<AgendaModel> GetDireccionTelefonica()
+        private async void Buscar2(ChangeEventArgs e)
         {
-            var resultado = MaestroDireccionTelefonica;
-          
-            return resultado.OrderBy(a => a.Nombre).ToList(); 
+            //string valor = e.Value.ToString();
+            // Aquí va tu código para buscar con el valor ingresado
+            //await Buscar();
+            searchTerm = e.Value.ToString();
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                DireccionTelefonica = MaestroDireccionTelefonica;
+
+            }
+            else
+            {
+                DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Usuario.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                p.Unidad.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.Ubicacion.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
+                ).OrderBy(p => p.Usuario);
+
+            }
         }
+
 
         private async Task Buscar()
         {
-            if (string.IsNullOrEmpty(searchTerm)) 
+            if (string.IsNullOrEmpty(searchTerm))
             {
-                 DireccionTelefonica = GetDireccionTelefonica().AsQueryable();
-                
+                DireccionTelefonica = MaestroDireccionTelefonica;
+
             }
-        
             else
             {
-                DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Nombre.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Usuario.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
                 p.Unidad.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.Ubicacion.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).OrderBy(p => p.Nombre); 
+                p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
+                ).OrderBy(p => p.Usuario);
 
-            }          
+            }
+             
         }
 
         private async Task<IEnumerable<string>> Search2(string value)
@@ -229,10 +237,29 @@ namespace Intranet.Pages
                     return new List<string>();
                 }
                 result = ListUnidad.Where(x => x.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0);
-            } catch(Exception e) {
-            
+            } catch(Exception ex) {
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
             }
             
+            return result;
+        }
+
+        private async Task<IEnumerable<string>> SearchUsuario(string value)
+        {
+            IEnumerable<string> result = new List<string>();
+            try
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return new List<string>();
+                }
+                result = ListNombreUsuario.Where(x => x.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
+            }
+
 
             return result;
         }
@@ -240,6 +267,21 @@ namespace Intranet.Pages
         {
             if(!string.IsNullOrEmpty(value))
             CreateAgenda.Ubicacion = value;
+
+            UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
+        }
+
+        private void OnNroTelefonicoSeleccionadaChanged(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+                CreateAgenda.numeroTelefonico = value;
+
+            UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
+        }
+        private void OnNroTelefonicoSeleccionadaEditarChanged(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+                EditarAgenda.numeroTelefonico = value;
 
             UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
         }
@@ -251,40 +293,57 @@ namespace Intranet.Pages
             UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
         }
 
-        private async Task OnValidSubmit(EditContext context)
+        private async Task GuardarAgenda(EditContext context)
         {
-  
-            var listAgenda = MaestroDireccionTelefonica.ToList();
-            AgendaModel agendaModel = new AgendaModel();
-            agendaModel.Id = Guid.NewGuid();
-            agendaModel.Nombre = CreateAgenda.Nombre;
-            agendaModel.Unidad = CreateAgenda.Unidad;
-            agendaModel.Ubicacion = CreateAgenda.Ubicacion;
-            agendaModel.Extension = CreateAgenda.Extension.ToString();
+            CreateAgenda.Usuario = CreateAgenda.Usuario.Split('-')[0].Trim();
+            switch (await ServicioAgendaTelefonica.ConsultarAntesGuardarAgendaTelefonica(CreateAgenda))
+            {
+                case 1:
+                    Snackbar.Add("El usuario ya se encuentra registrado", Severity.Error);
+                    return;
+                case 2:
+                    Snackbar.Add("El número de extension ya se encuentra registrado", Severity.Error);
+                    return;                         
+            }
+            CreateAgenda.UsuarioModificador = await IdUsuario();
 
-            listAgenda.Add(agendaModel);
-            MaestroDireccionTelefonica = listAgenda.AsQueryable();
-            CerrarModalNuevo();
-            Snackbar.Add("Registro exitoso", Severity.Info);
+            if (await ServicioAgendaTelefonica.GuardarAgendaTelefonica(CreateAgenda))
+            {
+                await RefrescarDataGrid();
+                Snackbar.Add("Registro exitoso", Severity.Info);
+                CerrarModalNuevo();
+            }
+            else
+                Snackbar.Add("Ocurrio un error", Severity.Error);
         }
 
         private async Task EditarAgente(EditContext context)
         {
-            var listAgenda = GetDireccionTelefonica();
-            AgendaModel agendaAEditar = listAgenda.Where(a => a.Id == EditarAgenda.Id).FirstOrDefault();
-
-            if (agendaAEditar != null) 
+            EditarAgenda.Usuario = EditarAgenda.Usuario.Split('-')[0].Trim();
+            switch (await ServicioAgendaTelefonica.ConsultarAntesActualizarAgendaTelefonica(EditarAgenda))
             {
-                agendaAEditar.Nombre = EditarAgenda.Nombre;
-                agendaAEditar.Unidad = EditarAgenda.Unidad;
-                agendaAEditar.Ubicacion = EditarAgenda.Ubicacion;
-                agendaAEditar.Extension = EditarAgenda.Extension.ToString();
-
-                MaestroDireccionTelefonica = DireccionTelefonica = listAgenda.AsQueryable();
-                CerrarModalEditar();
-                Snackbar.Add("Modificación exitosa", Severity.Info);
+                case 1:
+                    Snackbar.Add("El usuario ya se encuentra registrado", Severity.Error);
+                    return;
+                case 2:
+                    Snackbar.Add("El número de extension ya se encuentra registrado", Severity.Error);
+                    return;
             }
-         
+            EditarAgenda.UsuarioModificador = await IdUsuario();
+
+            if (await ServicioAgendaTelefonica.ActualizarAgendaTelefonica(EditarAgenda))
+            {
+                await RefrescarDataGrid();
+                Snackbar.Add("Registro exitoso", Severity.Info);
+                CerrarModalEditar();
+            }
+            else
+                Snackbar.Add("Ocurrio un error", Severity.Error);
+
+        }
+
+        private async Task<string> IdUsuario() {
+            return ((await AuthenticationStateProvider.GetAuthenticationStateAsync()).User).FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 
     }

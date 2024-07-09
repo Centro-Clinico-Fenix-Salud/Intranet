@@ -130,6 +130,13 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+using Serilog;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLogin : LayoutComponentBase
     {
         #pragma warning disable 1998

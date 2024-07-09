@@ -9,6 +9,9 @@ using MudBlazor;
 using Microsoft.AspNetCore.Components;
 using Intranet.Modelos.LoginModel;
 using Intranet.Interfaces.Admin;
+using Intranet.Pages;
+using Serilog;
+
 
 namespace Intranet.Controller
 {
@@ -27,7 +30,11 @@ namespace Intranet.Controller
         public async Task<IActionResult> Login(LoginDTO credentials)
         {
             //Indicamos el dominio en el que vamos a buscar al usuario
-             string path = "LDAP://fenixsalud.local";
+
+            string path = configuration["ConexionLDAP"];
+            var UsuarioSuperAdmin = configuration["usuarioAdmin"];
+            var PasswordSuperAdmin = configuration["password"];
+
 
             try
             {
@@ -45,6 +52,9 @@ namespace Intranet.Controller
                             Guid id = Guid.Empty ;
                             string nombreUsuario = "";
 
+                            List<string> key = new List<string>();
+                            List<string> valor = new List<string>();
+                            int i = 0;
 
                             //Comporbamos las propiedades del usuario
                             ResultPropertyCollection fields = result.Properties;
@@ -52,13 +62,18 @@ namespace Intranet.Controller
                             {
                                 foreach (Object myCollection in fields[ldapField])
                                 {
+                                    i++;
+                                    key.Add(i.ToString() + " - " + ldapField.ToString());
+                                    valor.Add(i.ToString() + " - " + myCollection.ToString());
                                     if (ldapField == "name")
-                                      nombreUsuario = myCollection.ToString().ToLower();
+                                      nombreUsuario = myCollection.ToString();
 
                                     if (ldapField == "objectguid")
                                         id = new Guid((byte[])myCollection);
                                 }
                             }
+
+
                             //setear rol a usuario
                             role = ServicioAdmin.BuscarRolDeUsuario(id);
 
@@ -66,6 +81,7 @@ namespace Intranet.Controller
                             //Podríamos obtenerlos de una base de datos.
                             var claims = new[]
                             {
+                                new Claim(ClaimTypes.NameIdentifier, id.ToString()),
                                 new Claim(ClaimTypes.Name, nombreUsuario),
                                 new Claim(ClaimTypes.Surname, credentials.Usuario),
                                 new Claim(ClaimTypes.Role, role)
@@ -96,6 +112,7 @@ namespace Intranet.Controller
             catch (Exception ex)
             {
                 //return LocalRedirect("/login/Usuario o Clave inválida");
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
                 return LocalRedirect("/invalido/Credenciales Incorrectas");
             }
         }

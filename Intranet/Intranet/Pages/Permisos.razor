@@ -3,9 +3,9 @@
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "SuperAdmin, Perfiles")]
+@attribute [Authorize(Roles = "SuperAdmin,EliminarPermiso,EditarPermiso,ConsultarPermiso")]
 
-<PageTitle>Categoria</PageTitle>
+<PageTitle>Permisos</PageTitle>
 
 <nav class="navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
@@ -32,7 +32,7 @@
     <div class=" mt-2">
         <MudDataGrid T="PermisosDataGrid" Items="@PermisosData" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
             <Columns>
-                <AuthorizeView Roles="SuperAdmin,EliminarPermiso,EditarPermiso" Context="context">
+                <AuthorizeView Roles="SuperAdmin,EliminarPermiso,EditarPermiso,ConsultarPermiso" Context="context">
                     <Authorized>
                         <TemplateColumn Title="Acciones" Sortable="false">
                             <CellTemplate Context="context2">
@@ -133,9 +133,17 @@
                                         {
                                             <MudSelectItem Value="@unidad.Nombre" />
                                         }
-
                                     </MudSelect>
                                     <ValidationMessage For="@(() => EditarRegistro.NombreCategoria)" />
+                                    <MudSelect T="string" Label="Sub-Categoria"
+                                               ErrorText="@(!CategoriaSeleccionadaValid ? "Debe seleccionar una Sub-categoria" : "")"
+                                               Value="EditarRegistro.NombreSubCategoria" ValueChanged="OnSubCategoriaSeleccionadaEditarChanged" Required="true" AnchorOrigin="Origin.BottomCenter">
+                                        @foreach (var unidad in ListaSubCategoria)
+                                        {
+                                            <MudSelectItem Value="@unidad.Nombre" />
+                                        }
+                                    </MudSelect>
+                                    <ValidationMessage For="@(() => EditarRegistro.NombreSubCategoria)" />
                                     <MudTextField Label="Nombre" @bind-Value="EditarRegistro.Nombre" For="@(() => EditarRegistro.Nombre)" />
                                 </MudCardContent>
                                 <MudCardActions>
@@ -165,7 +173,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar la Sub-Categoria <span style="font-weight: bold;"> @RegistroEliminar.Nombre </span>?
+                    ¿Estás seguro de que deseas eliminar el permiso <span style="font-weight: bold;"> @RegistroEliminar.Nombre </span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>

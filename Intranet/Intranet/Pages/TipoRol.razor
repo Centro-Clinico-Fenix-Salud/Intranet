@@ -1,0 +1,158 @@
+﻿@page "/Tipo-Rol"
+@using Intranet.Modelos.Admin;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = "SuperAdmin,EditarTipoRol,ConsultarTipoRol,ClonarTipoRol")]
+
+<PageTitle>Tipo de Rol</PageTitle>
+
+<nav class="navbar navbar-expand-lg justify-content-center mb-5"
+     style="border-radius: 10px; background-color: #00bbb4">
+    <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
+        Tipo de Rol
+    </h1>
+</nav>
+
+<div class="row">
+    <div class="Buscador input-group mt-2">
+        <input type="text" class="form-control" placeholder="Buscar..." @bind="searchTerm">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary" @onclick="@(()=>Buscar())">Buscar</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class=" mt-2">
+        <MudDataGrid T="R1_Rol" Items="@DataRoles" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)" RowsPerPage="5">
+            <Columns>
+                <AuthorizeView Roles="SuperAdmin,EditarTipoRol,ConsultarTipoRol,ClonarTipoRol" Context="context">
+                    <Authorized>
+                        <TemplateColumn Title="Acciones" Sortable="false">
+                            <CellTemplate Context="context2">
+                                <AuthorizeView Roles="SuperAdmin,EditarTipoRol" Context="context3">
+                                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
+                                </AuthorizeView> 
+                                <AuthorizeView Roles="SuperAdmin,ClonarTipoRol" Context="context3">
+                                    <MudIconButton Icon="@Icons.Material.Outlined.ContentCopy" Color="Color.Secondary" Title="Clonar" Size="@Size.Medium" OnClick="@(() => Clonar(context2))" />
+                                </AuthorizeView>
+                            </CellTemplate>
+                        </TemplateColumn>
+                    </Authorized>
+                </AuthorizeView>
+                <PropertyColumn Property="x => x.Nombre" Title="Nombre" Sortable="true" />               
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="R1_Rol" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />
+            </PagerContent>
+        </MudDataGrid> 
+    </div>
+</div>
+
+@if (mostrarModalEditar)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-lg modal-dialog-centered justify-content-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEditar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <MudPaper Width="100%">
+                    <MudContainer>
+                        <MudPaper Width="100%" Square="true">
+                            <div class="container">
+                                <div style="overflow-y: auto; height: 500px;">
+                                    <div class="row m-2">
+                                        <div class="col-12 d-flex align-items-center justify-content-center">
+                                            <h4>@RolAEditar.Nombre </h4>
+                                        </div>
+
+                                    </div>
+                                    <MudList Clickable="true">
+                                        <MudListSubheader>
+                                            Tipo de rol
+                                        </MudListSubheader>
+                                        @if (tipoDeRolData.Categorias != null)
+                                        @foreach (var Categoria in tipoDeRolData.Categorias)
+                                        {
+                                            <MudListItem Icon="@Icons.Material.Filled.Dehaze" Text="@Categoria.Nombre">
+                                                <NestedList>
+                                                    @foreach (var categoria_subCategoria in tipoDeRolData.Categoria_SubCategoria.Where(x => x.CategoriaId == Categoria.Id).ToList())
+                                                    {
+                                                            @foreach (var SubCategoria in tipoDeRolData.SubCategorias.Where(x => x.Id == categoria_subCategoria.SubCategoriaId).ToList())
+                                                            {
+                                                                <MudListItem Icon="@Icons.Material.Filled.DragHandle" Text="@SubCategoria.Nombre">
+                                                                    <NestedList>
+                                                                        @foreach (var permisos_SubCategoria in tipoDeRolData.Permisos_SubCategorias.Where( x => x.SubCategoriaId == SubCategoria.Id).ToList())
+                                                                        {
+                                                                            foreach (var permiso in tipoDeRolData.Permisos.Where(y => y.Id == permisos_SubCategoria.PermisoId).ToList())
+                                                                            {
+                                                                                <MudCheckBox Color="Color.Success" @bind-Value="@permiso.Activo" Label="@permiso.Nombre"></MudCheckBox>
+                                                                            }                                                                                                                         
+                                                                        }
+                                                                    </NestedList>
+                                                                </MudListItem>  
+                                                            }
+                                                    }
+                                                </NestedList>
+                                            </MudListItem>                                      
+                                        }
+                                    </MudList>
+                            </div>
+                            </div>
+                            <div class="m-2">
+                                <div class="row">                              
+                                   
+                                    <div class="col-6 text-center">
+                                        <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalEditar" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                                        </div>
+                                    <div class="col-6 text-center">
+                                        <MudButton ButtonType="ButtonType.Submit" OnClick="EditarTipoRol" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                                        </div>
+                                </div>
+                            </div>                           
+                        </MudPaper>
+                    </MudContainer>
+                </MudPaper>
+                
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+
+}
+
+@if (mostrarModalEliminar)
+{
+    <div class="modal show  d-flex justify-content-center align-items-center" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar el permiso <span style="font-weight: bold;"> @RegistroEliminar.Nombre </span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="EliminarRegistro">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+@code {
+    public bool Label_CheckBox1 { get; set; } = true;
+    public string titulo { get; set; } = "Administracion";
+    public string subTitulo { get; set; } = "Perfiles";
+
+}

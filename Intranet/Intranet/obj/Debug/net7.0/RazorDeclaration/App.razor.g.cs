@@ -27,13 +27,6 @@ using Microsoft.AspNetCore.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -89,6 +82,20 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
+using Serilog;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 1 "C:\Intranet\repo\Intranet\Intranet\Intranet\App.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
     public partial class App : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -96,6 +103,7 @@ using MudBlazor;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navManager { get; set; }
     }
 }
 #pragma warning restore 1591

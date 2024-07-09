@@ -1,51 +1,51 @@
-﻿@page "/loggin"
-<link href="/css/loggin.css" rel="stylesheet" />
+﻿@page "/"
+@page "/invalido/{ErrorMessage}"
+@layout MainLogin
+@using MudBlazor
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider autenticacionProvider
+
+
+ <link href="/css/loggin.css" rel="stylesheet" />  
 
 <PageTitle> Sistema Intranet Fenix Salud </PageTitle>
 
-<section class="vh-100 gradient-form mt-n5">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-10">
-                <div class="card rounded-3 text-black">
-                    <div class="row g-0">
-                        <div class="col-lg-6">
-                            <div class="card-body p-md-5 mx-md-4">
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card text-white" style="border-radius: 1rem; background-color: #00bbb4">
+                <div class="card-body p-5 text-center">
 
-                                <div class="text-center">
-                                    <img src="img/01.ico" class="w-25" alt="logo">
-                                    <h6 class="mt-1 mb-5 pb-1">Nosotros somos Fénix</h6>
-                                </div>
+                    <div class="mb-md-5 mt-md-4 pb-5">
+                    
+                        <h1> Fénix Intranet </h1>
+                        @if (!string.IsNullOrEmpty(ErrorMessage))
+                        {
+                            <MudText Class="mt-2 text-danger">@ErrorMessage</MudText>
+                        }
 
-                                <form>
-                                    <p> Porfavor ingrese a su cuenta </p>
+                        <form method="post" action="/account/login">
+                            <MudGrid>
+                                <MudItem xs="12" sm="12">
+                                    <MudCard>
+                                        <MudCardContent>                                      
+                                            <MudTextField Variant="Variant.Filled" Label="Usuario" Value="LoginDTO.Usuario" name="Usuario" />                                      
+                                            <MudTextField Variant="Variant.Filled" Label="Clave" InputType="InputType.Password" Value="LoginDTO.Clave" name="Clave" />                                                                                    
+                                        </MudCardContent>
+                                        <MudCardActions>
+                                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                                <button class="btn btn-outline-light btn-lg px-5">Ingresar</button>
+                                            </div>
+                                        </MudCardActions>
+                                    </MudCard>
+                                </MudItem>
+                            </MudGrid>
+                        </form>
 
-                                    <div class="form-outline mb-4">
-                                        <input type="email" id="form2Example11" class="form-control"
-                                               placeholder="Correo corporativo" />
-                                    </div>
-
-                                    <div class="form-outline mb-4">
-                                        <input type="password" id="form2Example22" class="form-control"
-                                        placeholder="Contraseña Asignada" />
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                            <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                                <h4 class="mb-4">Más que una Clinica</h4>
-                                <p class="small mb-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>

@@ -1,4 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@using Intranet.Extension
+@using Microsoft.AspNetCore.Components.Authorization;
+@using Intranet.Modelos.LoginModel;
+@inject AuthenticationStateProvider autenticacionProvider
+@inject NavigationManager navManager
+
 
 <PageTitle>Intranet</PageTitle>
 
@@ -7,7 +13,15 @@
         <NavMenu />
     </div>
 
-    <main>
+    <main>      
+        <div class="top-row" style="background-color: #00bbb4; height : 57px" Fixed="false">
+            <AuthorizeView>
+                <Authorized>
+                    <span class="text-white">Bienvenido, @context.User.Identity!.Name</span>
+                </Authorized>
+            </AuthorizeView>
+        </div>
+
         <article class="content px-4">
             @Body
         </article>
@@ -21,6 +35,35 @@
                    DisableBackdropClick="true"
                    NoHeader="true"
                    Position="DialogPosition.Center"
-                   CloseOnEscapeKey="true"
-                   />
+                   CloseOnEscapeKey="true" />
 <MudSnackbarProvider />
+
+@code {
+    private string Nombre = string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        // Nombre = "Bienvenido";
+
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Nombre = "Bienvenido";
+        }
+
+    }
+
+
+
+    private async Task CerrarSesion()
+    {
+        // await _sessionStorage.GuardarLogin(false);
+        //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+        //await autenticacionExt.ActualizarEstadoAutenticacion(null);
+        // navManager.NavigateTo("/", true);
+    }
+}
+

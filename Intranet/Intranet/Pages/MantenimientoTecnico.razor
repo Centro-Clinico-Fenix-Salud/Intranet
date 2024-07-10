@@ -22,7 +22,7 @@
                    Value="AreaInforme" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
             @foreach (var areaInforme in ListAreaInforme)
             {
-                <MudSelectItem Value="@areaInforme" />
+                <MudSelectItem Value="@areaInforme.Nombre" />
             }
         </MudSelect>
     </div>
@@ -108,7 +108,8 @@
                 <MudPaper Width="100%">
                     <MudContainer>
                         <MudPaper Width="100%" Square="true">
-                                @if (configPantalla != null && configPantalla.Cuerpo.Count > 1)
+                                @if(configPantalla != null && !configPantalla.AgruparCuerpos){ 
+                                @if (configPantalla != null && configPantalla.Cuerpo.Count() > 1)
                                 {
                                     <div class="mb-3 mt-3">
                                         <div class="row">
@@ -128,7 +129,7 @@
                                         {
                                             <div class="col-6">
                                                 <MudSelect T="string" Label="Selecciona un tipo"
-                                                           Value="TipozonaSelecionada" ValueChanged="OnTipoZonaSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                                                   Value="TipozonaSelecionada" ValueChanged="OnTipoZonaSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
 
                                                     @foreach (var tipoZona in listaTipoZona)
                                                     {
@@ -193,6 +194,56 @@
                                             </MudItem>
                                         </MudGrid>
                                     </EditForm>
+                                }
+                                }else{
+                                    @if (configPantalla != null && configPantalla.Cuerpo.Count() > 1)
+                                    {
+                                        <div class="mb-3 mt-3">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <MudSelect T="string" Label="Selecciona una zona"
+                                                               Value="zonaRevision" AnchorOrigin="Origin.BottomCenter">                                             
+                                                    </MudSelect>
+                                                </div>
+                                                @if (listaTipoZona.Count() > 0)
+                                                {
+                                                    <div class="col-6">
+                                                        <MudSelect T="string" Label="Selecciona un tipo"
+                                                                   Value="TipozonaSelecionada" ValueChanged="OnTipoZonaAgrupadoSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+
+                                                            @foreach (var tipoZona in listaTipoZona)
+                                                            {
+                                                                <MudSelectItem Value="@tipoZona.Nombre" />
+                                                            }
+
+                                                        </MudSelect>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        @if (MostrarFormularioAgrupado)
+                                        {
+                                            <EditForm Model="@CreateRegistro" OnValidSubmit="GuardarAgenda">
+                                                <DataAnnotationsValidator />
+                                                <MudGrid>
+                                                    @* <div class="container w-100">
+                                                <div class="d-flex align-items-center justify-content-center"><h4>I Datos del Paciente</h4></div>
+                                                </div> *@
+                                                    <MudItem xs="12" sm="12">
+                                                        <MudCard>
+                                                            <MudCardContent>
+
+                                                            </MudCardContent>
+                                                            <MudCardActions>
+                                                                <MudButton ButtonType="MudBlazor.ButtonType.Button" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Cancelar</MudButton>
+                                                                <MudButton ButtonType="MudBlazor.ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Guardar</MudButton>
+                                                            </MudCardActions>
+                                                        </MudCard>
+                                                    </MudItem>
+                                                </MudGrid>
+                                            </EditForm>
+                                        }
+                                    }                              
                                 }
                         </MudPaper>
                     </MudContainer>

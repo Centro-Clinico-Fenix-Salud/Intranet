@@ -372,6 +372,38 @@ namespace Intranet.Migrations
                     b.ToTable("informeTitulo");
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.PlanillaDigitalRegistro", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaRevision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("InformeAreaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InformeTituloId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Respuesta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UsuarioCreador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UsuarioRevision")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("planillaDigitalRegistro");
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Tablas.Ubicacion", b =>
                 {
                     b.Property<Guid>("Id")

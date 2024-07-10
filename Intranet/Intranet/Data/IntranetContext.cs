@@ -30,6 +30,8 @@ namespace Intranet.Data
         public DbSet<ConfiguracionPantalla> configuracionPantalla { get; set; }       
         public DbSet<InformeTitulo> informeTitulo { get; set; }
         public DbSet<InformeArea> informeArea { get; set; }
+        public DbSet<PlanillaDigitalRegistro> planillaDigitalRegistro { get; set; }
+        
 
 
 

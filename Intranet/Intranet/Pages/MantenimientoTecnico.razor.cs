@@ -67,9 +67,10 @@ namespace Intranet.Pages
         private string zonaRevision { get; set; }
         private string TipozonaSelecionada { get; set; }
 
-        private List<string> ListAreaInforme = new List<string>();
+        private List<InformeArea> ListAreaInforme = new List<InformeArea>();
         private bool AreaInformeSeleccionadaValid = true;
         private bool MostrarFormulario { get; set; }
+        private bool MostrarFormularioAgrupado { get; set; }
         DataPlanilla configPantalla { get; set; }
         List<TipoZonaRevision> listaTipoZona { get; set; }
         protected override async Task OnInitializedAsync()
@@ -79,7 +80,8 @@ namespace Intranet.Pages
             await obtenerUbicacionAgenda();
             await obtenerUsuarioAgenda();
             ListNroTelefono.Add(configuration["NroTelfonicoFenix"]);
-            //await crearJson();   
+            //await crearJson("Habitacion", true);
+            //await crearJson("Oficina", false);
             await obtenerListaAreaInforme();
             configPantalla = new DataPlanilla();
             listaTipoZona = new List<TipoZonaRevision>();
@@ -87,23 +89,30 @@ namespace Intranet.Pages
             TipozonaSelecionada = string.Empty;
         }
 
-        private async Task crearJson()
+        private async Task crearJson(string titulo, bool agrupados)
         {
             try
             {
 
                 DataPlanilla data = new DataPlanilla();
 
-                data.Titulo = "Oficina";
-                data.Cuerpo.Add(await CreacionData("Alineado", "radio",true, "Operativo", "radio", true,"Puerta", "Bisagra", "cerradura", "Oficina"));
-                data.Cuerpo.Add(await CreacionData("Alineado", "radio", true, "Operativo", "radio", true, "Puerta", "lavamanos", "piso", "Baño"));
+                data.Titulo = titulo;
+                data.AgruparCuerpos = agrupados;
+                data.Cuerpo.Add(await CreacionData("Alineado", "radio",false, "Operativo", "radio", false, "Puerta", "Bisagra", "cerradura", titulo));
+                data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", true, "Puerta", "lavamanos", "piso", "Baño"));
 
                 string json =  JsonSerializer.Serialize(data);
 
                 ConfiguracionPantalla configuracion = new ConfiguracionPantalla();
 
                 configuracion.InformeTituloId = Guid.Parse("D517AEEE-D38C-4C82-B4EA-C8FB6235F2D2");
+
+                if(titulo.Equals("Oficina"))
                 configuracion.InformeAreaId = Guid.Parse("2B315998-4E75-4D4B-BF6F-571B68E26EA9");
+
+                if (titulo.Equals("Habitacion"))
+                    configuracion.InformeAreaId = Guid.Parse("A2C446EA-C961-4623-9671-C30908319E28");
+
                 configuracion.ConfigPantalla = json;
 
                 intranetContext.configuracionPantalla.Add(configuracion);
@@ -150,6 +159,12 @@ namespace Intranet.Pages
             material3.Propiedad.Add(condicion1);
             material3.Propiedad.Add(condicion2);
 
+            if (NombreZona.Equals("Habitacion"))
+            {
+                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "1" });
+                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "2" });
+                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "3" });
+            }
             if (NombreZona.Equals("Oficina")) {
                 tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Tecnología" });
                 tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Compras" });
@@ -418,6 +433,42 @@ namespace Intranet.Pages
 
         private async Task GuardarAgenda(EditContext context)
         {
+            try
+            {
+                DataPlanilla Respuesta = new DataPlanilla();
+                ZonaRevision zonaRevisionData = new ZonaRevision();
+                TipoZonaRevision tipoZonaRevisionData = new TipoZonaRevision();
+                Cuerpo cuerpo = new Cuerpo();
+
+                tipoZonaRevisionData.Nombre = TipozonaSelecionada;
+                zonaRevisionData.Nombre = zonaRevision;
+                zonaRevisionData.materialRevision = CreateRegistro;
+                zonaRevisionData.tipoZonaRevision.Add(tipoZonaRevisionData);
+
+                cuerpo.zonaRevision.Add(zonaRevisionData);
+                Respuesta.Titulo = AreaInforme;
+                Respuesta.Cuerpo.Add(cuerpo);
+
+                string json = JsonSerializer.Serialize(Respuesta);
+
+                //guardar registro
+                PlanillaDigitalRegistro planillaDigitalRegistro = new PlanillaDigitalRegistro();
+                planillaDigitalRegistro.Id = Guid.NewGuid();
+                planillaDigitalRegistro.UsuarioCreador = Guid.Parse(await IdUsuario());
+                planillaDigitalRegistro.UsuarioRevision = null;
+                planillaDigitalRegistro.Respuesta = json;
+                planillaDigitalRegistro.FechaCreacion = DateTime.Now;
+                planillaDigitalRegistro.InformeAreaId = ListAreaInforme.Where(x => x.Nombre == zonaRevision).Select(u => u.Id).FirstOrDefault();
+                planillaDigitalRegistro.InformeTituloId = Guid.Parse(configuration["GuidRevisionMantenimientoTecnico"]);
+
+
+               
+            } catch (Exception ex) 
+            {
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
+            }
+
+
             //CreateAgenda.Usuario = CreateAgenda.Usuario.Split('-')[0].Trim();
             //switch (await ServicioAgendaTelefonica.ConsultarAntesGuardarAgendaTelefonica(CreateAgenda))
             //{
@@ -476,10 +527,19 @@ namespace Intranet.Pages
                AreaInforme = value;
 
                 var area = intranetContext.informeArea.Where(x => x.Nombre == value).FirstOrDefault();
-                var confi = intranetContext.configuracionPantalla.Where(x=> x.InformeAreaId == area.Id).FirstOrDefault();
-                if(confi != null)
-                configPantalla = JsonSerializer.Deserialize<DataPlanilla>(confi.ConfigPantalla);
+                if (area != null) {
+                    var confi = intranetContext.configuracionPantalla.Where(x => x.InformeAreaId == area.Id).FirstOrDefault();
 
+                    if (confi != null)
+                        configPantalla = JsonSerializer.Deserialize<DataPlanilla>(confi.ConfigPantalla);
+                }
+
+                if (configPantalla.AgruparCuerpos) 
+                {
+                    zonaRevision = configPantalla.Cuerpo[0].zonaRevision.Select(x => x.Nombre).FirstOrDefault();
+                    var tipoZonaRevisions = configPantalla.Cuerpo[0].zonaRevision.Select(x => x.tipoZonaRevision).ToList();
+                    listaTipoZona = tipoZonaRevisions[0];
+                }
             }
             else
             {
@@ -537,54 +597,48 @@ namespace Intranet.Pages
         {
             if (!string.IsNullOrEmpty(value))
             {
-                //MostrarFormulario = true;
                 TipozonaSelecionada = value;
                 MostrarFormulario = true;
-
-                //List<ZonaRevision> listaZona = new List<ZonaRevision>();
-                //listaTipoZona = new List<TipoZonaRevision>();
-                //var listaCuerpo = configPantalla.Cuerpo.ToList();
-                //foreach (var zona in listaCuerpo)
-                //{
-                //    var CuerpoIndividual = zona;
-
-                //    if (CuerpoIndividual.zonaRevision.Any(x => x.Nombre == value))
-                //    {
-                //        listaZona = CuerpoIndividual.zonaRevision.Where(x => x.Nombre == value).ToList();
-                //    }
-
-
-                //}
-
-                //var zonaIndividual = listaZona.Where(x => x.Nombre == value).FirstOrDefault();
-                //listaTipoZona = zonaIndividual.tipoZonaRevision.ToList();
-                //CreateRegistro = zonaIndividual.materialRevision;
-                // configZona = zonaIndividual.materialRevision;
-                //CreateRegistro = configPantalla.Cuerpo.Where(x=> x.zonaRevision.Where(y=> y.Nombre == value).FirstOrDefault() == "").FirstOrDefault();
-
-                //var area = intranetContext.informeArea.Where(x => x.Nombre == value).FirstOrDefault();
-                //var confi = intranetContext.configuracionPantalla.Where(x => x.InformeAreaId == area.Id).FirstOrDefault();
-                //if (confi != null)
-                //    configPantalla = JsonSerializer.Deserialize<DataPlanilla>(confi.ConfigPantalla);
-
             }
             else
             {
                 MostrarFormulario = false;
-                //AreaInforme = string.Empty;
-                ////    mostrarCalendario = false;
             }
 
-           // AreaInformeSeleccionadaValid = !string.IsNullOrEmpty(value);
+        }
+
+        private void OnTipoZonaAgrupadoSeleccionadaChanged(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                TipozonaSelecionada = value;
+                MostrarFormularioAgrupado = true;
+            }
+            else
+            {
+                MostrarFormularioAgrupado = false;
+            }
+
         }
         private async Task obtenerListaAreaInforme()
         {
-            ListAreaInforme.Add("Oficina");
-            ListAreaInforme.Add("Consultorio área APS");
-            ListAreaInforme.Add("Suite");
-            ListAreaInforme.Add("Habitacion");
 
-            ListAreaInforme.OrderBy(x => x).ToList();
+            try {
+                var guid = Guid.Parse(configuration["GuidRevisionMantenimientoTecnico"]);
+
+                ListAreaInforme = intranetContext.informeArea.Where(x=> x.InformeTituloId == guid).ToList();
+
+                //ListAreaInforme.Add("Oficina");
+                //ListAreaInforme.Add("Consultorio área APS");
+                //ListAreaInforme.Add("Suite");
+                //ListAreaInforme.Add("Habitación");
+
+                ListAreaInforme.OrderBy(x => x).ToList();
+
+            }
+            catch (Exception ex)
+            { Log.Error(ex.Message + ex.StackTrace + ex.InnerException); }    
+            
         }
 
     }

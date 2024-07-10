@@ -8,7 +8,6 @@ namespace Intranet.Modelos.Planillas.Configuracion
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(50)]
         public string Nombre { get; set; }
-        public string valor { get; set; }
         
     }
 }

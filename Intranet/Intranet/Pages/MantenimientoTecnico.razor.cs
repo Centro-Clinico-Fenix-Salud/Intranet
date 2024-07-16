@@ -23,6 +23,8 @@ using System.Text.Json;
 using System.Net.Http.Json;
 using Microsoft.Identity.Client;
 using Intranet.Data;
+using Intranet.Modelos.Planillas.RevisionMantenimientoTecnico;
+using MudBlazor.Extensions;
 
 namespace Intranet.Pages
 {
@@ -30,6 +32,8 @@ namespace Intranet.Pages
     {
         [Inject]
         private IServicioAgendaTelefonica ServicioAgendaTelefonica { get; set; }
+        [Inject]
+        private IServicioPlanillaDigital ServicioPlanillaDigital { get; set; }
         private string searchTerm;
         private bool _resizeColumn = true;
         private bool mostrarModalEliminar = false;
@@ -37,13 +41,13 @@ namespace Intranet.Pages
         private bool mostrarModalEditar = false;
         private string RegistroEliminar = string.Empty;
         List<MaterialRevision> CreateRegistro = new List<MaterialRevision>();
-        AgendaEditar EditarAgenda = new AgendaEditar();
+        DataPlanilla EditarAgenda = new DataPlanilla();
         private List<string> ListUnidad = new List<string>();
         private List<string> ListUbicacion = new List<string>();
         private List<string> ListNombreUsuario = new List<string>();
         private List<string> ListNroTelefono = new List<string>();
-        public IQueryable<AgendaTelefonicaDataGrid> MaestroDireccionTelefonica { get; set; } = null;
-        public IQueryable<AgendaTelefonicaDataGrid> DireccionTelefonica { get; set; } = null;
+        public IQueryable<PlanillaDigitalDataGrid> MaestroDireccionTelefonica { get; set; } = null;
+        public IQueryable<PlanillaDigitalDataGrid> DireccionTelefonica { get; set; } = null;
         //quitar 
         private bool resetValueOnEmptyText;
         private bool coerceText;
@@ -64,6 +68,7 @@ namespace Intranet.Pages
 
         private ClaimsPrincipal? user {  get; set; }
         private string AreaInforme { get; set; }
+        private Guid AreaInformeId { get; set; }
         private string zonaRevision { get; set; }
         private string TipozonaSelecionada { get; set; }
 
@@ -73,13 +78,15 @@ namespace Intranet.Pages
         private bool MostrarFormularioAgrupado { get; set; }
         DataPlanilla configPantalla { get; set; }
         List<TipoZonaRevision> listaTipoZona { get; set; }
+
+        private bool MostrarBotonAgregarYBuscador { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            await RefrescarDataGrid();
+            MostrarBotonAgregarYBuscador = true;
+            //await RefrescarDataGrid();
             await obtenerUnidadAgenda();
             await obtenerUbicacionAgenda();
-            await obtenerUsuarioAgenda();
-            ListNroTelefono.Add(configuration["NroTelfonicoFenix"]);
+            await obtenerUsuarioAgenda();            
             //await crearJson("Habitacion", true);
             //await crearJson("Oficina", false);
             await obtenerListaAreaInforme();
@@ -87,6 +94,7 @@ namespace Intranet.Pages
             listaTipoZona = new List<TipoZonaRevision>();
             MostrarFormulario = false;
             TipozonaSelecionada = string.Empty;
+           
         }
 
         private async Task crearJson(string titulo, bool agrupados)
@@ -209,12 +217,12 @@ namespace Intranet.Pages
             MaestroDireccionTelefonica = DireccionTelefonica = resultado;
         }
 
-        public async Task<List<AgendaTelefonicaDataGrid>> Data()
+        public async Task<List<PlanillaDigitalDataGrid>> Data()
         {
-                      
-            var resultado = await ServicioAgendaTelefonica.ObtenerListaAgendaTelefonica();
 
-            return resultado.OrderBy(a => a.Usuario).ToList();
+            var resultado = await ServicioPlanillaDigital.ObtenerListaRegistroPlanilla(AreaInformeId);
+
+            return resultado.OrderByDescending(a => a.FechaCreacion).ToList();
         }
 
         private async Task obtenerUnidadAgenda() 
@@ -239,18 +247,20 @@ namespace Intranet.Pages
             ListNombreUsuario.OrderBy(x => x).ToList();
         }
 
-        public async void Editar(MudBlazor.CellContext<AgendaTelefonicaDataGrid> direccionTelefonica)
+        public async void Editar(MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
         {
-           
-            EditarAgenda.Id = direccionTelefonica.Item.Id;
-            EditarAgenda.Usuario = direccionTelefonica.Item.Usuario;
-            EditarAgenda.Unidad = direccionTelefonica.Item.Unidad;
-            EditarAgenda.Ubicacion = direccionTelefonica.Item.Ubicacion;
-            EditarAgenda.Extension = direccionTelefonica.Item.Extension;
-            EditarAgenda.numeroTelefonico = direccionTelefonica.Item.numeroTelefonico;
-            EditarAgenda.UsuarioModificador = direccionTelefonica.Item.UsuarioModificador;
-            EditarAgenda.FechaModificacion = direccionTelefonica.Item.FechaModificacion != null ? direccionTelefonica.Item.FechaModificacion :
-                direccionTelefonica.Item.FechaCreacion;
+
+            EditarAgenda = JsonSerializer.Deserialize<DataPlanilla>(planillaDigital.Item.Respuesta);
+            var titulo = EditarAgenda.Titulo;
+            //EditarAgenda.res = direccionTelefonica.Item.Id;
+            //EditarAgenda.Usuario = direccionTelefonica.Item.Usuario;
+            //EditarAgenda.Unidad = direccionTelefonica.Item.Unidad;
+            //EditarAgenda.Ubicacion = direccionTelefonica.Item.Ubicacion;
+            //EditarAgenda.Extension = direccionTelefonica.Item.Extension;
+            //EditarAgenda.numeroTelefonico = direccionTelefonica.Item.numeroTelefonico;
+            //EditarAgenda.UsuarioModificador = direccionTelefonica.Item.UsuarioModificador;
+            //EditarAgenda.FechaModificacion = direccionTelefonica.Item.FechaModificacion != null ? direccionTelefonica.Item.FechaModificacion :
+            //    direccionTelefonica.Item.FechaCreacion;
 
             mostrarModalEditar = true;
 
@@ -259,13 +269,29 @@ namespace Intranet.Pages
         private void CerrarModalEditar()
         {          
             mostrarModalEditar = false;
-            EditarAgenda = new AgendaEditar();
+            EditarAgenda = new DataPlanilla();
             StateHasChanged();
         }
-        public void Eliminar (MudBlazor.CellContext<AgendaTelefonicaDataGrid> direccionTelefonica)
+        public void Eliminar (MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
         {
-            RegistroEliminar = direccionTelefonica.Item.Usuario + " - " + direccionTelefonica.Item.Unidad;
-            IdELiminarAgenda = direccionTelefonica.Item.Id;
+
+            string resultado = string.Empty;
+            if (planillaDigital.Item.FechaCreacion.ToIsoDateString() != DateTime.Now.ToIsoDateString())
+            {
+                Snackbar.Add("No se puede eliminar el registro", Severity.Error);
+                  return; 
+            }
+            var repuesta = JsonSerializer.Deserialize<DataPlanilla>(planillaDigital.Item.Respuesta);
+
+            if (repuesta?.Cuerpo?.FirstOrDefault() is { } cuerpo &&
+                cuerpo.zonaRevision?.FirstOrDefault() is { } zona &&
+                zona.tipoZonaRevision?.FirstOrDefault() is { } tipo)
+            {
+                resultado = $"{zona.Nombre} {tipo.Nombre}";
+            }
+
+            IdELiminarAgenda = planillaDigital.Item.Id;
+            RegistroEliminar = "creado por: " + planillaDigital.Item.UsuarioCreador + ", " +resultado + " Fecha de creación: "+planillaDigital.Item.FechaCreacion.ToIsoDateString();
             mostrarModalEliminar = true;
         }
 
@@ -318,19 +344,18 @@ namespace Intranet.Pages
                 Snackbar.Add("Ocurrio un error", Severity.Error);
 
         }
-        void CheckForEnter(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
-        {
-            if (e.Key == "Enter")
-            {
-                Buscar();
-            }
-        }
+        //void CheckForEnter(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
+        //{
+        //    if (e.Key == "Enter")
+        //    {
+        //        Buscar();
+        //    }
+        //}
 
         private async void Buscar2(ChangeEventArgs e)
         {
-            //string valor = e.Value.ToString();
             // Aquí va tu código para buscar con el valor ingresado
-            //await Buscar();
+        
             searchTerm = e.Value.ToString();
             if (string.IsNullOrEmpty(searchTerm))
             {
@@ -339,32 +364,32 @@ namespace Intranet.Pages
             }
             else
             {
-                DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Usuario.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                p.Unidad.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.Ubicacion.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
-                ).OrderBy(p => p.Usuario);
+                DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.UsuarioCreador.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                p.UsuarioRevision.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.InformeArea.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                p.InformeArea.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
+                ).OrderBy(p => p.FechaCreacion);
 
             }
         }
 
 
-        private async Task Buscar()
-        {
-            if (string.IsNullOrEmpty(searchTerm))
-            {
-                DireccionTelefonica = MaestroDireccionTelefonica;
+        //private async Task Buscar()
+        //{
+        //    if (string.IsNullOrEmpty(searchTerm))
+        //    {
+        //        DireccionTelefonica = MaestroDireccionTelefonica;
 
-            }
-            else
-            {
-                DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Usuario.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                p.Unidad.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.Ubicacion.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
-                ).OrderBy(p => p.Usuario);
+        //    }
+        //    else
+        //    {
+        //        DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Usuario.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+        //        p.Unidad.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.Ubicacion.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+        //        p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
+        //        ).OrderBy(p => p.Usuario);
 
-            }
+        //    }
              
-        }
+        //}
 
         private async Task<IEnumerable<string>> Search2(string value)
        {
@@ -418,15 +443,15 @@ namespace Intranet.Pages
         //}
         private void OnNroTelefonicoSeleccionadaEditarChanged(string value)
         {
-            if (!string.IsNullOrEmpty(value))
-                EditarAgenda.numeroTelefonico = value;
+            //if (!string.IsNullOrEmpty(value))
+            //    EditarAgenda.numeroTelefonico = value;
 
             UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
         }
         private void OnUbicacionSeleccionadaEditarChanged(string value)
         {
-            if (!string.IsNullOrEmpty(value))
-                EditarAgenda.Ubicacion = value;
+            //if (!string.IsNullOrEmpty(value))
+            //    EditarAgenda.Ubicacion = value;
 
             UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
         }
@@ -458,11 +483,17 @@ namespace Intranet.Pages
                 planillaDigitalRegistro.UsuarioRevision = null;
                 planillaDigitalRegistro.Respuesta = json;
                 planillaDigitalRegistro.FechaCreacion = DateTime.Now;
-                planillaDigitalRegistro.InformeAreaId = ListAreaInforme.Where(x => x.Nombre == zonaRevision).Select(u => u.Id).FirstOrDefault();
+                planillaDigitalRegistro.InformeAreaId = ListAreaInforme.Where(x => x.Nombre == AreaInforme).Select(u => u.Id).FirstOrDefault();
                 planillaDigitalRegistro.InformeTituloId = Guid.Parse(configuration["GuidRevisionMantenimientoTecnico"]);
 
+                //guardar registro
 
-               
+                intranetContext.planillaDigitalRegistro.Add(planillaDigitalRegistro);
+                intranetContext.SaveChanges();
+
+                await RefrescarDataGrid();
+                CerrarModalNuevo();
+
             } catch (Exception ex) 
             {
                 Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
@@ -493,26 +524,26 @@ namespace Intranet.Pages
 
         private async Task EditarAgente(EditContext context)
         {
-            EditarAgenda.Usuario = EditarAgenda.Usuario.Split('-')[0].Trim();
-            switch (await ServicioAgendaTelefonica.ConsultarAntesActualizarAgendaTelefonica(EditarAgenda))
-            {
-                case 1:
-                    Snackbar.Add("El usuario ya se encuentra registrado", Severity.Error);
-                    return;
-                case 2:
-                    Snackbar.Add("El número de extension ya se encuentra registrado", Severity.Error);
-                    return;
-            }
-            EditarAgenda.UsuarioModificador = await IdUsuario();
+            //EditarAgenda.Usuario = EditarAgenda.Usuario.Split('-')[0].Trim();
+            //switch (await ServicioAgendaTelefonica.ConsultarAntesActualizarAgendaTelefonica(EditarAgenda))
+            //{
+            //    case 1:
+            //        Snackbar.Add("El usuario ya se encuentra registrado", Severity.Error);
+            //        return;
+            //    case 2:
+            //        Snackbar.Add("El número de extension ya se encuentra registrado", Severity.Error);
+            //        return;
+            //}
+            //EditarAgenda.UsuarioModificador = await IdUsuario();
 
-            if (await ServicioAgendaTelefonica.ActualizarAgendaTelefonica(EditarAgenda))
-            {
-                await RefrescarDataGrid();
-                Snackbar.Add("Registro exitoso", Severity.Info);
-                CerrarModalEditar();
-            }
-            else
-                Snackbar.Add("Ocurrio un error", Severity.Error);
+            //if (await ServicioAgendaTelefonica.ActualizarAgendaTelefonica(EditarAgenda))
+            //{
+            //    await RefrescarDataGrid(); 
+            //    Snackbar.Add("Registro exitoso", Severity.Info);
+            //    CerrarModalEditar();
+            //}
+            //else
+            //    Snackbar.Add("Ocurrio un error", Severity.Error);
 
         }
 
@@ -520,13 +551,18 @@ namespace Intranet.Pages
             return ((await AuthenticationStateProvider.GetAuthenticationStateAsync()).User).FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 
-        private void OnAreaInformeSeleccionadaChanged(string value)
+        private async Task OnAreaInformeSeleccionadaChanged(string value)
         {
             if (!string.IsNullOrEmpty(value))
             {
-               AreaInforme = value;
+                zonaRevision = string.Empty;
+                TipozonaSelecionada = string.Empty;
+                AreaInforme = value;
+ 
+                var area = intranetContext.informeArea.Where(x => x.Nombre == value && x.InformeTituloId == Guid.Parse(configuration["GuidRevisionMantenimientoTecnico"])).FirstOrDefault();
 
-                var area = intranetContext.informeArea.Where(x => x.Nombre == value).FirstOrDefault();
+                AreaInformeId = area.Id;
+
                 if (area != null) {
                     var confi = intranetContext.configuracionPantalla.Where(x => x.InformeAreaId == area.Id).FirstOrDefault();
 
@@ -540,6 +576,8 @@ namespace Intranet.Pages
                     var tipoZonaRevisions = configPantalla.Cuerpo[0].zonaRevision.Select(x => x.tipoZonaRevision).ToList();
                     listaTipoZona = tipoZonaRevisions[0];
                 }
+                MostrarBotonAgregarYBuscador = false;
+                await RefrescarDataGrid();
             }
             else
             {
@@ -574,6 +612,7 @@ namespace Intranet.Pages
                 var zonaIndividual = listaZona.Where(x => x.Nombre == value).FirstOrDefault();
                 listaTipoZona = zonaIndividual.tipoZonaRevision.ToList();
                 CreateRegistro = zonaIndividual.materialRevision;
+
                // configZona = zonaIndividual.materialRevision;
                 //CreateRegistro = configPantalla.Cuerpo.Where(x=> x.zonaRevision.Where(y=> y.Nombre == value).FirstOrDefault() == "").FirstOrDefault();
 
@@ -628,12 +667,7 @@ namespace Intranet.Pages
 
                 ListAreaInforme = intranetContext.informeArea.Where(x=> x.InformeTituloId == guid).ToList();
 
-                //ListAreaInforme.Add("Oficina");
-                //ListAreaInforme.Add("Consultorio área APS");
-                //ListAreaInforme.Add("Suite");
-                //ListAreaInforme.Add("Habitación");
-
-                ListAreaInforme.OrderBy(x => x).ToList();
+                ListAreaInforme.OrderBy(x => x.Nombre).ToList();
 
             }
             catch (Exception ex)

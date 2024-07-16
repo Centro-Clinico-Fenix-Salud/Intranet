@@ -91,34 +91,41 @@ using Intranet.Modelos.Agenda;
 #nullable disable
 #nullable restore
 #line 3 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\MantenimientoTecnico.razor"
-using Microsoft.EntityFrameworkCore;
+using Intranet.Modelos.Planillas.RevisionMantenimientoTecnico;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\MantenimientoTecnico.razor"
-using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\MantenimientoTecnico.razor"
-using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 6 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\MantenimientoTecnico.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\MantenimientoTecnico.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\MantenimientoTecnico.razor"
+#line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\MantenimientoTecnico.razor"
            [Authorize(Roles = "SuperAdmin,AgendaTelefonica")]
 
 #line default

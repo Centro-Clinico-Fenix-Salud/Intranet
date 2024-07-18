@@ -39,13 +39,15 @@ namespace Intranet.Pages
         private bool mostrarModalEliminar = false;
         private bool mostrarModalNuevo = false;
         private bool mostrarModalEditar = false;
-        private string RegistroEliminar = string.Empty;
+        
         List<MaterialRevision> CreateRegistro = new List<MaterialRevision>();
+        public List<ZonaRevision> ListaCreateRegistro = new List<ZonaRevision>();
         DataPlanilla EditarAgenda = new DataPlanilla();
         private List<string> ListUnidad = new List<string>();
         private List<string> ListUbicacion = new List<string>();
         private List<string> ListNombreUsuario = new List<string>();
         private List<string> ListNroTelefono = new List<string>();
+        private EliminarPlanillaDigital eliminarPlanillaDigital = new EliminarPlanillaDigital();   
         public IQueryable<PlanillaDigitalDataGrid> MaestroDireccionTelefonica { get; set; } = null;
         public IQueryable<PlanillaDigitalDataGrid> DireccionTelefonica { get; set; } = null;
         //quitar 
@@ -55,8 +57,7 @@ namespace Intranet.Pages
         bool success;
         private bool UbicacionSeleccionadaValid = true;
         private EditContext editContext;
-        private Guid IdELiminarAgenda;
-
+        
         [Parameter]
         public string parametro { get; set; }
         [Inject]
@@ -78,7 +79,9 @@ namespace Intranet.Pages
         private bool MostrarFormularioAgrupado { get; set; }
         DataPlanilla configPantalla { get; set; }
         List<TipoZonaRevision> listaTipoZona { get; set; }
-
+        int cantidadPagina { get; set; }
+        int numeroPagina { get; set; }
+        
         private bool MostrarBotonAgregarYBuscador { get; set; }
         protected override async Task OnInitializedAsync()
         {
@@ -251,16 +254,8 @@ namespace Intranet.Pages
         {
 
             EditarAgenda = JsonSerializer.Deserialize<DataPlanilla>(planillaDigital.Item.Respuesta);
-            var titulo = EditarAgenda.Titulo;
-            //EditarAgenda.res = direccionTelefonica.Item.Id;
-            //EditarAgenda.Usuario = direccionTelefonica.Item.Usuario;
-            //EditarAgenda.Unidad = direccionTelefonica.Item.Unidad;
-            //EditarAgenda.Ubicacion = direccionTelefonica.Item.Ubicacion;
-            //EditarAgenda.Extension = direccionTelefonica.Item.Extension;
-            //EditarAgenda.numeroTelefonico = direccionTelefonica.Item.numeroTelefonico;
-            //EditarAgenda.UsuarioModificador = direccionTelefonica.Item.UsuarioModificador;
-            //EditarAgenda.FechaModificacion = direccionTelefonica.Item.FechaModificacion != null ? direccionTelefonica.Item.FechaModificacion :
-            //    direccionTelefonica.Item.FechaCreacion;
+            EditarAgenda.UsuarioCreador = planillaDigital.Item.UsuarioCreador;
+            EditarAgenda.FechaCreacion = planillaDigital.Item.FechaCreacion.ToString();
 
             mostrarModalEditar = true;
 
@@ -272,27 +267,38 @@ namespace Intranet.Pages
             EditarAgenda = new DataPlanilla();
             StateHasChanged();
         }
-        public void Eliminar (MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
+        public async void Eliminar (MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
         {
 
-            string resultado = string.Empty;
+     
             if (planillaDigital.Item.FechaCreacion.ToIsoDateString() != DateTime.Now.ToIsoDateString())
             {
-                Snackbar.Add("No se puede eliminar el registro", Severity.Error);
+                Snackbar.Add("Solo se puede eliminar registro el dia de la creación", Severity.Error);
                   return; 
             }
+
+            if (!await ServicioPlanillaDigital.ConfirmarEliminarRegistroPorUsuario(planillaDigital.Item.Id, Guid.Parse( await IdUsuario())))
+            {
+                Snackbar.Add("Solo puede eliminar el registro el usuario creador", Severity.Error);
+                return;
+            }
+
+
             var repuesta = JsonSerializer.Deserialize<DataPlanilla>(planillaDigital.Item.Respuesta);
 
             if (repuesta?.Cuerpo?.FirstOrDefault() is { } cuerpo &&
                 cuerpo.zonaRevision?.FirstOrDefault() is { } zona &&
                 zona.tipoZonaRevision?.FirstOrDefault() is { } tipo)
             {
-                resultado = $"{zona.Nombre} {tipo.Nombre}";
+                eliminarPlanillaDigital.ZonaTipoZona = $"{zona.Nombre} {tipo.Nombre}";
             }
 
-            IdELiminarAgenda = planillaDigital.Item.Id;
-            RegistroEliminar = "creado por: " + planillaDigital.Item.UsuarioCreador + ", " +resultado + " Fecha de creación: "+planillaDigital.Item.FechaCreacion.ToIsoDateString();
-            mostrarModalEliminar = true;
+            eliminarPlanillaDigital.Id = planillaDigital.Item.Id;
+            eliminarPlanillaDigital.UsuarioCreador = planillaDigital.Item.UsuarioCreador;
+            eliminarPlanillaDigital.FechaCreacion = planillaDigital.Item.FechaCreacion.ToString();
+            
+
+             mostrarModalEliminar = true;
         }
 
         public void Nuevo()
@@ -302,7 +308,8 @@ namespace Intranet.Pages
             if (configPantalla != null)
             if (configPantalla.Cuerpo.Count > 1)
             {
-                MostrarFormulario = false;
+                    numeroPagina = 0;
+                    MostrarFormulario = false;
             }
             else
             { MostrarFormulario = true; }                
@@ -311,7 +318,7 @@ namespace Intranet.Pages
 
         private void CerrarModalEliminar()
         {
-            IdELiminarAgenda = Guid.Empty;
+            eliminarPlanillaDigital = new EliminarPlanillaDigital();
             StateHasChanged();
             mostrarModalEliminar = false;
 
@@ -323,34 +330,24 @@ namespace Intranet.Pages
             TipozonaSelecionada = string.Empty;
             zonaRevision = string.Empty;
             CreateRegistro = new List<MaterialRevision>();
+            ListaCreateRegistro = new List<ZonaRevision>();
 
         }
        
         private async Task EliminarRegistro()
         {
-            if (!await ServicioAgendaTelefonica.ConsultarAgendaTelefonica(IdELiminarAgenda))
-            {
-                Snackbar.Add("El registro no existe", Severity.Error);
-                return;
-            }
 
-            if (await ServicioAgendaTelefonica.EliminarAgendaTelefonica(IdELiminarAgenda))
+            if (await ServicioPlanillaDigital.EliminarRegistroPlanillaDigital(eliminarPlanillaDigital.Id, Guid.Parse(await IdUsuario())))
             {
                 await RefrescarDataGrid();
-                Snackbar.Add("Registro Eliminada", Severity.Info);
+                Snackbar.Add("Registro Eliminado", Severity.Info);
                 CerrarModalEliminar();
             }
             else
                 Snackbar.Add("Ocurrio un error", Severity.Error);
 
         }
-        //void CheckForEnter(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
-        //{
-        //    if (e.Key == "Enter")
-        //    {
-        //        Buscar();
-        //    }
-        //}
+
 
         private async void Buscar2(ChangeEventArgs e)
         {
@@ -372,24 +369,6 @@ namespace Intranet.Pages
             }
         }
 
-
-        //private async Task Buscar()
-        //{
-        //    if (string.IsNullOrEmpty(searchTerm))
-        //    {
-        //        DireccionTelefonica = MaestroDireccionTelefonica;
-
-        //    }
-        //    else
-        //    {
-        //        DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.Usuario.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-        //        p.Unidad.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.Ubicacion.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-        //        p.Extension.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
-        //        ).OrderBy(p => p.Usuario);
-
-        //    }
-             
-        //}
 
         private async Task<IEnumerable<string>> Search2(string value)
        {
@@ -465,14 +444,46 @@ namespace Intranet.Pages
                 TipoZonaRevision tipoZonaRevisionData = new TipoZonaRevision();
                 Cuerpo cuerpo = new Cuerpo();
 
-                tipoZonaRevisionData.Nombre = TipozonaSelecionada;
-                zonaRevisionData.Nombre = zonaRevision;
-                zonaRevisionData.materialRevision = CreateRegistro;
-                zonaRevisionData.tipoZonaRevision.Add(tipoZonaRevisionData);
+                if (!configPantalla.AgruparCuerpos)
+                {
+                    tipoZonaRevisionData.Nombre = TipozonaSelecionada;
+                    zonaRevisionData.Nombre = zonaRevision;
+                    zonaRevisionData.materialRevision = CreateRegistro;
+                    zonaRevisionData.tipoZonaRevision.Add(tipoZonaRevisionData);
 
-                cuerpo.zonaRevision.Add(zonaRevisionData);
-                Respuesta.Titulo = AreaInforme;
-                Respuesta.Cuerpo.Add(cuerpo);
+                    cuerpo.zonaRevision.Add(zonaRevisionData);
+                    Respuesta.Titulo = AreaInforme;
+                    Respuesta.Cuerpo.Add(cuerpo);
+                }
+                else 
+                {
+
+                    foreach (var registro in ListaCreateRegistro) 
+                    {
+                        tipoZonaRevisionData = new TipoZonaRevision();
+                        zonaRevisionData = new ZonaRevision();
+
+                        tipoZonaRevisionData.Nombre = registro.tipoZonaRevision.Count() > 0? registro.tipoZonaRevision[0].Nombre: string.Empty ;
+                        zonaRevisionData.Nombre = registro.Nombre;
+                        zonaRevisionData.materialRevision = registro.materialRevision;
+                        zonaRevisionData.tipoZonaRevision.Add(tipoZonaRevisionData);
+
+                        cuerpo.zonaRevision.Add(zonaRevisionData);
+                        Respuesta.Cuerpo.Add(cuerpo);
+
+                    }
+                    Respuesta.Titulo = AreaInforme;
+
+                }
+
+                //tipoZonaRevisionData.Nombre = TipozonaSelecionada;
+                //zonaRevisionData.Nombre = zonaRevision;
+                //zonaRevisionData.materialRevision = CreateRegistro;
+                //zonaRevisionData.tipoZonaRevision.Add(tipoZonaRevisionData);
+
+                //cuerpo.zonaRevision.Add(zonaRevisionData);
+                //Respuesta.Titulo = AreaInforme;
+                //Respuesta.Cuerpo.Add(cuerpo);
 
                 string json = JsonSerializer.Serialize(Respuesta);
 
@@ -572,6 +583,7 @@ namespace Intranet.Pages
 
                 if (configPantalla.AgruparCuerpos) 
                 {
+                    cantidadPagina = configPantalla.Cuerpo.Count() - 1;
                     zonaRevision = configPantalla.Cuerpo[0].zonaRevision.Select(x => x.Nombre).FirstOrDefault();
                     var tipoZonaRevisions = configPantalla.Cuerpo[0].zonaRevision.Select(x => x.tipoZonaRevision).ToList();
                     listaTipoZona = tipoZonaRevisions[0];
@@ -599,6 +611,7 @@ namespace Intranet.Pages
                 List<ZonaRevision> listaZona = new List<ZonaRevision>();
                 listaTipoZona = new List<TipoZonaRevision>();
                 var listaCuerpo = configPantalla.Cuerpo.ToList();
+
                 foreach (var zona in listaCuerpo) 
                 {
                     var CuerpoIndividual = zona;
@@ -611,6 +624,15 @@ namespace Intranet.Pages
 
                 var zonaIndividual = listaZona.Where(x => x.Nombre == value).FirstOrDefault();
                 listaTipoZona = zonaIndividual.tipoZonaRevision.ToList();
+
+                foreach (var materia in zonaIndividual.materialRevision) 
+                {
+                    foreach (var propiedades in materia.Propiedad)
+                    {
+                        propiedades.Valor = string.Empty;
+                }
+                }
+
                 CreateRegistro = zonaIndividual.materialRevision;
 
                // configZona = zonaIndividual.materialRevision;
@@ -652,11 +674,79 @@ namespace Intranet.Pages
             {
                 TipozonaSelecionada = value;
                 MostrarFormularioAgrupado = true;
+
+                List<ZonaRevision> listaZona = new List<ZonaRevision>();
+               // listaTipoZona = new List<TipoZonaRevision>();
+                var listaCuerpo = configPantalla.Cuerpo.ToList();
+
+                foreach (var zona in listaCuerpo)
+                {
+                    var CuerpoIndividual = zona;
+
+                    if (CuerpoIndividual.zonaRevision.Any(x => x.Nombre == zonaRevision))
+                    {
+                        listaZona = CuerpoIndividual.zonaRevision.Where(x => x.Nombre == zonaRevision).ToList();
+                    }
+                }
+
+                var zonaIndividual = listaZona.Where(x => x.Nombre == zonaRevision).FirstOrDefault();
+
+                CreateRegistro = zonaIndividual.materialRevision;
             }
             else
             {
                 MostrarFormularioAgrupado = false;
             }
+
+        }
+
+        private async Task BtnSiguiente()
+        {
+            try
+            {
+                TipoZonaRevision tipoZonaRevisionSeleccionada = new TipoZonaRevision{ Nombre = TipozonaSelecionada};
+                List<TipoZonaRevision> ListaTipoZonaRevisions = new List<TipoZonaRevision>();
+                ListaTipoZonaRevisions.Add(tipoZonaRevisionSeleccionada);
+                ListaCreateRegistro.Add(new ZonaRevision { materialRevision = CreateRegistro, Nombre = zonaRevision, tipoZonaRevision = ListaTipoZonaRevisions });
+
+                numeroPagina++;
+
+                zonaRevision = configPantalla.Cuerpo[numeroPagina].zonaRevision.Select(x => x.Nombre).FirstOrDefault();
+                var tipoZonaRevisions = configPantalla.Cuerpo[numeroPagina].zonaRevision.Select(x => x.tipoZonaRevision).ToList();
+                listaTipoZona = tipoZonaRevisions[0];
+                TipozonaSelecionada = string.Empty;
+
+                List<ZonaRevision> listaZona = new List<ZonaRevision>();
+                
+                var listaCuerpo = configPantalla.Cuerpo.ToList();
+
+                foreach (var zona in listaCuerpo)
+                {
+                    var CuerpoIndividual = zona;
+
+                    if (CuerpoIndividual.zonaRevision.Any(x => x.Nombre == zonaRevision))
+                    {
+                        listaZona = CuerpoIndividual.zonaRevision.Where(x => x.Nombre == zonaRevision).ToList();
+                    }
+                }
+
+                var zonaIndividual = listaZona.Where(x => x.Nombre == zonaRevision).FirstOrDefault();
+
+                if (zonaIndividual.tipoZonaRevision != null)
+                    listaTipoZona = zonaIndividual.tipoZonaRevision.ToList();
+                else
+                    listaTipoZona = new List<TipoZonaRevision>();
+                
+                 CreateRegistro = zonaIndividual.materialRevision;
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
+            }
+
+
 
         }
         private async Task obtenerListaAreaInforme()

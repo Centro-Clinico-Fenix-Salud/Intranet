@@ -84,30 +84,6 @@ namespace Intranet.Services
 
             return resultado;
 
-            // List<string> resultado = new List<string>();
-
-            // var listaUsuario = await intranetContext.u1_Usuario
-            //.Select(usuario => usuario.FirstName + " - " + usuario.Username)
-            //.ToListAsync();
-
-            // var listaUsuarioAgenda = await intranetContext.usuarioAgendaTelefonica
-            //.Select(usuario => usuario.Nombre)
-            //.ToListAsync();
-
-
-            // foreach (var usuario in resultado) 
-            // {
-            //     resultado.Add(usuario);
-            // }
-
-            // foreach (var usuario in listaUsuarioAgenda)
-            // {
-            //     resultado.Add(usuario);
-            // }
-
-            //return await intranetContext.u1_Usuario
-            //.Select(usuario => usuario.FirstName + " - " + usuario.Username)
-            //.ToListAsync();
 
         }
         public async Task<bool> GuardarAgendaTelefonica(AgendaCreate NuevoRegistro)

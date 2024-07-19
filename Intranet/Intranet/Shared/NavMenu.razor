@@ -15,12 +15,16 @@
         <MudNavLink Href="/tablero">Inicio</MudNavLink>
         <AuthorizeView Roles="SuperAdmin, Noticias" Context="context">
             <Authorized>
-                <MudNavLink Href="/noticia">Noticias</MudNavLink>
+                <div @onclick="ToggleNavMenu">
+                    <MudNavLink Href="/noticia">Noticias</MudNavLink>
+                </div>
             </Authorized>
         </AuthorizeView>
         <AuthorizeView Roles="SuperAdmin, AgendaTelefonica" Context="context">
             <Authorized>
+                 <div @onclick="ToggleNavMenu">
                 <MudNavLink Href="/agenda">Agenda Telefónica</MudNavLink>
+                </div>
             </Authorized>
         </AuthorizeView>
         <AuthorizeView Roles="SuperAdmin, Calendario" Context="context">
@@ -28,12 +32,16 @@
                 <MudNavGroup Title="Calendario" Expanded="false">
                     <AuthorizeView Roles="SuperAdmin, cumpleanos" Context="context2">
                         <Authorized>
+                             <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
+                            </div>
                         </Authorized>
                     </AuthorizeView>
                     <AuthorizeView Roles="SuperAdmin, AgendaReuniones" Context="context3">
                         <Authorized>
+                             <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/Reunion-Agenda">Reservaciones de salas</MudNavLink>
+                            </div>
                         </Authorized>
                     </AuthorizeView>
                 </MudNavGroup>
@@ -44,7 +52,9 @@
                 <MudNavGroup Title="Soporte Técnico" Expanded="false">
                     <AuthorizeView Roles="SuperAdmin, DireccionesIp" Context="context2">
                         <Authorized>
+                            <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/direccionesip">Direcciones IP</MudNavLink>
+                            </div>
                         </Authorized>
                     </AuthorizeView>
                 </MudNavGroup>
@@ -55,42 +65,68 @@
                 <MudNavGroup Title="Planillas" Expanded="false">
                     <AuthorizeView Roles="SuperAdmin, InspeccionDeHabitaciones" Context="context2">
                         <Authorized>
+                            <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/Insp-Hab">Inspección de Habitaciones</MudNavLink>
+                            </div>
                         </Authorized>
                     </AuthorizeView>
                     <AuthorizeView Roles="SuperAdmin, RevisionMantenimientoTecnico" Context="context2">
                         <Authorized>
+                            <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/Revision-Mantenimiento-Tecnico">Revisión de Mantenimiento Técnico</MudNavLink>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, ControlDeNovedadesDiarias" Context="context2">
+                        <Authorized>
+                            <div @onclick="ToggleNavMenu">
+                            <MudNavLink Href="/Control-Novedades-Diarias">Control de Novedades Diarias</MudNavLink>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, ControlAperturaTanquesDeAgua" Context="context2">
+                        <Authorized>
+                            <div @onclick="ToggleNavMenu">
+                            <MudNavLink Href="/Control-Apertura-Tanques-Agua">Control Apertura Tanques de Agua</MudNavLink>
+                            </div>
                         </Authorized>
                     </AuthorizeView>
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView>
+         <div @onclick="ToggleNavMenu">
         <MudNavLink Href="/sobrefenix">Sobre Fénix</MudNavLink>
+        </div>
         <AuthorizeView Roles="SuperAdmin, Administracion" Context="context">
             <Authorized>
                 <MudNavGroup Title="Administracion" Expanded="false">
                     <AuthorizeView Roles="SuperAdmin, Perfiles" Context="context2">
                         <Authorized>
                             <MudNavGroup Title="Perfiles" Expanded="false">
+                                <div @onclick="ToggleNavMenu">
                                 <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
                                 <MudNavLink Href="/Roles">Roles</MudNavLink>
                                 <MudNavLink Href="/Permisos">Permisos</MudNavLink>
                                 <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
+                                </div>
                             </MudNavGroup>    
                         </Authorized>
                      </AuthorizeView>
                     <AuthorizeView Roles="SuperAdmin, Modulos" Context="context2">
                         <Authorized>
                     <MudNavGroup Title="Modulos" Expanded="false">
-                        <MudNavLink Href="/Categoria">Categorias</MudNavLink>
-                        <MudNavLink Href="/Sub-Categoria">Sub-Categorias</MudNavLink>
+                        <div @onclick="ToggleNavMenu">
+                            <MudNavLink Href="/Categoria">Categorias</MudNavLink>
+                            <MudNavLink Href="/Sub-Categoria">Sub-Categorias</MudNavLink>
+                        </div>
                     </MudNavGroup>
                         </Authorized>
                     </AuthorizeView>
                     <AuthorizeView Roles="SuperAdmin, UsuarioAgendaTelefonica" Context="context2">
                         <Authorized>
+                            <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/UsuarioAgendaTelefonica">Usuario Agenda Telefonica</MudNavLink>
+                            </div>
                         </Authorized>
                     </AuthorizeView>
                 </MudNavGroup>

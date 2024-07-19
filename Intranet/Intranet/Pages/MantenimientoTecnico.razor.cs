@@ -89,9 +89,10 @@ namespace Intranet.Pages
             //await RefrescarDataGrid();
             await obtenerUnidadAgenda();
             await obtenerUbicacionAgenda();
-            await obtenerUsuarioAgenda();            
+            await obtenerUsuarioAgenda();
             //await crearJson("Habitacion", true);
             //await crearJson("Oficina", false);
+            //await crearJson("Consultorio área APS", false);
             await obtenerListaAreaInforme();
             configPantalla = new DataPlanilla();
             listaTipoZona = new List<TipoZonaRevision>();
@@ -104,32 +105,216 @@ namespace Intranet.Pages
         {
             try
             {
+                List<Condicion> condicionAlineadoOperativo = new List<Condicion>();
+                condicionAlineadoOperativo.Add(new Condicion { Nombre = "Alineado", Deshabilitado = false, Tipo = "radio" });
+                condicionAlineadoOperativo.Add(new Condicion { Nombre = "Operativo", Deshabilitado = false, Tipo = "radio" });
+
+                List<Condicion> condicionOperativo = new List<Condicion>();
+                condicionOperativo.Add(new Condicion { Nombre = "Operativo", Deshabilitado = false, Tipo = "radio" });
+
+                MaterialRevision materialPuertaPrincipal = new MaterialRevision();
+                materialPuertaPrincipal.Nombre = "Puerta principal";
+
+                MaterialRevision materialBisagras = new MaterialRevision();
+                materialBisagras.Nombre = "Bisagras";
+
+                MaterialRevision materialCerradura = new MaterialRevision();
+                materialCerradura.Nombre = "Cerradura";
+
+                MaterialRevision materialCamilla = new MaterialRevision();
+                materialCamilla.Nombre = "Camilla";
+
+                MaterialRevision materialMesadecomputadora = new MaterialRevision();
+                materialMesadecomputadora.Nombre = "Mesa de computadora";
+
+                MaterialRevision materialSilla = new MaterialRevision();
+                materialSilla.Nombre = "Silla";
+
+                MaterialRevision materialInterruptordeencendido = new MaterialRevision();
+                materialInterruptordeencendido.Nombre = "Interruptor de encendido";
+
+                MaterialRevision materialLamparas = new MaterialRevision();
+                materialLamparas.Nombre = "Lámparas";
+
+                MaterialRevision materialTomacorrientes = new MaterialRevision();
+                materialTomacorrientes.Nombre = "Tomacorrientes";
+
+                MaterialRevision materialTapasdetomacorrientes = new MaterialRevision();
+                materialTapasdetomacorrientes.Nombre = "Tapas de tomacorrientes";
+
+                MaterialRevision materialEquipodeaireacondicionado = new MaterialRevision();
+                materialEquipodeaireacondicionado.Nombre = "Equipo de aire acondicionado";
+
+                MaterialRevision materialEscabel = new MaterialRevision();
+                materialEscabel.Nombre = "Escabel";
+
+                MaterialRevision materialVentanas = new MaterialRevision();
+                materialVentanas.Nombre = "Ventanas";
+
+                MaterialRevision materialLavamanos = new MaterialRevision();
+                materialLavamanos.Nombre = "Lavamanos";
+
+                MaterialRevision materialParedespintura = new MaterialRevision();
+                materialParedespintura.Nombre = "Paredes (pintura)";
+
+                MaterialRevision materialTechopintura = new MaterialRevision();
+                materialTechopintura.Nombre = "Techo (pintura)";
+
+                MaterialRevision materialPuertadebaño = new MaterialRevision();
+                materialPuertadebaño.Nombre = "Puerta de baño";
+
+                MaterialRevision materialLlavedelavamanos = new MaterialRevision();
+                materialLlavedelavamanos.Nombre = "Llave de lavamanos ";
+
+                MaterialRevision materialCanilladelavamanos = new MaterialRevision();
+                materialCanilladelavamanos.Nombre = "Canilla de lavamanos";
+
+                MaterialRevision materialLlavedearresto = new MaterialRevision();
+                materialLlavedearresto.Nombre = "Llave de arresto";
+
+                MaterialRevision materialPoceta = new MaterialRevision();
+                materialPoceta.Nombre = "Poceta";
+
+                MaterialRevision materialUrinario = new MaterialRevision();
+                materialUrinario.Nombre = "Urinario";
+
+                MaterialRevision materialDivisores = new MaterialRevision();
+                materialDivisores.Nombre = "Divisores";
+
+                MaterialRevision materialPasadoresdepuertas = new MaterialRevision();
+                materialPasadoresdepuertas.Nombre = "Pasadores de puertas";
+
+                MaterialRevision materialCerraduraBano = new MaterialRevision();
+                materialCerraduraBano.Nombre = "Cerradura";
+
+                //MaterialRevision material = new MaterialRevision();
+                //material.Nombre = "dfdfdf";
+
+                //MaterialRevision material = new MaterialRevision();
+                //materialPuertaPrincipal.Nombre = "Puerta";
+
 
                 DataPlanilla data = new DataPlanilla();
 
                 data.Titulo = titulo;
                 data.AgruparCuerpos = agrupados;
-                data.Cuerpo.Add(await CreacionData("Alineado", "radio",false, "Operativo", "radio", false, "Puerta", "Bisagra", "cerradura", titulo));
-                data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", true, "Puerta", "lavamanos", "piso", "Baño"));
-
-                string json =  JsonSerializer.Serialize(data);
-
+                              
                 ConfiguracionPantalla configuracion = new ConfiguracionPantalla();
 
                 configuracion.InformeTituloId = Guid.Parse("D517AEEE-D38C-4C82-B4EA-C8FB6235F2D2");
 
-                if(titulo.Equals("Oficina"))
-                configuracion.InformeAreaId = Guid.Parse("2B315998-4E75-4D4B-BF6F-571B68E26EA9");
+                if (titulo.Equals("Oficina")) 
+                {
+                    //data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", false, "Puerta", "Bisagra", "cerradura", titulo));
+                    //data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", false, "Puerta", "Bisagra", "cerradura", titulo));
+                    configuracion.InformeAreaId = Guid.Parse("2B315998-4E75-4D4B-BF6F-571B68E26EA9");
+                }
+                if (titulo.Equals("Habitación"))
+                {
+                    //data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", false, "Puerta", "Bisagra", "cerradura", titulo));
+                    //data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", true, "Puerta", "lavamanos", "piso", "Baño"));
 
-                if (titulo.Equals("Habitacion"))
                     configuracion.InformeAreaId = Guid.Parse("A2C446EA-C961-4623-9671-C30908319E28");
+                }
+                if (titulo.Equals("Quirófanos"))
+                {
+                    configuracion.InformeAreaId = Guid.Parse("2FB4601A-348C-4EBB-BEE1-0C3BC2494090");
+                }
+                if (titulo.Equals("Emergencia (Planta Baja)"))
+                {
+                    configuracion.InformeAreaId = Guid.Parse("D9486900-9BEA-42F8-980C-223F832C6F40");
+                }
+                if (titulo.Equals("Suite"))
+                {
+                    configuracion.InformeAreaId = Guid.Parse("98BCC273-C7A3-49F0-872D-A59B0593E051");
+                }
+                if (titulo.Equals("Ambulatorio Piso 5"))
+                {
+                    configuracion.InformeAreaId = Guid.Parse("61A50897-126E-4E0D-8DAB-C7279F931167");
+                }
+                if (titulo.Equals("Consultorio área APS"))
+                {                   
+                    List<MaterialRevision> ListaMaterialesConsultorioAreaAPS = new List<MaterialRevision>();
+                    List<MaterialRevision> ListaMaterialesBanoConsultorioAreaAPS = new List<MaterialRevision>();
 
+                    //consultorio 
+                    materialPuertaPrincipal.Propiedad = condicionAlineadoOperativo;
+                    materialBisagras.Propiedad = condicionAlineadoOperativo;
+                    materialCerradura.Propiedad = condicionOperativo;
+                    materialCamilla.Propiedad = condicionOperativo;
+                    materialMesadecomputadora.Propiedad = condicionOperativo;
+                    materialSilla.Propiedad= condicionOperativo;
+                    materialInterruptordeencendido.Propiedad = condicionOperativo;
+                    materialLamparas.Propiedad = condicionOperativo;
+                    materialTomacorrientes.Propiedad = condicionOperativo;
+                    materialEquipodeaireacondicionado.Propiedad = condicionOperativo;
+                    materialEscabel.Propiedad = condicionOperativo;
+                    materialVentanas.Propiedad = condicionOperativo;
+                    materialLavamanos.Propiedad = condicionOperativo;
+                    materialParedespintura.Propiedad = condicionOperativo;
+                    materialTechopintura.Propiedad = condicionOperativo;
+
+                    //bano consultorio 
+                    materialPuertadebaño.Propiedad = condicionAlineadoOperativo;
+                    materialCerraduraBano.Propiedad = condicionAlineadoOperativo;
+                    materialLlavedelavamanos.Propiedad = condicionOperativo;
+                    materialCanilladelavamanos.Propiedad = condicionOperativo;
+                    materialLlavedearresto.Propiedad = condicionOperativo;
+                    materialPoceta.Propiedad= condicionOperativo;
+                    materialUrinario.Propiedad = condicionOperativo;
+                    materialDivisores.Propiedad = condicionAlineadoOperativo;
+                    materialPasadoresdepuertas.Propiedad = condicionOperativo;
+
+
+                    ListaMaterialesConsultorioAreaAPS.Add(materialPuertaPrincipal);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialBisagras);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialCerradura);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialCamilla);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialMesadecomputadora);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialSilla);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialInterruptordeencendido);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialLamparas);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialEquipodeaireacondicionado);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialEscabel);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialVentanas);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialLavamanos);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialParedespintura);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialTechopintura);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialTomacorrientes);
+
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialPuertadebaño);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialBisagras);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialCerradura);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialLavamanos);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialLlavedelavamanos);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialCanilladelavamanos);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialLlavedearresto);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialPoceta);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialUrinario);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialDivisores);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialPasadoresdepuertas);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialInterruptordeencendido);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialLamparas);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialParedespintura);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialTechopintura);
+
+
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesConsultorioAreaAPS, "Consultorio", null));
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoConsultorioAreaAPS, "Consultorio", "Baño"));
+                    configuracion.InformeAreaId = Guid.Parse("89956A5E-C2AB-4CEC-AC4A-D332B426867E");
+                }
+                if (titulo.Equals("Ambulatorio Piso 4"))
+                {
+                    configuracion.InformeAreaId = Guid.Parse("753F5B4B-8286-48DC-9DBD-E8EFBC106915");
+                }
+
+                string json = JsonSerializer.Serialize(data);
                 configuracion.ConfigPantalla = json;
 
                 intranetContext.configuracionPantalla.Add(configuracion);
                 await intranetContext.SaveChangesAsync();
 
-                DataPlanilla data2 = JsonSerializer.Deserialize<DataPlanilla>(json);
+                //DataPlanilla data2 = JsonSerializer.Deserialize<DataPlanilla>(json);
 
             }
             catch (Exception ex)
@@ -138,37 +323,35 @@ namespace Intranet.Pages
             }
         }
 
-        private async Task<Cuerpo> CreacionData(string NombreCondicion1, string TipoCondicion1, bool EstatusCondicion1,
-            string NombreCondicion2, string TipoCondicion2, bool EstatusCondicion2, string NombreMaterial, string NombreMaterial2,
-            string NombreMaterial3, string NombreZona)
+        private async Task<Cuerpo> CreacionData(List<MaterialRevision> ListaMateriales, string NombreZona, string? BanoDeZona)
         {
             Cuerpo cuerpo1 = new Cuerpo();
-            MaterialRevision material1 = new MaterialRevision();
-            MaterialRevision material2 = new MaterialRevision();
-            MaterialRevision material3 = new MaterialRevision();
+            //MaterialRevision material1 = new MaterialRevision();
+            //MaterialRevision material2 = new MaterialRevision();
+            //MaterialRevision material3 = new MaterialRevision();
             ZonaRevision zonaRevision1 = new ZonaRevision();
             List<TipoZonaRevision> tipoZonaRevision = new List<TipoZonaRevision>(); 
-            Condicion condicion1 = new Condicion();
-            Condicion condicion2 = new Condicion();
+            //Condicion condicion1 = new Condicion();
+            //Condicion condicion2 = new Condicion();
 
-            condicion1.Nombre = NombreCondicion1;
-            condicion1.Deshabilitado = EstatusCondicion1;
-            condicion1.Tipo = TipoCondicion1;
-            condicion2.Nombre = NombreCondicion2;
-            condicion2.Deshabilitado = EstatusCondicion2;
-            condicion2.Tipo = TipoCondicion2;
+            //condicion1.Nombre = NombreCondicion1;
+            //condicion1.Deshabilitado = EstatusCondicion1;
+            //condicion1.Tipo = TipoCondicion1;
+            //condicion2.Nombre = NombreCondicion2;
+            //condicion2.Deshabilitado = EstatusCondicion2;
+            //condicion2.Tipo = TipoCondicion2;
 
-            material1.Nombre = NombreMaterial;
-            material1.Propiedad.Add(condicion1);
-            material1.Propiedad.Add(condicion2);
+            //material1.Nombre = NombreMaterial;
+            //material1.Propiedad.Add(condicion1);
+            //material1.Propiedad.Add(condicion2);
 
-            material2.Nombre = NombreMaterial2;
-            material2.Propiedad.Add(condicion1);
-            material2.Propiedad.Add(condicion2);
+            //material2.Nombre = NombreMaterial2;
+            //material2.Propiedad.Add(condicion1);
+            //material2.Propiedad.Add(condicion2);
 
-            material3.Nombre = NombreMaterial3;
-            material3.Propiedad.Add(condicion1);
-            material3.Propiedad.Add(condicion2);
+            //material3.Nombre = NombreMaterial3;
+            //material3.Propiedad.Add(condicion1);
+            //material3.Propiedad.Add(condicion2);
 
             if (NombreZona.Equals("Habitacion"))
             {
@@ -186,18 +369,43 @@ namespace Intranet.Pages
                 tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Damas" });
                 tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Caballeros" });
             }
+            if (NombreZona.Equals("Consultorio"))
+            {
+                if (string.IsNullOrEmpty(BanoDeZona))
+                {
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "1" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "2" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "3" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "4" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "5" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "6" });
+                }
+                else {
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Damas " });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Caballeros" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Medicos en APS" });
+                }
+               
+            }
 
-            zonaRevision1.Nombre = NombreZona;
+            zonaRevision1.Nombre = string.IsNullOrEmpty(BanoDeZona) ? NombreZona: BanoDeZona;
             zonaRevision1.tipoZonaRevision = tipoZonaRevision;
-            zonaRevision1.materialRevision.Add(material1);
-            zonaRevision1.materialRevision.Add(material2);
-            zonaRevision1.materialRevision.Add(material3);
-            zonaRevision1.materialRevision.Add(material1);
-            zonaRevision1.materialRevision.Add(material2);
-            zonaRevision1.materialRevision.Add(material3);
-            zonaRevision1.materialRevision.Add(material1);
-            zonaRevision1.materialRevision.Add(material2);
-            zonaRevision1.materialRevision.Add(material3);
+
+            foreach (var material in ListaMateriales) 
+            {
+                zonaRevision1.materialRevision.Add(material);
+            }
+
+            //zonaRevision1.materialRevision.Add(material1);
+            //zonaRevision1.materialRevision.Add(material2);
+            //zonaRevision1.materialRevision.Add(material3);
+            //zonaRevision1.materialRevision.Add(material1);
+            //zonaRevision1.materialRevision.Add(material2);
+            //zonaRevision1.materialRevision.Add(material3);
+            //zonaRevision1.materialRevision.Add(material1);
+            //zonaRevision1.materialRevision.Add(material2);
+            //zonaRevision1.materialRevision.Add(material3);
+
             cuerpo1.zonaRevision.Add(zonaRevision1);
 
 
@@ -457,11 +665,16 @@ namespace Intranet.Pages
                 }
                 else 
                 {
+                    TipoZonaRevision tipoZonaRevisionSeleccionada = new TipoZonaRevision { Nombre = TipozonaSelecionada };
+                    List<TipoZonaRevision> ListaTipoZonaRevisions = new List<TipoZonaRevision>();
+                    ListaTipoZonaRevisions.Add(tipoZonaRevisionSeleccionada);
+                    ListaCreateRegistro.Add(new ZonaRevision { materialRevision = CreateRegistro, Nombre = zonaRevision, tipoZonaRevision = ListaTipoZonaRevisions });
 
                     foreach (var registro in ListaCreateRegistro) 
                     {
                         tipoZonaRevisionData = new TipoZonaRevision();
                         zonaRevisionData = new ZonaRevision();
+                        cuerpo = new Cuerpo();
 
                         tipoZonaRevisionData.Nombre = registro.tipoZonaRevision.Count() > 0? registro.tipoZonaRevision[0].Nombre: string.Empty ;
                         zonaRevisionData.Nombre = registro.Nombre;
@@ -473,17 +686,10 @@ namespace Intranet.Pages
 
                     }
                     Respuesta.Titulo = AreaInforme;
+                    Respuesta.AgruparCuerpos = true;
+
 
                 }
-
-                //tipoZonaRevisionData.Nombre = TipozonaSelecionada;
-                //zonaRevisionData.Nombre = zonaRevision;
-                //zonaRevisionData.materialRevision = CreateRegistro;
-                //zonaRevisionData.tipoZonaRevision.Add(tipoZonaRevisionData);
-
-                //cuerpo.zonaRevision.Add(zonaRevisionData);
-                //Respuesta.Titulo = AreaInforme;
-                //Respuesta.Cuerpo.Add(cuerpo);
 
                 string json = JsonSerializer.Serialize(Respuesta);
 

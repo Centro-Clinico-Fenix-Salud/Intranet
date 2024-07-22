@@ -25,6 +25,7 @@ using Microsoft.Identity.Client;
 using Intranet.Data;
 using Intranet.Modelos.Planillas.RevisionMantenimientoTecnico;
 using MudBlazor.Extensions;
+using System.Numerics;
 
 namespace Intranet.Pages
 {
@@ -90,9 +91,14 @@ namespace Intranet.Pages
             await obtenerUnidadAgenda();
             await obtenerUbicacionAgenda();
             await obtenerUsuarioAgenda();
-            //await crearJson("Habitacion", true);
-            //await crearJson("Oficina", false);
+            //await crearJson("Habitación", true);
+            await crearJson("Oficina", false);
             //await crearJson("Consultorio área APS", false);
+            //await crearJson("Quirófanos", false);
+            //await crearJson("Emergencia (Planta Baja)", false);
+            //await crearJson("Ambulatorio Piso 5", false);
+            //await crearJson("Ambulatorio Piso 4", false);
+            //await crearJson("Suite", true);
             await obtenerListaAreaInforme();
             configPantalla = new DataPlanilla();
             listaTipoZona = new List<TipoZonaRevision>();
@@ -187,11 +193,136 @@ namespace Intranet.Pages
                 MaterialRevision materialCerraduraBano = new MaterialRevision();
                 materialCerraduraBano.Nombre = "Cerradura";
 
-                //MaterialRevision material = new MaterialRevision();
-                //material.Nombre = "dfdfdf";
+                MaterialRevision materialLamparacialítica = new MaterialRevision();
+                materialLamparacialítica.Nombre = "Lámpara cialítica";
+
+                MaterialRevision materialPuertasdevidriotemplex = new MaterialRevision();
+                materialPuertasdevidriotemplex.Nombre = "Puertas de vidrio templex";
+
+                MaterialRevision materialCestadehacer = new MaterialRevision();
+                materialCestadehacer.Nombre = "Cesta de hacer (lavado de manos)";
+
+                MaterialRevision materialCamaclinica = new MaterialRevision();
+                materialCamaclinica.Nombre = "Cama clínica";
+
+                MaterialRevision materialEstructuradecortinas = new MaterialRevision();
+                materialEstructuradecortinas.Nombre = "Estructura de cortinas";
+
+                MaterialRevision materialSilladeacompanante = new MaterialRevision();
+                materialSilladeacompanante.Nombre = "Silla de acompañante";
+
+                MaterialRevision materialMesa = new MaterialRevision();
+                materialMesa.Nombre = "Mesa";
+
+                MaterialRevision materialTomadeoxigeno = new MaterialRevision();
+                materialTomadeoxigeno.Nombre = "Toma de oxigeno";
+
+                MaterialRevision materialDuchatelefono = new MaterialRevision();
+                materialDuchatelefono.Nombre = "Ducha teléfono";
+
+                MaterialRevision materialLlavededucha = new MaterialRevision();
+                materialLlavededucha.Nombre = "Llave de ducha";
+
+                MaterialRevision materialDuchacorona = new MaterialRevision();
+                materialDuchacorona.Nombre = "Ducha corona";
+
+                MaterialRevision materialPuertadeduchas = new MaterialRevision();
+                materialPuertadeduchas.Nombre = "Puerta de duchas ";
+
+                MaterialRevision materialGabinete = new MaterialRevision();
+                materialGabinete.Nombre = "Gabinete";
+
+
+                MaterialRevision materialDivan = new MaterialRevision();
+                materialDivan.Nombre = "Diván";
+
+                MaterialRevision materialPuertasdecloset = new MaterialRevision();
+                materialPuertaPrincipal.Nombre = "Puertas de closet/pomos";
+
+                MaterialRevision materialCloset = new MaterialRevision();
+                materialCloset.Nombre = "Clóset";
+
+                MaterialRevision materialTelevisor = new MaterialRevision();
+                materialTelevisor.Nombre = "Televisor";
+
+                MaterialRevision materialParalhospitalario = new MaterialRevision();
+                materialParalhospitalario.Nombre = "Paral hospitalario";
+
+                MaterialRevision materialNeveraejecutiva = new MaterialRevision();
+                materialNeveraejecutiva.Nombre = "Nevera ejecutiva";
+
+                MaterialRevision materialExtractordetecho = new MaterialRevision();
+                materialExtractordetecho.Nombre = "Extractor de techo";
 
                 //MaterialRevision material = new MaterialRevision();
                 //materialPuertaPrincipal.Nombre = "Puerta";
+
+                //MaterialRevision material = new MaterialRevision();
+                //materialPuertaPrincipal.Nombre = "Puerta";
+
+                //MaterialRevision material = new MaterialRevision();
+                //materialPuertaPrincipal.Nombre = "Puerta";
+
+                //MaterialRevision material = new MaterialRevision();
+                //materialPuertaPrincipal.Nombre = "Puerta";
+
+                // General - consultorio
+                materialPuertaPrincipal.Propiedad = condicionAlineadoOperativo;
+                materialBisagras.Propiedad = condicionAlineadoOperativo;
+                materialCerradura.Propiedad = condicionOperativo;
+                materialCamilla.Propiedad = condicionOperativo;
+                materialMesadecomputadora.Propiedad = condicionOperativo;
+                materialSilla.Propiedad = condicionOperativo;
+                materialInterruptordeencendido.Propiedad = condicionOperativo;
+                materialLamparas.Propiedad = condicionOperativo;
+                materialTomacorrientes.Propiedad = condicionOperativo;
+                materialEquipodeaireacondicionado.Propiedad = condicionOperativo;
+                materialEscabel.Propiedad = condicionOperativo;
+                materialVentanas.Propiedad = condicionOperativo;
+                materialLavamanos.Propiedad = condicionOperativo;
+                materialParedespintura.Propiedad = condicionOperativo;
+                materialTechopintura.Propiedad = condicionOperativo;
+                materialTapasdetomacorrientes.Propiedad= condicionOperativo;
+
+                // quirofanos
+
+                materialLamparacialítica.Propiedad = condicionOperativo;
+                materialPuertasdevidriotemplex.Propiedad = condicionOperativo;
+                materialCestadehacer.Propiedad = condicionOperativo;
+
+                //Emergencia
+
+                materialEstructuradecortinas.Propiedad = condicionAlineadoOperativo;
+                materialCamaclinica.Propiedad = condicionAlineadoOperativo;
+                materialSilladeacompanante.Propiedad = condicionOperativo;
+                materialMesa.Propiedad = condicionOperativo;
+                materialTomadeoxigeno.Propiedad = condicionOperativo;
+                materialDuchatelefono.Propiedad = condicionOperativo;
+                materialLlavededucha.Propiedad = condicionOperativo;
+                materialDuchacorona.Propiedad = condicionOperativo;
+                materialPuertadeduchas.Propiedad = condicionOperativo;
+
+
+                //bano consultorio 
+                materialPuertadebaño.Propiedad = condicionAlineadoOperativo;
+                materialCerraduraBano.Propiedad = condicionAlineadoOperativo;
+                materialLlavedelavamanos.Propiedad = condicionOperativo;
+                materialCanilladelavamanos.Propiedad = condicionOperativo;
+                materialLlavedearresto.Propiedad = condicionOperativo;
+                materialPoceta.Propiedad = condicionOperativo;
+                materialUrinario.Propiedad = condicionOperativo;
+                materialDivisores.Propiedad = condicionAlineadoOperativo;
+                materialPasadoresdepuertas.Propiedad = condicionOperativo;
+
+                //Suite
+                materialGabinete.Propiedad = condicionOperativo;
+                materialDivan.Propiedad = condicionOperativo;
+                materialPuertasdecloset.Propiedad = condicionAlineadoOperativo;
+                materialCloset.Propiedad = condicionOperativo;
+                materialTelevisor.Propiedad = condicionOperativo;
+                materialParalhospitalario.Propiedad = condicionOperativo;
+                materialNeveraejecutiva.Propiedad = condicionOperativo;
+                materialExtractordetecho.Propiedad = condicionOperativo;
 
 
                 DataPlanilla data = new DataPlanilla();
@@ -211,60 +342,215 @@ namespace Intranet.Pages
                 }
                 if (titulo.Equals("Habitación"))
                 {
-                    //data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", false, "Puerta", "Bisagra", "cerradura", titulo));
-                    //data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", true, "Puerta", "lavamanos", "piso", "Baño"));
+                    List<MaterialRevision> ListaMaterialesHabitacion = new List<MaterialRevision>();
+                    List<MaterialRevision> ListaMaterialesBanoHabitacion = new List<MaterialRevision>();
+
+                    ListaMaterialesHabitacion.Add(materialPuertaPrincipal);
+                    ListaMaterialesHabitacion.Add(materialBisagras);
+                    ListaMaterialesHabitacion.Add(materialPuertasdecloset);
+                    ListaMaterialesHabitacion.Add(materialCerradura);
+                    ListaMaterialesHabitacion.Add(materialGabinete);
+                    ListaMaterialesHabitacion.Add(materialCamaclinica);
+                    ListaMaterialesHabitacion.Add(materialDivan);
+                    ListaMaterialesHabitacion.Add(materialCloset);
+                    ListaMaterialesHabitacion.Add(materialTelevisor);
+                    ListaMaterialesHabitacion.Add(materialInterruptordeencendido);
+                    ListaMaterialesHabitacion.Add(materialLamparas);
+                    ListaMaterialesHabitacion.Add(materialTomacorrientes);
+                    ListaMaterialesHabitacion.Add(materialTapasdetomacorrientes);
+                    ListaMaterialesHabitacion.Add(materialEquipodeaireacondicionado);
+                    ListaMaterialesHabitacion.Add(materialEscabel);
+                    ListaMaterialesHabitacion.Add(materialVentanas);
+                    ListaMaterialesHabitacion.Add(materialTomadeoxigeno);
+                    ListaMaterialesHabitacion.Add(materialParalhospitalario);      
+                    ListaMaterialesHabitacion.Add(materialParedespintura);
+                    ListaMaterialesHabitacion.Add(materialTechopintura);
+                    ListaMaterialesHabitacion.Add(materialExtractordetecho);
+
+                    ListaMaterialesBanoHabitacion.Add(materialPuertadebaño);
+                    ListaMaterialesBanoHabitacion.Add(materialBisagras);
+                    ListaMaterialesBanoHabitacion.Add(materialCerradura);
+                    ListaMaterialesBanoHabitacion.Add(materialLavamanos);
+                    ListaMaterialesBanoHabitacion.Add(materialLlavedelavamanos);
+                    ListaMaterialesBanoHabitacion.Add(materialCanilladelavamanos);
+                    ListaMaterialesBanoHabitacion.Add(materialLlavedearresto);
+                    ListaMaterialesBanoHabitacion.Add(materialPoceta);
+                    ListaMaterialesBanoHabitacion.Add(materialDuchatelefono);
+                    ListaMaterialesBanoHabitacion.Add(materialPuertadeduchas);
+                    ListaMaterialesBanoHabitacion.Add(materialLlavededucha);
+                    ListaMaterialesBanoHabitacion.Add(materialDuchacorona);
+                    ListaMaterialesBanoHabitacion.Add(materialInterruptordeencendido);
+                    ListaMaterialesBanoHabitacion.Add(materialLamparas);
+                    ListaMaterialesBanoHabitacion.Add(materialParedespintura);
+                    ListaMaterialesBanoHabitacion.Add(materialTechopintura);
+
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesHabitacion, "Habitación", null));
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoHabitacion, "Habitación", "Baño"));
 
                     configuracion.InformeAreaId = Guid.Parse("A2C446EA-C961-4623-9671-C30908319E28");
                 }
                 if (titulo.Equals("Quirófanos"))
                 {
+                    List<MaterialRevision> ListaMaterialesQuirofanos = new List<MaterialRevision>();
+                    List<MaterialRevision> ListaMaterialesBanoQuirofanos = new List<MaterialRevision>();
+
+                    ListaMaterialesQuirofanos.Add(materialPuertaPrincipal);
+                    ListaMaterialesQuirofanos.Add(materialBisagras);
+                    ListaMaterialesQuirofanos.Add(materialCerradura);
+                    ListaMaterialesQuirofanos.Add(materialLamparacialítica);
+                    ListaMaterialesQuirofanos.Add(materialPuertasdevidriotemplex);
+                    ListaMaterialesQuirofanos.Add(materialCestadehacer);
+                    ListaMaterialesQuirofanos.Add(materialInterruptordeencendido);
+                    ListaMaterialesQuirofanos.Add(materialLamparas);
+                    ListaMaterialesQuirofanos.Add(materialTomacorrientes);
+                    ListaMaterialesQuirofanos.Add(materialTapasdetomacorrientes);
+                    ListaMaterialesQuirofanos.Add(materialEquipodeaireacondicionado);
+                    ListaMaterialesQuirofanos.Add(materialEscabel);
+                    ListaMaterialesQuirofanos.Add(materialParedespintura);
+                    ListaMaterialesQuirofanos.Add(materialTechopintura);
+
+                    ListaMaterialesBanoQuirofanos.Add(materialPuertadebaño);
+                    ListaMaterialesBanoQuirofanos.Add(materialBisagras);
+                    ListaMaterialesBanoQuirofanos.Add(materialCerradura);
+
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesQuirofanos, "Quirófano", null));
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoQuirofanos, "Quirófano", "Baño"));
+
                     configuracion.InformeAreaId = Guid.Parse("2FB4601A-348C-4EBB-BEE1-0C3BC2494090");
                 }
                 if (titulo.Equals("Emergencia (Planta Baja)"))
                 {
+                    List<MaterialRevision> ListaMaterialesEmergencia = new List<MaterialRevision>();
+                    List<MaterialRevision> ListaMaterialesBanoEmergencia = new List<MaterialRevision>();
+
+                    ListaMaterialesEmergencia.Add(materialEstructuradecortinas);
+                    ListaMaterialesEmergencia.Add(materialCamaclinica);
+                    ListaMaterialesEmergencia.Add(materialSilladeacompanante);
+                    ListaMaterialesEmergencia.Add(materialMesa);
+                    ListaMaterialesEmergencia.Add(materialEscabel);
+                    ListaMaterialesEmergencia.Add(materialLamparas);
+                    ListaMaterialesEmergencia.Add(materialTomacorrientes);
+                    ListaMaterialesEmergencia.Add(materialTapasdetomacorrientes);
+                    ListaMaterialesEmergencia.Add(materialParedespintura);
+                    ListaMaterialesEmergencia.Add(materialTechopintura);
+                    ListaMaterialesEmergencia.Add(materialTomadeoxigeno);
+
+                    ListaMaterialesBanoEmergencia.Add(materialPuertadebaño);
+                    ListaMaterialesBanoEmergencia.Add(materialBisagras);
+                    ListaMaterialesBanoEmergencia.Add(materialCerraduraBano);
+                    ListaMaterialesBanoEmergencia.Add(materialLavamanos);
+                    ListaMaterialesBanoEmergencia.Add(materialLlavedelavamanos);
+                    ListaMaterialesBanoEmergencia.Add(materialCanilladelavamanos);
+                    ListaMaterialesBanoEmergencia.Add(materialLlavedearresto);
+                    ListaMaterialesBanoEmergencia.Add(materialPoceta);
+                    ListaMaterialesBanoEmergencia.Add(materialDuchatelefono);
+                    ListaMaterialesBanoEmergencia.Add(materialPuertadeduchas);
+                    ListaMaterialesBanoEmergencia.Add(materialLlavededucha);
+                    ListaMaterialesBanoEmergencia.Add(materialDuchacorona);
+                    ListaMaterialesBanoEmergencia.Add(materialInterruptordeencendido);
+                    ListaMaterialesBanoEmergencia.Add(materialLamparas);
+                    ListaMaterialesBanoEmergencia.Add(materialParedespintura);
+                    ListaMaterialesBanoEmergencia.Add(materialTechopintura);
+
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesEmergencia, "Cubículo", null));
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoEmergencia, "Cubículo", "Baño"));
+
                     configuracion.InformeAreaId = Guid.Parse("D9486900-9BEA-42F8-980C-223F832C6F40");
                 }
                 if (titulo.Equals("Suite"))
                 {
+                    List<MaterialRevision> ListaMaterialesSuite = new List<MaterialRevision>();
+                    List<MaterialRevision> ListaMaterialesBanoSuite = new List<MaterialRevision>();
+
+                    ListaMaterialesSuite.Add(materialPuertaPrincipal);
+                    ListaMaterialesSuite.Add(materialBisagras);
+                    ListaMaterialesSuite.Add(materialPuertasdecloset);
+                    ListaMaterialesSuite.Add(materialCerradura);
+                    ListaMaterialesSuite.Add(materialGabinete);
+                    ListaMaterialesSuite.Add(materialCamaclinica);                  
+                    ListaMaterialesSuite.Add(materialDivan);
+                    ListaMaterialesSuite.Add(materialCloset);
+                    ListaMaterialesSuite.Add(materialTelevisor);
+                    ListaMaterialesSuite.Add(materialInterruptordeencendido);
+                    ListaMaterialesSuite.Add(materialLamparas);
+                    ListaMaterialesSuite.Add(materialTomacorrientes);
+                    ListaMaterialesSuite.Add(materialTapasdetomacorrientes);
+                    ListaMaterialesSuite.Add(materialEquipodeaireacondicionado);
+                    ListaMaterialesSuite.Add(materialEscabel);
+                    ListaMaterialesSuite.Add(materialVentanas);
+                    ListaMaterialesSuite.Add(materialTomadeoxigeno);
+                    ListaMaterialesSuite.Add(materialParalhospitalario);
+                    ListaMaterialesSuite.Add(materialNeveraejecutiva);
+                    ListaMaterialesSuite.Add(materialParedespintura);
+                    ListaMaterialesSuite.Add(materialTechopintura);
+                    ListaMaterialesSuite.Add(materialExtractordetecho);
+
+                    ListaMaterialesBanoSuite.Add(materialPuertadebaño);
+                    ListaMaterialesBanoSuite.Add(materialBisagras);
+                    ListaMaterialesBanoSuite.Add(materialCerradura);
+                    ListaMaterialesBanoSuite.Add(materialLavamanos);
+                    ListaMaterialesBanoSuite.Add(materialLlavedelavamanos);
+                    ListaMaterialesBanoSuite.Add(materialCanilladelavamanos);
+                    ListaMaterialesBanoSuite.Add(materialLlavedearresto);
+                    ListaMaterialesBanoSuite.Add(materialPoceta);
+                    ListaMaterialesBanoSuite.Add(materialDuchatelefono);
+                    ListaMaterialesBanoSuite.Add(materialPuertadeduchas);
+                    ListaMaterialesBanoSuite.Add(materialLlavededucha);
+                    ListaMaterialesBanoSuite.Add(materialDuchacorona); 
+                    ListaMaterialesBanoSuite.Add(materialInterruptordeencendido);
+                    ListaMaterialesBanoSuite.Add(materialLamparas);
+                    ListaMaterialesBanoSuite.Add(materialParedespintura);
+                    ListaMaterialesBanoSuite.Add(materialTechopintura);
+
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesSuite, "Suite", null));
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoSuite, "Suite", "Baño"));
+
                     configuracion.InformeAreaId = Guid.Parse("98BCC273-C7A3-49F0-872D-A59B0593E051");
                 }
                 if (titulo.Equals("Ambulatorio Piso 5"))
                 {
+                    List<MaterialRevision> ListaMaterialesAmbulatorio5 = new List<MaterialRevision>();
+                    List<MaterialRevision> ListaMaterialesBanoAmbulatorio5 = new List<MaterialRevision>();
+
+                    ListaMaterialesAmbulatorio5.Add(materialEstructuradecortinas);
+                    ListaMaterialesAmbulatorio5.Add(materialCamaclinica);
+                    ListaMaterialesAmbulatorio5.Add(materialSilladeacompanante);
+                    ListaMaterialesAmbulatorio5.Add(materialMesa);
+                    ListaMaterialesAmbulatorio5.Add(materialEscabel);
+                    ListaMaterialesAmbulatorio5.Add(materialLamparas);
+                    ListaMaterialesAmbulatorio5.Add(materialTomacorrientes);
+                    ListaMaterialesAmbulatorio5.Add(materialTapasdetomacorrientes);
+                    ListaMaterialesAmbulatorio5.Add(materialParedespintura);
+                    ListaMaterialesAmbulatorio5.Add(materialTechopintura);
+                    ListaMaterialesAmbulatorio5.Add(materialTomadeoxigeno);
+
+                    ListaMaterialesBanoAmbulatorio5.Add(materialPuertadebaño);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialBisagras);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialCerraduraBano);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialLavamanos);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialLlavedelavamanos);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialCanilladelavamanos);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialLlavedearresto);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialPoceta);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialDuchatelefono);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialPuertadeduchas);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialLlavededucha);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialDuchacorona);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialInterruptordeencendido);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialLamparas);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialParedespintura);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialTechopintura);
+
+
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesAmbulatorio5, "Cubículo", null));
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoAmbulatorio5, "Cubículo", "Baño"));
+
                     configuracion.InformeAreaId = Guid.Parse("61A50897-126E-4E0D-8DAB-C7279F931167");
                 }
                 if (titulo.Equals("Consultorio área APS"))
-                {                   
+                {
                     List<MaterialRevision> ListaMaterialesConsultorioAreaAPS = new List<MaterialRevision>();
                     List<MaterialRevision> ListaMaterialesBanoConsultorioAreaAPS = new List<MaterialRevision>();
-
-                    //consultorio 
-                    materialPuertaPrincipal.Propiedad = condicionAlineadoOperativo;
-                    materialBisagras.Propiedad = condicionAlineadoOperativo;
-                    materialCerradura.Propiedad = condicionOperativo;
-                    materialCamilla.Propiedad = condicionOperativo;
-                    materialMesadecomputadora.Propiedad = condicionOperativo;
-                    materialSilla.Propiedad= condicionOperativo;
-                    materialInterruptordeencendido.Propiedad = condicionOperativo;
-                    materialLamparas.Propiedad = condicionOperativo;
-                    materialTomacorrientes.Propiedad = condicionOperativo;
-                    materialEquipodeaireacondicionado.Propiedad = condicionOperativo;
-                    materialEscabel.Propiedad = condicionOperativo;
-                    materialVentanas.Propiedad = condicionOperativo;
-                    materialLavamanos.Propiedad = condicionOperativo;
-                    materialParedespintura.Propiedad = condicionOperativo;
-                    materialTechopintura.Propiedad = condicionOperativo;
-
-                    //bano consultorio 
-                    materialPuertadebaño.Propiedad = condicionAlineadoOperativo;
-                    materialCerraduraBano.Propiedad = condicionAlineadoOperativo;
-                    materialLlavedelavamanos.Propiedad = condicionOperativo;
-                    materialCanilladelavamanos.Propiedad = condicionOperativo;
-                    materialLlavedearresto.Propiedad = condicionOperativo;
-                    materialPoceta.Propiedad= condicionOperativo;
-                    materialUrinario.Propiedad = condicionOperativo;
-                    materialDivisores.Propiedad = condicionAlineadoOperativo;
-                    materialPasadoresdepuertas.Propiedad = condicionOperativo;
-
 
                     ListaMaterialesConsultorioAreaAPS.Add(materialPuertaPrincipal);
                     ListaMaterialesConsultorioAreaAPS.Add(materialBisagras);
@@ -274,13 +560,15 @@ namespace Intranet.Pages
                     ListaMaterialesConsultorioAreaAPS.Add(materialSilla);
                     ListaMaterialesConsultorioAreaAPS.Add(materialInterruptordeencendido);
                     ListaMaterialesConsultorioAreaAPS.Add(materialLamparas);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialTomacorrientes);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialTapasdetomacorrientes);
                     ListaMaterialesConsultorioAreaAPS.Add(materialEquipodeaireacondicionado);
                     ListaMaterialesConsultorioAreaAPS.Add(materialEscabel);
                     ListaMaterialesConsultorioAreaAPS.Add(materialVentanas);
                     ListaMaterialesConsultorioAreaAPS.Add(materialLavamanos);
                     ListaMaterialesConsultorioAreaAPS.Add(materialParedespintura);
                     ListaMaterialesConsultorioAreaAPS.Add(materialTechopintura);
-                    ListaMaterialesConsultorioAreaAPS.Add(materialTomacorrientes);
+
 
                     ListaMaterialesBanoConsultorioAreaAPS.Add(materialPuertadebaño);
                     ListaMaterialesBanoConsultorioAreaAPS.Add(materialBisagras);
@@ -305,6 +593,43 @@ namespace Intranet.Pages
                 }
                 if (titulo.Equals("Ambulatorio Piso 4"))
                 {
+
+                    List<MaterialRevision> ListaMaterialesAmbulatorio4 = new List<MaterialRevision>();
+                    List<MaterialRevision> ListaMaterialesBanoAmbulatorio4 = new List<MaterialRevision>();
+
+                    ListaMaterialesAmbulatorio4.Add(materialEstructuradecortinas);
+                    ListaMaterialesAmbulatorio4.Add(materialCamaclinica);
+                    ListaMaterialesAmbulatorio4.Add(materialSilladeacompanante);
+                    ListaMaterialesAmbulatorio4.Add(materialMesa);
+                    ListaMaterialesAmbulatorio4.Add(materialEscabel);
+                    ListaMaterialesAmbulatorio4.Add(materialLamparas);
+                    ListaMaterialesAmbulatorio4.Add(materialTomacorrientes);
+                    ListaMaterialesAmbulatorio4.Add(materialTapasdetomacorrientes);
+                    ListaMaterialesAmbulatorio4.Add(materialParedespintura);
+                    ListaMaterialesAmbulatorio4.Add(materialTechopintura);
+                    ListaMaterialesAmbulatorio4.Add(materialTomadeoxigeno);
+
+                    ListaMaterialesBanoAmbulatorio4.Add(materialPuertadebaño);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialBisagras);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialCerraduraBano);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialLavamanos);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialLlavedelavamanos);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialCanilladelavamanos);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialLlavedearresto);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialPoceta);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialDuchatelefono);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialPuertadeduchas);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialLlavededucha);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialDuchacorona);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialInterruptordeencendido);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialLamparas);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialParedespintura);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialTechopintura);
+
+
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesAmbulatorio4, "Cubículo", null));
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoAmbulatorio4, "Cubículo", "Baño"));
+
                     configuracion.InformeAreaId = Guid.Parse("753F5B4B-8286-48DC-9DBD-E8EFBC106915");
                 }
 
@@ -326,38 +651,28 @@ namespace Intranet.Pages
         private async Task<Cuerpo> CreacionData(List<MaterialRevision> ListaMateriales, string NombreZona, string? BanoDeZona)
         {
             Cuerpo cuerpo1 = new Cuerpo();
-            //MaterialRevision material1 = new MaterialRevision();
-            //MaterialRevision material2 = new MaterialRevision();
-            //MaterialRevision material3 = new MaterialRevision();
+
             ZonaRevision zonaRevision1 = new ZonaRevision();
             List<TipoZonaRevision> tipoZonaRevision = new List<TipoZonaRevision>(); 
-            //Condicion condicion1 = new Condicion();
-            //Condicion condicion2 = new Condicion();
 
-            //condicion1.Nombre = NombreCondicion1;
-            //condicion1.Deshabilitado = EstatusCondicion1;
-            //condicion1.Tipo = TipoCondicion1;
-            //condicion2.Nombre = NombreCondicion2;
-            //condicion2.Deshabilitado = EstatusCondicion2;
-            //condicion2.Tipo = TipoCondicion2;
 
-            //material1.Nombre = NombreMaterial;
-            //material1.Propiedad.Add(condicion1);
-            //material1.Propiedad.Add(condicion2);
-
-            //material2.Nombre = NombreMaterial2;
-            //material2.Propiedad.Add(condicion1);
-            //material2.Propiedad.Add(condicion2);
-
-            //material3.Nombre = NombreMaterial3;
-            //material3.Propiedad.Add(condicion1);
-            //material3.Propiedad.Add(condicion2);
-
-            if (NombreZona.Equals("Habitacion"))
+            if (NombreZona.Equals("Habitación"))
             {
-                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "1" });
-                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "2" });
-                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "3" });
+                if (string.IsNullOrEmpty(BanoDeZona))
+                {
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "01" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "02" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "03" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "04" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "05" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "06" });
+                }
+                else
+                {
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Damas " });
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Caballeros" });
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Medicos en APS" });
+                }
             }
             if (NombreZona.Equals("Oficina")) {
                 tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Tecnología" });
@@ -384,8 +699,61 @@ namespace Intranet.Pages
                     tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Damas " });
                     tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Caballeros" });
                     tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Medicos en APS" });
+                }        
+            }
+
+            if (NombreZona.Equals("Quirófano"))
+            {
+                if (string.IsNullOrEmpty(BanoDeZona))
+                {
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "1" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "2" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "3" });
                 }
-               
+                else
+                {
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Damas " });
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Caballeros" });
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Medicos en APS" });
+                }
+            }
+
+            if (NombreZona.Equals("Cubículo"))
+            {
+                if (string.IsNullOrEmpty(BanoDeZona))
+                {
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "1" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "2" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "3" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "4" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "5" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "6" });
+                }
+                else
+                {
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Damas " });
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Caballeros" });
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Medicos en APS" });
+                }
+            }
+
+            if (NombreZona.Equals("Suite"))
+            {
+                if (string.IsNullOrEmpty(BanoDeZona))
+                {
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "1" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "2" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "3" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "4" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "5" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "6" });
+                }
+                else
+                {
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Damas " });
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Caballeros" });
+                    //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Medicos en APS" });
+                }
             }
 
             zonaRevision1.Nombre = string.IsNullOrEmpty(BanoDeZona) ? NombreZona: BanoDeZona;
@@ -613,21 +981,7 @@ namespace Intranet.Pages
 
             return result;
         }
-        //private void OnUbicacionSeleccionadaChanged(string value)
-        //{
-        //    if(!string.IsNullOrEmpty(value))
-        //    CreateAgenda.Ubicacion = value;
-
-        //    UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
-        //}
-
-        //private void OnNroTelefonicoSeleccionadaChanged(string value)
-        //{
-        //    if (!string.IsNullOrEmpty(value))
-        //        CreateAgenda.numeroTelefonico = value;
-
-        //    UbicacionSeleccionadaValid = !string.IsNullOrEmpty(value);
-        //}
+ 
         private void OnNroTelefonicoSeleccionadaEditarChanged(string value)
         {
             //if (!string.IsNullOrEmpty(value))
@@ -739,30 +1093,6 @@ namespace Intranet.Pages
             //    Snackbar.Add("Ocurrio un error", Severity.Error);
         }
 
-        private async Task EditarAgente(EditContext context)
-        {
-            //EditarAgenda.Usuario = EditarAgenda.Usuario.Split('-')[0].Trim();
-            //switch (await ServicioAgendaTelefonica.ConsultarAntesActualizarAgendaTelefonica(EditarAgenda))
-            //{
-            //    case 1:
-            //        Snackbar.Add("El usuario ya se encuentra registrado", Severity.Error);
-            //        return;
-            //    case 2:
-            //        Snackbar.Add("El número de extension ya se encuentra registrado", Severity.Error);
-            //        return;
-            //}
-            //EditarAgenda.UsuarioModificador = await IdUsuario();
-
-            //if (await ServicioAgendaTelefonica.ActualizarAgendaTelefonica(EditarAgenda))
-            //{
-            //    await RefrescarDataGrid(); 
-            //    Snackbar.Add("Registro exitoso", Severity.Info);
-            //    CerrarModalEditar();
-            //}
-            //else
-            //    Snackbar.Add("Ocurrio un error", Severity.Error);
-
-        }
 
         private async Task<string> IdUsuario() {
             return ((await AuthenticationStateProvider.GetAuthenticationStateAsync()).User).FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -961,9 +1291,7 @@ namespace Intranet.Pages
             try {
                 var guid = Guid.Parse(configuration["GuidRevisionMantenimientoTecnico"]);
 
-                ListAreaInforme = intranetContext.informeArea.Where(x=> x.InformeTituloId == guid).ToList();
-
-                ListAreaInforme.OrderBy(x => x.Nombre).ToList();
+                ListAreaInforme = intranetContext.informeArea.Where(x=> x.InformeTituloId == guid).OrderBy(x => x.Nombre).ToList();
 
             }
             catch (Exception ex)

@@ -146,7 +146,7 @@
                                         </div>
                                     </div>
                                 }
-                                @if (MostrarFormulario)
+                            @if ((MostrarFormulario || listaTipoZona.Count() == 0) && !string.IsNullOrEmpty(zonaRevision))
                                 {
                                     <EditForm Model="@CreateRegistro" OnValidSubmit="GuardarAgenda">
                                         <DataAnnotationsValidator />

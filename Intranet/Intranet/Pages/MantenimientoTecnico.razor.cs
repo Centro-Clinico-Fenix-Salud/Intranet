@@ -92,7 +92,7 @@ namespace Intranet.Pages
             await obtenerUbicacionAgenda();
             await obtenerUsuarioAgenda();
             //await crearJson("Habitación", true);
-            await crearJson("Oficina", false);
+            //await crearJson("Oficina", false);
             //await crearJson("Consultorio área APS", false);
             //await crearJson("Quirófanos", false);
             //await crearJson("Emergencia (Planta Baja)", false);
@@ -237,7 +237,7 @@ namespace Intranet.Pages
                 materialDivan.Nombre = "Diván";
 
                 MaterialRevision materialPuertasdecloset = new MaterialRevision();
-                materialPuertaPrincipal.Nombre = "Puertas de closet/pomos";
+                materialPuertasdecloset.Nombre = "Puertas de closet/pomos";
 
                 MaterialRevision materialCloset = new MaterialRevision();
                 materialCloset.Nombre = "Clóset";
@@ -254,17 +254,25 @@ namespace Intranet.Pages
                 MaterialRevision materialExtractordetecho = new MaterialRevision();
                 materialExtractordetecho.Nombre = "Extractor de techo";
 
-                //MaterialRevision material = new MaterialRevision();
-                //materialPuertaPrincipal.Nombre = "Puerta";
+                MaterialRevision materialEscritorio = new MaterialRevision();
+                materialEscritorio.Nombre = "Escritorio";
 
-                //MaterialRevision material = new MaterialRevision();
-                //materialPuertaPrincipal.Nombre = "Puerta";
+                MaterialRevision materialCableadocanalizado = new MaterialRevision();
+                materialCableadocanalizado.Nombre = "Cableado canalizado";
 
-                //MaterialRevision material = new MaterialRevision();
-                //materialPuertaPrincipal.Nombre = "Puerta";
+                MaterialRevision materialRegletas = new MaterialRevision();
+                materialRegletas.Nombre = "Regletas";
 
-                //MaterialRevision material = new MaterialRevision();
-                //materialPuertaPrincipal.Nombre = "Puerta";
+                MaterialRevision materialPiso = new MaterialRevision();
+                materialPiso.Nombre = "Piso";
+
+                MaterialRevision materialArturitosgabinetes = new MaterialRevision();
+                materialArturitosgabinetes.Nombre = "Arturitos/ gabinetes";
+
+                MaterialRevision materialAireAcondicionado = new MaterialRevision();
+                materialAireAcondicionado.Nombre = "Aire Acondicionado";
+
+
 
                 // General - consultorio
                 materialPuertaPrincipal.Propiedad = condicionAlineadoOperativo;
@@ -283,6 +291,16 @@ namespace Intranet.Pages
                 materialParedespintura.Propiedad = condicionOperativo;
                 materialTechopintura.Propiedad = condicionOperativo;
                 materialTapasdetomacorrientes.Propiedad= condicionOperativo;
+
+                //oficina
+
+                materialEscritorio.Propiedad = condicionOperativo;
+                materialCableadocanalizado.Propiedad = condicionOperativo;
+                materialRegletas.Propiedad = condicionOperativo;
+                materialPiso.Propiedad = condicionOperativo;
+                materialArturitosgabinetes.Propiedad = condicionOperativo;
+                materialAireAcondicionado.Propiedad = condicionOperativo;
+
 
                 // quirofanos
 
@@ -336,8 +354,41 @@ namespace Intranet.Pages
 
                 if (titulo.Equals("Oficina")) 
                 {
-                    //data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", false, "Puerta", "Bisagra", "cerradura", titulo));
-                    //data.Cuerpo.Add(await CreacionData("Alineado", "radio", false, "Operativo", "radio", false, "Puerta", "Bisagra", "cerradura", titulo));
+                    List<MaterialRevision> ListaMaterialesOficina = new List<MaterialRevision>();
+                    List<MaterialRevision> ListaMaterialesBanoOficina = new List<MaterialRevision>();
+
+                    ListaMaterialesOficina.Add(materialPuertaPrincipal);
+                    ListaMaterialesOficina.Add(materialBisagras);
+                    ListaMaterialesOficina.Add(materialCerraduraBano);
+                    ListaMaterialesOficina.Add(materialEscritorio);
+                    ListaMaterialesOficina.Add(materialSilla);
+                    ListaMaterialesOficina.Add(materialInterruptordeencendido);
+                    ListaMaterialesOficina.Add(materialLamparas);
+                    ListaMaterialesOficina.Add(materialParedespintura);
+                    ListaMaterialesOficina.Add(materialTechopintura);
+                    ListaMaterialesOficina.Add(materialTomacorrientes);
+                    ListaMaterialesOficina.Add(materialCableadocanalizado);
+                    ListaMaterialesOficina.Add(materialRegletas);
+                    ListaMaterialesOficina.Add(materialPiso);
+                    ListaMaterialesOficina.Add(materialArturitosgabinetes);
+                    ListaMaterialesOficina.Add(materialAireAcondicionado);
+
+                    ListaMaterialesBanoOficina.Add(materialPuertadebaño);
+                    ListaMaterialesBanoOficina.Add(materialBisagras);
+                    ListaMaterialesBanoOficina.Add(materialCerraduraBano);
+                    ListaMaterialesBanoOficina.Add(materialLavamanos);
+                    ListaMaterialesBanoOficina.Add(materialLlavedelavamanos);
+                    ListaMaterialesBanoOficina.Add(materialCanilladelavamanos);
+                    ListaMaterialesBanoOficina.Add(materialLlavedearresto);
+                    ListaMaterialesBanoOficina.Add(materialPoceta);
+                    ListaMaterialesBanoOficina.Add(materialInterruptordeencendido);
+                    ListaMaterialesBanoOficina.Add(materialLamparas);
+                    ListaMaterialesBanoOficina.Add(materialParedespintura);
+                    ListaMaterialesBanoOficina.Add(materialTechopintura); 
+
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesOficina, "Oficina", null));
+                    data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoOficina, "Oficina", "Baño"));
+
                     configuracion.InformeAreaId = Guid.Parse("2B315998-4E75-4D4B-BF6F-571B68E26EA9");
                 }
                 if (titulo.Equals("Habitación"))
@@ -656,6 +707,23 @@ namespace Intranet.Pages
             List<TipoZonaRevision> tipoZonaRevision = new List<TipoZonaRevision>(); 
 
 
+            if (NombreZona.Equals("Oficina"))
+            {
+                if (string.IsNullOrEmpty(BanoDeZona))
+                {
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Tecnologia" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Recursos Humanos" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Compras" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Administracion" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Almacen" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Facturacion" });
+                }
+                else
+                {
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Damas " });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Caballeros" });                  
+                }
+            }
             if (NombreZona.Equals("Habitación"))
             {
                 if (string.IsNullOrEmpty(BanoDeZona))
@@ -673,11 +741,6 @@ namespace Intranet.Pages
                     //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "APS Caballeros" });
                     //tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Medicos en APS" });
                 }
-            }
-            if (NombreZona.Equals("Oficina")) {
-                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Tecnología" });
-                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Compras" });
-                tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "Recursos Humanos" });
             }
             if (NombreZona.Equals("Baño"))
             {
@@ -886,6 +949,10 @@ namespace Intranet.Pages
             {
                     numeroPagina = 0;
                     MostrarFormulario = false;
+                    if (configPantalla.AgruparCuerpos) 
+                    {
+                        zonaRevision = configPantalla.Cuerpo[0].zonaRevision.Select(x => x.Nombre).FirstOrDefault();
+                    }
             }
             else
             { MostrarFormulario = true; }                

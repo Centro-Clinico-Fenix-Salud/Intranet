@@ -159,19 +159,19 @@
                                                             {
                                                                 <div class="container">
                                                                         <div class="row border">
-                                                                            <div class="col-3 justify-content-center align-items-center align-content-center text-center">
+                                                                        <div class="col-md-4 col-sm-3 pt-2 pt-md-0 justify-content-center align-items-center align-content-center text-center">
                                                                             @zona1.Nombre
                                                                         </div>
-                                                                        <div class="col-9 bg-gradient">
+                                                                    <div class="col-md-8 col-sm-9 bg-gradient">
                                                                             @foreach (var material in zona1.Propiedad)
                                                                             {
                                                                                 if (!material.Deshabilitado)
                                                                                 {
                                                                                     <div class="row">
-                                                                                        <div class="col-3 justify-content-center align-items-center align-content-center text-center">
+                                                                                        <div class="col-5 justify-content-center align-items-center align-content-center text-center">
                                                                                             <span>@material.Nombre </span>
                                                                                         </div>
-                                                                                        <div class="col-9">
+                                                                                        <div class="col-7">
                                                                                             <MudForm>
                                                                                                 <MudRadioGroup @bind-Value="@material.Valor">
                                                                                                     <MudRadio Value="@("Si")" Color="Color.Primary">Si</MudRadio>
@@ -203,10 +203,8 @@
                                     {
                                         <div class="mb-3 mt-3">
                                             <div class="row">
-                                                <div class="col-6">
-                                                    <MudSelect T="string" Label="Selecciona una zona"
-                                                               Value="zonaRevision" AnchorOrigin="Origin.BottomCenter">                                             
-                                                    </MudSelect>
+                                        <div class="col-6 d-flex flex-column justify-content-end align-items-start">
+                                            <MudText Style="font-size: 20px;">@zonaRevision</MudText>
                                                 </div>
                                                 @if (listaTipoZona.Count() > 0)
                                                 {
@@ -224,7 +222,7 @@
                                                 }
                                             </div>
                                         </div>
-                                        @if (MostrarFormularioAgrupado)
+                                @if ((MostrarFormularioAgrupado && listaTipoZona.Count() == 0) || (MostrarFormularioAgrupado && !string.IsNullOrEmpty(TipozonaSelecionada)))
                                         {
                                             <EditForm Model="@CreateRegistro" OnValidSubmit="GuardarAgenda">
                                                 <DataAnnotationsValidator />
@@ -237,19 +235,19 @@
                                                                         {
                                                                             <div class="container">
                                                                                 <div class="row border">
-                                                                                    <div class="col-3 justify-content-center align-items-center align-content-center text-center">
+                                                                                    <div class="col-md-4 col-sm-3 pt-2 pt-md-0 justify-content-center align-items-center align-content-center text-center">
                                                                                         @zona1.Nombre
                                                                                     </div>
-                                                                                    <div class="col-9 bg-gradient">
+                                                                                    <div class="col-md-8 col-sm-9 bg-gradient">
                                                                                         @foreach (var material in zona1.Propiedad)
                                                                                         {
                                                                                             if (!material.Deshabilitado)
                                                                                             {
                                                                                                 <div class="row">
-                                                                                                    <div class="col-3 justify-content-center align-items-center align-content-center text-center">
+                                                                                                    <div class="col-5 justify-content-center align-items-center align-content-center text-center">
                                                                                                         <span>@material.Nombre </span>
                                                                                                     </div>
-                                                                                                    <div class="col-9">
+                                                                                                    <div class="col-7">
                                                                                                         <MudForm>
                                                                                                             <MudRadioGroup @bind-Value="@material.Valor" Disabled="@material.Deshabilitado">
                                                                                                                 <MudRadio Value="@("Si")" Color="Color.Primary">Si</MudRadio>

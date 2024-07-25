@@ -6,7 +6,7 @@
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "SuperAdmin,AgendaTelefonica")]
+@attribute [Authorize(Roles = "SuperAdmin,RevisionMantenimientoTecnico")]
 
 <PageTitle>Revisión de Mantenimiento Técnico</PageTitle>
 
@@ -17,19 +17,23 @@
     </h1>
 </div>
 
-<div class="mb-3 mt-3">
-    <div class="col-6">
-        <MudSelect T="string" Label="Selecciona un área"
-                   Value="AreaInforme" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
-            @foreach (var areaInforme in ListAreaInforme)
-            {
-                <MudSelectItem Value="@areaInforme.Nombre" />
-            }
-        </MudSelect>
-    </div>
-</div>
+<AuthorizeView Roles="SuperAdmin,ConsultaRevisionMantenimientoTecnico" Context="context">
+   <Authorized>
+        <div class="mb-3 mt-3">
+            <div class="col-6">
+                <MudSelect T="string" Label="Selecciona un área"
+                           Value="AreaInforme" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                    @foreach (var areaInforme in ListAreaInforme)
+                    {
+                        <MudSelectItem Value="@areaInforme.Nombre" />
+                    }
+                </MudSelect>
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
 
-<AuthorizeView Roles="SuperAdmin,AgregarAgendaTelefonica" Context="context">
+<AuthorizeView Roles="SuperAdmin,AgregarRevisionMantenimientoTecnico" Context="context">
    <Authorized>
     <div class="mb-3" >
             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" hidden="@MostrarBotonAgregarYBuscador" OnClick="@(() => Nuevo())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
@@ -37,39 +41,43 @@
     </Authorized>
 </AuthorizeView>
 
+<AuthorizeView Roles="SuperAdmin,ConsultaRevisionMantenimientoTecnico" Context="context4">
+   <Authorized>
+        <div class="input-group mb-4 ">
+            <input type="text" class="form-control" hidden="@MostrarBotonAgregarYBuscador" placeholder="Búsqueda por usuario, fecha, zona y tipo de zona" @bind="searchTerm" @oninput="Buscar2">
+        </div>
 
-<div class="input-group mb-4 ">
-    <input type="text" class="form-control" hidden="@MostrarBotonAgregarYBuscador" placeholder="Búsqueda por usuario" @bind="searchTerm" @oninput="Buscar2">
-</div>
+        <MudDataGrid T="PlanillaDigitalDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
+                     RowsPerPage="6" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
+            <Columns>
+                <AuthorizeView Roles="SuperAdmin,EliminarRevisionMantenimientoTecnico,ConsultaRevisionMantenimientoTecnico" Context="context">
+                    <Authorized>
+                        <TemplateColumn Title="Acciones" Sortable="false">
+                            <CellTemplate Context="context2">
+                                <AuthorizeView Roles="SuperAdmin,EditarAgendaTelefonica" Context="context3">
+                                    <MudIconButton Icon="@Icons.Material.Outlined.Preview" Color="Color.Info" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
+                                </AuthorizeView>
 
-<MudDataGrid T="PlanillaDigitalDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
-             RowsPerPage="6" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
-    <Columns>
-        <AuthorizeView Roles="SuperAdmin,AgregarAgendaTelefonica,EliminarAgendaTelefonica,EditarAgendaTelefonica,ConsultarAgendaTelefonica" Context="context">
-            <Authorized>
-                <TemplateColumn Title="Acciones" Sortable="false">
-                    <CellTemplate Context="context2">
-                        <AuthorizeView Roles="SuperAdmin,EditarAgendaTelefonica" Context="context3">
-                            <MudIconButton Icon="@Icons.Material.Outlined.Preview" Color="Color.Info" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
-                        </AuthorizeView>
+                                <AuthorizeView Roles="SuperAdmin,EliminarAgendaTelefonica" Context="context3">
+                                    <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context2))" />
+                                </AuthorizeView>
 
-                        <AuthorizeView Roles="SuperAdmin,EliminarAgendaTelefonica" Context="context3">
-                            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context2))" />
-                        </AuthorizeView>
+                            </CellTemplate>
+                        </TemplateColumn>
+                    </Authorized>
+                </AuthorizeView>
+                <PropertyColumn Property="x => x.UsuarioCreador" Title="Usuario" Sortable="true" />
+                <PropertyColumn Property="x => x.Zona" Title="Zona" Sortable="false" />
+                <PropertyColumn Property="x => x.TipoZona" Title="Tipo zona" Sortable="false" />
+                <PropertyColumn Property="x => x.FechaCreacion" Title="Fecha" Sortable="false" />
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="PlanillaDigitalDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {6, 12, 20}) />
+            </PagerContent>
+        </MudDataGrid> 
 
-                    </CellTemplate>
-                </TemplateColumn>
-            </Authorized>
-        </AuthorizeView>
-        <PropertyColumn Property="x => x.UsuarioCreador" Title="Usuario" Sortable="true" />
-        <PropertyColumn Property="x => x.Zona" Title="Zona" Sortable="false" />
-        <PropertyColumn Property="x => x.TipoZona" Title="Tipo zona" Sortable="false" />
-        <PropertyColumn Property="x => x.FechaCreacion" Title="Fecha" Sortable="false" />
-    </Columns>
-    <PagerContent>
-        <MudDataGridPager T="PlanillaDigitalDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {6, 12, 20}) />
-    </PagerContent>
-</MudDataGrid> 
+    </Authorized>
+</AuthorizeView>
 
 @if (mostrarModalEliminar)
 {

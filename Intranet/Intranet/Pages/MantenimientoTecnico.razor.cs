@@ -1005,8 +1005,9 @@ namespace Intranet.Pages
             else
             {
                 DireccionTelefonica = MaestroDireccionTelefonica.Where(p => p.UsuarioCreador.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                p.UsuarioRevision.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 || p.InformeArea.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                p.InformeArea.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
+                p.Zona.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                p.FechaCreacion.ToIsoDateString().IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 p.TipoZona.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
                 ).OrderBy(p => p.FechaCreacion);
 
             }

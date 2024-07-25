@@ -126,7 +126,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
 #nullable restore
 #line 9 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\MantenimientoTecnico.razor"
-           [Authorize(Roles = "SuperAdmin,AgendaTelefonica")]
+           [Authorize(Roles = "SuperAdmin,RevisionMantenimientoTecnico")]
 
 #line default
 #line hidden

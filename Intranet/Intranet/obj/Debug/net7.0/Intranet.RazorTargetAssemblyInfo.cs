@@ -17,7 +17,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyProductAttribute("Intranet")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+216af9313ff14a3afd4da41afbc5adefdfd253b2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+127d31f21d3a556689e63b7c5b89c8eef283b6d3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Intranet.Views")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 

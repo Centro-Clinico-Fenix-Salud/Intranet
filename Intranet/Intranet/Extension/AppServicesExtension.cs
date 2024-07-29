@@ -17,6 +17,7 @@ namespace Intranet.Extension
             builder.Services.AddScoped<IServicioAgendaTelefonica, ServicioAgendaTelefonica>();
             builder.Services.AddScoped<IServicioUsuarioAgendaTelefonica, ServicioUsuarioAgendaTelefonica>();
             builder.Services.AddScoped<IServicioPlanillaDigital, ServicioPlanillaDigital>();
+            builder.Services.AddScoped<IServicioDireccionIp, ServicioDireccionIp>();
 
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Intranet.Modelos.Admin;
 using Intranet.Modelos.Agenda;
+using Intranet.Modelos.DireccionIp;
 using Intranet.Modelos.Noticia;
 using Intranet.Modelos.Planillas.Configuracion;
 using Intranet.Modelos.Reservacion;
@@ -31,8 +32,7 @@ namespace Intranet.Data
         public DbSet<InformeTitulo> informeTitulo { get; set; }
         public DbSet<InformeArea> informeArea { get; set; }
         public DbSet<PlanillaDigitalRegistro> planillaDigitalRegistro { get; set; }
-        
-
+        public DbSet<DireccionIp> direccionIp { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

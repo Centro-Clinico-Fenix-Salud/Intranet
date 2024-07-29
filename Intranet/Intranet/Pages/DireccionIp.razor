@@ -1,0 +1,227 @@
+﻿@page "/Direccion-ip"
+@using Intranet.Modelos.Agenda;
+@using Intranet.Modelos.DireccionIp;
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = "SuperAdmin,DireccionIp")]
+
+
+<PageTitle>Agenda</PageTitle>
+
+<div class="col-12 navbar navbar-expand-lg justify-content-center mb-5"
+     style="border-radius: 10px; background-color: #00bbb4">
+    <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
+        Agenda telefónica
+    </h1>
+</div>
+
+
+
+<AuthorizeView Roles="SuperAdmin,AgregarDireccionIp" Context="context">
+   <Authorized>
+    <div class="mb-3">
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => Nuevo())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
+    </div>
+    </Authorized>
+</AuthorizeView>
+ 
+<div class="input-group mb-4 ">
+    <input type="text" class="form-control" placeholder="Búsqueda por usuario, unidad, ubicación, nro. teléfonico directo ó extensión" @bind="searchTerm" @oninput="Buscar2">
+</div>
+
+<MudDataGrid T="DireccionIpDataGrid" Items="@DireccionIpData" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
+             RowsPerPage="6" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
+    <Columns>
+        <AuthorizeView Roles="SuperAdmin,AgregarDireccionIp,EliminarDireccionIp,EditarDireccionIp,ConsultarDireccionIp" Context="context">
+            <Authorized>
+                <TemplateColumn Title="Acciones" Sortable="false">
+                    <CellTemplate Context="context2">
+                        <AuthorizeView Roles="SuperAdmin,EditarDireccionIp" Context="context3">
+                            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
+                        </AuthorizeView>
+                        <AuthorizeView Roles="SuperAdmin,EliminarDireccionIp" Context="context3">
+                            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context2))" />
+                        </AuthorizeView>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Authorized>
+        </AuthorizeView>
+        <PropertyColumn Property="x => x.Usuario" Sortable="true" />
+        <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico" Sortable="false" />     
+        <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" />
+        <PropertyColumn Property="x => x.Unidad" Sortable="false" />
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="DireccionIpDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {6, 12, 20}) />
+    </PagerContent>
+</MudDataGrid>
+
+@if (mostrarModalEliminar)
+{
+    <div class="modal show  d-flex justify-content-center align-items-center" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este registro <span style ="font-weight: bold;"> @RegistroEliminar </span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="EliminarRegistro">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+@if (mostrarModalNuevo)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar</h5>
+                <button type="button" class="close" @onclick="CerrarModalNuevo">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <EditForm Model="@direccionIpCreate" OnValidSubmit="GuardarAgenda">
+            <DataAnnotationsValidator/>
+            <MudGrid>
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardContent>
+                           
+                             <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona un usuario" @bind-Value="direccionIpCreate.Usuario" SearchFunc="@SearchUsuario"
+                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                             </MudItem>
+                                    <ValidationMessage For="@(() => direccionIpCreate.Usuario)" />
+                            @* <MudItem>
+                                <MudAutocomplete T="string" Label="Selecciona una Unidad" @bind-Value="CreateAgenda.Unidad" SearchFunc="@Search2"
+                                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                         AdornmentIcon="@Icons.Material.Filled.Search" Required AdornmentColor="Color.Primary" />
+                            </MudItem>
+                                    <MudSelect T="string" Label="Selecciona una Ubicacion"
+                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar una ubicación" : "")"
+                                               Value="CreateAgenda.Ubicacion" ValueChanged="OnUbicacionSeleccionadaChanged" Required AnchorOrigin="Origin.BottomCenter">
+                                        @foreach (var unidad in ListUbicacion)
+                                        {
+                                            <MudSelectItem Value="@unidad" />
+                                        }
+                                    </MudSelect>
+                                    <ValidationMessage For="@(() => CreateAgenda.Ubicacion)" /> *@
+
+                                    <MudNumericField Label="Dirección Ip" @bind-Value="direccionIpCreate.DireccionIp" MaxLength="15" For="@(() => direccionIpCreate.DireccionIp)" />
+
+                                    <MudNumericField Label="Equipo (Opcional)" @bind-Value="direccionIpCreate.Equipo" MaxLength="3" For="@(() => direccionIpCreate.Equipo)" />
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevo" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+           </MudGrid>
+        </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+      
+}
+
+@if (mostrarModalEditar)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="container-fluid w-100">
+                        <div class="row">
+                            <div class="col-10">
+                                <h5 class="modal-title">Editar</h5>
+                            </div>
+                                <div class="col-2 text-end">
+                                <button type="button" class="close" @onclick="CerrarModalEditar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>                         
+                        </div>
+                        <div class="row">
+                            <div> <b>Fecha modificacion:</b> @EditarAgenda.FechaModificacion <b>por</b> @EditarAgenda.UsuarioModificador</div>
+                        </div>
+                    </div>                                                       
+                </div>
+                <EditForm Model="@EditarAgenda" OnValidSubmit="EditarAgente">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+                                    <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona un usuario" @bind-Value="EditarAgenda.Usuario" SearchFunc="@SearchUsuario"
+                                                         ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                         CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                         AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                                    </MudItem>
+                                    <ValidationMessage For="@(() => EditarAgenda.Usuario)" />
+                                    <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona una Unidad" @bind-Value="EditarAgenda.Unidad" SearchFunc="@Search2"
+                                                         ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                         CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                         AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                                    </MudItem>
+                                    <MudSelect T="string" Label="Selecciona una Ubicacion"
+                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar una ubicación" : "")"
+                                               Value="EditarAgenda.Ubicacion" ValueChanged="OnUbicacionSeleccionadaEditarChanged" AnchorOrigin="Origin.BottomCenter">
+                                        @foreach (var unidad in ListUbicacion)
+                                        {
+                                            <MudSelectItem Value="@unidad" />
+                                        }
+                                    </MudSelect>
+                                    <ValidationMessage For="@(() => EditarAgenda.Ubicacion)" />
+                                    <ValidationMessage For="@(() => EditarAgenda.numeroTelefonico)" />
+@*                                     <MudSelect T="string" Label="Selecciona un numero teléfonico"
+                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar un numero teléfonico" : "")"
+                                               Value="EditarAgenda.numeroTelefonico" ValueChanged="OnNroTelefonicoSeleccionadaEditarChanged" AnchorOrigin="Origin.BottomCenter">
+                                        @foreach (var unidad in ListNroTelefono)
+                                        {
+                                            <MudSelectItem Value="@unidad" />
+                                        }
+                                    </MudSelect>
+                                    <ValidationMessage For="@(() => EditarAgenda.numeroTelefonico)" /> *@
+                                    <MudNumericField Label="Nro de teléfonico directo (Opcional)" @bind-Value="EditarAgenda.numeroTelefonico" MaxLength="11" For="@(() => EditarAgenda.numeroTelefonico)" />
+                                    <MudNumericField Label="Numero de extension" @bind-Value="EditarAgenda.Extension" MaxLength="3" For="@(() => EditarAgenda.Extension)" />
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalEditar" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+
+
+
+
+

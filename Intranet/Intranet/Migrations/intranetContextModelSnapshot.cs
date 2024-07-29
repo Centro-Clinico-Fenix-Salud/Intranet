@@ -264,6 +264,40 @@ namespace Intranet.Migrations
                     b.ToTable("usuarioAgendaTelefonica");
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.DireccionIp.DireccionIp", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Concurrencia")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Equipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Usuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioModificador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("direccionIp")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("direccionIp");
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Noticia.ArchivosNoticias", b =>
                 {
                     b.Property<Guid>("Id")

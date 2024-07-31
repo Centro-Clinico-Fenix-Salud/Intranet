@@ -110,7 +110,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Usuario")]
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/Usuarios")]
     public partial class Usuario : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

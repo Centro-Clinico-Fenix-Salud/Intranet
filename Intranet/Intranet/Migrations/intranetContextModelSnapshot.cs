@@ -470,6 +470,39 @@ namespace Intranet.Migrations
                     b.ToTable("unidades");
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.UsuarioDireccion.UsuarioDireccion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Concurrencia")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UbicacionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UnidadId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Usuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioModificador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("usuarioDireccion");
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Admin.Categoria_SubCategoria", b =>
                 {
                     b.HasOne("Intranet.Modelos.Admin.C1_Categoria", "Categoria")

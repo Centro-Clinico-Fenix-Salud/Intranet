@@ -104,7 +104,7 @@
                         <Authorized>
                             <MudNavGroup Title="Perfiles" Expanded="false">
                                 <div @onclick="ToggleNavMenu">
-                                <MudNavLink Href="/Usuario">Usuarios</MudNavLink>
+                                <MudNavLink Href="/Usuarios">Usuarios</MudNavLink>
                                 <MudNavLink Href="/Roles">Roles</MudNavLink>
                                 <MudNavLink Href="/Permisos">Permisos</MudNavLink>
                                 <MudNavLink Href="/Tipo-Rol">Tipo de rol</MudNavLink>
@@ -126,6 +126,13 @@
                         <Authorized>
                             <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/UsuarioAgendaTelefonica">Usuario Agenda Telefonica</MudNavLink>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, AsignarUbicacionYUnidadAUsuario" Context="context2">
+                        <Authorized>
+                            <div @onclick="ToggleNavMenu">
+                                <MudNavLink Href="/Usuario-Ubicacion-Unidad">Asignar Ubicación y Unidad a Usuario</MudNavLink>
                             </div>
                         </Authorized>
                     </AuthorizeView>

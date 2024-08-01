@@ -9,12 +9,12 @@
 @attribute [Authorize(Roles = "SuperAdmin,DireccionIp")]
 
 
-<PageTitle>Agenda</PageTitle>
+<PageTitle>Dirección IP</PageTitle>
 
 <div class="col-12 navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Agenda telefónica
+        Dirección IP
     </h1>
 </div>
 
@@ -50,7 +50,7 @@
             </Authorized>
         </AuthorizeView>
         <PropertyColumn Property="x => x.Usuario" Sortable="true" />
-        <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico" Sortable="false" />     
+        <PropertyColumn Property="x => x.DireccionIp" Title="Dirección IP" Sortable="false" />     
         <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" />
         <PropertyColumn Property="x => x.Unidad" Sortable="false" />
     </Columns>
@@ -108,25 +108,10 @@
                                  AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
                              </MudItem>
                                     <ValidationMessage For="@(() => direccionIpCreate.Usuario)" />
-                            @* <MudItem>
-                                <MudAutocomplete T="string" Label="Selecciona una Unidad" @bind-Value="CreateAgenda.Unidad" SearchFunc="@Search2"
-                                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
-                                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
-                                                         AdornmentIcon="@Icons.Material.Filled.Search" Required AdornmentColor="Color.Primary" />
-                            </MudItem>
-                                    <MudSelect T="string" Label="Selecciona una Ubicacion"
-                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar una ubicación" : "")"
-                                               Value="CreateAgenda.Ubicacion" ValueChanged="OnUbicacionSeleccionadaChanged" Required AnchorOrigin="Origin.BottomCenter">
-                                        @foreach (var unidad in ListUbicacion)
-                                        {
-                                            <MudSelectItem Value="@unidad" />
-                                        }
-                                    </MudSelect>
-                                    <ValidationMessage For="@(() => CreateAgenda.Ubicacion)" /> *@
 
                                     <MudNumericField Label="Dirección Ip" @bind-Value="direccionIpCreate.DireccionIp" MaxLength="15" For="@(() => direccionIpCreate.DireccionIp)" />
 
-                                    <MudNumericField Label="Equipo (Opcional)" @bind-Value="direccionIpCreate.Equipo" MaxLength="3" For="@(() => direccionIpCreate.Equipo)" />
+                                  @*   <MudNumericField Label="Equipo (Opcional)" @bind-Value="direccionIpCreate.Equipo" MaxLength="3" For="@(() => direccionIpCreate.Equipo)" /> *@
                         </MudCardContent>
                         <MudCardActions>
                             <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevo" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
@@ -161,38 +146,24 @@
                             </div>                         
                         </div>
                         <div class="row">
-                            <div> <b>Fecha modificacion:</b> @EditarAgenda.FechaModificacion <b>por</b> @EditarAgenda.UsuarioModificador</div>
+                            <div> <b>Fecha modificacion:</b> @direccionIpEditar.FechaModificacion <b>por</b> @direccionIpEditar.UsuarioModificador</div>
                         </div>
                     </div>                                                       
                 </div>
-                <EditForm Model="@EditarAgenda" OnValidSubmit="EditarAgente">
+                <EditForm Model="@direccionIpEditar" OnValidSubmit="EditarAgente">
                     <DataAnnotationsValidator />
                     <MudGrid>
                         <MudItem xs="12" sm="12">
                             <MudCard>
                                 <MudCardContent>
                                     <MudItem>
-                                        <MudAutocomplete T="string" Label="Selecciona un usuario" @bind-Value="EditarAgenda.Usuario" SearchFunc="@SearchUsuario"
+                                        <MudAutocomplete T="string" Label="Selecciona un usuario" @bind-Value="direccionIpEditar.Usuario" SearchFunc="@SearchUsuario"
                                                          ResetValueOnEmptyText="@resetValueOnEmptyText"
                                                          CoerceText="@coerceText" CoerceValue="@coerceValue"
                                                          AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
                                     </MudItem>
-                                    <ValidationMessage For="@(() => EditarAgenda.Usuario)" />
-                                    <MudItem>
-                                        <MudAutocomplete T="string" Label="Selecciona una Unidad" @bind-Value="EditarAgenda.Unidad" SearchFunc="@Search2"
-                                                         ResetValueOnEmptyText="@resetValueOnEmptyText"
-                                                         CoerceText="@coerceText" CoerceValue="@coerceValue"
-                                                         AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
-                                    </MudItem>
-                                    <MudSelect T="string" Label="Selecciona una Ubicacion"
-                                               ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar una ubicación" : "")"
-                                               Value="EditarAgenda.Ubicacion" ValueChanged="OnUbicacionSeleccionadaEditarChanged" AnchorOrigin="Origin.BottomCenter">
-                                        @foreach (var unidad in ListUbicacion)
-                                        {
-                                            <MudSelectItem Value="@unidad" />
-                                        }
-                                    </MudSelect>
-                                    <ValidationMessage For="@(() => EditarAgenda.Ubicacion)" />
+                                    <ValidationMessage For="@(() => direccionIpEditar.Usuario)" />
+                                    <MudNumericField Label="Dirección Ip" @bind-Value="direccionIpEditar.DireccionIp" MaxLength="15" For="@(() => direccionIpEditar.DireccionIp)" />
 
                                 </MudCardContent>
                                 <MudCardActions>

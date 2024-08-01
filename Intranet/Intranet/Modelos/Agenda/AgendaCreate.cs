@@ -7,9 +7,7 @@ namespace Intranet.Modelos.Agenda
         public Guid Id { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Usuario { get; set; }
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Unidad { get; set; }
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Ubicacion { get; set; }
         [MaxLength(11, ErrorMessage = "El numero teléfonico no puede ser superior a 11 digitos")]
         public string? numeroTelefonico { get; set; }

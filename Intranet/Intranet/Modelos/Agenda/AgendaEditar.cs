@@ -6,9 +6,7 @@ namespace Intranet.Modelos.Agenda
     {
         public Guid Id { get; set; }
         public string? Usuario { get; set; }
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Unidad { get; set; }
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? Ubicacion { get; set; }
         public string? numeroTelefonico { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]

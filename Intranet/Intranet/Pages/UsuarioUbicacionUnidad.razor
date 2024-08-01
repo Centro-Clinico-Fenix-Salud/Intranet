@@ -19,7 +19,7 @@
 </div>
 
 
-<AuthorizeView Roles="SuperAdmin,AgregarAgendaTelefonica" Context="context">
+<AuthorizeView Roles="SuperAdmin,AgregarAsignarUbicacionYUnidadAUsuario" Context="context">
    <Authorized>
     <div class="mb-3">
         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => Nuevo())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
@@ -34,14 +34,14 @@
 <MudDataGrid T="UsuarioDireccionDataGrid" Items="@UsuarioDireccionData" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
              RowsPerPage="6" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
     <Columns>
-        <AuthorizeView Roles="SuperAdmin,AgregarAgendaTelefonica,EliminarAgendaTelefonica,EditarAgendaTelefonica,ConsultarAgendaTelefonica" Context="context">
+        <AuthorizeView Roles="SuperAdmin,AgregarAsignarUbicacionYUnidadAUsuario,EliminarAsignarUbicacionYUnidadAUsuario,EditarAsignarUbicacionYUnidadAUsuario,ConsultarAsignarUbicacionYUnidadAUsuario" Context="context">
             <Authorized>
                 <TemplateColumn Title="Acciones" Sortable="false">
                     <CellTemplate Context="context2">
-                        <AuthorizeView Roles="SuperAdmin,EditarAgendaTelefonica" Context="context3">
+                        <AuthorizeView Roles="SuperAdmin,EditarAsignarUbicacionYUnidadAUsuario" Context="context3">
                             <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
                         </AuthorizeView>
-                        <AuthorizeView Roles="SuperAdmin,EliminarAgendaTelefonica" Context="context3">
+                        <AuthorizeView Roles="SuperAdmin,EliminarAsignarUbicacionYUnidadAUsuario" Context="context3">
                             <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context2))" />
                         </AuthorizeView>
                     </CellTemplate>

@@ -32,7 +32,7 @@
 </div>
 
 <MudDataGrid T="AgendaTelefonicaDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
-             RowsPerPage="5" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
+             RowsPerPage="6" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
     <Columns>
         <AuthorizeView Roles="SuperAdmin,AgregarAgendaTelefonica,EliminarAgendaTelefonica,EditarAgendaTelefonica,ConsultarAgendaTelefonica" Context="context">
             <Authorized>
@@ -49,13 +49,13 @@
             </Authorized>
         </AuthorizeView>
         <PropertyColumn Property="x => x.Usuario" Sortable="true" />
-        <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico Directo" Sortable="false" />
+        <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico" Sortable="false" />
         <PropertyColumn Property="x => x.Extension" Title="Extensión" Sortable="false" />
         <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" />
         <PropertyColumn Property="x => x.Unidad" Sortable="false" />
     </Columns>
     <PagerContent>
-        <MudDataGridPager T="AgendaTelefonicaDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {5, 10, 20}) />
+        <MudDataGridPager T="AgendaTelefonicaDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {6, 12, 20}) />
     </PagerContent>
 </MudDataGrid>
 
@@ -108,7 +108,7 @@
                                  AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
                              </MudItem>
                              <ValidationMessage For="@(() => CreateAgenda.Usuario)" />
-                            <MudItem>
+@*                             <MudItem>
                                 <MudAutocomplete T="string" Label="Selecciona una Unidad" @bind-Value="CreateAgenda.Unidad" SearchFunc="@Search2"
                                                  ResetValueOnEmptyText="@resetValueOnEmptyText"
                                                  CoerceText="@coerceText" CoerceValue="@coerceValue"
@@ -122,7 +122,7 @@
                                             <MudSelectItem Value="@unidad" />
                                         }
                                     </MudSelect>
-                                    <ValidationMessage For="@(() => CreateAgenda.Ubicacion)" />
+                                    <ValidationMessage For="@(() => CreateAgenda.Ubicacion)" /> *@
 @*                                     <MudSelect T="string" Label="Selecciona un numero teléfonico"
                                                ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar un numero teléfonico" : "")"
                                                Value="CreateAgenda.numeroTelefonico" ValueChanged="OnNroTelefonicoSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
@@ -186,7 +186,7 @@
                                                          AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
                                     </MudItem>
                                     <ValidationMessage For="@(() => EditarAgenda.Usuario)" />
-                                    <MudItem>
+@*                                     <MudItem>
                                         <MudAutocomplete T="string" Label="Selecciona una Unidad" @bind-Value="EditarAgenda.Unidad" SearchFunc="@Search2"
                                                          ResetValueOnEmptyText="@resetValueOnEmptyText"
                                                          CoerceText="@coerceText" CoerceValue="@coerceValue"
@@ -200,9 +200,9 @@
                                             <MudSelectItem Value="@unidad" />
                                         }
                                     </MudSelect>
-                                    <ValidationMessage For="@(() => EditarAgenda.Ubicacion)" />
-                                    <ValidationMessage For="@(() => EditarAgenda.numeroTelefonico)" />
-@*                                     <MudSelect T="string" Label="Selecciona un numero teléfonico"
+                                    <ValidationMessage For="@(() => EditarAgenda.Ubicacion)" /> *@
+                                    @*                                    <ValidationMessage For="@(() => EditarAgenda.numeroTelefonico)" />
+                                    <MudSelect T="string" Label="Selecciona un numero teléfonico"
                                                ErrorText="@(!UbicacionSeleccionadaValid ? "Debe seleccionar un numero teléfonico" : "")"
                                                Value="EditarAgenda.numeroTelefonico" ValueChanged="OnNroTelefonicoSeleccionadaEditarChanged" AnchorOrigin="Origin.BottomCenter">
                                         @foreach (var unidad in ListNroTelefono)

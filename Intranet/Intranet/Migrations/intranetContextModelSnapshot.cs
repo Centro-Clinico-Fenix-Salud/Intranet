@@ -226,6 +226,10 @@ namespace Intranet.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UbicacionId");
+
+                    b.HasIndex("UnidadId");
+
                     b.ToTable("agendaTelefonicas");
                 });
 
@@ -258,6 +262,40 @@ namespace Intranet.Migrations
                         .IsUnique();
 
                     b.ToTable("usuarioAgendaTelefonica");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.DireccionIp.DireccionIp", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Concurrencia")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Equipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Usuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioModificador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("direccionIp")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("direccionIp");
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Noticia.ArchivosNoticias", b =>
@@ -299,7 +337,7 @@ namespace Intranet.Migrations
                     b.Property<Guid>("IdCreador")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdModificador")
+                    b.Property<Guid?>("IdModificador")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TextoNoticia")
@@ -311,6 +349,93 @@ namespace Intranet.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("noticias");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.ConfiguracionPantalla", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConfigPantalla")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("InformeAreaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InformeTituloId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("configuracionPantalla");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.InformeArea", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InformeTituloId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("informeArea");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.InformeTitulo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("informeTitulo");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.PlanillaDigitalRegistro", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaRevision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("InformeAreaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InformeTituloId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Respuesta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UsuarioCreador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UsuarioRevision")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("planillaDigitalRegistro");
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Tablas.Ubicacion", b =>
@@ -343,6 +468,39 @@ namespace Intranet.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("unidades");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.UsuarioDireccion.UsuarioDireccion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Concurrencia")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UbicacionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UnidadId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Usuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioModificador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("usuarioDireccion");
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.Categoria_SubCategoria", b =>
@@ -401,6 +559,21 @@ namespace Intranet.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.Agenda.AgendaTelefonica", b =>
+                {
+                    b.HasOne("Intranet.Modelos.Tablas.Ubicacion", null)
+                        .WithMany("agendaTelefonicas")
+                        .HasForeignKey("UbicacionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Intranet.Modelos.Tablas.Unidad", null)
+                        .WithMany("agendaTelefonicas")
+                        .HasForeignKey("UnidadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Admin.P1_Permiso", b =>
                 {
                     b.Navigation("Rol_Permisos");
@@ -409,6 +582,16 @@ namespace Intranet.Migrations
             modelBuilder.Entity("Intranet.Modelos.Admin.R1_Rol", b =>
                 {
                     b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Tablas.Ubicacion", b =>
+                {
+                    b.Navigation("agendaTelefonicas");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Tablas.Unidad", b =>
+                {
+                    b.Navigation("agendaTelefonicas");
                 });
 #pragma warning restore 612, 618
         }

@@ -143,7 +143,7 @@ namespace Intranet.Controller
             catch (Exception ex)
             {
                 //return LocalRedirect("/login/Usuario o Clave inválida");
-                Log.Error(ex.Message);
+                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
                 return LocalRedirect("/invalido/Credenciales Incorrectas");
             }
         }

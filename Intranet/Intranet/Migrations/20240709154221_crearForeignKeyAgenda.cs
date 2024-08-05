@@ -13,12 +13,7 @@ namespace Intranet.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_agendaTelefonicas_UbicacionId",
                 table: "agendaTelefonicas",
-                column: "UbicacionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_agendaTelefonicas_Usuario",
-                table: "agendaTelefonicas",
-                column: "Usuario");
+                column: "UbicacionId");           
 
             migrationBuilder.CreateIndex(
                 name: "IX_agendaTelefonicas_UnidadId",
@@ -40,14 +35,7 @@ namespace Intranet.Migrations
                 principalTable: "unidades",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_agendaTelefonicas_u1_Usuario_Usuario",
-                table: "agendaTelefonicas",
-                column: "Usuario",
-                principalTable: "u1_Usuario",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+            
         }
 
         /// <inheritdoc />
@@ -73,9 +61,6 @@ namespace Intranet.Migrations
                 name: "IX_agendaTelefonicas_UnidadId",
                 table: "agendaTelefonicas");
 
-            migrationBuilder.DropIndex(
-                name: "IX_agendaTelefonicas_Usuario",
-                table: "agendaTelefonicas");
         }
     }
 }

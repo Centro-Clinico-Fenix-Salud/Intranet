@@ -50,7 +50,7 @@
         <AuthorizeView Roles="SuperAdmin, SoporteTecnico" Context="context">
             <Authorized>
                 <MudNavGroup Title="Soporte Técnico" Expanded="false">
-                    <AuthorizeView Roles="SuperAdmin, DireccionesIp" Context="context2">
+                    <AuthorizeView Roles="SuperAdmin, DireccionIp" Context="context2">
                         <Authorized>
                             <div @onclick="ToggleNavMenu">
                                 <MudNavLink Href="/Direccion-ip">Direcciones IP</MudNavLink>

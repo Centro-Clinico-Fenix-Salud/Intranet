@@ -208,10 +208,10 @@ namespace Intranet.Migrations
                     b.Property<DateTime?>("FechaModificacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UbicacionId")
+                    b.Property<Guid?>("UbicacionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UnidadId")
+                    b.Property<Guid?>("UnidadId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("Usuario")
@@ -563,15 +563,11 @@ namespace Intranet.Migrations
                 {
                     b.HasOne("Intranet.Modelos.Tablas.Ubicacion", null)
                         .WithMany("agendaTelefonicas")
-                        .HasForeignKey("UbicacionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UbicacionId");
 
                     b.HasOne("Intranet.Modelos.Tablas.Unidad", null)
                         .WithMany("agendaTelefonicas")
-                        .HasForeignKey("UnidadId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnidadId");
                 });
 
             modelBuilder.Entity("Intranet.Modelos.Admin.P1_Permiso", b =>

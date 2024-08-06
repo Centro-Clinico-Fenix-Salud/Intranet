@@ -103,6 +103,7 @@ namespace Intranet.Pages
 
         private async Task Actualizar(EditContext context)
         {
+          
             if (await ServicioUsuarioAgendaTelefonica.ConsultarAntesActualizarUsuario(EditarRegistro))
             {
                 Snackbar.Add("Nombre de usuario ya existe", Severity.Error);

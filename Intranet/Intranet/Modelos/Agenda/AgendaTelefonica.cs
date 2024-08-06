@@ -7,8 +7,7 @@ namespace Intranet.Modelos.Agenda
     {
         public Guid Id { get; set; }
         public Guid Usuario { get; set; }
-        public Guid UnidadId { get; set; }
-        public Guid UbicacionId { get; set; }
+
         [MaxLength(15)]
         public string? numeroTelefonico { get; set; }
         [MaxLength(10)]

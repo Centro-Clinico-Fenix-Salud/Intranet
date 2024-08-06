@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.Modelos.Agenda
 {
-    public class U2_UsuarioAgendaTelefonica
+    public class U2_UsuarioAgendaTelefonica : IValidatableObject
     {
         public Guid Id { get; set; }
         [Required]
@@ -13,5 +13,15 @@ namespace Intranet.Modelos.Agenda
         public Guid Concurrencia { get; set; }
         public DateTime? FechaCreacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (!string.IsNullOrEmpty(Nombre))
+                if (Nombre.Contains('-'))
+                {
+                    yield return new ValidationResult($"No se permite guion '-' en el nombre", new[] { nameof(Nombre) });
+                }
+
+        }
     }
 }

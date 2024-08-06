@@ -125,14 +125,14 @@
                     <AuthorizeView Roles="SuperAdmin, UsuarioAgendaTelefonica" Context="context2">
                         <Authorized>
                             <div @onclick="ToggleNavMenu">
-                            <MudNavLink Href="/UsuarioAgendaTelefonica">Usuario Agenda Telefonica</MudNavLink>
+                            <MudNavLink Href="/UsuarioAgendaTelefonica">Usuario Externo</MudNavLink>
                             </div>
                         </Authorized>
                     </AuthorizeView>
                     <AuthorizeView Roles="SuperAdmin, AsignarUbicacionYUnidadAUsuario" Context="context2">
                         <Authorized>
                             <div @onclick="ToggleNavMenu">
-                                <MudNavLink Href="/Usuario-Ubicacion-Unidad">Asignar Ubicación y Unidad a Usuario</MudNavLink>
+                                <MudNavLink Href="/Usuario-Ubicacion-Unidad">Dirección de usuario</MudNavLink>
                             </div>
                         </Authorized>
                     </AuthorizeView>

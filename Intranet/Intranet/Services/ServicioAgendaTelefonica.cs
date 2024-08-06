@@ -43,7 +43,7 @@ namespace Intranet.Services
                         .Select(i => i.UnidadId).FirstOrDefault()
                             )
                         .Select(u => u.Nombre)
-                        .FirstOrDefault(),
+                        .FirstOrDefault() ?? string.Empty,
                         Ubicacion = intranetContext.ubicaciones
                         .Where(x => x.Id ==
                         intranetContext.usuarioDireccion
@@ -51,7 +51,7 @@ namespace Intranet.Services
                         .Select(i => i.UbicacionId).FirstOrDefault()
                         )
                         .Select(u => u.Nombre)
-                        .FirstOrDefault(),
+                        .FirstOrDefault() ?? string.Empty,
                         numeroTelefonico = agenda.numeroTelefonico,
                         Extension = agenda.Extension,
                         UsuarioModificador = intranetContext.u1_Usuario

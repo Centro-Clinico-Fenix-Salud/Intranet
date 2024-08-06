@@ -43,8 +43,17 @@
 
 <AuthorizeView Roles="SuperAdmin,ConsultaRevisionMantenimientoTecnico" Context="context4">
    <Authorized>
-        <div class="input-group mb-4 ">
-            <input type="text" class="form-control" hidden="@MostrarBotonAgregarYBuscador" placeholder="Búsqueda por usuario, fecha, zona y tipo de zona" @bind="searchTerm" @oninput="Buscar2">
+        @* <div class="input-group mb-4 "> *@
+        <div class="mb-4">
+            <div class="row">
+                <div class="col-10">
+                    <input type="text" class="form-control" hidden="@MostrarBotonAgregarYBuscador" placeholder="Búsqueda por usuario, fecha, zona y tipo de zona" @bind="searchTerm" @oninput="Buscar2">
+                </div>
+                <div class="col-2">
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" hidden="@MostrarBotonAgregarYBuscador" OnClick="@(() => AbrirModalFilrto())" Color="Color.Info" Class="ml-auto">Filtro</MudButton>
+                </div>
+            </div>
+            @* <input type="text" class="form-control" hidden="@MostrarBotonAgregarYBuscador" placeholder="Búsqueda por usuario, fecha, zona y tipo de zona" @bind="searchTerm" @oninput="Buscar2"> *@
         </div>
 
         <MudDataGrid T="PlanillaDigitalDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
@@ -101,6 +110,64 @@
                     <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>
                     <button type="button" class="btn btn-danger" @onclick="EliminarRegistro">Eliminar</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+@if (mostrarModalFiltro)
+{
+    <div class="modal show  d-flex justify-content-center align-items-center" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filtro de busqueda</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <MudGrid>
+                    <MudItem xs="12" sm="12">
+                        <MudCard>
+                            <MudCardContent>
+                                <div class="container">
+                                    <div style="overflow-y: auto; height: 500px;">
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <MudDatePicker Label="Desde" @bind-Date="FechaDesde" />
+
+                                            </div>
+                                            <div class="col-6">
+                                                <MudDatePicker Label="Hasta" @bind-Date="FechaHasta" />
+
+                                            </div>
+                                        </div>
+
+                                       <MudSelect T="string" Label="Selecciona una zona"
+                                                       Value="ZonaFiltro" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                                @foreach (var areaInforme in ListaZonaFiltro)
+                                                {
+                                                    <MudSelectItem Value="@areaInforme" />
+                                                }
+                                       </MudSelect>
+                                        <MudSelect T="string" Label="Selecciona un tipo de zona"
+                                                   Value="TipoZonaFiltro" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                            @foreach (var areaInforme in ListaTipoZonaFiltro)
+                                            {
+                                                <MudSelectItem Value="@areaInforme" />
+                                            }
+                                        </MudSelect>
+                                    </div>
+                                </div>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalEditar" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Cerrar</MudButton>
+                            </MudCardActions>
+                        </MudCard>
+                    </MudItem>
+                </MudGrid>
             </div>
         </div>
     </div>

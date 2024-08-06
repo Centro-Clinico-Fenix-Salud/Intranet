@@ -38,6 +38,7 @@ namespace Intranet.Pages
         private string searchTerm;
         private bool _resizeColumn = true;
         private bool mostrarModalEliminar = false;
+        private bool mostrarModalFiltro = false;
         private bool mostrarModalNuevo = false;
         private bool mostrarModalEditar = false;
         
@@ -70,11 +71,20 @@ namespace Intranet.Pages
 
         private ClaimsPrincipal? user {  get; set; }
         private string AreaInforme { get; set; }
+        private string ZonaFiltro { get; set; }
+        private string TipoZonaFiltro { get; set; }
+        private string MaterialFiltro { get; set; }
+        private string PropiedadFiltro { get; set; }
+        private string EstatusdFiltro { get; set; }
         private Guid AreaInformeId { get; set; }
         private string zonaRevision { get; set; }
         private string TipozonaSelecionada { get; set; }
+        private DateTime? FechaDesde = DateTime.Today;
+        private DateTime? FechaHasta = DateTime.Today;
 
         private List<InformeArea> ListAreaInforme = new List<InformeArea>();
+        private List<string> ListaZonaFiltro = new List<string>();
+        private List<string> ListaTipoZonaFiltro = new List<string>();
         private bool AreaInformeSeleccionadaValid = true;
         private bool MostrarFormulario { get; set; }
         private bool MostrarFormularioAgrupado { get; set; }
@@ -945,18 +955,49 @@ namespace Intranet.Pages
             CreateRegistro = new List<MaterialRevision>();
             mostrarModalNuevo = true;
             if (configPantalla != null)
-            if (configPantalla.Cuerpo.Count > 1)
-            {
+                if (configPantalla.Cuerpo.Count > 1)
+                {
                     numeroPagina = 0;
                     MostrarFormulario = false;
-                    if (configPantalla.AgruparCuerpos) 
+                    if (configPantalla.AgruparCuerpos)
                     {
                         zonaRevision = configPantalla.Cuerpo[0].zonaRevision.Select(x => x.Nombre).FirstOrDefault();
                     }
+                }
+                else
+                { MostrarFormulario = true; }
+                                   
+        }
+
+        public void AbrirModalFilrto()
+        {
+            CreateRegistro = new List<MaterialRevision>();
+            if (configPantalla != null)
+            {
+                var todos = "Todos";
+                ListaZonaFiltro = new List<string>();
+                ListaZonaFiltro.Add(todos);
+                ZonaFiltro = todos;
+                TipoZonaFiltro = todos;
+                var cuerpo = configPantalla.Cuerpo.ToList();
+                foreach (var zonaLista in cuerpo) 
+                {
+                    foreach (var zona in zonaLista.zonaRevision)
+                    {
+                        ListaZonaFiltro.Add(zona.Nombre);
+
+                        foreach (var TipoZona in zona.tipoZonaRevision)
+                        {
+                            ListaTipoZonaFiltro.Add(TipoZona.Nombre);
+                        }                       
+                    }
+                    
+                }
+                
+                mostrarModalFiltro = true;
+
             }
-            else
-            { MostrarFormulario = true; }                
-            
+
         }
 
         private void CerrarModalEliminar()
@@ -1138,27 +1179,6 @@ namespace Intranet.Pages
                 Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
             }
 
-
-            //CreateAgenda.Usuario = CreateAgenda.Usuario.Split('-')[0].Trim();
-            //switch (await ServicioAgendaTelefonica.ConsultarAntesGuardarAgendaTelefonica(CreateAgenda))
-            //{
-            //    case 1:
-            //        Snackbar.Add("El usuario ya se encuentra registrado", Severity.Error);
-            //        return;
-            //    case 2:
-            //        Snackbar.Add("El número de extension ya se encuentra registrado", Severity.Error);
-            //        return;                         
-            //}
-            //CreateAgenda.UsuarioModificador = await IdUsuario();
-
-            //if (await ServicioAgendaTelefonica.GuardarAgendaTelefonica(CreateAgenda))
-            //{
-            //    await RefrescarDataGrid();
-            //    Snackbar.Add("Registro exitoso", Severity.Info);
-            //    CerrarModalNuevo();
-            //}
-            //else
-            //    Snackbar.Add("Ocurrio un error", Severity.Error);
         }
 
 

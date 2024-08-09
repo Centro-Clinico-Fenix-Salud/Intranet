@@ -20,16 +20,16 @@ namespace Intranet.Services
         private readonly IntranetContext intranetContext;
         private readonly NavigationManager navigationManager;
         private IConfiguration configuration;
-        private string ruta = string.Empty;
+        //private string ruta = string.Empty;
         public ServicioNoticias(IJSRuntime jSRuntime, IntranetContext intranetContext, IConfiguration Configuration, NavigationManager NavigationManager) {
             
             JSRuntime = jSRuntime;
             this.intranetContext = intranetContext;
             this.configuration = Configuration;
-            ruta = configuration["RutaArchivosNoticia"];
+            //ruta = configuration["RutaArchivosNoticia"];
             this.navigationManager = NavigationManager;
         }
-        public async Task SubirImagenes(List<ListaImagenCargada> listaImagenCargada, Guid NoticiaId)
+        public async Task SubirImagenes(List<ListaImagenCargada> listaImagenCargada, Guid NoticiaId, string ruta)
         {
             try 
             {

@@ -229,38 +229,76 @@
                                                 <MudCard>
                                                     <MudCardContent>
                                                          <div class="container">
-                                                            <div style="overflow-y: auto; height: 500px;"> 
-                                                            @foreach(var zona1 in CreateRegistro)
-                                                            {
-                                                                <div class="container">
-                                                                        <div class="row border">
-                                                                        <div class="col-md-4 col-sm-3 pt-2 pt-md-0 justify-content-center align-items-center align-content-center text-center">
-                                                                            @zona1.Nombre
-                                                                        </div>
-                                                                    <div class="col-md-8 col-sm-9 bg-gradient">
-                                                                            @foreach (var material in zona1.Propiedad)
-                                                                            {
-                                                                                if (!material.Deshabilitado)
-                                                                                {
-                                                                                    <div class="row">
-                                                                                        <div class="col-5 justify-content-center align-items-center align-content-center text-center">
-                                                                                            <span>@material.Nombre </span>
-                                                                                        </div>
-                                                                                        <div class="col-7">
-                                                                                            <MudForm>
-                                                                                                <MudRadioGroup @bind-Value="@material.Valor">
-                                                                                                    <MudRadio Value="@("Si")" Color="Color.Primary">Si</MudRadio>
-                                                                                                    <MudRadio Value="@("No")" Color="Color.Secondary">No</MudRadio>
-                                                                                                </MudRadioGroup>
-                                                                                            </MudForm>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                }                                                                               
-                                                                            }
+                                                            <div style="overflow-y: auto; height: 500px;">
+                                                                <div class="row">
+                                                            <div class="col-2 d-flex justify-content-end align-items-center mb-3">
+                                                                        <div>
+                                                                            <MudFileUpload Accept=".png, .jpg" T="IBrowserFile" FilesChanged="UploadFilesNuevo">
+                                                                                <ButtonTemplate Context="context2">
+                                                                                    <MudFab HtmlTag="label"
+                                                                                            Color="Color.Success"
+                                                                                            Icon="@Icons.Material.Filled.AttachFile"
+                                                                                            for="@context2.Id" />
+                                                                                </ButtonTemplate>
+                                                                            </MudFileUpload>
                                                                         </div>
                                                                     </div>
-                                                                </div>                                                                                                                      
-                                                            }
+                                                                    <div class="col-10 d-flex justify-content-start align-items-center my-2">
+                                                                        <span> cargar una foto</span>
+                                                                    </div>
+                                                                </div>
+                                                                @foreach (var item in listaImagenCargada)
+                                                                {
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            @item.NombreimagenSeleccionadaCargada
+                                                                            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick="@( () => eliminarImagenCargadaNuevo(item) )" />
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            @foreach(var zona1 in CreateRegistro)
+                                                            {
+                                                                @if (zona1 != null && zona1.Tipo.Equals("Radio"))
+                                                                {
+                                                                    <div class="container">
+                                                                        <div class="row border">
+                                                                            <div class="col-md-4 col-sm-3 pt-2 pt-md-0 justify-content-center align-items-center align-content-center text-center">
+                                                                                @zona1.Nombre
+                                                                            </div>
+                                                                            <div class="col-md-8 col-sm-9 bg-gradient">
+                                                                                @foreach (var material in zona1.Propiedad)
+                                                                                {
+                                                                                    if (!material.Deshabilitado)
+                                                                                    {
+                                                                                        <div class="row">
+                                                                                            <div class="col-5 justify-content-center align-items-center align-content-center text-center">
+                                                                                                <span>@material.Nombre </span>
+                                                                                            </div>
+                                                                                            <div class="col-7">
+                                                                                                <MudForm>
+                                                                                                    <MudRadioGroup @bind-Value="@material.Valor">
+                                                                                                        <MudRadio Value="@("Si")" Color="Color.Primary">Si</MudRadio>
+                                                                                                        <MudRadio Value="@("No")" Color="Color.Secondary">No</MudRadio>
+                                                                                                    </MudRadioGroup>
+                                                                                                </MudForm>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    }
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                @if (zona1 != null && zona1.Tipo.Equals("Texto"))
+                                                                {
+                                                                    @foreach (var material in zona1.Propiedad)
+                                                                    {
+                                                                        <div class="col-12">
+                                                                            <MudTextField Label="@material.Nombre" @bind-Value="@material.Valor" />
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            }                                                      
                                                             </div>
                                                         </div>
                                                     </MudCardContent>
@@ -308,34 +346,46 @@
                                                                     <div style="overflow-y: auto; height: 500px;">
                                                                         @foreach (var zona1 in CreateRegistro)
                                                                         {
-                                                                            <div class="container">
-                                                                                <div class="row border">
-                                                                                    <div class="col-md-4 col-sm-3 pt-2 pt-md-0 justify-content-center align-items-center align-content-center text-center">
-                                                                                        @zona1.Nombre
-                                                                                    </div>
-                                                                                    <div class="col-md-8 col-sm-9 bg-gradient">
-                                                                                        @foreach (var material in zona1.Propiedad)
-                                                                                        {
-                                                                                            if (!material.Deshabilitado)
+                                                                            @if (zona1 != null && zona1.Tipo.Equals("Radio"))
+                                                                            {
+                                                                                <div class="container">
+                                                                                    <div class="row border">
+                                                                                        <div class="col-md-4 col-sm-3 pt-2 pt-md-0 justify-content-center align-items-center align-content-center text-center">
+                                                                                            @zona1.Nombre
+                                                                                        </div>
+                                                                                        <div class="col-md-8 col-sm-9 bg-gradient">
+                                                                                            @foreach (var material in zona1.Propiedad)
                                                                                             {
-                                                                                                <div class="row">
-                                                                                                    <div class="col-5 justify-content-center align-items-center align-content-center text-center">
-                                                                                                        <span>@material.Nombre </span>
+                                                                                                if (!material.Deshabilitado)
+                                                                                                {
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-5 justify-content-center align-items-center align-content-center text-center">
+                                                                                                            <span>@material.Nombre </span>
+                                                                                                        </div>
+                                                                                                        <div class="col-7">
+                                                                                                            <MudForm>
+                                                                                                                <MudRadioGroup @bind-Value="@material.Valor" Disabled="@material.Deshabilitado">
+                                                                                                                    <MudRadio Value="@("Si")" Color="Color.Primary">Si</MudRadio>
+                                                                                                                    <MudRadio Value="@("No")" Color="Color.Secondary">No</MudRadio>
+                                                                                                                </MudRadioGroup>
+                                                                                                            </MudForm>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                    <div class="col-7">
-                                                                                                        <MudForm>
-                                                                                                            <MudRadioGroup @bind-Value="@material.Valor" Disabled="@material.Deshabilitado">
-                                                                                                                <MudRadio Value="@("Si")" Color="Color.Primary">Si</MudRadio>
-                                                                                                                <MudRadio Value="@("No")" Color="Color.Secondary">No</MudRadio>
-                                                                                                            </MudRadioGroup>
-                                                                                                        </MudForm>
-                                                                                                    </div>
-                                                                                                </div>
+                                                                                                }
                                                                                             }
-                                                                                        }
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            }
+                                                                            @if (zona1 != null && zona1.Tipo.Equals("Texto"))
+                                                                            {
+                                                                                @foreach (var material in zona1.Propiedad)
+                                                                                {
+                                                                                    <div class="col-12">
+                                                                                        <MudTextField Label="@material.Nombre" @bind-Value="@material.Valor" />
+                                                                                    </div>
+                                                                                }
+                                                                            }
                                                                         }
                                                                     </div>
                                                                 </div>
@@ -366,7 +416,7 @@
       
 }
 
-@if (mostrarModalEditar)
+@if (mostrarModalConsulta)
 {
     <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
         <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
@@ -402,7 +452,7 @@
                                             @foreach (var zona4 in zona3)
                                             {                                             
                                                 <div class="row m-2">
-                                                    <div class="col-12">
+                                                    <div class="col-8">
                                                         <strong>
                                                             @zona4.Nombre &nbsp;
                                                             @if (zona4.tipoZonaRevision.Count() > 0)
@@ -410,6 +460,9 @@
                                                                 @zona4.tipoZonaRevision[0].Nombre
                                                             }
                                                         </strong>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <MudButton ButtonType="ButtonType.Button" OnClick="@(() => AbrirModalNoticia())" Size="Size.Small" Variant="Variant.Filled" Color="Color.Surface">Ver fotos</MudButton>
                                                     </div>
                                                 </div>
                                                 
@@ -425,22 +478,37 @@
                                                                 {
                                                                     @if (!material.Deshabilitado)
                                                                     {
-                                                                        <div class="row">
-                                                                            <div class="col-6 justify-content-center align-items-center align-content-center text-center">
-                                                                                <span>@material.Nombre </span>
+                                                                        @if (material.Tipo.Equals("Radio"))
+                                                                        {
+                                                                            <div class="row">
+                                                                                <div class="col-6 justify-content-center align-items-center align-content-center text-center">
+                                                                                    <span>@material.Nombre </span>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    @if (!string.IsNullOrEmpty(material.Valor))
+                                                                                        @if (material.Valor.Equals("Si"))
+                                                                                        {
+                                                                                            <div class="justify-content-center align-items-center align-content-center text-center" style="color: green;">@material.Valor</div>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <div class="justify-content-center align-items-center align-content-center text-center" style="color: red;">@material.Valor</div>
+                                                                                        }
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="col-6">
-                                                                                @if (!string.IsNullOrEmpty(material.Valor))
-                                                                                @if (material.Valor.Equals("Si"))
-                                                                                {
-                                                                                    <div class="justify-content-center align-items-center align-content-center text-center" style="color: green;">@material.Valor</div>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    <div class="justify-content-center align-items-center align-content-center text-center" style="color: red;">@material.Valor</div>
-                                                                                }
+                                                                        }
+                                                                        @if (material.Tipo.Equals("Texto"))
+                                                                        {             
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    @if (!string.IsNullOrEmpty(material.Valor))
+                                                                                    {
+                                                                                        <div>@material.Valor</div>
+                                                                                    }
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                        }
+
                                                                     }
                                                                 }
                                                             </div>
@@ -458,6 +526,44 @@
                             </MudCard>
                         </MudItem>
                     </MudGrid>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+@if (mostrarModalFotos)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col text-start fw-bold">
+                        <div>@* @FechaModalNoticia *@ fecha </div>
+                    </div>
+                    <button type="button" class="close" @onclick="CerrarModalFotos">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col" style="height: 590px;">
+                        <MudCarousel Class="mud-width-full mud-height-full" ShowArrows="@arrows" ShowBullets="@bullets"
+                                     EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+                            @foreach (var item in ImagenModalFotos)
+                            {
+                                <MudCarouselItem Transition="transition" style="background-color: #00bbb4">
+                                    <div class="d-flex align-content-center justify-content-center" style="height:100%">
+                                        <MudImage Src="@item.NombreFisico" Class="rounded-lg" />
+                                    </div>
+                                </MudCarouselItem>
+                            }
+                        </MudCarousel>
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CerrarModalFotos">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>

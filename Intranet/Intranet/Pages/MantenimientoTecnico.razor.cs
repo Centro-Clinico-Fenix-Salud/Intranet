@@ -26,6 +26,7 @@ using Intranet.Data;
 using Intranet.Modelos.Planillas.RevisionMantenimientoTecnico;
 using MudBlazor.Extensions;
 using System.Numerics;
+using Intranet.Modelos.Noticia;
 
 namespace Intranet.Pages
 {
@@ -40,14 +41,15 @@ namespace Intranet.Pages
         private bool mostrarModalEliminar = false;
         private bool mostrarModalFiltro = false;
         private bool mostrarModalNuevo = false;
-        private bool mostrarModalEditar = false;
-        
+        private bool mostrarModalConsulta = false;
+        private bool mostrarModalFotos = false;
+
         List<MaterialRevision> CreateRegistro = new List<MaterialRevision>();
         public List<ZonaRevision> ListaCreateRegistro = new List<ZonaRevision>();
         DataPlanilla EditarAgenda = new DataPlanilla();
         private List<string> ListUnidad = new List<string>();
         private List<string> ListUbicacion = new List<string>();
-        private List<string> ListNombreUsuario = new List<string>();
+        //private List<string> ListNombreUsuario = new List<string>();
         private List<string> ListNroTelefono = new List<string>();
         private EliminarPlanillaDigital eliminarPlanillaDigital = new EliminarPlanillaDigital();   
         public IQueryable<PlanillaDigitalDataGrid> MaestroDireccionTelefonica { get; set; } = null;
@@ -92,15 +94,25 @@ namespace Intranet.Pages
         List<TipoZonaRevision> listaTipoZona { get; set; }
         int cantidadPagina { get; set; }
         int numeroPagina { get; set; }
-        
+        Guid IdRegistroSeleccionado { get; set; }
+        private bool arrows = true;
+        private bool bullets = true;
+        private bool enableSwipeGesture = true;
+        private bool autocycle = true;
+        private Transition transition = Transition.Slide;
+        private List<DataImagen> ImagenModalFotos;
+        private List<ListaImagenCargada> listaImagenCargada = new List<ListaImagenCargada>();
         private bool MostrarBotonAgregarYBuscador { get; set; }
+        [Inject]
+        private IServicioNoticias servicioNoticias { get; set; }
+        private string ruta = string.Empty;
         protected override async Task OnInitializedAsync()
         {
             MostrarBotonAgregarYBuscador = true;
             //await RefrescarDataGrid();
             await obtenerUnidadAgenda();
             await obtenerUbicacionAgenda();
-            await obtenerUsuarioAgenda();
+            //await obtenerUsuarioAgenda();
             //await crearJson("Habitación", true);
             //await crearJson("Oficina", false);
             //await crearJson("Consultorio área APS", false);
@@ -114,7 +126,8 @@ namespace Intranet.Pages
             listaTipoZona = new List<TipoZonaRevision>();
             MostrarFormulario = false;
             TipozonaSelecionada = string.Empty;
-           
+            ruta = configuration["RutaArchivosMantenimientoTecnico"];
+
         }
 
         private async Task crearJson(string titulo, bool agrupados)
@@ -122,165 +135,222 @@ namespace Intranet.Pages
             try
             {
                 List<Condicion> condicionAlineadoOperativo = new List<Condicion>();
-                condicionAlineadoOperativo.Add(new Condicion { Nombre = "Alineado", Deshabilitado = false, Tipo = "radio" });
-                condicionAlineadoOperativo.Add(new Condicion { Nombre = "Operativo", Deshabilitado = false, Tipo = "radio" });
+                condicionAlineadoOperativo.Add(new Condicion { Nombre = "Alineado", Deshabilitado = false, Tipo = "Radio" });
+                condicionAlineadoOperativo.Add(new Condicion { Nombre = "Operativo", Deshabilitado = false, Tipo = "Radio" });
 
                 List<Condicion> condicionOperativo = new List<Condicion>();
-                condicionOperativo.Add(new Condicion { Nombre = "Operativo", Deshabilitado = false, Tipo = "radio" });
+                condicionOperativo.Add(new Condicion { Nombre = "Operativo", Deshabilitado = false, Tipo = "Radio" });
+
+                List<Condicion> Observaciones = new List<Condicion>();
+                Observaciones.Add(new Condicion { Nombre = "Observaciones (Opcional)", Deshabilitado = false, Tipo = "Texto" });
 
                 MaterialRevision materialPuertaPrincipal = new MaterialRevision();
                 materialPuertaPrincipal.Nombre = "Puerta principal";
+                materialPuertaPrincipal.Tipo = "Radio";
 
                 MaterialRevision materialBisagras = new MaterialRevision();
                 materialBisagras.Nombre = "Bisagras";
+                materialBisagras.Tipo = "Radio";
 
                 MaterialRevision materialCerradura = new MaterialRevision();
                 materialCerradura.Nombre = "Cerradura";
+                materialCerradura.Tipo = "Radio";
 
                 MaterialRevision materialCamilla = new MaterialRevision();
                 materialCamilla.Nombre = "Camilla";
+                materialCamilla.Tipo = "Radio";
 
                 MaterialRevision materialMesadecomputadora = new MaterialRevision();
                 materialMesadecomputadora.Nombre = "Mesa de computadora";
+                materialMesadecomputadora.Tipo = "Radio";
 
                 MaterialRevision materialSilla = new MaterialRevision();
                 materialSilla.Nombre = "Silla";
+                materialSilla.Tipo = "Radio";
 
                 MaterialRevision materialInterruptordeencendido = new MaterialRevision();
                 materialInterruptordeencendido.Nombre = "Interruptor de encendido";
+                materialInterruptordeencendido.Tipo = "Radio";
 
                 MaterialRevision materialLamparas = new MaterialRevision();
                 materialLamparas.Nombre = "Lámparas";
+                materialLamparas.Tipo = "Radio";
 
                 MaterialRevision materialTomacorrientes = new MaterialRevision();
                 materialTomacorrientes.Nombre = "Tomacorrientes";
+                materialTomacorrientes.Tipo = "Radio";
 
                 MaterialRevision materialTapasdetomacorrientes = new MaterialRevision();
                 materialTapasdetomacorrientes.Nombre = "Tapas de tomacorrientes";
+                materialTapasdetomacorrientes.Tipo = "Radio";
 
                 MaterialRevision materialEquipodeaireacondicionado = new MaterialRevision();
                 materialEquipodeaireacondicionado.Nombre = "Equipo de aire acondicionado";
+                materialEquipodeaireacondicionado.Tipo = "Radio";
 
                 MaterialRevision materialEscabel = new MaterialRevision();
                 materialEscabel.Nombre = "Escabel";
+                materialEscabel.Tipo = "Radio";
 
                 MaterialRevision materialVentanas = new MaterialRevision();
                 materialVentanas.Nombre = "Ventanas";
+                materialVentanas.Tipo = "Radio";
 
                 MaterialRevision materialLavamanos = new MaterialRevision();
                 materialLavamanos.Nombre = "Lavamanos";
+                materialLavamanos.Tipo = "Radio";
 
                 MaterialRevision materialParedespintura = new MaterialRevision();
                 materialParedespintura.Nombre = "Paredes (pintura)";
+                materialParedespintura.Tipo = "Radio";
 
                 MaterialRevision materialTechopintura = new MaterialRevision();
                 materialTechopintura.Nombre = "Techo (pintura)";
+                materialTechopintura.Tipo = "Radio";
 
                 MaterialRevision materialPuertadebaño = new MaterialRevision();
                 materialPuertadebaño.Nombre = "Puerta de baño";
+                materialPuertadebaño.Tipo = "Radio";
 
                 MaterialRevision materialLlavedelavamanos = new MaterialRevision();
-                materialLlavedelavamanos.Nombre = "Llave de lavamanos ";
+                materialLlavedelavamanos.Nombre = "Llave de lavamanos";
+                materialLlavedelavamanos.Tipo = "Radio";
 
                 MaterialRevision materialCanilladelavamanos = new MaterialRevision();
                 materialCanilladelavamanos.Nombre = "Canilla de lavamanos";
+                materialCanilladelavamanos.Tipo = "Radio";
 
                 MaterialRevision materialLlavedearresto = new MaterialRevision();
                 materialLlavedearresto.Nombre = "Llave de arresto";
+                materialLlavedearresto.Tipo = "Radio";
 
                 MaterialRevision materialPoceta = new MaterialRevision();
                 materialPoceta.Nombre = "Poceta";
+                materialPoceta.Tipo = "Radio";
 
                 MaterialRevision materialUrinario = new MaterialRevision();
                 materialUrinario.Nombre = "Urinario";
+                materialUrinario.Tipo = "Radio";
 
                 MaterialRevision materialDivisores = new MaterialRevision();
                 materialDivisores.Nombre = "Divisores";
+                materialDivisores.Tipo = "Radio";
 
                 MaterialRevision materialPasadoresdepuertas = new MaterialRevision();
                 materialPasadoresdepuertas.Nombre = "Pasadores de puertas";
+                materialPasadoresdepuertas.Tipo = "Radio";
 
                 MaterialRevision materialCerraduraBano = new MaterialRevision();
                 materialCerraduraBano.Nombre = "Cerradura";
+                materialCerraduraBano.Tipo = "Radio";
 
                 MaterialRevision materialLamparacialítica = new MaterialRevision();
                 materialLamparacialítica.Nombre = "Lámpara cialítica";
+                materialLamparacialítica.Tipo = "Radio";
 
                 MaterialRevision materialPuertasdevidriotemplex = new MaterialRevision();
                 materialPuertasdevidriotemplex.Nombre = "Puertas de vidrio templex";
+                materialPuertasdevidriotemplex.Tipo = "Radio";
 
                 MaterialRevision materialCestadehacer = new MaterialRevision();
                 materialCestadehacer.Nombre = "Cesta de hacer (lavado de manos)";
+                materialCestadehacer.Tipo = "Radio";
 
                 MaterialRevision materialCamaclinica = new MaterialRevision();
                 materialCamaclinica.Nombre = "Cama clínica";
+                materialCamaclinica.Tipo = "Radio";
 
                 MaterialRevision materialEstructuradecortinas = new MaterialRevision();
                 materialEstructuradecortinas.Nombre = "Estructura de cortinas";
+                materialEstructuradecortinas.Tipo = "Radio";
 
                 MaterialRevision materialSilladeacompanante = new MaterialRevision();
                 materialSilladeacompanante.Nombre = "Silla de acompañante";
+                materialSilladeacompanante.Tipo = "Radio";
 
                 MaterialRevision materialMesa = new MaterialRevision();
                 materialMesa.Nombre = "Mesa";
+                materialMesa.Tipo = "Radio";
 
                 MaterialRevision materialTomadeoxigeno = new MaterialRevision();
                 materialTomadeoxigeno.Nombre = "Toma de oxigeno";
+                materialTomadeoxigeno.Tipo = "Radio";
 
                 MaterialRevision materialDuchatelefono = new MaterialRevision();
                 materialDuchatelefono.Nombre = "Ducha teléfono";
+                materialDuchatelefono.Tipo = "Radio";
 
                 MaterialRevision materialLlavededucha = new MaterialRevision();
                 materialLlavededucha.Nombre = "Llave de ducha";
+                materialLlavedearresto.Tipo = "Radio";
 
                 MaterialRevision materialDuchacorona = new MaterialRevision();
                 materialDuchacorona.Nombre = "Ducha corona";
+                materialDuchacorona.Tipo = "Radio";
 
                 MaterialRevision materialPuertadeduchas = new MaterialRevision();
-                materialPuertadeduchas.Nombre = "Puerta de duchas ";
+                materialPuertadeduchas.Nombre = "Puerta de duchas";
+                materialPuertadeduchas.Tipo = "Radio";
 
                 MaterialRevision materialGabinete = new MaterialRevision();
                 materialGabinete.Nombre = "Gabinete";
-
+                materialGabinete.Tipo = "Radio";
 
                 MaterialRevision materialDivan = new MaterialRevision();
                 materialDivan.Nombre = "Diván";
+                materialDivan.Tipo = "Radio";
 
                 MaterialRevision materialPuertasdecloset = new MaterialRevision();
                 materialPuertasdecloset.Nombre = "Puertas de closet/pomos";
+                materialPuertasdecloset.Tipo = "Radio";
 
                 MaterialRevision materialCloset = new MaterialRevision();
                 materialCloset.Nombre = "Clóset";
+                materialCloset.Tipo = "Radio";
 
                 MaterialRevision materialTelevisor = new MaterialRevision();
                 materialTelevisor.Nombre = "Televisor";
+                materialTelevisor.Tipo = "Radio";
 
                 MaterialRevision materialParalhospitalario = new MaterialRevision();
                 materialParalhospitalario.Nombre = "Paral hospitalario";
+                materialParalhospitalario.Tipo = "Radio";
 
                 MaterialRevision materialNeveraejecutiva = new MaterialRevision();
                 materialNeveraejecutiva.Nombre = "Nevera ejecutiva";
+                materialNeveraejecutiva.Tipo = "Radio";
 
                 MaterialRevision materialExtractordetecho = new MaterialRevision();
                 materialExtractordetecho.Nombre = "Extractor de techo";
+                materialExtractordetecho.Tipo = "Radio";
 
                 MaterialRevision materialEscritorio = new MaterialRevision();
                 materialEscritorio.Nombre = "Escritorio";
+                materialEscritorio.Tipo = "Radio";
 
                 MaterialRevision materialCableadocanalizado = new MaterialRevision();
                 materialCableadocanalizado.Nombre = "Cableado canalizado";
+                materialCableadocanalizado.Tipo = "Radio";
 
                 MaterialRevision materialRegletas = new MaterialRevision();
                 materialRegletas.Nombre = "Regletas";
+                materialRegletas.Tipo = "Radio";
 
                 MaterialRevision materialPiso = new MaterialRevision();
                 materialPiso.Nombre = "Piso";
+                materialPiso.Tipo = "Radio";
 
                 MaterialRevision materialArturitosgabinetes = new MaterialRevision();
                 materialArturitosgabinetes.Nombre = "Arturitos/ gabinetes";
+                materialArturitosgabinetes.Tipo = "Radio";
 
                 MaterialRevision materialAireAcondicionado = new MaterialRevision();
                 materialAireAcondicionado.Nombre = "Aire Acondicionado";
+                materialAireAcondicionado.Tipo = "Radio";
+
+                MaterialRevision materialObservaciones = new MaterialRevision();
+                materialObservaciones.Nombre = "Observaciones (Opcional)";
+                materialObservaciones.Tipo = "Texto";
 
 
 
@@ -301,6 +371,7 @@ namespace Intranet.Pages
                 materialParedespintura.Propiedad = condicionOperativo;
                 materialTechopintura.Propiedad = condicionOperativo;
                 materialTapasdetomacorrientes.Propiedad= condicionOperativo;
+                materialObservaciones.Propiedad = Observaciones;
 
                 //oficina
 
@@ -382,6 +453,7 @@ namespace Intranet.Pages
                     ListaMaterialesOficina.Add(materialPiso);
                     ListaMaterialesOficina.Add(materialArturitosgabinetes);
                     ListaMaterialesOficina.Add(materialAireAcondicionado);
+                    ListaMaterialesOficina.Add(materialObservaciones);
 
                     ListaMaterialesBanoOficina.Add(materialPuertadebaño);
                     ListaMaterialesBanoOficina.Add(materialBisagras);
@@ -394,7 +466,8 @@ namespace Intranet.Pages
                     ListaMaterialesBanoOficina.Add(materialInterruptordeencendido);
                     ListaMaterialesBanoOficina.Add(materialLamparas);
                     ListaMaterialesBanoOficina.Add(materialParedespintura);
-                    ListaMaterialesBanoOficina.Add(materialTechopintura); 
+                    ListaMaterialesBanoOficina.Add(materialTechopintura);
+                    ListaMaterialesBanoOficina.Add(materialObservaciones);
 
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesOficina, "Oficina", null));
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoOficina, "Oficina", "Baño"));
@@ -892,28 +965,36 @@ namespace Intranet.Pages
             ListUbicacion.OrderBy(x => x).ToList();
         }
 
-        private async Task obtenerUsuarioAgenda()
-        {
-            ListNombreUsuario = await ServicioAgendaTelefonica.ObtenerListaUsuarioDeAgenda();
+        //private async Task obtenerUsuarioAgenda()
+        //{
+        //    ListNombreUsuario = await ServicioAgendaTelefonica.ObtenerListaUsuarioDeAgenda();
 
-            ListNombreUsuario.OrderBy(x => x).ToList();
-        }
+        //    ListNombreUsuario.OrderBy(x => x).ToList();
+        //}
 
         public async void Editar(MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
         {
 
+            IdRegistroSeleccionado = planillaDigital.Item.Id;
             EditarAgenda = JsonSerializer.Deserialize<DataPlanilla>(planillaDigital.Item.Respuesta);
             EditarAgenda.UsuarioCreador = planillaDigital.Item.UsuarioCreador;
             EditarAgenda.FechaCreacion = planillaDigital.Item.FechaCreacion.ToString();
 
-            mostrarModalEditar = true;
+            mostrarModalConsulta = true;
 
         }
 
         private void CerrarModalEditar()
-        {          
-            mostrarModalEditar = false;
+        {
+            mostrarModalConsulta = false;
             EditarAgenda = new DataPlanilla();
+            StateHasChanged();
+        }
+
+        private void CerrarModalFotos()
+        {
+            ImagenModalFotos = new List<DataImagen>();
+            mostrarModalFotos = false;           
             StateHasChanged();
         }
         public async void Eliminar (MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
@@ -1071,25 +1152,25 @@ namespace Intranet.Pages
             return result;
         }
 
-        private async Task<IEnumerable<string>> SearchUsuario(string value)
-        {
-            IEnumerable<string> result = new List<string>();
-            try
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    return new List<string>();
-                }
-                result = ListNombreUsuario.Where(x => x.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
-            }
+        //private async Task<IEnumerable<string>> SearchUsuario(string value)
+        //{
+        //    IEnumerable<string> result = new List<string>();
+        //    try
+        //    {
+        //        if (string.IsNullOrEmpty(value))
+        //        {
+        //            return new List<string>();
+        //        }
+        //        result = ListNombreUsuario.Where(x => x.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
+        //    }
 
 
-            return result;
-        }
+        //    return result;
+        //}
  
         private void OnNroTelefonicoSeleccionadaEditarChanged(string value)
         {
@@ -1170,6 +1251,9 @@ namespace Intranet.Pages
 
                 intranetContext.planillaDigitalRegistro.Add(planillaDigitalRegistro);
                 intranetContext.SaveChanges();
+
+                //guardar foto
+                await servicioNoticias.SubirImagenes(listaImagenCargada, planillaDigitalRegistro.Id, ruta);
 
                 await RefrescarDataGrid();
                 CerrarModalNuevo();
@@ -1370,8 +1454,6 @@ namespace Intranet.Pages
                 Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
             }
 
-
-
         }
         private async Task obtenerListaAreaInforme()
         {
@@ -1387,6 +1469,68 @@ namespace Intranet.Pages
             
         }
 
+        private void AbrirModalNoticia()
+        {
+            //ImagenModalNoticia = Noticia.Imagen;
+            //TituloModalNoticia = Noticia.TituloNoticia;
+            //TextoModalNoticia = Noticia.TextoNoticia;
+            //FechaModalNoticia = Noticia.FechaNoticia;
+
+            //setear ruta de imagenes
+            ImagenModalFotos = new List<DataImagen>();
+            //StateHasChanged();
+            mostrarModalFotos = true;
+        }
+        public void eliminarImagenCargadaNuevo(ListaImagenCargada item)
+        {
+            listaImagenCargada.Remove(item);
+
+        }
+
+        private async Task UploadFilesNuevo(IBrowserFile archivo)
+        {
+            int tamano = 2 * 1024 * 1024;
+            if (archivo != null)
+            {
+                if (archivo.Size < 2 * 1024 * 1024)
+                {
+
+                    try
+                    {
+                        using var stream = archivo.OpenReadStream(2 * 1024 * 1024);
+                        using var ms = new MemoryStream();
+                        await stream.CopyToAsync(ms);
+
+                        listaImagenCargada.Add(new ListaImagenCargada
+                        {
+                            imagenSeleccionadaCargada = $"data:{archivo.ContentType};base64,{Convert.ToBase64String(ms.ToArray())}",
+                            NombreimagenSeleccionadaCargada = archivo.Name,
+                            NombreFisicoimagenSeleccionadaCargada = Guid.NewGuid().ToString() + Path.GetExtension(archivo.Name)
+                        });
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
+                        listaImagenCargada = new List<ListaImagenCargada>();
+                        Snackbar.Add("Ocurrio un error", Severity.Error);
+
+                    }
+                }
+                else
+                {
+                    Snackbar.Add("la imagen excede el tamaño, debe ser igual o menor a : " + tamano, Severity.Error);
+                }
+
+            }
+            else
+            {
+
+                listaImagenCargada = new List<ListaImagenCargada>();
+            }
+
+        }
     }
 
 }

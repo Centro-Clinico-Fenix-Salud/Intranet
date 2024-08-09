@@ -5,7 +5,7 @@ namespace Intranet.Interfaces
 {
     public interface IServicioNoticias
     {
-        Task SubirImagenes(List<ListaImagenCargada> listaImagenCargada, Guid NoticiaId);
+        Task SubirImagenes(List<ListaImagenCargada> listaImagenCargada, Guid NoticiaId, string ruta);
         Task<Guid> GuardarNoticia(CreateNoticia CreateNoticia);
         Task<List<NoticiaDataTable>> ObtenerListaNoticias();
         Task<bool> EliminarNoticia(Guid NoticiaId);

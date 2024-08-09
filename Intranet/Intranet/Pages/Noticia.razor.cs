@@ -75,7 +75,8 @@ namespace Intranet.Pages
         {          
             await RefrescarDataGrid();
             CreateNoticia = new CreateNoticia();
-            
+            ruta = configuration["RutaArchivosNoticia"];
+
         }
 
 
@@ -261,9 +262,8 @@ namespace Intranet.Pages
 
             try
             {
-                var NoticiaId = await servicioNoticias.GuardarNoticia(CreateNoticia);
-                ruta = string.Empty;
-                await servicioNoticias.SubirImagenes(listaImagenCargada, NoticiaId);
+                var NoticiaId = await servicioNoticias.GuardarNoticia(CreateNoticia);               
+                await servicioNoticias.SubirImagenes(listaImagenCargada, NoticiaId, ruta);
 
                 foreach (var item in listaImagenCargada) 
                 {
@@ -392,13 +392,13 @@ namespace Intranet.Pages
                     }
                        
                     foreach (var item in listaImagenCargada)
-                        {
-                            if(item.imagenSeleccionadaCargada != null)
-                            listaImagenAgregar.Add(item);
-                        }
+                    {
+                       if(item.imagenSeleccionadaCargada != null)
+                       listaImagenAgregar.Add(item);
+                    }
 
                         if (listaImagenAgregar.Count > 0)
-                        await servicioNoticias.SubirImagenes(listaImagenAgregar, EditarNoticia.Id);
+                        await servicioNoticias.SubirImagenes(listaImagenAgregar, EditarNoticia.Id, ruta);
                 }
 
                 await servicioNoticias.ActualizarNoticia(EditarNoticia);

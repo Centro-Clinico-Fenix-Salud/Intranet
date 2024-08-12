@@ -64,7 +64,7 @@
                         <TemplateColumn Title="Acciones" Sortable="false">
                             <CellTemplate Context="context2">
                                 <AuthorizeView Roles="SuperAdmin,EditarAgendaTelefonica" Context="context3">
-                                    <MudIconButton Icon="@Icons.Material.Outlined.Preview" Color="Color.Info" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
+                                    <MudIconButton Icon="@Icons.Material.Outlined.Preview" Color="Color.Info" Title="Editar" Size="@Size.Medium" OnClick="@(() => Consulta(context2))" />
                                 </AuthorizeView>
 
                                 <AuthorizeView Roles="SuperAdmin,EliminarAgendaTelefonica" Context="context3">
@@ -462,7 +462,7 @@
                                                         </strong>
                                                     </div>
                                                     <div class="col-4">
-                                                        <MudButton ButtonType="ButtonType.Button" OnClick="@(() => AbrirModalNoticia())" Size="Size.Small" Variant="Variant.Filled" Color="Color.Surface">Ver fotos</MudButton>
+                                                        <MudButton ButtonType="ButtonType.Button" OnClick="@(() => BtnAbrirModalFotos())" Size="Size.Small" Variant="Variant.Filled" Color="Color.Surface">Ver fotos</MudButton>
                                                     </div>
                                                 </div>
                                                 

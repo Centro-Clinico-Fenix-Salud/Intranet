@@ -972,7 +972,7 @@ namespace Intranet.Pages
         //    ListNombreUsuario.OrderBy(x => x).ToList();
         //}
 
-        public async void Editar(MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
+        public async void Consulta(MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
         {
 
             IdRegistroSeleccionado = planillaDigital.Item.Id;
@@ -980,13 +980,18 @@ namespace Intranet.Pages
             EditarAgenda.UsuarioCreador = planillaDigital.Item.UsuarioCreador;
             EditarAgenda.FechaCreacion = planillaDigital.Item.FechaCreacion.ToString();
 
-            mostrarModalConsulta = true;
+            //ImagenModalFotos = new List<DataImagen>();
 
+            //ImagenModalFotos = await ServicioPlanillaDigital.ObtenerListaArchivoPlanilla(IdRegistroSeleccionado, configuration["RutaDescargaArchivosMantenimientoTecnico"]);
+
+            mostrarModalConsulta = true;
+            StateHasChanged();
         }
 
         private void CerrarModalEditar()
         {
             mostrarModalConsulta = false;
+            ImagenModalFotos = new List<DataImagen>();
             EditarAgenda = new DataPlanilla();
             StateHasChanged();
         }
@@ -1232,7 +1237,6 @@ namespace Intranet.Pages
                     Respuesta.Titulo = AreaInforme;
                     Respuesta.AgruparCuerpos = true;
 
-
                 }
 
                 string json = JsonSerializer.Serialize(Respuesta);
@@ -1469,16 +1473,18 @@ namespace Intranet.Pages
             
         }
 
-        private void AbrirModalNoticia()
+        private async Task BtnAbrirModalFotos()
         {
-            //ImagenModalNoticia = Noticia.Imagen;
-            //TituloModalNoticia = Noticia.TituloNoticia;
-            //TextoModalNoticia = Noticia.TextoNoticia;
-            //FechaModalNoticia = Noticia.FechaNoticia;
 
             //setear ruta de imagenes
+            //ImagenModalFotos = new List<DataImagen>();
+
+            //ImagenModalFotos = await ServicioPlanillaDigital.ObtenerListaArchivoPlanilla(IdRegistroSeleccionado, configuration["RutaDescargaArchivosMantenimientoTecnico"]);
+            //IdRegistroSeleccionado  configuration["RutaDescargaArchivosMantenimientoTecnico"]
             ImagenModalFotos = new List<DataImagen>();
-            //StateHasChanged();
+
+            ImagenModalFotos = await ServicioPlanillaDigital.ObtenerListaArchivoPlanilla(IdRegistroSeleccionado, configuration["RutaDescargaArchivosMantenimientoTecnico"]);
+            StateHasChanged();
             mostrarModalFotos = true;
         }
         public void eliminarImagenCargadaNuevo(ListaImagenCargada item)

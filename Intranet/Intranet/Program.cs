@@ -47,6 +47,12 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(Directory.GetCurrentDirectory(), builder.Configuration["RutaArchivosNoticia"])),
     RequestPath = "/Noticia/Files"
 });
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), builder.Configuration["RutaArchivosMantenimientoTecnico"])),
+    RequestPath = "/Mantenimiento Tecnico/Files"
+});
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

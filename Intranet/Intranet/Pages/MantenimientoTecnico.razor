@@ -40,6 +40,11 @@
     </div>
     </Authorized>
 </AuthorizeView>
+@if (aplicarFiltro)
+{
+    <MudText Typo="Typo.subtitle1">@FechaDesde?.ToString("dd/MM/yyyy") - @FechaHasta?.ToString("dd/MM/yyyy")</MudText>
+} 
+
 
 <AuthorizeView Roles="SuperAdmin,ConsultaRevisionMantenimientoTecnico" Context="context4">
    <Authorized>
@@ -49,11 +54,10 @@
                 <div class="col-10">
                     <input type="text" class="form-control" hidden="@MostrarBotonAgregarYBuscador" placeholder="Búsqueda por usuario, fecha, zona y tipo de zona" @bind="searchTerm" @oninput="Buscar2">
                 </div>
-                <div class="col-2">
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" hidden="@MostrarBotonAgregarYBuscador" OnClick="@(() => AbrirModalFilrto())" Color="Color.Info" Class="ml-auto">Filtro</MudButton>
+                <div class="col-2 d-flex">
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" hidden="@MostrarBotonAgregarYBuscador" OnClick="@(() => AbrirModalFilrto())" Color="Color.Info">Fecha</MudButton>
                 </div>
-            </div>
-            @* <input type="text" class="form-control" hidden="@MostrarBotonAgregarYBuscador" placeholder="Búsqueda por usuario, fecha, zona y tipo de zona" @bind="searchTerm" @oninput="Buscar2"> *@
+            </div>          
         </div>
 
         <MudDataGrid T="PlanillaDigitalDataGrid" Items="@DireccionTelefonica" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
@@ -123,7 +127,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Filtro de busqueda</h5>
-                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                    <button type="button" class="close" @onclick="CerrarModalFiltro">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -132,38 +136,40 @@
                         <MudCard>
                             <MudCardContent>
                                 <div class="container">
-                                    <div style="overflow-y: auto; height: 500px;">
+                                    <div style="overflow-y: auto; height: 70px;">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <MudDatePicker Label="Desde" @bind-Date="FechaDesde" />
 
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <MudDatePicker Label="Desde" @bind-Date="FechaDesde" />
+                                                </div>
+                                                <div class="col-6">
+                                                    <MudDatePicker Label="Hasta" @bind-Date="FechaHasta" />
 
+                                                </div>
                                             </div>
-                                            <div class="col-6">
-                                                <MudDatePicker Label="Hasta" @bind-Date="FechaHasta" />
 
-                                            </div>
-                                        </div>
-
-                                       <MudSelect T="string" Label="Selecciona una zona"
-                                                       Value="ZonaFiltro" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
-                                                @foreach (var areaInforme in ListaZonaFiltro)
+                                           @* <MudSelect T="string" Label="Selecciona una zona"
+                                                           Value="ZonaFiltro" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                                    @foreach (var areaInforme in ListaZonaFiltro)
+                                                    {
+                                                        <MudSelectItem Value="@areaInforme" />
+                                                    }
+                                           </MudSelect>
+                                            <MudSelect T="string" Label="Selecciona un tipo de zona"
+                                                       Value="TipoZonaFiltro" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+                                                @foreach (var areaInforme in ListaTipoZonaFiltro)
                                                 {
                                                     <MudSelectItem Value="@areaInforme" />
                                                 }
-                                       </MudSelect>
-                                        <MudSelect T="string" Label="Selecciona un tipo de zona"
-                                                   Value="TipoZonaFiltro" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
-                                            @foreach (var areaInforme in ListaTipoZonaFiltro)
-                                            {
-                                                <MudSelectItem Value="@areaInforme" />
-                                            }
-                                        </MudSelect>
+                                            </MudSelect> *@
+                                            </div>
                                     </div>
                                 </div>
                             </MudCardContent>
                             <MudCardActions>
-                                <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalEditar" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Cerrar</MudButton>
+                                <MudButton ButtonType="ButtonType.Button" OnClick="BtnRestablecerFiltro" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Restablecer</MudButton>
+                                <MudButton ButtonType="ButtonType.Button" OnClick="BtnAplicarFiltro" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Aplicar</MudButton>
                             </MudCardActions>
                         </MudCard>
                     </MudItem>
@@ -230,32 +236,34 @@
                                                     <MudCardContent>
                                                          <div class="container">
                                                             <div style="overflow-y: auto; height: 500px;">
-                                                                <div class="row">
-                                                            <div class="col-2 d-flex justify-content-end align-items-center mb-3">
-                                                                        <div>
-                                                                            <MudFileUpload Accept=".png, .jpg" T="IBrowserFile" FilesChanged="UploadFilesNuevo">
-                                                                                <ButtonTemplate Context="context2">
-                                                                                    <MudFab HtmlTag="label"
-                                                                                            Color="Color.Success"
-                                                                                            Icon="@Icons.Material.Filled.AttachFile"
-                                                                                            for="@context2.Id" />
-                                                                                </ButtonTemplate>
-                                                                            </MudFileUpload>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-10 d-flex justify-content-start align-items-center my-2">
-                                                                        <span> cargar una foto</span>
-                                                                    </div>
-                                                                </div>
-                                                                @foreach (var item in listaImagenCargada)
-                                                                {
+                                                                <div class="container">
                                                                     <div class="row">
-                                                                        <div class="col-12">
-                                                                            @item.NombreimagenSeleccionadaCargada
-                                                                            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick="@( () => eliminarImagenCargadaNuevo(item) )" />
+                                                                        <div class="col-3 d-flex justify-content-end align-items-center mb-3">
+                                                                            <div>
+                                                                                <MudFileUpload Accept=".png, .jpg" T="IBrowserFile" FilesChanged="UploadFilesNuevo">
+                                                                                    <ButtonTemplate Context="context2">
+                                                                                        <MudFab HtmlTag="label"
+                                                                                                Color="Color.Success"
+                                                                                                Icon="@Icons.Material.Filled.AttachFile"
+                                                                                                for="@context2.Id" />
+                                                                                    </ButtonTemplate>
+                                                                                </MudFileUpload>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-9 d-flex justify-content-start align-items-center my-2">
+                                                                            <span> cargar una foto</span>
                                                                         </div>
                                                                     </div>
-                                                                }
+                                                                    @foreach (var item in listaImagenCargada)
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-12 pe-2">
+                                                                                @item.NombreimagenSeleccionadaCargada
+                                                                                <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick="@( () => eliminarImagenCargadaNuevo(item) )" />
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
                                                             @foreach(var zona1 in CreateRegistro)
                                                             {
                                                                 @if (zona1 != null && zona1.Tipo.Equals("Radio"))
@@ -314,6 +322,34 @@
                                 }else{
                                     @if (configPantalla != null && configPantalla.Cuerpo.Count() > 1)
                                     {
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-3 d-flex justify-content-end align-items-center mb-3">
+                                                    <div>
+                                                        <MudFileUpload Accept=".png, .jpg" T="IBrowserFile" FilesChanged="UploadFilesNuevo">
+                                                            <ButtonTemplate Context="context2">
+                                                                <MudFab HtmlTag="label"
+                                                                        Color="Color.Success"
+                                                                        Icon="@Icons.Material.Filled.AttachFile"
+                                                                        for="@context2.Id" />
+                                                            </ButtonTemplate>
+                                                        </MudFileUpload>
+                                                    </div>
+                                                </div>
+                                                <div class="col-9 d-flex justify-content-start align-items-center my-2">
+                                                    <span> cargar una foto</span>
+                                                </div>
+                                            </div>
+                                            @foreach (var item in listaImagenCargada)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-12 pe-2">
+                                                        @item.NombreimagenSeleccionadaCargada
+                                                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick="@( () => eliminarImagenCargadaNuevo(item) )" />
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
                                         <div class="mb-3 mt-3">
                                             <div class="row">
                                         <div class="col-6 d-flex flex-column justify-content-end align-items-start">
@@ -450,19 +486,21 @@
                                         @foreach (var zona3 in EditarAgenda.Cuerpo.Select(x=> x.zonaRevision).ToList())
                                         {
                                             @foreach (var zona4 in zona3)
-                                            {                                             
-                                                <div class="row m-2">
-                                                    <div class="col-8">
-                                                        <strong>
-                                                            @zona4.Nombre &nbsp;
-                                                            @if (zona4.tipoZonaRevision.Count() > 0)
-                                                            {
-                                                                @zona4.tipoZonaRevision[0].Nombre
-                                                            }
-                                                        </strong>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <MudButton ButtonType="ButtonType.Button" OnClick="@(() => BtnAbrirModalFotos())" Size="Size.Small" Variant="Variant.Filled" Color="Color.Surface">Ver fotos</MudButton>
+                                            {
+                                                <div class="container-fluid"> 
+                                                    <div class="row m-2">
+                                                        <div class="col-8">
+                                                            <strong>
+                                                                @zona4.Nombre &nbsp;
+                                                                @if (zona4.tipoZonaRevision.Count() > 0)
+                                                                {
+                                                                    @zona4.tipoZonaRevision[0].Nombre
+                                                                }
+                                                            </strong>
+                                                        </div>
+                                                         <div class="col-4">
+                                                            <MudButton ButtonType="ButtonType.Button" OnClick="@(() => BtnAbrirModalFotos())" Size="Size.Small" Variant="Variant.Filled" Color="Color.Surface" Class="ml-auto">Ver fotos</MudButton>                                                     
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 

@@ -106,22 +106,28 @@ namespace Intranet.Pages
         [Inject]
         private IServicioNoticias servicioNoticias { get; set; }
         private string ruta = string.Empty;
+        private bool aplicarFiltro { get; set; }
         protected override async Task OnInitializedAsync()
         {
             MostrarBotonAgregarYBuscador = true;
-            //await RefrescarDataGrid();
+        
             await obtenerUnidadAgenda();
             await obtenerUbicacionAgenda();
-            //await obtenerUsuarioAgenda();
-            //await crearJson("Habitación", true);
-            //await crearJson("Oficina", false);
-            //await crearJson("Consultorio área APS", false);
-            //await crearJson("Quirófanos", false);
-            //await crearJson("Emergencia (Planta Baja)", false);
-            //await crearJson("Ambulatorio Piso 5", false);
-            //await crearJson("Ambulatorio Piso 4", false);
-            //await crearJson("Suite", true);
             await obtenerListaAreaInforme();
+            if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnico"]))
+            {
+                await crearJson("Habitación", true);
+                await crearJson("Oficina", false);
+                await crearJson("Consultorio área APS", false);
+                await crearJson("Quirófanos", false);
+                await crearJson("Emergencia (Planta Baja)", false);
+                await crearJson("Ambulatorio Piso 5", false);
+                await crearJson("Ambulatorio Piso 4", false);
+                await crearJson("Suite", true);
+            }
+
+
+
             configPantalla = new DataPlanilla();
             listaTipoZona = new List<TipoZonaRevision>();
             MostrarFormulario = false;
@@ -282,7 +288,7 @@ namespace Intranet.Pages
 
                 MaterialRevision materialLlavededucha = new MaterialRevision();
                 materialLlavededucha.Nombre = "Llave de ducha";
-                materialLlavedearresto.Tipo = "Radio";
+                materialLlavededucha.Tipo = "Radio";
 
                 MaterialRevision materialDuchacorona = new MaterialRevision();
                 materialDuchacorona.Nombre = "Ducha corona";
@@ -500,7 +506,8 @@ namespace Intranet.Pages
                     ListaMaterialesHabitacion.Add(materialParedespintura);
                     ListaMaterialesHabitacion.Add(materialTechopintura);
                     ListaMaterialesHabitacion.Add(materialExtractordetecho);
-
+                    ListaMaterialesHabitacion.Add(materialObservaciones);
+                    
                     ListaMaterialesBanoHabitacion.Add(materialPuertadebaño);
                     ListaMaterialesBanoHabitacion.Add(materialBisagras);
                     ListaMaterialesBanoHabitacion.Add(materialCerradura);
@@ -517,6 +524,7 @@ namespace Intranet.Pages
                     ListaMaterialesBanoHabitacion.Add(materialLamparas);
                     ListaMaterialesBanoHabitacion.Add(materialParedespintura);
                     ListaMaterialesBanoHabitacion.Add(materialTechopintura);
+                    ListaMaterialesBanoHabitacion.Add(materialObservaciones);
 
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesHabitacion, "Habitación", null));
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoHabitacion, "Habitación", "Baño"));
@@ -542,10 +550,12 @@ namespace Intranet.Pages
                     ListaMaterialesQuirofanos.Add(materialEscabel);
                     ListaMaterialesQuirofanos.Add(materialParedespintura);
                     ListaMaterialesQuirofanos.Add(materialTechopintura);
+                    ListaMaterialesQuirofanos.Add(materialObservaciones);
 
                     ListaMaterialesBanoQuirofanos.Add(materialPuertadebaño);
                     ListaMaterialesBanoQuirofanos.Add(materialBisagras);
                     ListaMaterialesBanoQuirofanos.Add(materialCerradura);
+                    ListaMaterialesBanoQuirofanos.Add(materialObservaciones);
 
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesQuirofanos, "Quirófano", null));
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoQuirofanos, "Quirófano", "Baño"));
@@ -568,6 +578,7 @@ namespace Intranet.Pages
                     ListaMaterialesEmergencia.Add(materialParedespintura);
                     ListaMaterialesEmergencia.Add(materialTechopintura);
                     ListaMaterialesEmergencia.Add(materialTomadeoxigeno);
+                    ListaMaterialesEmergencia.Add(materialObservaciones);
 
                     ListaMaterialesBanoEmergencia.Add(materialPuertadebaño);
                     ListaMaterialesBanoEmergencia.Add(materialBisagras);
@@ -585,6 +596,7 @@ namespace Intranet.Pages
                     ListaMaterialesBanoEmergencia.Add(materialLamparas);
                     ListaMaterialesBanoEmergencia.Add(materialParedespintura);
                     ListaMaterialesBanoEmergencia.Add(materialTechopintura);
+                    ListaMaterialesBanoEmergencia.Add(materialObservaciones);
 
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesEmergencia, "Cubículo", null));
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoEmergencia, "Cubículo", "Baño"));
@@ -618,6 +630,7 @@ namespace Intranet.Pages
                     ListaMaterialesSuite.Add(materialParedespintura);
                     ListaMaterialesSuite.Add(materialTechopintura);
                     ListaMaterialesSuite.Add(materialExtractordetecho);
+                    ListaMaterialesSuite.Add(materialObservaciones);
 
                     ListaMaterialesBanoSuite.Add(materialPuertadebaño);
                     ListaMaterialesBanoSuite.Add(materialBisagras);
@@ -635,6 +648,7 @@ namespace Intranet.Pages
                     ListaMaterialesBanoSuite.Add(materialLamparas);
                     ListaMaterialesBanoSuite.Add(materialParedespintura);
                     ListaMaterialesBanoSuite.Add(materialTechopintura);
+                    ListaMaterialesBanoSuite.Add(materialObservaciones);
 
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesSuite, "Suite", null));
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesBanoSuite, "Suite", "Baño"));
@@ -657,6 +671,7 @@ namespace Intranet.Pages
                     ListaMaterialesAmbulatorio5.Add(materialParedespintura);
                     ListaMaterialesAmbulatorio5.Add(materialTechopintura);
                     ListaMaterialesAmbulatorio5.Add(materialTomadeoxigeno);
+                    ListaMaterialesAmbulatorio5.Add(materialObservaciones);
 
                     ListaMaterialesBanoAmbulatorio5.Add(materialPuertadebaño);
                     ListaMaterialesBanoAmbulatorio5.Add(materialBisagras);
@@ -674,6 +689,7 @@ namespace Intranet.Pages
                     ListaMaterialesBanoAmbulatorio5.Add(materialLamparas);
                     ListaMaterialesBanoAmbulatorio5.Add(materialParedespintura);
                     ListaMaterialesBanoAmbulatorio5.Add(materialTechopintura);
+                    ListaMaterialesBanoAmbulatorio5.Add(materialObservaciones);
 
 
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesAmbulatorio5, "Cubículo", null));
@@ -702,6 +718,7 @@ namespace Intranet.Pages
                     ListaMaterialesConsultorioAreaAPS.Add(materialLavamanos);
                     ListaMaterialesConsultorioAreaAPS.Add(materialParedespintura);
                     ListaMaterialesConsultorioAreaAPS.Add(materialTechopintura);
+                    ListaMaterialesConsultorioAreaAPS.Add(materialObservaciones);
 
 
                     ListaMaterialesBanoConsultorioAreaAPS.Add(materialPuertadebaño);
@@ -719,6 +736,7 @@ namespace Intranet.Pages
                     ListaMaterialesBanoConsultorioAreaAPS.Add(materialLamparas);
                     ListaMaterialesBanoConsultorioAreaAPS.Add(materialParedespintura);
                     ListaMaterialesBanoConsultorioAreaAPS.Add(materialTechopintura);
+                    ListaMaterialesBanoConsultorioAreaAPS.Add(materialObservaciones);
 
 
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesConsultorioAreaAPS, "Consultorio", null));
@@ -742,6 +760,7 @@ namespace Intranet.Pages
                     ListaMaterialesAmbulatorio4.Add(materialParedespintura);
                     ListaMaterialesAmbulatorio4.Add(materialTechopintura);
                     ListaMaterialesAmbulatorio4.Add(materialTomadeoxigeno);
+                    ListaMaterialesAmbulatorio4.Add(materialObservaciones);
 
                     ListaMaterialesBanoAmbulatorio4.Add(materialPuertadebaño);
                     ListaMaterialesBanoAmbulatorio4.Add(materialBisagras);
@@ -759,6 +778,7 @@ namespace Intranet.Pages
                     ListaMaterialesBanoAmbulatorio4.Add(materialLamparas);
                     ListaMaterialesBanoAmbulatorio4.Add(materialParedespintura);
                     ListaMaterialesBanoAmbulatorio4.Add(materialTechopintura);
+                    ListaMaterialesBanoAmbulatorio4.Add(materialObservaciones);
 
 
                     data.Cuerpo.Add(await CreacionData(ListaMaterialesAmbulatorio4, "Cubículo", null));
@@ -939,6 +959,9 @@ namespace Intranet.Pages
         {
             var resultado = (await Data()).AsQueryable();
 
+            if(aplicarFiltro)
+                resultado = resultado.Where(x => x.FechaCreacion >= FechaDesde && x.FechaCreacion <= FechaHasta).ToList().AsQueryable();
+
             MaestroDireccionTelefonica = DireccionTelefonica = resultado;
         }
 
@@ -1060,9 +1083,12 @@ namespace Intranet.Pages
             CreateRegistro = new List<MaterialRevision>();
             if (configPantalla != null)
             {
+                if(!aplicarFiltro)
+                FechaDesde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 var todos = "Todos";
                 ListaZonaFiltro = new List<string>();
                 ListaZonaFiltro.Add(todos);
+                ListaTipoZonaFiltro = new List<string>();
                 ZonaFiltro = todos;
                 TipoZonaFiltro = todos;
                 var cuerpo = configPantalla.Cuerpo.ToList();
@@ -1093,6 +1119,30 @@ namespace Intranet.Pages
             mostrarModalEliminar = false;
 
         }
+
+        private void CerrarModalFiltro()
+        {
+            //eliminarPlanillaDigital = new EliminarPlanillaDigital();
+            StateHasChanged();
+            mostrarModalFiltro = false;
+        }
+
+        private async Task BtnAplicarFiltro()
+        {
+            aplicarFiltro = true;
+            StateHasChanged();
+            await RefrescarDataGrid();
+            mostrarModalFiltro = false;
+        }
+        private async Task BtnRestablecerFiltro()
+        {
+
+             aplicarFiltro = false;
+            StateHasChanged();
+            await RefrescarDataGrid();
+            mostrarModalFiltro = false;
+
+        }
         private void CerrarModalNuevo()
         {
                       
@@ -1106,15 +1156,18 @@ namespace Intranet.Pages
        
         private async Task EliminarRegistro()
         {
+            var listaImagenes = await ServicioPlanillaDigital.ObtenerListaArchivoPlanilla(eliminarPlanillaDigital.Id, configuration["RutaDescargaArchivosMantenimientoTecnico"]);
 
-            if (await ServicioPlanillaDigital.EliminarRegistroPlanillaDigital(eliminarPlanillaDigital.Id, Guid.Parse(await IdUsuario())))
+
+            if (await ServicioPlanillaDigital.EliminarRegistroPlanillaDigital(eliminarPlanillaDigital.Id, Guid.Parse(await IdUsuario())) &&
+                 ServicioPlanillaDigital.EliminarImagenes(listaImagenes, configuration["RutaArchivosMantenimientoTecnico"]))
             {
-                await RefrescarDataGrid();
-                Snackbar.Add("Registro Eliminado", Severity.Info);
-                CerrarModalEliminar();
+                    await RefrescarDataGrid();
+                    Snackbar.Add("Registro Eliminado", Severity.Info);
+                    CerrarModalEliminar();
             }
-            else
-                Snackbar.Add("Ocurrio un error", Severity.Error);
+             else
+                 Snackbar.Add("Ocurrio un error", Severity.Error);
 
         }
 

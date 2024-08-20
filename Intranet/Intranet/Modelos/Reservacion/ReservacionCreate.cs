@@ -4,6 +4,7 @@ namespace Intranet.Modelos.Reservacion
 {
     public class ReservacionCreate : IValidatableObject
     {
+        public Guid id { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string title { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
@@ -14,7 +15,7 @@ namespace Intranet.Modelos.Reservacion
         public DateTime? Fecha { get; set; }
         public string description { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
-        public string createdBy { get; set; }
+        public Guid createdBy { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -19,6 +19,7 @@ namespace Intranet.Extension
             builder.Services.AddScoped<IServicioPlanillaDigital, ServicioPlanillaDigital>();
             builder.Services.AddScoped<IServicioDireccionIp, ServicioDireccionIp>();
             builder.Services.AddScoped<IServicioUsuarioDireccion, ServicioUsuarioDireccion>();
+            builder.Services.AddScoped<IServicioReservacion, ServicioReservacion>();
 
         }
     }

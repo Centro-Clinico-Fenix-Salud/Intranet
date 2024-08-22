@@ -448,12 +448,10 @@ namespace Intranet.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("end")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("end")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("fechaCreacion")
                         .HasColumnType("datetime2");
@@ -461,9 +459,8 @@ namespace Intranet.Migrations
                     b.Property<Guid>("idSalaReunion")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("start")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("start")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("title")
                         .IsRequired()

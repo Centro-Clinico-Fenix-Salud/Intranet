@@ -55,33 +55,7 @@ namespace Intranet.Pages
             salaReunion = new SalaReunion();
 
             reservacionComponente = new Reservacion();
-
-            //EventsSalaDeJunta1.Add(new EventReservacionData { id = Guid.NewGuid(), title = "Curso mediQ", start = "2024-03-09 10:00:00", end = "2024-03-09 12:00:00", description = textoRandom, createdBy = "Aitor Blanco" });
-            //EventsSalaDeJunta1.Add(new EventReservacionData { id = Guid.NewGuid(), title = "Curso Primeros Auxilio", start = "2024-03-04 10:00:00", end = "2024-03-04 10:30:00", description = textoRandom, createdBy = "Ilay Blanco" });
-            //EventsSalaDeJunta1.Add(new EventReservacionData { id = Guid.NewGuid(), title = "induccion fenix", start = "2024-03-04 08:00:00", end = "2024-03-04 10:00:00", description = textoRandom, createdBy = "Orlando Blanco" });
-            //EventsSalaDeJunta1.Add(new EventReservacionData { id = Guid.NewGuid(), title = "planificacion de inaguracion", start = "2024-03-04 13:30:00", end = "2024-03-04 15:30:00", description = textoRandom, createdBy = "Elizabeth Blanco" });
-            //EventsSalaDeJunta1.Add(new EventReservacionData { id = Guid.NewGuid(), title = "reunion trimestral", start = "2024-03-01 14:00:00", end = "2024-03-01 16:00:00", description = textoRandom, createdBy = "Ronald Blanco" });
-
-            //EventsSalaDeJunta2.Add(new EventReservacion { id = Guid.NewGuid(), title = "Curso mediQ", start = "2024-03-11 10:00:00", end = "2024-03-11 12:00:00", description = textoRandom, createdBy = "Aitor Blanco" });
-            //EventsSalaDeJunta2.Add(new EventReservacion { id = Guid.NewGuid(), title = "Curso Primeros Auxilio", start = "2024-03-06 10:00:00", end = "2024-03-06 10:30:00", description = textoRandom, createdBy = "Ilay Blanco" });
-            //EventsSalaDeJunta2.Add(new EventReservacion { id = Guid.NewGuid(), title = "induccion fenix", start = "2024-03-06 08:00:00", end = "2024-03-06 10:00:00", description = textoRandom, createdBy = "Orlando Blanco" });
-            //EventsSalaDeJunta2.Add(new EventReservacion { id = Guid.NewGuid(), title = "planificacion de inaguracion", start = "2024-03-06 13:30:00", end = "2024-03-06 15:30:00", description = textoRandom, createdBy = "Elizabeth Blanco" });
-            //EventsSalaDeJunta2.Add(new EventReservacion { id = Guid.NewGuid(), title = "reunion trimestral", start = "2024-03-03 14:00:00", end = "2024-03-03 16:00:00", description = textoRandom, createdBy = "Ronald Blanco" });
-
-            //EventsSalaDeCallCenter.Add(new EventReservacion { id = Guid.NewGuid(), title = "Curso mediQ", start = "2024-03-13 10:00:00", end = "2024-03-13 12:00:00", description = textoRandom, createdBy = "Aitor Blanco" });
-            //EventsSalaDeCallCenter.Add(new EventReservacion { id = Guid.NewGuid(), title = "Curso Primeros Auxilio", start = "2024-03-08 10:00:00", end = "2024-03-08 10:30:00", description = textoRandom, createdBy = "Ilay Blanco" });
-            //EventsSalaDeCallCenter.Add(new EventReservacion { id = Guid.NewGuid(), title = "induccion fenix", start = "2024-03-08 08:00:00", end = "2024-03-08 10:00:00", description = textoRandom, createdBy = "Orlando Blanco" });
-            //EventsSalaDeCallCenter.Add(new EventReservacion { id = Guid.NewGuid(), title = "planificacion de inaguracion", start = "2024-03-08 13:30:00", end = "2024-03-08 15:30:00", description = textoRandom, createdBy = "Elizabeth Blanco" });
-            //EventsSalaDeCallCenter.Add(new EventReservacion { id = Guid.NewGuid(), title = "reunion trimestral", start = "2024-03-05 14:00:00", end = "2024-03-05 16:00:00", description = textoRandom, createdBy = "Ronald Blanco" });
-
-            //EventsSalaTecnica.Add(new EventReservacion { id = Guid.NewGuid(), title = "Curso mediQ", start = "2024-03-15 10:00:00", end = "2024-03-15 12:00:00", description = textoRandom, createdBy = "Aitor Blanco" });
-            //EventsSalaTecnica.Add(new EventReservacion { id = Guid.NewGuid(), title = "Curso Primeros Auxilio", start = "2024-03-10 10:00:00", end = "2024-03-10 10:30:00", description = textoRandom, createdBy = "Ilay Blanco" });
-            //EventsSalaTecnica.Add(new EventReservacion { id = Guid.NewGuid(), title = "induccion fenix", start = "2024-03-10 08:00:00", end = "2024-03-10 10:00:00", description = textoRandom, createdBy = "Orlando Blanco" });
-            //EventsSalaTecnica.Add(new EventReservacion { id = Guid.NewGuid(), title = "planificacion de inaguracion", start = "2024-03-10 13:30:00", end = "2024-03-10 15:30:00", description = textoRandom, createdBy = "Elizabeth Blanco" });
-            //EventsSalaTecnica.Add(new EventReservacion { id = Guid.NewGuid(), title = "reunion trimestral", start = "2024-03-07 14:00:00", end = "2024-03-07 16:00:00", description = textoRandom, createdBy = "Ronald Blanco" });
-
-            //eventosJson = JsonSerializer.Serialize(Events);
-
+            
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -98,9 +72,6 @@ namespace Intranet.Pages
 
         private async Task RefrescarCalendario() 
         {
-            //if(salaReunion != null && !string.IsNullOrEmpty(salaReunion.Nombre))
-            //    await Js.InvokeVoidAsync("DataCalendar2", JsonSerializer.Serialize(await ServicioReservacion.ObtenerEventos(salaReunion.Nombre)));
-            //else
 
             await Js.InvokeVoidAsync("DataCalendar2", eventosJson);
         }
@@ -126,9 +97,25 @@ namespace Intranet.Pages
         }
         private async Task EliminarReservacion()
         {
+            if (await ServicioReservacion.ConfirmarAntesEliminar(idEvento, await IdUsuario())) 
+            {
+                Snackbar.Add("Solo lo puede eliminar el creador del evento", Severity.Warning);
+                return;
+            }
+
             // servicio que elimine evento 
-            //  var result = await Servicio.eliminarReservacion(idEvento) ;
-           
+              var result = await ServicioReservacion.EliminarReservacion(idEvento) ;
+            if (result)
+            {
+                eventosJson = JsonSerializer.Serialize(await ServicioReservacion.ObtenerEventos(salaReunion.Nombre));
+                await RefrescarCalendario();
+                Snackbar.Add("Eliminado", Severity.Info);
+                CerrarModalEliminar();
+            }
+            else
+            {
+                Snackbar.Add("Error al Eliminado Evento", Severity.Error);
+            }
         }
         private void CerrarModalNuevo()
         {            
@@ -140,6 +127,12 @@ namespace Intranet.Pages
             if (CreateReservacion.end <= CreateReservacion.start)
             {
                 validationError = "La hora 'Hasta' debe ser posterior a la hora 'Desde'.";
+                return;
+            }
+
+            if (await ServicioReservacion.ConsultarDisponibilidadEvento(CreateReservacion, salaReunion.Nombre)) 
+            {
+                Snackbar.Add("Horario ocupado", Severity.Error);
                 return;
             }
 
@@ -155,51 +148,7 @@ namespace Intranet.Pages
            
         }
 
-        private async Task<bool> GuardarReservacion(ReservacionCreate createReservacion, string salaReunion) {
-            bool result = false;
-
-            try
-            {
-
-                string fechaStart = createReservacion .Fecha.ToIsoDateString() + " " + createReservacion.start.ToString();
-                string fechaEnd = createReservacion.Fecha.ToIsoDateString() + " " + createReservacion.end.ToString();
-
-
-                switch (salaReunion)
-                {
-                    case "Sala de Junta 1":
-                        //EventsSalaDeJunta1.Add(new EventReservacion { title = createReservacion.title, start = fechaStart, end = fechaEnd, description = createReservacion.description, createdBy = createReservacion.createdBy });
-                        eventosJson = JsonSerializer.Serialize(EventsSalaDeJunta1);
-                        result = true;
-                        break;
-                    case "Sala de Junta 2":
-                        //EventsSalaDeJunta2.Add(new EventReservacion { title = createReservacion.title, start = fechaStart, end = fechaEnd, description = createReservacion.description, createdBy = createReservacion.createdBy });
-                        eventosJson = JsonSerializer.Serialize(EventsSalaDeJunta2);
-                        result = true;
-                        break;
-                    case "Sala de Call center":
-                        //EventsSalaDeCallCenter.Add(new EventReservacion { title = createReservacion.title, start = fechaStart, end = fechaEnd, description = createReservacion.description, createdBy = createReservacion.createdBy });
-                        eventosJson = JsonSerializer.Serialize(EventsSalaDeCallCenter);
-                        result = true;
-                        break;
-                    case "Sala Técnica":
-                       // EventsSalaTecnica.Add(new EventReservacion { title = createReservacion.title, start = fechaStart, end = fechaEnd, description = createReservacion.description, createdBy = createReservacion.createdBy });
-                        eventosJson = JsonSerializer.Serialize(EventsSalaTecnica);
-                        result = true;
-                        break;
-                    default:
-
-                        break;
-                }
-            }catch (Exception ex)
-            {
-                Log.Error(ex.Message + ex.StackTrace + ex.InnerException);
-                Snackbar.Add("Error al guardar registro " + ex.Message, Severity.Error);
-            }
-
-            return result;
-        }
-
+      
         private async void OnSalaReunionSeleccionadaChanged(string value)
         {
             if (!string.IsNullOrEmpty(value)) 
@@ -207,24 +156,6 @@ namespace Intranet.Pages
                 salaReunion.Nombre = value;
                 mostrarCalendario = true;
 
-                //switch (value)
-                //{
-                //    case "Sala de Junta 1":
-                //        eventosJson = JsonSerializer.Serialize(EventsSalaDeJunta1);
-                //        break;
-                //    case "Sala de Junta 2":
-                //        eventosJson = JsonSerializer.Serialize(EventsSalaDeJunta2);
-                //        break;
-                //    case "Sala de Call center":
-                //        eventosJson = JsonSerializer.Serialize(EventsSalaDeCallCenter);
-                //        break;
-                //    case "Sala Técnica":
-                //        eventosJson = JsonSerializer.Serialize(EventsSalaTecnica);
-                //        break;
-                //    default:
-
-                //        break;
-                //}
                 eventosJson = JsonSerializer.Serialize(await ServicioReservacion.ObtenerEventos(value));
                 await RefrescarCalendario();
             }
@@ -239,14 +170,9 @@ namespace Intranet.Pages
         private async Task obtenerListaSalaReuniones()
         {
 
-            //foreach (var salaReunion in await ServicioReservacion.ObtenerListaSalaReuniones()) 
-            //{
-            //    ListSalaReunion.Add(salaReunion.Nombre);
-            //}
-
-            //ListSalaReunion = ListSalaReunion.OrderBy(x => x).ToList();
-
-            ListSalaReunion = await ServicioReservacion.ObtenerListaSalaReuniones();
+            ListSalaReunion = (await ServicioReservacion.ObtenerListaSalaReuniones())
+                  .OrderBy(x => x.Nombre)
+                  .ToList();
 
         }
         private void CerrarModalEliminar()

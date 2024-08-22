@@ -98,7 +98,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
 #nullable restore
 #line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
-           [Authorize(Roles = "SuperAdmin,SalaReservacion")]
+           [Authorize(Roles = "SuperAdmin,AgendaReuniones")]
 
 #line default
 #line hidden

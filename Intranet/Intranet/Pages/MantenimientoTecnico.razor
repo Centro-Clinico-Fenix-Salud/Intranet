@@ -67,11 +67,11 @@
                     <Authorized>
                         <TemplateColumn Title="Acciones" Sortable="false">
                             <CellTemplate Context="context2">
-                                <AuthorizeView Roles="SuperAdmin,EditarAgendaTelefonica" Context="context3">
-                                    <MudIconButton Icon="@Icons.Material.Outlined.Preview" Color="Color.Info" Title="Editar" Size="@Size.Medium" OnClick="@(() => Consulta(context2))" />
+                                <AuthorizeView Roles="SuperAdmin,ConsultaRevisionMantenimientoTecnico" Context="context3">
+                                    <MudIconButton Icon="@Icons.Material.Outlined.Preview" Color="Color.Info" Title="Consulta" Size="@Size.Medium" OnClick="@(() => Consulta(context2))" />
                                 </AuthorizeView>
 
-                                <AuthorizeView Roles="SuperAdmin,EliminarAgendaTelefonica" Context="context3">
+                                <AuthorizeView Roles="SuperAdmin,EliminarRevisionMantenimientoTecnico" Context="context3">
                                     <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context2))" />
                                 </AuthorizeView>
 
@@ -149,20 +149,6 @@
                                                 </div>
                                             </div>
 
-                                           @* <MudSelect T="string" Label="Selecciona una zona"
-                                                           Value="ZonaFiltro" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
-                                                    @foreach (var areaInforme in ListaZonaFiltro)
-                                                    {
-                                                        <MudSelectItem Value="@areaInforme" />
-                                                    }
-                                           </MudSelect>
-                                            <MudSelect T="string" Label="Selecciona un tipo de zona"
-                                                       Value="TipoZonaFiltro" ValueChanged="OnAreaInformeSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
-                                                @foreach (var areaInforme in ListaTipoZonaFiltro)
-                                                {
-                                                    <MudSelectItem Value="@areaInforme" />
-                                                }
-                                            </MudSelect> *@
                                             </div>
                                     </div>
                                 </div>

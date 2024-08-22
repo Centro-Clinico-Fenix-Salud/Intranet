@@ -97,8 +97,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
-           [Authorize]
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Reservacion.razor"
+           [Authorize(Roles = "SuperAdmin,SalaReservacion")]
 
 #line default
 #line hidden
@@ -111,6 +111,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

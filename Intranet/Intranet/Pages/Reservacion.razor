@@ -1,7 +1,8 @@
 ﻿@page "/Reunion-Agenda"
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
-@attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = "SuperAdmin,AgendaReuniones")]
 
 <nav class="navbar navbar-expand-lg justify-content-center"
      style="border-radius: 10px; background-color: #00bbb4">
@@ -12,22 +13,31 @@
 
 <div class="mb-3 mt-3">
     <div class="col-6">
-            <MudSelect T="string" Label="Selecciona una sala de reunión"
-                       Value="SalaReunion" ValueChanged="OnSalaReunionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
-                @foreach (var salaReunion in ListSalaReunion)
-                {
-                    <MudSelectItem Value="@salaReunion" />
-                }
-            </MudSelect>
+        <MudSelect T="string" Label="Selecciona una sala de reunión"
+                   Value="salaReunion.Nombre" ValueChanged="OnSalaReunionSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+            @foreach (var salaReunion in ListSalaReunion)
+            {
+                <MudSelectItem Value="@salaReunion.Nombre" />
+            }
+        </MudSelect>
     </div>
 </div>
 
 @if (mostrarCalendario)
 {
-    <div class="mb-3">
-    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => NuevoModalReservacion())" Color="Color.Success" Class="ml-auto">+ reservación</MudButton>
-    </div>
-    <div id="calendar" class="w-100 h-50"> </div>
+    <AuthorizeView Roles="SuperAdmin,AgregarAgendaReuniones" Context="context">
+        <Authorized>
+            <div class="mb-3">
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => NuevoModalReservacion())" Color="Color.Success" Class="ml-auto">+ reservación</MudButton>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+
+        <AuthorizeView Roles="SuperAdmin,consultaAgendaReuniones" Context="context">
+            <Authorized>
+                <div id="calendar" class="w-100 h-50"> </div>
+            </Authorized>
+        </AuthorizeView>
 
 
 <div class="modal justify-content-center align-items-center" id="eventoModal" tabindex="-1" role="dialog">
@@ -41,6 +51,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
+                        <p hidden="hidden" id="IdEvento"></p>
                     <div class="row">
                         <div class="col">
                             <strong> Creado por:</strong>
@@ -50,21 +61,21 @@
                     </div>
                         <div class="row">
                             <div class="col">
-                                <strong> Hora de Inicio :</strong>
+                                <strong> Fecha :</strong>
                             </div>
                             <div class="col" id="FechaEvento">
                             </div>
                         </div>
                     <div class="row">
                         <div class="col">
-                           <strong> Hora de Inicio:</strong>
+                           <strong> Hora inicio:</strong>
                         </div>
                         <div class="col" id="FechaInicioEvento">                          
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <strong> Hora de culminación:</strong>
+                            <strong> Hora fin:</strong>
                         </div>
                         <div class="col" id="FechaFinEvento">
                         </div>
@@ -78,16 +89,46 @@
                         <div class="col">
                             <p id="descripcionEvento"></p>
                         </div>
-                    </div>
+                    </div>            
                 </div>
             </div>
+
             <div class="modal-footer">
+                <AuthorizeView Roles="SuperAdmin,EliminarAgendaReuniones" Context="context">
+                    <Authorized>
+                            <button type="button" @onclick="BtnMostrarModalEliminar" class="close btn btn-danger">Eliminar</button>
+                    </Authorized>
+                </AuthorizeView>
                 <button type="button" class="close btn btn-secondary">Cerrar</button>
             </div>
         </div>              
     </div>
 </div>
 <div class="modal-backdrop show invisible" id="fondoModal"></div>
+}
+
+@if (mostrarModalEliminar)
+{
+    <div class="modal show  d-flex justify-content-center align-items-center" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este registro @((MarkupString)RegistroEliminar) ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="EliminarReservacion">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
 }
 
 @if (mostrarModalNuevo)

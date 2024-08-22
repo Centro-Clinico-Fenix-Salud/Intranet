@@ -35,6 +35,8 @@ namespace Intranet.Data
         public DbSet<PlanillaDigitalRegistro> planillaDigitalRegistro { get; set; }
         public DbSet<DireccionIp> direccionIp { get; set; }
         public DbSet<UsuarioDireccion> usuarioDireccion { get; set; }
+        public DbSet<SalaReunion> salaReunion { get; set; }
+        public DbSet<EventReservacion> eventReservacion { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -130,6 +130,21 @@ function Data() {
             });
         });
 };
+function getIdEventoValue() {
+    return document.getElementById('IdEvento').innerText;
+}
+function getTituloEventoValue() {
+    return document.getElementById('tituloEvento').innerText;
+}
+function getHoraInicioEventoValue() {
+    return document.getElementById('FechaInicioEvento').innerText;
+}
+function getHoraFinalEventoValue() {
+    return document.getElementById('FechaFinEvento').innerText;
+}
+function getFechaEventoValue() {
+    return document.getElementById('FechaEvento').innerText;
+}
 
 function DataCalendar2(eventos)
 {
@@ -165,6 +180,7 @@ function DataCalendar2(eventos)
             var Fecha = convertirFecha(info.event.start);
             var FechaInicio = convertirFechaAHora(info.event.start);
             var FechaFin = convertirFechaAHora(info.event.end);
+            var id = info.event.id;
      
             // Mostrar la descripción en el modal
 
@@ -176,6 +192,7 @@ function DataCalendar2(eventos)
             var FechaInicioEvento = document.getElementById('FechaInicioEvento');
             var FechaFinEvento = document.getElementById('FechaFinEvento');
             var AutorEvento = document.getElementById('AutorEvento');
+            var IdEvento = document.getElementById('IdEvento');
 
             descripcionEvento.innerHTML = descripcion.replace(/\n/g, '<br>');
             tituloEvento.innerHTML = title.replace(/\n/g, '<br>');
@@ -183,6 +200,7 @@ function DataCalendar2(eventos)
             FechaInicioEvento.innerHTML = FechaInicio;
             FechaFinEvento.innerHTML = FechaFin;
             AutorEvento.innerHTML = createdBy.replace(/\n/g, '<br>');
+            IdEvento.innerHTML = id;
 
             //mostrar modal
 

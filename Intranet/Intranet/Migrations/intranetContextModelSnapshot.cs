@@ -438,6 +438,55 @@ namespace Intranet.Migrations
                     b.ToTable("planillaDigitalRegistro");
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.Reservacion.EventReservacion", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("createdBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("end")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("fechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("idSalaReunion")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("eventReservacion");
+                });
+
+            modelBuilder.Entity("Intranet.Modelos.Reservacion.SalaReunion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("salaReunion");
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Tablas.Ubicacion", b =>
                 {
                     b.Property<Guid>("Id")

@@ -35,8 +35,8 @@
 
 <AuthorizeView Roles="SuperAdmin,AgregarRevisionMantenimientoTecnico" Context="context">
    <Authorized>
-    <div class="mb-3" >
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" hidden="@MostrarBotonAgregarYBuscador" OnClick="@(() => Nuevo())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
+    <div class="mb-3">
+           <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" hidden="@MostrarBotonAgregarYBuscador" OnClick="@(() => Nuevo())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
     </div>
     </Authorized>
 </AuthorizeView>

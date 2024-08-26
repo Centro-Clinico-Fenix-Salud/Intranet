@@ -1,0 +1,185 @@
+﻿@page "/Equipo-Direccion-ip"
+@using Intranet.Modelos.Agenda;
+@using Intranet.Modelos.DireccionIp;
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = "SuperAdmin,EquipoDireccionIp")]
+
+
+<PageTitle>Equipo Dirección IP</PageTitle>
+
+<div class="col-12 navbar navbar-expand-lg justify-content-center mb-5"
+     style="border-radius: 10px; background-color: #00bbb4">
+    <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
+        Dirección IP
+    </h1>
+</div>
+
+
+
+<AuthorizeView Roles="SuperAdmin,AgregarEquipoDireccionIp" Context="context">
+   <Authorized>
+    <div class="mb-3">
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="@(() => Nuevo())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
+    </div>
+    </Authorized>
+</AuthorizeView>
+ 
+<div class="input-group mb-4 ">
+    <input type="text" class="form-control" placeholder="Búsqueda por usuario, unidad, ubicación, nro. teléfonico directo ó extensión" @bind="searchTerm" @oninput="Buscar2">
+</div>
+
+<MudDataGrid T="DireccionIpDataGrid" Items="@DireccionIpData" ColumnResizeMode="@(_resizeColumn ? ResizeMode.Column : ResizeMode.Container)"
+             RowsPerPage="6" RowStyle="background-color: #FFFFFF;" Style="background-color: #EEEEEE;">
+    <Columns>
+        <AuthorizeView Roles="SuperAdmin,AgregarEquipoDireccionIp,EliminarEquipoDireccionIp,EditarEquipoDireccionIp,ConsultarEquipoDireccionIp" Context="context">
+            <Authorized>
+                <TemplateColumn Title="Acciones" Sortable="false">
+                    <CellTemplate Context="context2">
+                        <AuthorizeView Roles="SuperAdmin,EditarEquipoDireccionIp" Context="context3">
+                            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Medium" OnClick="@(() => Editar(context2))" />
+                        </AuthorizeView>
+                        <AuthorizeView Roles="SuperAdmin,EliminarEquipoDireccionIp" Context="context3">
+                            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Medium" OnClick="@(() => Eliminar(context2))" />
+                        </AuthorizeView>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Authorized>
+        </AuthorizeView>
+        <PropertyColumn Property="x => x.Usuario" Sortable="true" />
+        <PropertyColumn Property="x => x.DireccionIp" Title="Dirección IP" Sortable="false" />     
+        <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" />
+        <PropertyColumn Property="x => x.Unidad" Sortable="false" />
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="DireccionIpDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {6, 12, 20}) />
+    </PagerContent>
+</MudDataGrid>
+
+@if (mostrarModalEliminar)
+{
+    <div class="modal show  d-flex justify-content-center align-items-center" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este registro <span style ="font-weight: bold;"> @RegistroEliminar </span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="EliminarRegistro">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+@if (mostrarModalNuevo)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar</h5>
+                <button type="button" class="close" @onclick="CerrarModalNuevo">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <EditForm Model="@direccionIpCreate" OnValidSubmit="GuardarAgenda">
+            <DataAnnotationsValidator/>
+            <MudGrid>
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardContent>
+                           
+                             <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona un usuario" @bind-Value="direccionIpCreate.Usuario" SearchFunc="@SearchUsuario"
+                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                             </MudItem>
+                                    <ValidationMessage For="@(() => direccionIpCreate.Usuario)" />
+                                    <MudNumericField Label="Dirección Ip" @bind-Value="direccionIpCreate.DireccionIp" MaxLength="15" For="@(() => direccionIpCreate.DireccionIp)" />
+                               
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevo" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+           </MudGrid>
+        </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+      
+}
+
+@if (mostrarModalEditar)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="container-fluid w-100">
+                        <div class="row">
+                            <div class="col-10">
+                                <h5 class="modal-title">Editar</h5>
+                            </div>
+                                <div class="col-2 text-end">
+                                <button type="button" class="close" @onclick="CerrarModalEditar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>                         
+                        </div>
+                        <div class="row">
+                            <div> <b>Fecha modificacion:</b> @direccionIpEditar.FechaModificacion <b>por</b> @direccionIpEditar.UsuarioModificador</div>
+                        </div>
+                    </div>                                                       
+                </div>
+                <EditForm Model="@direccionIpEditar" OnValidSubmit="EditarAgente">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+                                    <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona un usuario" @bind-Value="direccionIpEditar.Usuario" SearchFunc="@SearchUsuario"
+                                                         ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                         CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                         AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                                    </MudItem>
+                                    <ValidationMessage For="@(() => direccionIpEditar.Usuario)" />
+                                    <MudNumericField Label="Dirección Ip" @bind-Value="direccionIpEditar.DireccionIp" MaxLength="15" For="@(() => direccionIpEditar.DireccionIp)" />
+
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalEditar" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+
+
+
+
+

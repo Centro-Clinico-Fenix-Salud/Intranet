@@ -57,6 +57,13 @@
                             </div>
                         </Authorized>
                     </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, EquipoDireccionIp" Context="context2">
+                        <Authorized>
+                            <div @onclick="ToggleNavMenu">
+                                <MudNavLink Href="/Equipo-Direccion-ip">Equipo direcciones IP</MudNavLink>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView>
@@ -126,6 +133,13 @@
                         <Authorized>
                             <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/UsuarioAgendaTelefonica">Usuario Externo</MudNavLink>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SuperAdmin, Equipo" Context="context2">
+                        <Authorized>
+                            <div @onclick="ToggleNavMenu">
+                                <MudNavLink Href="/Equipo">Equipo</MudNavLink>
                             </div>
                         </Authorized>
                     </AuthorizeView>

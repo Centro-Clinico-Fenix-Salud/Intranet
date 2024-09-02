@@ -56,7 +56,7 @@ namespace Intranet.Controller
                     //Generamos la cookie. SignInAsync es un método de extensión del contexto.
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-                    return LocalRedirect("/tablero");
+                    return LocalRedirect("/");
                 }
                     
 
@@ -127,7 +127,7 @@ namespace Intranet.Controller
 
                             //Redirigimos a la Home
                            // Snackbar.Add("logueo exitoso", Severity.Info);
-                            return LocalRedirect("/tablero");
+                            return LocalRedirect("/");
 
                         }
                         else {

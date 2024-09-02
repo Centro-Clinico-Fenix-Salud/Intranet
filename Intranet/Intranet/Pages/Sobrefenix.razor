@@ -1,7 +1,7 @@
 ﻿@page "/sobrefenix"
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
-@attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle> Sobre Fénix </PageTitle>
 
@@ -9,13 +9,56 @@
 <nav class="navbar navbar-expand-lg justify-content-center"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Sobre fénix...
+       Quiénes somos
     </h1>
 </nav>
 
 <div class="w-100 mt-6">
     <h6 style="color: black">Lo que representamos</h6>
     <hr style="background-color: #00bbb4" class="w-25" />
+
+    <div class="container-fluid mt-6" style="background-color: #00bbb4; border-radius: 10px;">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <div class="row justify-content-center">
+                    <div class="col-md-3 d-flex align-items-center px-4 py-1 d-flex justify-content-center">
+                        <img src="img/logoFenix.png" alt="Imagen" class="img-fluid w-50 px-5 ms-2">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 text-center">
+                        <h3>Misión</h3>
+                        <h6 class="container-fluid">
+                            Nos inspira brindar un servicio de bienestar integral, accesible, humano y profesional.
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-2" style="background-color: #00bbb4; border-radius: 10px;">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <div class="row justify-content-center">
+                    <div class="col-md-3 d-flex align-items-center px-4 py-1 d-flex justify-content-center">
+                        <img src="img/logoFenix.png" alt="Imagen" class="img-fluid w-50 px-5 ms-2">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 text-center">
+                        <h3>Visión</h3>
+                        <h6 class="container-fluid ">
+                            Ser modelo innovador escalable, sostenible y de calidad, para ofrecer una experiencia de bienestar integral.
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="background-color: #00bbb4" class="w-25" />
+
     <h5 style="color: black">Nuestros valores</h5>
 </div>
 
@@ -71,45 +114,6 @@
     </div>
 </div>
 
-<div class="container-fluid mt-6" style="background-color: #00bbb4; border-radius: 10px;">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center">
-            <div class="row justify-content-center">
-                <div class="col-md-3 d-flex align-items-center px-4 py-1 d-flex justify-content-center">
-                    <img src="img/logoFenix.png" alt="Imagen" class="img-fluid w-50 px-5 ms-2">
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-8 text-center">
-                    <h3>Misión</h3>
-                    <h6 class="container-fluid">
-                        Nos inspira brindar un servicio de bienestar integral, accesible, humano y profesional.
-                    </h6>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid mt-2" style="background-color: #00bbb4; border-radius: 10px;">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center">
-            <div class="row justify-content-center">
-                <div class="col-md-3 d-flex align-items-center px-4 py-1 d-flex justify-content-center">
-                    <img src="img/logoFenix.png" alt="Imagen" class="img-fluid w-50 px-5 ms-2">
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-8 text-center">
-                    <h3>Visión</h3>
-                    <h6 class="container-fluid ">
-                        Ser modelo innovador escalable, sostenible y de calidad, para ofrecer una experiencia de bienestar integral.
-                    </h6>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="w-100 mt-6">
     <h6 style="color: black">En Fénix Ciudad de Salud</h6>
     <hr style="background-color: #00bbb4" class="w-25" />
@@ -175,7 +179,7 @@
         <img class="card-img-top" src="img/08.jpg" alt="Card image cap">
         <div class="card-body">
           <h6 class="card-title">Mastrolonardo</h6>
-          <p class="card-text">Directo Comercial</p>
+          <p class="card-text">Director Comercial</p>
         </div>
       </div>
     </div>

@@ -96,13 +96,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 4 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Sobrefenix.razor"
-           [Authorize]
-
-#line default
-#line hidden
-#nullable disable
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/sobrefenix")]
     public partial class Sobrefenix : global::Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -111,6 +104,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -118,7 +118,7 @@ using Intranet.Modelos.LoginModel;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 41 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 46 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
        
     private string Nombre = string.Empty;
     protected override async Task OnInitializedAsync()

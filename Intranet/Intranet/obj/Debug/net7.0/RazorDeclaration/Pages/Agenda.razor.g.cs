@@ -117,13 +117,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 8 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Agenda.razor"
-           [Authorize(Roles = "SuperAdmin,AgendaTelefonica")]
-
-#line default
-#line hidden
-#nullable disable
     [global::Microsoft.AspNetCore.Components.RouteAttribute("/Agenda")]
     public partial class Agenda : global::Microsoft.AspNetCore.Components.ComponentBase
     {

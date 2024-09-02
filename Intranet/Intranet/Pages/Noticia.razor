@@ -4,7 +4,6 @@
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "SuperAdmin,Noticias")]
 
 <PageTitle> Noticias </PageTitle>
 
@@ -24,8 +23,6 @@
     </Authorized>
 </AuthorizeView>
 
-<AuthorizeView Roles="SuperAdmin,EditarNoticias,EliminarNoticias,ConsultarNoticias" Context="context4">
-            <Authorized>
 <MudTable Items="@Elements">   
     <HeaderContent>
         <AuthorizeView Roles="SuperAdmin,EditarNoticias,EliminarNoticias" Context="context">
@@ -115,8 +112,6 @@
     </PagerContent>
 
 </MudTable>
-    </Authorized>
-</AuthorizeView>
 
 @if (mostrarModalNoticia)
 {

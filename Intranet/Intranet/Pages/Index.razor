@@ -1,8 +1,8 @@
-﻿@page "/tablero"
+﻿@page "/"
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize]
+
 
 
 @* Diseño personalizado de Dashboard *@
@@ -49,8 +49,16 @@
     @if (MostrarTableroPrincipal)
     {
         <div class="row">
-            <AuthorizeView Roles="SuperAdmin, Noticias" Context="context">
-                <Authorized>
+                    <div class="col-md-4 mb-4">
+                        <a href="/sobrefenix">
+                            <div class="card d-flex flex-column justify-content-center align-items-center" style="cursor: pointer;">
+                                <MudIconButton Color="Color.Dark" Title="Quiénes somos" Size="Size.Large" Class="icono-grande">
+                                    <img src="img/Logo_Fenix.png" alt="Logo Fenix" style="width: 40px; height: 40px;" />
+                                </MudIconButton>
+                                <h4 class="mt-3">Quiénes somos</h4>
+                            </div>
+                        </a>
+                    </div>
                     <div class="col-md-4 mb-4">
                         <a href="noticia">
                             <div class="card d-flex flex-column justify-content-center align-items-center" style="cursor: pointer;">
@@ -59,10 +67,6 @@
                             </div>
                         </a>
                     </div>
-                </Authorized>
-            </AuthorizeView>
-            <AuthorizeView Roles="SuperAdmin, AgendaTelefonica" Context="context">
-                <Authorized>
                     <div class="col-md-4 mb-4">
                         <a href="agenda">
                             <div class="card d-flex flex-column justify-content-center align-items-center" style="cursor: pointer;">
@@ -72,16 +76,6 @@
                             </div>
                         </a>
                     </div>
-                </Authorized>
-            </AuthorizeView>
-            <div class="col-md-4 mb-4">
-                <a href="/sobrefenix">
-                    <div class="card d-flex flex-column justify-content-center align-items-center" style="cursor: pointer;">
-                        <MudIconButton Icon="@Icons.Material.Outlined.FamilyRestroom" Color="Color.Dark" Title="Calendario" Size="Size.Large" Class="icono-grande" />
-                        <h4 class="mt-3">Sobre Fénix</h4>
-                    </div>
-                </a>
-            </div>
             <AuthorizeView Roles="SuperAdmin, Calendario" Context="context">
                 <Authorized>
                     <div class="col-md-4 mb-4">

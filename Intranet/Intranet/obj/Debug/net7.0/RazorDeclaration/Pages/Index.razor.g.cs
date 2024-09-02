@@ -96,14 +96,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Pages\Index.razor"
-           [Authorize]
-
-#line default
-#line hidden
-#nullable disable
-    [global::Microsoft.AspNetCore.Components.RouteAttribute("/tablero")]
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Index : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

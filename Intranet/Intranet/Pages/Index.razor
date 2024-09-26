@@ -48,17 +48,21 @@
 <div class="container-fluid mt-4">
     @if (MostrarTableroPrincipal)
     {
-        <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <a href="/sobrefenix">
-                            <div class="card d-flex flex-column justify-content-center align-items-center" style="cursor: pointer;">
-                                <MudIconButton Color="Color.Dark" Title="Quiénes somos" Size="Size.Large" Class="icono-grande">
-                                    <img src="img/Logo_Fenix.png" alt="Logo Fenix" style="width: 40px; height: 40px;" />
-                                </MudIconButton>
-                                <h4 class="mt-3">Quiénes somos</h4>
+                <div class="row">
+                    <AuthorizeView Roles="SuperAdmin, QuienesSomos" Context="context">
+                        <Authorized>
+                            <div class="col-md-4 mb-4">
+                                <a href="/sobrefenix">
+							        <div class="card d-flex flex-column justify-content-center align-items-center" style="cursor: pointer;">
+								        <MudIconButton Color="Color.Dark" Title="Quiénes somos" Size="Size.Large" Class="icono-grande">
+									        <img src="img/Logo_Fenix.png" alt="Logo Fenix" style="width: 40px; height: 40px;" />
+								        </MudIconButton>
+								        <h4 class="mt-3">Quiénes somos</h4>
+							        </div>
+						        </a>
                             </div>
-                        </a>
-                    </div>
+                        </Authorized>
+                    </AuthorizeView>
                     <div class="col-md-4 mb-4">
                         <a href="noticia">
                             <div class="card d-flex flex-column justify-content-center align-items-center" style="cursor: pointer;">

@@ -2,6 +2,7 @@
 @using Intranet.Extension
 @using Microsoft.AspNetCore.Components.Authorization;
 @using Intranet.Modelos.LoginModel;
+@using MudBlazor
 @inject AuthenticationStateProvider autenticacionProvider
 @inject NavigationManager navManager
 
@@ -9,24 +10,39 @@
 <PageTitle>Intranet</PageTitle>
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
+
+     @if (collapseNavMenu)
+     {
+       <div class="sidebar d-md-block">
+              <NavMenu/>
+        </div>
+     }else{
+         <div class="sidebar d-sm-none">
+              <NavMenu />
+         </div>
+     }
+          
     <main>      
         <div class="top-row" style="background-color: #00bbb4; height : 57px" Fixed="false">
+            <div class="container-fluid d-flex justify-content-between">
+                <div class="d-flex">
+                    <div class="1">                                       
+                           <MudIconButton Icon="@Icons.Material.Outlined.Menu" Title="Menu" Size="@Size.Medium" OnClick="ToggleNavMenu2"/>                      
+                    </div>
+                </div>
             <AuthorizeView>
                 <Authorized>
                     <span class="text-white">Bienvenido, @context.User.Identity!.Name</span>
                 </Authorized>
                 <NotAuthorized>
                     <div class="col-5 col-md-3 col-lg-2">
-                        <MudNavLink Href="/login" Class="text-white">Iniciar sesión</MudNavLink>
+                        <MudNavLink Href="/login" Class="text-black">Iniciar sesión</MudNavLink>
                     </div>                  
                 </NotAuthorized>
             </AuthorizeView>
+            </div>
         </div>
-
         <article class="content px-4">
             @Body
         </article>
@@ -45,6 +61,12 @@
 
 @code {
     private string Nombre = string.Empty;
+    private bool collapseNavMenu = false;
+
+    private void ToggleNavMenu2()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
     protected override async Task OnInitializedAsync()
     {
         // Nombre = "Bienvenido";
@@ -65,10 +87,7 @@
 
     private async Task CerrarSesion()
     {
-        // await _sessionStorage.GuardarLogin(false);
-        //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-        //await autenticacionExt.ActualizarEstadoAutenticacion(null);
-        // navManager.NavigateTo("/", true);
+       
     }
 }
 

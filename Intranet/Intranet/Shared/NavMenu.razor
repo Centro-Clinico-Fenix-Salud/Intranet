@@ -8,17 +8,22 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-</div>
+</div> 
+
 
 <div class="@NavMenuCssClass nav-scrollable" style="background-color: #80CBC4">
     <MudNavMenu>
         <MudNavLink Match="NavLinkMatch.All" Href="/">Inicio</MudNavLink>
-                <div @onclick="ToggleNavMenu">
+                @* <div @onclick="ToggleNavMenu">
                     <MudNavLink Href="/sobrefenix">Quiénes somos</MudNavLink>
-                </div>
-                <div @onclick="ToggleNavMenu">
-                    <MudNavLink Href="/noticia">Noticias</MudNavLink>
-                </div>
+                </div> *@
+                <AuthorizeView Roles="SuperAdmin, Noticia" Context="context2">
+                    <Authorized>
+                        <div @onclick="ToggleNavMenu">
+			                <MudNavLink Href="/noticia">Noticias</MudNavLink>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
                 <AuthorizeView Context="context2">
                     <NotAuthorized>
                         <div class="d-block d-sm-none d-">
@@ -160,15 +165,19 @@
     </MudNavMenu>
 </div>
 
+
+
+
 @code {
     private bool collapseNavMenu = true;
-
+    
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
+    
     private async Task CerrarSesion()
     {
 

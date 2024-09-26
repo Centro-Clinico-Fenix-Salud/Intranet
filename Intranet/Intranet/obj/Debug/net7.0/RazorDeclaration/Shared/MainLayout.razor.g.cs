@@ -76,13 +76,6 @@ using Intranet.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
-using MudBlazor;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 12 "C:\Intranet\repo\Intranet\Intranet\Intranet\_Imports.razor"
 using Serilog;
 
@@ -110,6 +103,13 @@ using Intranet.Modelos.LoginModel;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -118,9 +118,15 @@ using Intranet.Modelos.LoginModel;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 46 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 62 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
        
     private string Nombre = string.Empty;
+    private bool collapseNavMenu = false;
+
+    private void ToggleNavMenu2()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
     protected override async Task OnInitializedAsync()
     {
         // Nombre = "Bienvenido";
@@ -141,10 +147,7 @@ using Intranet.Modelos.LoginModel;
 
     private async Task CerrarSesion()
     {
-        // await _sessionStorage.GuardarLogin(false);
-        //var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-        //await autenticacionExt.ActualizarEstadoAutenticacion(null);
-        // navManager.NavigateTo("/", true);
+       
     }
 
 #line default

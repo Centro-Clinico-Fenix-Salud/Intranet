@@ -1,5 +1,26 @@
 @import '_content/Blazor.Bootstrap/Blazor.Bootstrap.bundle.scp.css';
 
+/* _content/Intranet/Pages/NewsTicker.razor.rz.scp.css */
+.news-ticker[b-a3sz91kgel] {
+    width: 100%;
+    overflow: hidden;
+     white-space: nowrap;
+    animation: ticker-b-a3sz91kgel 30s linear infinite;
+    /* background-color: #00bbb4;*/
+    font-size: 25px;
+    /*nuevo*/
+    box-sizing: content-box;
+}
+
+@keyframes ticker-b-a3sz91kgel {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
 /* _content/Intranet/Shared/MainLayout.razor.rz.scp.css */
 .page[b-lbu036tguj] {
     position: relative;

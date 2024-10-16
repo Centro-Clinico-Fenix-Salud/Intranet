@@ -118,10 +118,12 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 62 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 69 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
        
     private string Nombre = string.Empty;
     private bool collapseNavMenu = false;
+    private string currentUrl;
+    private bool containsAgenda;
 
     private void ToggleNavMenu2()
     {
@@ -131,6 +133,9 @@ using MudBlazor;
     {
         // Nombre = "Bienvenido";
 
+        currentUrl = navManager.Uri;
+        if (!string.IsNullOrEmpty(currentUrl))
+            containsAgenda = currentUrl.Contains("/agenda");
     }
 
 
@@ -140,7 +145,9 @@ using MudBlazor;
         {
             Nombre = "Bienvenido";
         }
-
+        // currentUrl = navManager.Uri;
+        // if (!string.IsNullOrEmpty(currentUrl))
+        // containsAgenda = currentUrl.Contains("/agenda");
     }
 
 

@@ -1,0 +1,37 @@
+﻿@code {
+    private List<string> newsItems = new List<string>
+    {
+        " Aitor Blanco -",
+        " Elizabeth Belisario -",
+        " Orlando Blanco -",
+        " Ilay Blanco "
+    };
+
+    private int currentIndex = 0;
+
+    protected override void OnInitialized()
+    {
+        // Inicia el ticker
+        StartTicker();
+    }
+
+    private async void StartTicker()
+    {
+        while (true)
+        {
+            await Task.Delay(2000); // Cambia cada 2 segundos
+            currentIndex = (currentIndex + 1) % newsItems.Count;
+            StateHasChanged();
+        }
+    }
+}
+
+<div class="news-ticker">
+    Cumpleañeros del dia de hoy @DateTime.Today.ToString("dd-MM-yyyy") :
+    @foreach (var item in newsItems)
+    {
+        @item
+    }
+</div> 
+
+

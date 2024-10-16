@@ -11,38 +11,47 @@
 
 <div class="page">
 
-
-     @if (collapseNavMenu)
-     {
-       <div class="sidebar d-md-block">
-              <NavMenu/>
-        </div>
-     }else{
-         <div class="sidebar d-sm-none">
-              <NavMenu />
-         </div>
+    @if (!containsAgenda)
+    {
+         @if (collapseNavMenu)
+         {
+           <div class="sidebar d-md-block">
+                  <NavMenu/>
+            </div>
+         }else{
+             <div class="sidebar d-sm-none">
+                  <NavMenu />
+             </div>
+         }
      }
           
-    <main>      
-        <div class="top-row" style="background-color: #00bbb4; height : 57px" Fixed="false">
-            <div class="container-fluid d-flex justify-content-between">
-                <div class="d-flex">
-                    <div class="1">                                       
-                           <MudIconButton Icon="@Icons.Material.Outlined.Menu" Title="Menu" Size="@Size.Medium" OnClick="ToggleNavMenu2"/>                      
+    <main> 
+        @if (!containsAgenda)
+        {
+            <div class="top-row" style="background-color: #00bbb4; height : 57px" Fixed="false">
+                <div class="container-fluid d-flex justify-content-between">
+                <div class="d-flex">                  
+                        <div class="1">
+                            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Title="Menu" Size="@Size.Medium" OnClick="ToggleNavMenu2" />
+                        </div>                  
+                    <div class="text-white" >
+                        <img class="logoFenix" src="img/logoFenix.png" Width="40" Height="50" />
+                        <a class="navbar-brand text-white" href="http://172.16.100.52:90/">Fénix Intranet</a>
                     </div>
                 </div>
-            <AuthorizeView>
-                <Authorized>
-                    <span class="text-white">Bienvenido, @context.User.Identity!.Name</span>
-                </Authorized>
-                <NotAuthorized>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <MudNavLink Href="/login" Class="text-black">Iniciar sesión</MudNavLink>
-                    </div>                  
-                </NotAuthorized>
-            </AuthorizeView>
+                <AuthorizeView>
+                    <Authorized>
+                        <span class="text-white">Bienvenido, @context.User.Identity!.Name</span>
+                    </Authorized>
+                    <NotAuthorized>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <MudNavLink Href="/login" Class="text-white">Iniciar sesión</MudNavLink>
+                                </div>
+                    </NotAuthorized>
+                </AuthorizeView>
+                </div>
             </div>
-        </div>
+        }
         <article class="content px-4">
             @Body
         </article>
@@ -62,6 +71,8 @@
 @code {
     private string Nombre = string.Empty;
     private bool collapseNavMenu = false;
+    private string currentUrl;
+    private bool containsAgenda;
 
     private void ToggleNavMenu2()
     {
@@ -71,6 +82,9 @@
     {
         // Nombre = "Bienvenido";
 
+        currentUrl = navManager.Uri;
+        if (!string.IsNullOrEmpty(currentUrl))
+            containsAgenda = currentUrl.Contains("/agenda");
     }
 
 
@@ -80,7 +94,9 @@
         {
             Nombre = "Bienvenido";
         }
-
+        // currentUrl = navManager.Uri;
+        // if (!string.IsNullOrEmpty(currentUrl))
+        // containsAgenda = currentUrl.Contains("/agenda");
     }
 
 

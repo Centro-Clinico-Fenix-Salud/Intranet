@@ -32,18 +32,21 @@
                     </NotAuthorized>                  
                 </AuthorizeView>
                  <div @onclick="ToggleNavMenu">
-                <MudNavLink Href="/agenda">Agenda Telefónica</MudNavLink>
+            <MudNavLink Href="/agenda">Directorio telefónico</MudNavLink>
+                </div>
+                <div @onclick="ToggleNavMenu">
+                 <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
                 </div>
         <AuthorizeView Roles="SuperAdmin, Calendario" Context="context">
             <Authorized>
                 <MudNavGroup Title="Calendario" Expanded="false">
-                    <AuthorizeView Roles="SuperAdmin, cumpleanos" Context="context2">
+@*                     <AuthorizeView Roles="SuperAdmin, cumpleanos" Context="context2">
                         <Authorized>
                              <div @onclick="ToggleNavMenu">
                             <MudNavLink Href="/cumpleanos">Cumpleaños Fenix</MudNavLink>
                             </div>
                         </Authorized>
-                    </AuthorizeView>
+                    </AuthorizeView> *@
                     <AuthorizeView Roles="SuperAdmin, AgendaReuniones" Context="context3">
                         <Authorized>
                              <div @onclick="ToggleNavMenu">

@@ -1,0 +1,20 @@
+.news-ticker[b-a3sz91kgel] {
+    width: 100%;
+    overflow: hidden;
+     white-space: nowrap;
+    animation: ticker-b-a3sz91kgel 30s linear infinite;
+    /* background-color: #00bbb4;*/
+    font-size: 25px;
+    /*nuevo*/
+    box-sizing: content-box;
+}
+
+@keyframes ticker-b-a3sz91kgel {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}

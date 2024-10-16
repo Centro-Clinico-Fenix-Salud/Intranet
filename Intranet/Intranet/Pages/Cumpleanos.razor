@@ -1,20 +1,24 @@
 ﻿@page "/cumpleanos"
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
-@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
-<nav class="navbar navbar-expand-lg justify-content-center"
+@* <nav class="navbar navbar-expand-lg justify-content-center"
      style="border-radius: 10px; background-color: #00bbb4">
     <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
         Cumpleañeros Fénix
     </h1>
-</nav>
-
+</nav> *@
+<h2 class="text-black">Feliz cumpleaños</h2>
+   <div class="pt-2 pb-2" style="background-color: #00bbb4; width: 100%;">
+        <NewsTicker />
+    </div>
 <div class="container-fluid vh-100 mt-4">
-    <div id="calendar" class="w-100 h-50"> </div>
-    @if (cumpleaneros.Count > 0)
+    @if (cumpleaneros.Count == 0)
     {
-        <div id="dia" class="w-100 h-50">
+        <div id="dia" class="w-100" style="height:170px">
             <div class="row h-100 align-content-center justify-content-center">
                 <div class="d-flex justify-content-center "> <h2 class="text-black">Feliz cumpleaños</h2></div>
                 <div class=" h-75 w-100">
@@ -22,14 +26,19 @@
 
                         @foreach (var item in cumpleaneros)
                         {
-                            <MudCarouselItem Transition="transition" Color="@Color.Tertiary">
+                            <MudCarouselItem Transition="transition"  style="background-color: #00bbb4">
                                 <div class="d-flex align-content-center justify-content-center" style="height:100%">
                                     <MudCard>
-                                        <MudCardMedia Image="@item.Imagen" Height="200" Class="h-75" />
+                                       @*  <MudCardMedia Image="@item.Imagen" Height="200" Class="h-75" /> 
                                         <MudCardContent Class="h-25">
                                             <MudText Typo="Typo.h5">@item.Nombre @item.Apellido</MudText>
-                                                <MudText Typo="Typo.body2">@item.Departamento</MudText>
-                                            </MudCardContent>
+                                                <MudText Typo="Typo.body2">@item.Departamento</MudText> 
+                                        </MudCardContent>
+                                        *@
+                                        <MudCardContent Class="h-100">
+                                            <MudText Typo="Typo.h5">@item.Nombre @item.Apellido</MudText>
+                                                <MudText Typo="Typo.body2">@item.Departamento</MudText> 
+                                        </MudCardContent>
                                         </MudCard>
                                     </div>
                                 </MudCarouselItem>
@@ -40,7 +49,8 @@
             </div>
         </div>
     }
-
+ 
+    <div id="calendar" class="mt-2 w-100 h-75"> </div>  
 </div>
 
 

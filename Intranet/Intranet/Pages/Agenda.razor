@@ -47,11 +47,11 @@
                 </TemplateColumn>
             </Authorized>
         </AuthorizeView>
-        <PropertyColumn Property="x => x.Usuario" Sortable="true" CellStyle="text-transform: uppercase;" HeaderStyle="font-weight: bold;" />
-        <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico" Sortable="false" CellStyle="text-transform: uppercase;" HeaderStyle="font-weight: bold;" />
-        <PropertyColumn Property="x => x.Extension" Title="Extensión" Sortable="false" CellStyle="text-transform: uppercase;" HeaderStyle="font-weight: bold;" />
-        <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" CellStyle="text-transform: uppercase;" HeaderStyle="font-weight: bold;" />
-        <PropertyColumn Property="x => x.Unidad" Sortable="false" CellStyle="text-transform: uppercase;" HeaderStyle="font-weight: bold;" />
+        <PropertyColumn Property="x => x.Usuario" Sortable="true" CellStyle="text-transform: uppercase;" HeaderStyle="font-weight: bold; text-transform: uppercase;" />
+        <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico" Sortable="false" CellStyle="text-transform: uppercase;" HeaderStyle="font-weight: bold; text-transform: uppercase;" />
+        <PropertyColumn Property="x => x.Extension" Title="Extensión" Sortable="false" CellStyle="text-transform: uppercase;" HeaderStyle="font-weight: bold; text-transform: uppercase;" />
+        <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false"  HeaderStyle="font-weight: bold; text-transform: uppercase;" />
+        <PropertyColumn Property="x => x.Unidad" Sortable="false" HeaderStyle="font-weight: bold; text-transform: uppercase;" />
     </Columns>
     <PagerContent>
         <MudDataGridPager T="AgendaTelefonicaDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {6, 12, 20}) />

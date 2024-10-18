@@ -118,7 +118,7 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 69 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
+#line 71 "C:\Intranet\repo\Intranet\Intranet\Intranet\Shared\MainLayout.razor"
        
     private string Nombre = string.Empty;
     private bool collapseNavMenu = false;

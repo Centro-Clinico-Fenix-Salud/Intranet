@@ -126,8 +126,8 @@ namespace Intranet.Services.Admin
                             Id = directorioActivo.Id,
                             Username = directorioActivo.Username,
                             Email = directorioActivo.Email,                           
-                            FirstName = directorioActivo.FirstName,
-                            LastName = directorioActivo.LastName,
+                            FirstName = string.IsNullOrEmpty(directorioActivo.FirstName)? directorioActivo.FirstName: directorioActivo.FirstName.ToUpper(),
+                            LastName = string.IsNullOrEmpty(directorioActivo.LastName) ? directorioActivo.LastName : directorioActivo.LastName.ToUpper(),
                             Active = directorioActivo.Active,
                             CreatedAt = directorioActivo.CreatedAt
                         };
@@ -147,8 +147,8 @@ namespace Intranet.Services.Admin
                             dataExistente.Active = true;
                             dataExistente.CreatedAt = directorioActivo.CreatedAt;
                             dataExistente.UpdatedAt = DateTime.Now;
-                            dataExistente.FirstName = directorioActivo.FirstName;
-                            dataExistente.LastName = directorioActivo.LastName;
+                            dataExistente.FirstName = string.IsNullOrEmpty(directorioActivo.FirstName) ? directorioActivo.FirstName : directorioActivo.FirstName.ToUpper();
+                            dataExistente.LastName = string.IsNullOrEmpty(directorioActivo.LastName) ? directorioActivo.LastName : directorioActivo.LastName.ToUpper();
                             dataExistente.Username = directorioActivo.Username;
                             if (dataExistente.R1_RolId == Guid.Empty || dataExistente.R1_RolId == null)
                                 dataExistente.R1_RolId = Guid.Empty;

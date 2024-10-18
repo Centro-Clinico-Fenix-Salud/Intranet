@@ -11,8 +11,8 @@
 
 <div class="col-12 navbar navbar-expand-lg justify-content-center mb-5"
      style="border-radius: 10px; background-color: #00bbb4">
-    <h1 class="navbar-brand" href="#" style="color: black; font-weight: bold">
-        Directorio telefónico
+    <h1 class="navbar-brand" href="#" style="color: white; font-weight: bold">
+        Directorio Telefónico
     </h1>
 </div>
 
@@ -47,11 +47,11 @@
                 </TemplateColumn>
             </Authorized>
         </AuthorizeView>
-        <PropertyColumn Property="x => x.Usuario" Sortable="true" />
-        <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico" Sortable="false" />
-        <PropertyColumn Property="x => x.Extension" Title="Extensión" Sortable="false" />
-        <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" />
-        <PropertyColumn Property="x => x.Unidad" Sortable="false" />
+        <PropertyColumn Property="x => x.Usuario" Sortable="true" HeaderStyle="font-weight: bold;" />
+        <PropertyColumn Property="x => x.numeroTelefonico" Title="Nro. Teléfonico" Sortable="false" HeaderStyle="font-weight: bold;" />
+        <PropertyColumn Property="x => x.Extension" Title="Extensión" Sortable="false" HeaderStyle="font-weight: bold;" />
+        <PropertyColumn Property="x => x.Ubicacion" Title="Ubicación" Sortable="false" HeaderStyle="font-weight: bold;" />
+        <PropertyColumn Property="x => x.Unidad" Sortable="false" HeaderStyle="font-weight: bold;" />
     </Columns>
     <PagerContent>
         <MudDataGridPager T="AgendaTelefonicaDataGrid" RowsPerPageString="Filas por página" PageSizeOptions=@(new int[] {6, 12, 20}) />

@@ -165,8 +165,8 @@ namespace Intranet.Services
                         result = 1;
                 }
 
-                if (await intranetContext.agendaTelefonicas.AnyAsync(x => x.Extension == NuevoRegistro.Extension))
-                    result = 2;
+                //if (await intranetContext.agendaTelefonicas.AnyAsync(x => x.Extension == NuevoRegistro.Extension))
+                    //result = 2;
             }
             catch (Exception ex)
             {
@@ -282,8 +282,8 @@ namespace Intranet.Services
                         result = 1;
                 }
 
-                if (await intranetContext.agendaTelefonicas.AnyAsync(x => x.Extension == EditarAgenda.Extension && x.Id != EditarAgenda.Id))
-                    result = 2;
+                //if (await intranetContext.agendaTelefonicas.AnyAsync(x => x.Extension == EditarAgenda.Extension && x.Id != EditarAgenda.Id))
+                  //  result = 2;
             }
             catch (Exception ex)
             {

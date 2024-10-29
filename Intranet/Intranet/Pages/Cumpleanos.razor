@@ -12,11 +12,11 @@
     </h1>
 </nav> *@
 <h2 class="text-black">Feliz cumpleaños</h2>
-   <div class="pt-2 pb-2" style="background-color: #00bbb4; width: 100%;">
+@*    <div class="pt-2 pb-2" style="background-color: #00bbb4; width: 100%;">
         <NewsTicker />
-    </div>
+    </div> *@
 <div class="container-fluid vh-100 mt-4">
-    @if (cumpleaneros.Count == 0)
+    @if (cumpleaneros.Count == 100)
     {
         <div id="dia" class="w-100" style="height:170px">
             <div class="row h-100 align-content-center justify-content-center">
@@ -49,8 +49,44 @@
             </div>
         </div>
     }
- 
     <div id="calendar" class="mt-2 w-100 h-75"> </div>  
+
+    <div class="modal justify-content-center align-items-center" id="eventoModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloEvento">Cumpleañero</h5>
+                <button type="button" class="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                        <p hidden="hidden" id="IdEvento"></p>
+                    <div class="row">
+                       <b>
+                        <div class="col font-weight-bold text-center" id="AutorEvento">                                            
+                        </div>
+                       </b>
+                    </div>
+                        <div class="row">
+                            <div class="col text-center" id="FechaEvento">
+                            </div>
+                        </div>
+                    <div class="row">
+                            <div class="col text-center" id="FechaInicioEvento">
+                            </div>
+                    </div>          
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="close btn btn-secondary">Cerrar</button>
+            </div>
+        </div>              
+    </div>
+</div>
+<div class="modal-backdrop show invisible" id="fondoModal"></div>
 </div>
 
 

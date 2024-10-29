@@ -250,58 +250,47 @@ function DataCalendar3(eventos) {
                 day: 'Dia'
             },
             selectable: true,
-            events: evento
+            events: evento,
 
-            //eventClick: function (info)
-            //{
-            //    var createdBy = info.event.extendedProps.createdBy;
-            //    //var descripcion = info.event.extendedProps.description; 
-            //    var descripcion = info.event.extendedProps.description !== null ? info.event.extendedProps.description : '';
-            //    var title = info.event.title;
-            //    var Fecha = convertirFecha(info.event.start);
-            //    var FechaInicio = convertirFechaAHora(info.event.start);
-            //    var FechaFin = convertirFechaAHora(info.event.end);
-            //    var id = info.event.id;
+            eventClick: function (info)
+           {
+                var nombre_completo = info.event.title;
+                var departamento = info.event.extendedProps.des_depart;
+                var cargo = info.event.extendedProps.des_cargo;
 
-            //    // Mostrar la descripción en el modal
+                // Mostrar la descripción en el modal
 
-            //    var modal = document.getElementById('eventoModal');
-            //    var modalFondo = document.getElementById('fondoModal');
-            //    var descripcionEvento = document.getElementById('descripcionEvento');
-            //    var tituloEvento = document.getElementById('tituloEvento');
-            //    var FechaEvento = document.getElementById('FechaEvento');
-            //    var FechaInicioEvento = document.getElementById('FechaInicioEvento');
-            //    var FechaFinEvento = document.getElementById('FechaFinEvento');
-            //    var AutorEvento = document.getElementById('AutorEvento');
-            //    var IdEvento = document.getElementById('IdEvento');
+                var modal = document.getElementById('eventoModal');
+                var modalFondo = document.getElementById('fondoModal');            
+                var FechaEvento = document.getElementById('FechaEvento');
+                var FechaInicioEvento = document.getElementById('FechaInicioEvento');
+                var AutorEvento = document.getElementById('AutorEvento');
 
-            //    descripcionEvento.innerHTML = descripcion.replace(/\n/g, '<br>');
-            //    tituloEvento.innerHTML = title.replace(/\n/g, '<br>');
-            //    FechaEvento.innerHTML = Fecha;
-            //    FechaInicioEvento.innerHTML = FechaInicio;
-            //    FechaFinEvento.innerHTML = FechaFin;
-            //    AutorEvento.innerHTML = createdBy.replace(/\n/g, '<br>');
-            //    IdEvento.innerHTML = id;
 
-            //    //mostrar modal
+               // setear valor 
+                FechaEvento.innerHTML = departamento.replace(/\n/g, '<br>');
+                FechaInicioEvento.innerHTML = cargo.replace(/\n/g, '<br>');
+                AutorEvento.innerHTML = nombre_completo.replace(/\n/g, '<br>');
 
-            //    modal.style.display = 'block';
-            //    modal.classList.add('d-flex');
-            //    modalFondo.classList.remove('invisible');
-            //    modalFondo.classList.add('visible');
+                ////mostrar modal
 
-            //    var spans = document.getElementsByClassName('close');
+                modal.style.display = 'block';
+                modal.classList.add('d-flex');
+                modalFondo.classList.remove('invisible');
+                modalFondo.classList.add('visible');
 
-            //    for (var i = 0; i < 2; i++) {
-            //        spans[i].onclick = function () {
-            //            modal.style.display = 'none';
-            //            modal.classList.remove('d-flex');
-            //            modalFondo.classList.remove('visible');
-            //            modalFondo.classList.add('invisible');
-            //        };
-            //    }
+                var spans = document.getElementsByClassName('close');
 
-            //}
+                for (var i = 0; i < 2; i++) {
+                    spans[i].onclick = function () {
+                        modal.style.display = 'none';
+                        modal.classList.remove('d-flex');
+                        modalFondo.classList.remove('visible');
+                        modalFondo.classList.add('invisible');
+                    };
+                }
+
+            }
 
         });
 

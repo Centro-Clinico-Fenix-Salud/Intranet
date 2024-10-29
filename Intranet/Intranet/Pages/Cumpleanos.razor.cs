@@ -24,7 +24,7 @@ namespace Intranet.Pages
         private IServicioReservacion ServicioReservacion { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            await ObtenerCumpleanerosHoy();
+           // await ObtenerCumpleanerosHoy();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -39,9 +39,9 @@ namespace Intranet.Pages
 
         public async Task ObtenerCumpleanerosHoy()
         {
-            var lista = JsonSerializer.Serialize(await ServicioReservacion.ObtenerFechaCumpleanosHoy());
-            cumpleaneros.Add(new Cumpleanero { Imagen = "img/fotoEmpleado3.jpg", Nombre = "Maria", Apellido = "Perez", Departamento = "Adminstracion" });
-            cumpleaneros.Add(new Cumpleanero { Imagen = "img/fotoEmpleado2.jpg", Nombre = "Carmen", Apellido = "Jimenez", Departamento = "Recursos humanos" });
+            //var lista = JsonSerializer.Serialize(await ServicioReservacion.ObtenerFechaCumpleanosHoy());
+            //cumpleaneros.Add(new Cumpleanero { Imagen = "img/fotoEmpleado3.jpg", Nombre = "Maria", Apellido = "Perez", Departamento = "Adminstracion" });
+           // cumpleaneros.Add(new Cumpleanero { Imagen = "img/fotoEmpleado2.jpg", Nombre = "Carmen", Apellido = "Jimenez", Departamento = "Recursos humanos" });
         }
 
         private async Task RefrescarCalendario()

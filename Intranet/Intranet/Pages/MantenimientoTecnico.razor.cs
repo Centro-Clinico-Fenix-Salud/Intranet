@@ -114,20 +114,32 @@ namespace Intranet.Pages
             await obtenerUnidadAgenda();
             await obtenerUbicacionAgenda();
             await obtenerListaAreaInforme();
-            if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnico"]))
-            {
-                await crearJson("Habitación", true);
-                await crearJson("Oficina", false);
-                await crearJson("Consultorio área APS", false);
-                await crearJson("Quirófanos", false);
-                await crearJson("Emergencia (Planta Baja)", false);
-                await crearJson("Ambulatorio Piso 5", false);
-                await crearJson("Ambulatorio Piso 4", false);
-                await crearJson("Suite", true);
-            }
+
+                if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnicoHabitacion"]))
+                    await crearJson("Habitación", true);
+
+                if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnicoOficina"]))
+                    await crearJson("Oficina", false);
+
+                if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnicoConsultorioAPS"]))
+                    await crearJson("Consultorio área APS", false);
+
+                if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnicoQuirofano"]))
+                    await crearJson("Quirófanos", false);
+
+                if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnicoEmergencia"]))
+                    await crearJson("Emergencia (Planta Baja)", false);
+
+                if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnicoAmbulatorio5"]))
+                    await crearJson("Ambulatorio Piso 5", false);
 
 
+                if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnicoAmbulatorio6"]))
+                        await crearJson("Ambulatorio Piso 4", false);
 
+                if (bool.Parse(configuration["AplicarConfiguracionMantenimientoTecnicoSuite"]))
+                    await crearJson("Suite", true);
+            
             configPantalla = new DataPlanilla();
             listaTipoZona = new List<TipoZonaRevision>();
             MostrarFormulario = false;
@@ -831,12 +843,14 @@ namespace Intranet.Pages
             {
                 if (string.IsNullOrEmpty(BanoDeZona))
                 {
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "01" });
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "02" });
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "03" });
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "04" });
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "05" });
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "06" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "201" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "202" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "203" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "204" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "205" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "206" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "207" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "208" });
                 }
                 else
                 {
@@ -907,12 +921,11 @@ namespace Intranet.Pages
             {
                 if (string.IsNullOrEmpty(BanoDeZona))
                 {
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "1" });
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "2" });
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "3" });
-                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "4" });
                     tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "5" });
                     tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "6" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "7" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "8" });
+                    tipoZonaRevision.Add(new TipoZonaRevision { Nombre = "9" });
                 }
                 else
                 {

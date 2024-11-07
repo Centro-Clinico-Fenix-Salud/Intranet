@@ -27,11 +27,21 @@ using Intranet.Modelos.Planillas.RevisionMantenimientoTecnico;
 using MudBlazor.Extensions;
 using System.Numerics;
 using Intranet.Modelos.Noticia;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using Microsoft.JSInterop;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.IO;
+using SkiaSharp;
+using System.Net.Http;
 
 namespace Intranet.Pages
 {
     public partial class MantenimientoTecnico 
     {
+        [Inject]
+        protected Microsoft.JSInterop.IJSRuntime Js { get; set; }
         [Inject]
         private IServicioAgendaTelefonica ServicioAgendaTelefonica { get; set; }
         [Inject]
@@ -70,6 +80,10 @@ namespace Intranet.Pages
         private IConfiguration configuration { get; set; }
         [Inject]
         private IntranetContext intranetContext { get; set; }
+        [Inject]
+        private NavigationManager Navigation { get; set; }
+        [Inject]
+        private IHttpClientFactory HttpClientFactory { get; set; }
 
         private ClaimsPrincipal? user {  get; set; }
         private string AreaInforme { get; set; }
@@ -107,8 +121,15 @@ namespace Intranet.Pages
         private IServicioNoticias servicioNoticias { get; set; }
         private string ruta = string.Empty;
         private bool aplicarFiltro { get; set; }
+
+        public MantenimientoTecnico() 
+        {
+            //HttpClient = new HttpClient();
+
+        }
         protected override async Task OnInitializedAsync()
         {
+           // HttpClient = new HttpClient();
             MostrarBotonAgregarYBuscador = true;
         
             await obtenerUnidadAgenda();
@@ -1022,6 +1043,111 @@ namespace Intranet.Pages
 
             mostrarModalConsulta = true;
             StateHasChanged();
+        }
+
+        public async void Imprimir(MudBlazor.CellContext<PlanillaDigitalDataGrid> planillaDigital)
+        {
+            var memoryStream = new MemoryStream(); // Generar el PDF en el MemoryStream
+
+
+            //var document = Document.Create(container => { container.Page(page => { 
+            //    page.Header().Height(100).Background(QuestPDF.Helpers.Colors.Blue.Medium); 
+            //    page.Content().Background(QuestPDF.Helpers.Colors.Yellow.Medium); 
+            //    page.Footer().Height(50).Background(QuestPDF.Helpers.Colors.Red.Medium); 
+            //}); });
+            EditarAgenda = JsonSerializer.Deserialize<DataPlanilla>(planillaDigital.Item.Respuesta);
+            EditarAgenda.UsuarioCreador = planillaDigital.Item.UsuarioCreador;
+            EditarAgenda.FechaCreacion = planillaDigital.Item.FechaCreacion.ToString();
+            EditarAgenda.NombreModulo = "REVISIÓN DE MANTENIMIENTO TÉCNICO";
+
+            var document = QuestPDF.Fluent.Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Margin(25);
+                    page.Header().Row(row => {
+
+                        row.ConstantItem(140).Height(60).Placeholder();
+                        row.RelativeItem().Column(col => {
+                            col.Item().AlignCenter().Text(EditarAgenda.NombreModulo).Bold().FontSize(10);
+                            col.Item().AlignCenter().Text("(" + EditarAgenda.Titulo + ")").Bold().FontSize(10);
+                        });
+                        row.RelativeItem().Column(col => {
+                            col.Item().AlignCenter().Text(EditarAgenda.FechaCreacion).FontSize(9);
+                            col.Item().AlignCenter().Text("Elaborado por: " + EditarAgenda.UsuarioCreador).FontSize(9);
+                        });
+
+                    });
+                    page.Content().PaddingVertical(10).Column(col1 =>
+                    {
+                        for (int i = 0; i < EditarAgenda.Cuerpo.Count(); i++) 
+                        {
+                            col1.Item().Text(txt => {
+                                txt.Span(EditarAgenda.Cuerpo[i].zonaRevision[0].Nombre + " ").FontSize(10);
+                                txt.Span(EditarAgenda.Cuerpo[i].zonaRevision[0].tipoZonaRevision[0].Nombre).FontSize(10);
+                            });
+
+                            col1.Item().PaddingVertical(2).LineHorizontal(0.5f);
+
+                            col1.Item().Table(tabla => {
+
+                                tabla.ColumnsDefinition(columns => {
+                                    columns.RelativeColumn(3);
+                                    columns.RelativeColumn();
+                                    columns.RelativeColumn();
+                                });
+
+                                tabla.Header(header => {
+                                    header.Cell().Background(QuestPDF.Helpers.Colors.Green.Lighten1).Padding(2).Text("Descripcion");
+                                    header.Cell().Background(QuestPDF.Helpers.Colors.Green.Lighten1).Padding(2).Text("Alineado");
+                                    header.Cell().Background(QuestPDF.Helpers.Colors.Green.Lighten1).Padding(2).Text("Operativo");
+                                });
+
+                            });
+                        }
+                            
+                    });
+                    page.Footer().Height(50).Background(QuestPDF.Helpers.Colors.Red.Medium);
+                });
+            });
+
+
+            document.GeneratePdf(memoryStream); memoryStream.Seek(0, SeekOrigin.Begin);
+            // Convertir el MemoryStream a un array de bytes
+            var pdfContent = memoryStream.ToArray(); 
+            // Llamar a la función JavaScript para descargar el archivo
+            await Js.InvokeVoidAsync("downloadPdf", Convert.ToBase64String(pdfContent));
+
+            //DataPlanilla dataPlanilla = new DataPlanilla();
+            //var client = HttpClientFactory.CreateClient();
+
+            //var document = QuestPDF.Fluent.Document.Create(container =>
+            //{
+            //    container.Page(page =>
+            //    {
+            //        page.Header().Height(100).Background(QuestPDF.Helpers.Colors.Blue.Medium);
+            //        page.Content().Background(QuestPDF.Helpers.Colors.Yellow.Medium);
+            //        page.Footer().Height(50).Background(QuestPDF.Helpers.Colors.Red.Medium);
+            //    });
+            //});
+
+            //dataPlanilla = JsonSerializer.Deserialize<DataPlanilla>(planillaDigital.Item.Respuesta);
+            //dataPlanilla.UsuarioCreador = planillaDigital.Item.UsuarioCreador;
+            //dataPlanilla.FechaCreacion = planillaDigital.Item.FechaCreacion.ToString();
+            //dataPlanilla.NombreModulo = "REVISIÓN DE MANTENIMIENTO TÉCNICO";
+
+            //var jsonContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(dataPlanilla), System.Text.Encoding.UTF8, "application/json");
+            //var baseUrl = Navigation.BaseUri;
+            //var apiUrl = new Uri(new Uri(baseUrl), "api/download/editar"); 
+            //var response = await client.PostAsync(apiUrl, jsonContent);
+
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var pdfUrl = Navigation.ToAbsoluteUri("/api/download/pdf").ToString();
+            //    Navigation.NavigateTo(pdfUrl, true);
+            //}
+
+            //StateHasChanged();
         }
 
         private void CerrarModalEditar()

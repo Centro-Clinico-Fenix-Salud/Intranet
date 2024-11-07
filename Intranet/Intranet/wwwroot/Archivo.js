@@ -841,3 +841,10 @@ window.getBase64PdfChunk = function (startIndex, endIndex) {
     return base64StringResult.substring(startIndex, endIndex);
 };
 
+window.downloadPdf = function (base64) {
+    const link = document.createElement('a');
+    link.href = `data:application/pdf;base64,${base64}`;
+    link.download = 'detalleventa.pdf';
+    link.click();
+}
+

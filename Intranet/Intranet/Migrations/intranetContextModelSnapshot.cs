@@ -351,6 +351,51 @@ namespace Intranet.Migrations
                     b.ToTable("noticias");
                 });
 
+            modelBuilder.Entity("Intranet.Modelos.Pizzarra_digital.AreaDeEmergencia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Concurrencia")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Cubiculo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Diagnostico")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Estatus")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("IdCreador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("IdMedico")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("IdModificador")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("IdPaciente")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Observeaciones")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("areaDeEmergencia");
+                });
+
             modelBuilder.Entity("Intranet.Modelos.Planillas.Configuracion.ConfiguracionPantalla", b =>
                 {
                     b.Property<Guid>("Id")

@@ -9,6 +9,7 @@ using Intranet.Modelos.Tablas;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Intranet.Modelos.Pizzarra_digital;
 
 namespace Intranet.Data
 {
@@ -37,8 +38,8 @@ namespace Intranet.Data
         public DbSet<UsuarioDireccion> usuarioDireccion { get; set; }
         public DbSet<SalaReunion> salaReunion { get; set; }
         public DbSet<EventReservacion> eventReservacion { get; set; }
-
-
+        public DbSet<AreaDeEmergencia> areaDeEmergencia { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -53,11 +54,9 @@ namespace Intranet.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<U2_UsuarioAgendaTelefonica>()
               .HasIndex(u => u.Nombre)
               .IsUnique();
-
         }
 
 

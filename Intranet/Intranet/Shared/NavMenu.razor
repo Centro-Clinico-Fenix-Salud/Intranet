@@ -160,6 +160,19 @@
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView> 
+        <AuthorizeView Roles="SuperAdmin, PizzarraDigital" Context="context">
+            <Authorized>
+                <MudNavGroup Title="Pizzarra Digital" Expanded="false">
+                    <AuthorizeView Roles="SuperAdmin, AreaEmergencia" Context="context2">
+                        <Authorized>
+                            <div @onclick="ToggleNavMenu">
+                            <MudNavLink Href="/Area-Emergencia">Área de Emergencia</MudNavLink>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>            
+                </MudNavGroup>
+            </Authorized>
+        </AuthorizeView>
         <AuthorizeView Context="context2">
             <Authorized>
                 <MudNavLink Href="/account/logout" style="cursor: pointer;">Cerrar Sesión</MudNavLink>

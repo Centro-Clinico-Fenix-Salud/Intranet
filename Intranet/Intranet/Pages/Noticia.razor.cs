@@ -184,7 +184,6 @@ namespace Intranet.Pages
             CreateNoticia.IdCreador = Guid.Parse(await IdUsuario());
             StateHasChanged();
             mostrarModalNuevaNoticia = true;
-
         }
         private async Task CerrarModalNuevaNoticia()
         {

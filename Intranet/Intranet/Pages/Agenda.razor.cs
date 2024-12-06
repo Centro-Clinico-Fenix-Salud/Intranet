@@ -152,7 +152,6 @@ namespace Intranet.Pages
             IdELiminarAgenda = Guid.Empty;
             StateHasChanged();
             mostrarModalEliminar = false;
-
         }
         private void CerrarModalNuevo()
         {

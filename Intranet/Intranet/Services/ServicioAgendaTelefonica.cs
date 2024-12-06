@@ -19,53 +19,53 @@ namespace Intranet.Services
             this.configuration = Configuration;
         }
 
-        public async Task<List<AgendaTelefonicaDataGrid>> ObtenerListaAgendaTelefonica() 
+        public async Task<List<AgendaTelefonicaDataGrid>> ObtenerListaAgendaTelefonica()
         {
 
-                return await intranetContext.agendaTelefonicas
-                    .Select(agenda => new AgendaTelefonicaDataGrid
-                    {
-                        Id = agenda.Id,
-                        Usuario = intranetContext.u1_Usuario
-                            .Where(x => x.Id == agenda.Usuario)
-                            .Select(u => u.FirstName)
-                            .FirstOrDefault() != null ? intranetContext.u1_Usuario
-                            .Where(x => x.Id == agenda.Usuario)
-                            .Select(u => u.FirstName)
-                            .FirstOrDefault() : intranetContext.usuarioAgendaTelefonica
-                            .Where(x => x.Id == agenda.Usuario)
-                            .Select(u => u.Nombre)
-                            .FirstOrDefault(),
-                        Unidad = intranetContext.unidades
-                        .Where(x => x.Id ==
-                        intranetContext.usuarioDireccion
-                        .Where(x => x.Usuario == agenda.Usuario)
-                        .Select(i => i.UnidadId).FirstOrDefault()
-                            )
+            return await intranetContext.agendaTelefonicas
+                .Select(agenda => new AgendaTelefonicaDataGrid
+                {
+                    Id = agenda.Id,
+                    Usuario = intranetContext.u1_Usuario
+                        .Where(x => x.Id == agenda.Usuario)
+                        .Select(u => u.FirstName)
+                        .FirstOrDefault() != null ? intranetContext.u1_Usuario
+                        .Where(x => x.Id == agenda.Usuario)
+                        .Select(u => u.FirstName)
+                        .FirstOrDefault() : intranetContext.usuarioAgendaTelefonica
+                        .Where(x => x.Id == agenda.Usuario)
                         .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? string.Empty,
-                        Ubicacion = intranetContext.ubicaciones
-                        .Where(x => x.Id ==
-                        intranetContext.usuarioDireccion
-                        .Where(x => x.Usuario == agenda.Usuario)
-                        .Select(i => i.UbicacionId).FirstOrDefault()
+                        .FirstOrDefault(),
+                    Unidad = intranetContext.unidades
+                    .Where(x => x.Id ==
+                    intranetContext.usuarioDireccion
+                    .Where(x => x.Usuario == agenda.Usuario)
+                    .Select(i => i.UnidadId).FirstOrDefault()
                         )
-                        .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? string.Empty,
-                        numeroTelefonico = agenda.numeroTelefonico,
-                        Extension = agenda.Extension,
-                        UsuarioModificador = intranetContext.u1_Usuario
-                            .Where(x => x.Id == agenda.UsuarioModificador)
-                            .Select(u => u.FirstName)
-                            .FirstOrDefault(),
-                        Concurrencia = agenda.Concurrencia,
-                        FechaCreacion = agenda.FechaCreacion,
-                        FechaModificacion = agenda.FechaModificacion
-                    })
-                    .ToListAsync();            
+                    .Select(u => u.Nombre)
+                    .FirstOrDefault() ?? string.Empty,
+                    Ubicacion = intranetContext.ubicaciones
+                    .Where(x => x.Id ==
+                    intranetContext.usuarioDireccion
+                    .Where(x => x.Usuario == agenda.Usuario)
+                    .Select(i => i.UbicacionId).FirstOrDefault()
+                    )
+                    .Select(u => u.Nombre)
+                    .FirstOrDefault() ?? string.Empty,
+                    numeroTelefonico = agenda.numeroTelefonico,
+                    Extension = agenda.Extension,
+                    UsuarioModificador = intranetContext.u1_Usuario
+                        .Where(x => x.Id == agenda.UsuarioModificador)
+                        .Select(u => u.FirstName)
+                        .FirstOrDefault(),
+                    Concurrencia = agenda.Concurrencia,
+                    FechaCreacion = agenda.FechaCreacion,
+                    FechaModificacion = agenda.FechaModificacion
+                })
+                .ToListAsync();
         }
 
-        public async Task<List<string>> ObtenerListaUnidadDeAgenda() 
+        public async Task<List<string>> ObtenerListaUnidadDeAgenda()
         {
             return await intranetContext.unidades.Select(u => u.Nombre).ToListAsync();
 
@@ -92,7 +92,6 @@ namespace Intranet.Services
 
             return resultado;
 
-
         }
         public async Task<bool> GuardarAgendaTelefonica(AgendaCreate NuevoRegistro)
         {
@@ -100,10 +99,10 @@ namespace Intranet.Services
             bool result = false;
             try
             {
-               
+
                 if (await ConsultarAntesGuardarAgendaTelefonica(NuevoRegistro) == 0)
                 {
-                   
+
                     Guid usuario = await intranetContext.u1_Usuario
                     .Where(x => x.FirstName == NuevoRegistro.Usuario)
                     .Select(u => u.Id)
@@ -154,7 +153,7 @@ namespace Intranet.Services
             int result = 0;
             try
             {
-                
+
                 var usuario = await intranetContext.u1_Usuario.FirstOrDefaultAsync(x => x.FirstName == NuevoRegistro.Usuario);
                 if (usuario != null && await intranetContext.agendaTelefonicas.AnyAsync(x => x.Usuario == usuario.Id))
                     result = 1;
@@ -166,7 +165,7 @@ namespace Intranet.Services
                 }
 
                 //if (await intranetContext.agendaTelefonicas.AnyAsync(x => x.Extension == NuevoRegistro.Extension))
-                    //result = 2;
+                //result = 2;
             }
             catch (Exception ex)
             {
@@ -176,12 +175,12 @@ namespace Intranet.Services
             return result;
 
         }
-        public async Task<bool> ConsultarAgendaTelefonica(Guid IdELiminarAgenda) 
+        public async Task<bool> ConsultarAgendaTelefonica(Guid IdELiminarAgenda)
         {
             var result = false;
             try
             {
-                result =  await intranetContext.agendaTelefonicas.AnyAsync(x => x.Id == IdELiminarAgenda);                   
+                result = await intranetContext.agendaTelefonicas.AnyAsync(x => x.Id == IdELiminarAgenda);
             }
             catch (Exception ex)
             {
@@ -190,7 +189,7 @@ namespace Intranet.Services
 
             return result;
         }
-        public async Task<bool> EliminarAgendaTelefonica(Guid IdELiminarAgenda) 
+        public async Task<bool> EliminarAgendaTelefonica(Guid IdELiminarAgenda)
         {
             var result = false;
             try
@@ -220,10 +219,10 @@ namespace Intranet.Services
             bool result = false;
             try
             {
-             
+
                 if (await ConsultarAntesActualizarAgendaTelefonica(EditarAgenda) == 0)
                 {
-                   
+
                     Guid usuario = await intranetContext.u1_Usuario
                     .Where(x => x.FirstName == EditarAgenda.Usuario)
                     .Select(u => u.Id)
@@ -243,7 +242,7 @@ namespace Intranet.Services
                         AgendaTelefonicaData.Extension = EditarAgenda.Extension;
                         AgendaTelefonicaData.UsuarioModificador = Guid.Parse(EditarAgenda.UsuarioModificador);
                         AgendaTelefonicaData.Concurrencia = Guid.NewGuid();
-                        AgendaTelefonicaData.Usuario = usuario ;
+                        AgendaTelefonicaData.Usuario = usuario;
                         AgendaTelefonicaData.FechaModificacion = DateTime.Now;
                         //AgendaTelefonicaData.UnidadId = unidad.Id;
                         //AgendaTelefonicaData.UbicacionId = ubicacion.Id;
@@ -252,7 +251,7 @@ namespace Intranet.Services
                         intranetContext.Entry(AgendaTelefonicaData).State = EntityState.Modified;
                         await intranetContext.SaveChangesAsync();
                         result = true;
-                        
+
                     }
 
                 }
@@ -283,7 +282,7 @@ namespace Intranet.Services
                 }
 
                 //if (await intranetContext.agendaTelefonicas.AnyAsync(x => x.Extension == EditarAgenda.Extension && x.Id != EditarAgenda.Id))
-                  //  result = 2;
+                //  result = 2;
             }
             catch (Exception ex)
             {
@@ -292,8 +291,6 @@ namespace Intranet.Services
 
             return result;
         }
-
-
 
     }
 }

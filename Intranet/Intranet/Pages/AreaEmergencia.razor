@@ -1,0 +1,223 @@
+﻿@page "/Area-Emergencia"
+@using MudBlazor;
+@using static MudBlazor.CategoryTypes;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = "SuperAdmin,AreaDeEmergencia")]
+
+<PageTitle>Área de Emergencia</PageTitle>
+
+<div class="col-12 navbar navbar-expand-lg justify-content-center mb-1"
+     style="border-radius: 10px; background-color: #00bbb4">
+    <b style="font-size: 16px;"> Área de emergencia </b>
+</div>
+
+<AuthorizeView Roles="SuperAdmin,AgregarNoticias" Context="context">
+    <Authorized>  
+        <div class="mb-1">
+            <MudButton ButtonType="ButtonType.Submit" Size="Size.Small" Variant="Variant.Filled" OnClick="@(() => NuevoModalRegistro())" Color="Color.Success" Class="ml-auto">Agregar</MudButton>
+        </div>             
+    </Authorized>
+</AuthorizeView>
+
+<MudTable Items="@Elements">
+    <HeaderContent>
+        <MudTh Style="font-size: 12px; font-weight: bold; background-color: #EEEEEE;">Cubículo</MudTh>
+        <MudTh Style="font-size: 12px; font-weight: bold; background-color: #EEEEEE;">Paciente </MudTh>
+        <MudTh Style="font-size: 12px; font-weight: bold; background-color: #EEEEEE;">Edad</MudTh>
+        <MudTh Style="font-size: 12px; font-weight: bold; background-color: #EEEEEE;">Diagnostico</MudTh>
+        <MudTh Style="font-size: 12px; font-weight: bold; background-color: #EEEEEE;">Médico Tratante</MudTh>
+        <MudTh Style="font-size: 12px; font-weight: bold; background-color: #EEEEEE;">Observaciones</MudTh>
+        <AuthorizeView Roles="SuperAdmin,EditarNoticias,EliminarNoticias" Context="context">
+            <Authorized>
+                <MudTh Style="background-color: #EEEEEE;"> </MudTh>
+            </Authorized>
+        </AuthorizeView> 
+    </HeaderContent>
+    <RowTemplate>     
+        <MudTd Style="font-size: 12px; padding: 4px;">
+            @context.Cubiculo
+        </MudTd>
+        <MudTd Style="font-size: 12px; padding: 4px;">
+            @context.Paciente
+        </MudTd>
+        <MudTd Style="font-size: 12px; padding: 4px;">
+            @context.Edad
+        </MudTd>
+        <MudTd Style="font-size: 12px; padding: 4px;">
+            @context.Diagnostico
+        </MudTd>
+        <MudTd Style="font-size: 12px; padding: 4px;">
+            @context.Medico
+        </MudTd>
+        <MudTd Style="font-size: 12px; padding: 4px;">
+            @context.Observeaciones
+        </MudTd>
+        <AuthorizeView Roles="SuperAdmin,EditarNoticias,EliminarNoticias" Context="context2">
+            <Authorized>
+                <MudTd Style="padding: 4px;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <AuthorizeView Roles="SuperAdmin,EditarNoticias" Context="context3">
+                                <Authorized>
+                                    <div class="col-6">
+                                        <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Title="Editar" Size="@Size.Small" OnClick="@(() => Editar(context))" />
+                                    </div>
+                                </Authorized>
+                            </AuthorizeView>
+                            <AuthorizeView Roles="SuperAdmin,EliminarNoticias" Context="context3">
+                                <Authorized>
+                                    <div class="col-6">
+                                        <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Eliminar" Size="@Size.Small" OnClick="@(() => Eliminar(context))" />
+                                    </div>
+                                </Authorized>
+                            </AuthorizeView>
+                        </div>
+                    </div>
+                </MudTd>
+            </Authorized>
+        </AuthorizeView> 
+    </RowTemplate>
+
+</MudTable>
+
+@if (mostrarModalNuevoRegistro)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col fw-bold">
+                        <h5 class="modal-title">Agregar nuevo registro</h5>
+                    </div>
+                    <button type="button" class="close" @onclick="CerrarModalNuevoRegistro">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <EditForm Model="@createAreaEmergencia" OnValidSubmit="GuardarNuevaRegistro">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+                                    <MudSelect T="int" Label="Selecciona un cubículo"
+                                               Value="createAreaEmergencia.Cubiculo" ValueChanged="OnNroCubiculoSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+
+                                        @foreach (var nroCubiculo in totalcubiculo)
+                                        {
+                                            <MudSelectItem Value="@nroCubiculo" />
+                                        }
+
+                                    </MudSelect>
+                                    <ValidationMessage For="@(() => createAreaEmergencia.Cubiculo)" />
+                                    <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona un paciente" @bind-Value="createAreaEmergencia.Paciente" SearchFunc="@SearchPaciente"
+                                                         ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                         CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                         AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                                    </MudItem>
+                                    <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona un médico" @bind-Value="createAreaEmergencia.Medico" SearchFunc="@SearchMedico"
+                                                         ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                         CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                         AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                                    </MudItem>
+                                    <ValidationMessage For="@(() => createAreaEmergencia.Paciente)" />
+                                    <MudTextField @bind-Value="@createAreaEmergencia.Diagnostico" Lines="2" Label="Diagnostico" />
+                                    <MudTextField @bind-Value="@createAreaEmergencia.Observaciones" Lines="2" Label="Observaciones" />
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalNuevoRegistro" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm> 
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+@if (mostrarModalEditarRegistro)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col fw-bold">
+                        <h5 class="modal-title">Agregar nuevo registro</h5>
+                    </div>
+                    <button type="button" class="close" @onclick="CerrarModalEditartRegistro">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <EditForm Model="@editarAreaEmergencia" OnValidSubmit="ActualizarRegistro">
+                    <DataAnnotationsValidator />
+                    <MudGrid>
+                        <MudItem xs="12" sm="12">
+                            <MudCard>
+                                <MudCardContent>
+                                    <MudSelect T="int" Label="Selecciona un cubículo"
+                                               Value="editarAreaEmergencia.Cubiculo" ValueChanged="OnEditarNroCubiculoSeleccionadaChanged" AnchorOrigin="Origin.BottomCenter">
+
+                                        @foreach (var nroCubiculo in totalcubiculo)
+                                        {
+                                            <MudSelectItem Value="@nroCubiculo" />
+                                        }
+
+                                    </MudSelect>
+                                    <ValidationMessage For="@(() => editarAreaEmergencia.Cubiculo)" />
+                                    <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona un paciente" @bind-Value="editarAreaEmergencia.Paciente" SearchFunc="@SearchPaciente"
+                                                         ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                         CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                         AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                                    </MudItem>
+                                    <MudItem>
+                                        <MudAutocomplete T="string" Label="Selecciona un médico" @bind-Value="editarAreaEmergencia.Medico" SearchFunc="@SearchMedico"
+                                                         ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                                         CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                                         AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                                    </MudItem>
+                                    <ValidationMessage For="@(() => editarAreaEmergencia.Paciente)" />
+                                    <MudTextField @bind-Value="@editarAreaEmergencia.Diagnostico" Lines="2" Label="Diagnostico" />
+                                    <MudTextField @bind-Value="@editarAreaEmergencia.Observaciones" Lines="2" Label="Observaciones" />
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Button" OnClick="CerrarModalEditartRegistro" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Cancelar</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto">Guardar</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
+
+@if (mostrarModalEliminar)
+{
+    <div class="modal show  d-flex justify-content-center align-items-center" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="close" @onclick="CerrarModalEliminar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este registro? @((MarkupString)RegistroEliminar) 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CerrarModalEliminar">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="EliminarRegistro">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop show"></div>
+}
